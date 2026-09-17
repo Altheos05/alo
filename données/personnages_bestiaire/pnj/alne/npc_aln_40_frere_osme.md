@@ -36,7 +36,7 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Interface de soins** : `!heal` mineur, file de résurrection en amont d'Elara 03 ; buffs pré-raid en lien avec Ilia 41.
+- **Interface de soins** : `!heal` mineur, file de résurrection en amont d'Elara 03 ; buffs pré-raid en lien avec Ilia 41. *(Verbe dédié conservé — D84 ne le convertit pas en sujet de service : archétype répliqué à Voulg — soigneur d'arène `NPC_VOU_24`, médecin de guerre `NPC_VOU_38` — et à Gattan.)*
 - Amorce de `QST_NEU_FONTAINE_01` (« Le Prix des Larmes ») ; le K3 (péage de mémoire) croise le **fil « la mémoire réécrite »** — la mort comme vecteur d'effacement.
 
 ## 5. Intégration Bot

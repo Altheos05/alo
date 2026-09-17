@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Débloqueuse de contenu** : `!translate <objet>` rend jouables les grimoires/Livres Anciens (chaîne Valerius 01 → quêtes épiques) — nœud fonctionnel majeur.
+- **Sujet de service `traduction`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander lingua traduction` — rend jouables les grimoires/Livres Anciens (chaîne Valerius 01 → quêtes épiques) — nœud fonctionnel majeur.
 - Porteuse conceptuelle du **fil « la mémoire réécrite »** (la langue-source qui réécrit le monde ; pont vers le fil méta via Aldemar 99). Reliée à `QST_NEU_MEMOIRE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler lingua`) : *« Montre. Neuf langues, je les lis toutes. Si je ne peux pas traduire ton mot… c'est que ton mot a un problème. Pas moi. »*
-- `!translate <item/texte>` (déblocage de grimoires, prérequis de quêtes de lore).
+- `!demander lingua traduction <item/texte>` (sujet de service, K0) : déblocage de grimoires, prérequis de quêtes de lore. Équivalent GM `!sys_lore_unlock` ; IA `SYS_GRANT_LORE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « langue-source du Système » pour l'orchestrateur (fil mémoire/méta).

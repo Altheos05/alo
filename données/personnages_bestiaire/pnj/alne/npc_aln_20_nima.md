@@ -42,5 +42,5 @@
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler nima`) : *« Chut, on est à la Bibliothèque. Je peux vous aider à trouver un ouvrage… tant que ce n'est pas celui-là. »*
-- Oriente `!biblio_search` (recherche d'ouvrage) vers les rayons publics.
+- `!demander nima recherche_biblio` (sujet de service, K0, D84 — `npc_knowledge_protocol.md` §2-bis) : oriente vers les rayons publics. Équivalent GM `!sys_lore_unlock` ; IA `SYS_GRANT_LORE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « qui réécrit ? » pour l'orchestrateur (fil mémoire).

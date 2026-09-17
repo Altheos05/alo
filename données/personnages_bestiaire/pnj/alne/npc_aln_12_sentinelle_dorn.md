@@ -36,11 +36,12 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Point de bascule vers l'endgame** : contrôle d'accès `!dome_enter` (seuil `ZONE_YGG_DUN_001`) ; inscrit les raids (`SYS_LOG_RAID`).
+- **Point de bascule vers l'endgame** : sujet de service `dome` (D84, `npc_knowledge_protocol.md` §2-bis) — contrôle d'accès au seuil `ZONE_YGG_DUN_001`. Inscription des raids : `!raid_register` — *verbe dédié conservé (archétype répliqué à Lioda, cf. `npc_lio_16_gardien_amphitheatre.md`)*.
 - Pilier du **fil « le Dôme qui change »** (avec Sella 13, Torin 14, Mund 17, Bran 73, Aldous 74, Vira 75). Donneur de `QST_NEU_DOME_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler dorn`) : *« Tu veux monter à l'Arbre ? Bien. Inscris ton groupe. Et regarde-le une bonne fois — on ne sait jamais qui manquera au retour. »*
-- `!dome_enter` (contrôle niveau/groupe) ; `!raid_register` inscrit la bannière.
+- `!demander dorn dome` (sujet de service, K0) : contrôle niveau/groupe. Équivalent GM `!sys_dome_gate` ; IA `SYS_LOG_RAID`.
+- `!raid_register` : inscrit la bannière du raid. Équivalent GM `!sys_raid_form` ; IA `SYS_QUEST_HOOK`.
 - `NPC_SECRET_PROBED` slot 9 : hook « ordre venu d'en haut » réservé à l'orchestrateur (lien fil méta via 99).

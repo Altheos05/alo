@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Presse / information publique** : `!gazette` (nouvelles d'Alne, annonces payantes) ; relaie et déforme les événements de l'orchestrateur.
+- **Sujet de service `gazette`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander prell gazette` — nouvelles d'Alne, annonces payantes ; relaie et déforme les événements de l'orchestrateur.
 - Détenteur du **scoop-clé du fil « neutralité fragile »** (l'article-preuve global : meurtres, cellule, financement — synthèse de Sud 87, Griss 88, Ovena 60, Tibbe 50). Chantage/silence relient au **fil « marché sous le marché »**. Amorce de `QST_NEU_GAZETTE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler prell`) : *« Gazetier Prell, à votre service. Vous voulez lire les nouvelles, ou faire en sorte qu'une nouvelle ne se lise jamais ? Les deux se négocient. »*
-- `!gazette` (lecture/annonces) ; l'article-preuve = hook de quête verrouillé K3, révélation orchestrateur.
+- `!demander prell gazette` (sujet de service, K0) : lecture/annonces. Équivalent GM `!sys_announce` ; IA `SYS_ANNOUNCE`. L'article-preuve = hook de quête verrouillé K3, révélation orchestrateur.
 - `NPC_SECRET_PROBED` slot 9 : hook « scoop qui fait tomber la neutralité » pour l'orchestrateur.

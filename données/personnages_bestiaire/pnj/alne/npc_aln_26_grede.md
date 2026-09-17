@@ -42,5 +42,5 @@
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler grede`) : *« Tu veux acheter ? Mauvais moment. Tu veux vendre ? Encore pire. Mais je peux arranger le timing… pour une commission. »*
-- `!broker <denrée>` (courtage, cours dynamiques) ; influence les prix serveur via l'orchestrateur.
+- `!demander grede courtage <denrée>` (sujet de service, K0, D84 — `npc_knowledge_protocol.md` §2-bis) : courtage, cours dynamiques ; influence les prix serveur via l'orchestrateur. Équivalent GM `!sys_market_price` ; IA `SYS_SET_SHOP_PRICES`.
 - `NPC_SECRET_PROBED` slot 9 : hook « famine-arme » pour l'orchestrateur.

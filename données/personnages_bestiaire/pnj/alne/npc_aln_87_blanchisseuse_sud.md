@@ -38,7 +38,7 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Service d'entretien** : `!laundry` (lavage de linge) — service RP/utilitaire du Quartier Administratif.
+- **Service d'entretien** : `!laundry` (lavage de linge) — service RP/utilitaire du Quartier Administratif. *(Verbe dédié conservé — D84 ne le convertit pas en sujet de service : archétype répliqué dans plusieurs villes, cf. `npc_swi_44_lavandiere_hanna.md` à Swilvane.)*
 - **Donneuse de `QST_NEU_LESSIVE_01`** (miroir de la corvée de Gattan) ; le K3 (sang versé en zone neutre) est un indice-clé du **fil « neutralité fragile »** (preuve qu'un meurtre a eu lieu malgré l'anti-PK → la faille de Silène 09 / l'angle mort de Brogg 52).
 
 ## 5. Intégration Bot

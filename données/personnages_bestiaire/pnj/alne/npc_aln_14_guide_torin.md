@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Guide payant** : `!hire_guide dome` (escorte des bas-niveaux), source de revenus + réduction du risque de wipe débutant.
+- **Sujet de service `guide`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander torin guide` — escorte tarifée des bas-niveaux, source de revenus + réduction du risque de wipe débutant.
 - Porteur central du **fil « le Dôme qui change »** : l'étage hors-carte (croise Mund 17, Sella 13, et le fil « verger introuvable » via Yssa 15 — deux anomalies, une même signature). Co-donneur de `QST_NEU_DOME_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler torin`) : *« Première fois dans l'Arbre ? Reste derrière moi, fais ce que je dis, et ne prends jamais — jamais — l'embranchement de droite. »*
-- `!hire_guide dome` (escorte tarifée des premiers étages).
+- `!demander torin guide` (sujet de service, K0) : escorte tarifée des premiers étages. Équivalent GM `!sys_escort` ; IA `SYS_SPAWN_ESCORT`.
 - `NPC_SECRET_PROBED` slot 9 : hook « étage hors-carte » pour l'orchestrateur.

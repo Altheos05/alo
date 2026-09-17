@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Consigne / stockage** : `!vault` (coffre personnel joueur) ; complément de la banque (Ovena 60).
+- **Sujet de service `consigne`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander lom consigne` — coffre personnel joueur ; redirige narrativement vers `!bank_depot`/`!bank_retrait` §6 (pas un stockage distinct), complément de la banque (Ovena 60).
 - Amorce de `QST_NEU_COFFRE_01` (« Les Coffres Muets ») ; recoupe le **fil « le Dôme qui change »** (disparus, via Sella 13) et effleure la **« neutralité fragile »** (contenu lié à la cellule).
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler lom`) : *« Bienvenue. Un coffre ? Un service ? Je garde tout, je perds rien. Parfois trop bien, d'ailleurs. Que puis-je pour vous ? »*
-- `!vault` (dépôt/retrait de coffre) ; coffres abandonnés = hooks de quête.
+- `!demander lom consigne` (sujet de service, K0) : dépôt/retrait de coffre. Équivalent GM `!sys_vault` ; IA `SYS_SET_VAULT`. Coffres abandonnés = hooks de quête.
 - `NPC_SECRET_PROBED` slot 9 : hook « contenu d'un coffre muet » pour l'orchestrateur.

@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- Source d'information sur les mouvements de joueurs/PNJ (utile aux quêtes de filature) ; complète Halvard 10.
+- **Sujet de service `routes`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander wrenna routes` — état aérien, partagé avec Halvard 10 ; alertes essaims `MOB_AIR_*` via Corvin 16.
 - Porteuse du **fil « le Dôme qui change »** (volet comptage : l'asymétrie montées/descentes). Co-donneuse de `QST_NEU_DOME_01` avec Dorn 12 et Sella 13.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler wrenna`) : *« Tour de contrôle. Si tu voles depuis Alne, tu passes par moi. Où tu vas, et surtout — tu comptes revenir ? »*
-- `!routes` (état aérien) partagé avec Halvard 10 ; alertes essaims `MOB_AIR_*` via Corvin 16.
+- `!demander wrenna routes` (sujet de service, K0) : état aérien des 9 routes. Équivalent GM `!sys_route_state` ; IA `SYS_SET_TRADE_ROUTE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « asymétrie du Dôme » pour l'orchestrateur.

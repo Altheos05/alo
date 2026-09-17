@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Logistique du marché noir** : `!smuggle` (transport clandestin) — irrigue tout l'écosystème illicite (Morne 55, Kael 07, Grède 26).
+- **Sujet de service `contrebande`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander rask contrebande` — transport clandestin, irrigue tout l'écosystème illicite (Morne 55, Kael 07, Grède 26).
 - Nœud de croisement de trois fils : **« marché sous le marché »**, **« neutralité fragile »** (armes de la cellule) et **« verger/région introuvable »** (sa route passe par le lieu effacé d'Alba 18). Relié à `QST_NEU_MARCHE_01` / `QST_NEU_NEUTRALITE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler rask`) : *« Marche vite, parle bas. Tu as quelque chose qui doit voyager sans papiers ? Je suis le meilleur. Le plus cher aussi. »*
-- `!smuggle` (transport illicite) ; route hors-carte = flag `SYS_FLAG_UNMAPPED_ROUTE`.
+- `!demander rask contrebande` (sujet de service, K0) : transport illicite. Équivalent GM `!sys_flag [Avatar] illegal_goods` ; IA `SYS_FLAG_ILLEGAL_GOODS`. Route hors-carte = flag `SYS_FLAG_UNMAPPED_ROUTE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « route par la région effacée » pour l'orchestrateur (pont marché noir ↔ anomalie Système).

@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Régulateur du marché** : contrôle l'accès des joueurs-marchands aux emplacements (`!market_stall`), levier de l'économie de vente joueur.
+- **Sujet de service `etal`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander bost etal` — contrôle l'accès des joueurs-marchands aux emplacements, levier de l'économie de vente joueur.
 - Rouage discret du **fil « marché sous le marché »** (il agence physiquement la guerre économique de Grède 26 / Cassia 25). Donneur de `QST_NEU_MARCHE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler bost`) : *« Vous voulez un étal ? Tout le monde veut un étal. La question, c'est : qu'avez-vous à m'offrir que les autres n'ont pas ? »*
-- `!market_stall` (location d'emplacement joueur) ; faveurs sous `AFF`/quête.
+- `!demander bost etal` (sujet de service, K0) : location d'emplacement joueur ; faveurs sous `AFF`/quête. Équivalent GM `!sys_market_price` ; IA `SYS_SET_SHOP_PRICES`.
 - `NPC_SECRET_PROBED` slot 9 : hook « placement stratégique / commanditaire » pour l'orchestrateur.

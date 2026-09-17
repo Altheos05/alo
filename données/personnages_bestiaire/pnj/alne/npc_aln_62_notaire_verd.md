@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Autorité contractuelle** : `!contract` (actes de guilde/commerce garantis) ; sécurise les accords entre joueurs/factions.
+- **Sujet de service `acte_notarie`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander verd acte_notarie` — actes de guilde/commerce garantis, sécurise les accords entre joueurs/factions.
 - Amorce de `QST_NEU_CONTRAT_01` (« L'Acte Scellé ») ; le K3 (contrat fondateur = pilier juridique de l'anti-PK) relie le **fil « neutralité fragile »** au **fil méta** (l'anti-PK comme invariant Système ; croise Aldwin 08). Objectif possible de la cellule.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler verd`) : *« Un contrat ? Excellente idée. À Alne, un accord scellé vaut plus qu'une épée. Dictez-moi vos termes — je veille au moindre mot. »*
-- `!contract` (rédaction/scellé d'actes) ; l'acte fondateur = non consultable (flag `founding_contract_sealed`).
+- `!demander verd acte_notarie` (sujet de service, K0) : rédaction/scellé d'actes. Équivalent GM `!sys_contract` ; IA `SYS_SEAL_CONTRACT`. L'acte fondateur = non consultable (flag `founding_contract_sealed`).
 - `NPC_SECRET_PROBED` slot 9 : hook « contrat fondateur de l'anti-PK » réservé à l'orchestrateur (fil méta).

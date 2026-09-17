@@ -119,12 +119,12 @@ Options construites à partir de : cible verrouillée (`!target`), sorts `MAG_*`
 
 ### 3.2 Dialogue (`!parler`)
 
-Options construites à partir des sujets K0/K1 actuellement débloqués dans l'enveloppe QI du PNJ (`npc_knowledge_protocol.md`), jamais K3 (cohérent avec D22 — le pare-feu méta s'applique aussi à la génération du menu, pas seulement au LLM).
+Options construites à partir des sujets K0/K1 actuellement débloqués dans l'enveloppe QI du PNJ (`npc_knowledge_protocol.md`), jamais K3 (cohérent avec D22 — le pare-feu méta s'applique aussi à la génération du menu, pas seulement au LLM). Sur un PNJ de service, les **sujets de service** (D84, `npc_knowledge_protocol.md` §2-bis) apparaissent mélangés aux sujets d'information — le joueur n'a jamais besoin de connaître le mot-clé, il tape juste le chiffre.
 
 ```
-1. [Sujet K0 #1]
-2. [Sujet K0 #2]
-3. [Sujet K1 #1]
+1. [Sujet K0 #1 — information]
+2. [Sujet de service #1 — ex. "Faire laver mon linge (buanderie)"]
+3. [Sujet K1 #1 — information]
 4. Offrir un cadeau
 5. Voir la relation
 6. Terminer la conversation

@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Écriture publique** : `!write_letter` (rédaction/dictée) ; interface RP pour lettres de quête, plaintes, contrats simples.
+- **Sujet de service `lettre`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander emm lettre` — rédaction/dictée, interface RP pour lettres de quête, plaintes, contrats simples.
 - Témoin-clé du **fil « neutralité fragile »** (la lettre de menace signée d'un membre de la cellule ; croise Tibbe 50, Verd 62, Cael 61). Relié à `QST_NEU_NEUTRALITE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler emm`) : *« Vous ne savez pas écrire ? Ce n'est pas une honte. Dictez-moi votre cœur, je lui donnerai des mots. Je les garde aussi, vos mots — c'est mon fardeau. »*
-- `!write_letter` (rédaction sous dictée) ; la lettre de menace = hook de quête verrouillé K3.
+- `!demander emm lettre` (sujet de service, K0) : rédaction sous dictée. Équivalent GM `!sys_contract` ; IA `SYS_SEAL_CONTRACT`. La lettre de menace = hook de quête verrouillé K3.
 - `NPC_SECRET_PROBED` slot 9 : hook « lettre de menace de la cellule » pour l'orchestrateur.

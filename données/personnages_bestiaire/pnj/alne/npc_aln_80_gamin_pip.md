@@ -38,11 +38,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Guide & coursier** : `!hire_guide ville` / `!courier` (déplacement rapide, messages) ; **lien inter-cités concret** avec Kipp `NPC_GAT_84`.
+- **Sujets de service `guide` / `coursier`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander pip guide` / `!demander pip coursier` — déplacement rapide, messages ; **lien inter-cités concret** avec Kipp `NPC_GAT_84`.
 - Témoin dangereux du **fil « neutralité fragile »** (a vu la cellule ; croise Tibbe 50, Wisp 58, Emm 67). Relié à `QST_NEU_NEUTRALITE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler pip`) : *« Hé, l'aventurier ! Perdu ? Moi je connais Alne mieux que ma poche — enfin, j'ai pas de poche, mais tu vois l'idée. Deux Yrds, je t'emmène où tu veux ! »*
-- `!hire_guide ville` / `!courier` (guidage, coursier) ; le témoignage sur la cellule = hook K3.
+- `!demander pip guide` / `!demander pip coursier` (sujets de service, K0) : guidage, coursier. Équivalent GM `!sys_escort` ; IA `SYS_SPAWN_ESCORT`. Le témoignage sur la cellule = hook K3.
 - `NPC_SECRET_PROBED` slot 9 : hook « témoin enfant de la cellule » pour l'orchestrateur.

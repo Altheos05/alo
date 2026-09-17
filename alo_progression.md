@@ -1728,3 +1728,54 @@ Projet versionné de v0.1.0 (commit `3da2976`, fondations) à v0.10.0 (commit `6
 ### État de sortie
 
 **Backlog documentaire mineur clos en totalité** (4/4 points). Aucun fichier PNJ ajouté (roster D17 = 1200, intact), aucune ligne `T_SPAWN_TABLES`/`T_GUILDS` fabriquée, `bot/` non touché (D-P3-1). Seul reliquat social explicitement **non rouvert** : auberge exploitable joueur (report PE, distinct du backlog documentaire — nécessiterait une nouvelle entité `T_PROPERTIES`/logique de location, hors périmètre d'une session de nettoyage). Chantier parallèle en cours : inventaire exhaustif D1-D79 pour consolidation du registre de décisions (skill `domain-modeling`).
+
+---
+
+## ÉTAPE 55 — Sujets de service (D84) — refonte §21 close ✅ (2026-09-17)
+
+**Objectif** : sur demande PE explicite (« on attaque la refonte de la §21 maintenant »), traiter le levier 2 laissé en attente à l'étape 54 : les ~30 verbes joueur dédiés de la §21 `whatsapp_commands_list.md` (services de Capitale Alne, un par PNJ) forment une interface superficielle là où `!demander`/`!parler` (§20) résout déjà l'enveloppe QI entière d'un PNJ derrière un seul verbe.
+
+**Design initial** : convertir chaque service en « sujet de service » — un slot K0/K1 de `T_NPC_KNOWLEDGE` qui, en plus de révéler une ligne de texte, déclenche la primitive `SYS_*` déjà existante (même contrat de mutation D-DET-2, aucune primitive réécrite). 3 mécaniques identifiées comme à point d'accès multiple ou stat de premier rang (réputation raciale, sertissage de gemme, tutoriel) devaient garder une commande dédiée ; les ~27 restantes devenir des sujets.
+
+**⚠️ Correction en cours d'exécution (documentée, pas gommée)** : le diagnostic initial n'avait vérifié la duplication de verbe **qu'à l'intérieur du roster d'Alne**. Avant de lancer la conversion mécanique sur les fiches PNJ, un grep de vérification sur les 8 autres villes a révélé que près de la **moitié** des verbes visés étaient déjà utilisés tels quels par des PNJ équivalents ailleurs — de vrais archétypes multi-villes, pas des services à point d'accès unique :
+
+| Verbe | Répliqué à |
+|---|---|
+| `!voyage` | Sari (voyagiste), Swilvane |
+| `!raid_register` | Gardien de l'amphithéâtre, Lioda |
+| `!mount_rent` | Maréchal des ailes, Duskarn |
+| `!sharpen` | Hilde, Gattan |
+| `!fence` | Receleur Lave-Sombre, Voulg |
+| `!loan` | Prêteur Grip (Swilvane), prêteur Fenn (Brokkheim) |
+| `!oracle` | Voulg, Swilvane, Gattan, Lioda (4+ villes) |
+| `!memorial` | Voulg, Lioda, Gattan, Granzam (5+ villes) |
+| `!laundry` | Lavandière Hanna, Swilvane (+ écho Gattan) |
+| `!heal` | Soigneur d'arène + médecin de guerre (Voulg), Gattan |
+
+Les convertir en sujet propre à Alne aurait désynchronisé Alne du reste du monde (Alne derrière `!demander`, les 8 autres villes gardant le verbe plat) — **régression**, pas amélioration. Deux forks avaient déjà commencé la conversion mécanique quand la découverte a été faite ; une correction a été envoyée en urgence au premier (SendMessage) et un second fork lancé pour restaurer les fichiers déjà mal convertis. **Les deux forks ont été interrompus par une limite de session avant la fin** ; à la reprise, un audit git diff complet a été fait avant de continuer (aucune hypothèse sur l'état des fichiers) — un seul fichier (`npc_aln_40_frere_osme.md`, `!heal`) avait été converti par erreur avant l'interruption, il a été restauré ; les 11 conversions restantes (Pip, Molk, Lom, Rask, Quill, Sten, Verd, Emm, Della, Ode, Prell) ont été terminées manuellement.
+
+**Design final (D84)** : **13 commandes dédiées conservées** (3 mécaniques universelles + 10 archétypes multi-villes découverts en cours de route) ; **~21 sujets de service** (point d'accès unique, réellement propre à Alne) ; **2 verbes retirés** (`!buy_info`/`!buy_silence`, redondants avec le K2 `PAY:<N>` déjà supporté — aucune extension nécessaire).
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 55.1 | ➕ Créé — §2-bis « Sujets de Service » : définition, pipeline (étape 4-bis du pare-feu QI), invariant I4, 3 exclusions (info payante K2, mécaniques universelles, **archétypes multi-villes** — règle « toujours vérifier par grep multi-villes avant de convertir »), découverte via menu contextuel | `données/the_seed_engine/system_mechanics/npc_knowledge_protocol.md` |
+| 55.2 | ✏️ Modifié — colonnes `is_service`/`service_sys_command`/`service_cost_yrds` + CHECK (K0/K1 seulement) ; trigger K5 | `données/cardinal_system_db/MLD_Logic/table_t_npc_knowledge.md` |
+| 55.3 | ✏️ Réécrit — §21 scindée en 21.1 (13 commandes dédiées, avec justification par archétype) et 21.2 (registre de ~21 sujets de service) | `données/the_seed_engine/whatsapp_commands_list.md` |
+| 55.4 | ✏️ Modifié — note §14 alignée sur le compte réel (13 exceptions, pas 3) | `données/the_seed_engine/ai_orchestrator_commands.md` |
+| 55.5 | ✏️ Modifié — gabarit dialogue (§3.2) : sujets de service mêlés aux sujets d'information dans le menu numéroté | `données/the_seed_engine/system_mechanics/menu_contextuel_protocol.md` |
+| 55.6 | ✏️ Modifié — **D84** ajoutée (description corrigée en cours de route), prochain numéro libre → D85 | `cahier_des_charges.md`, `registre_decisions.md` |
+| 55.7 | ✏️ Modifié — 26 fiches PNJ d'Alne : 22 converties en sujet de service (§4/§5 réécrites, GM/IA inchangés), 2 annotées « verbe dédié conservé » avec la ville source de la duplication (Sud/laundry, Halvard/voyage) après correction, 1 conversion erronée restaurée (Osmé/heal) | `données/personnages_bestiaire/pnj/alne/npc_aln_{04,10,11,12,13,14,20,21,22,23,24,26,40,41,46,56,57,59,62,63,67,76,80,83,87,89}_*.md` |
+| 55.8 | ✏️ Modifié — ligne « Dernière mise à jour », « Point ouvert » (refonte close, `!tutorial` cross-cités relevé), « Prochaine étape » | `alo_context.md` |
+| 55.9 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### Décisions actées
+
+- **D84** : sujets de service — mécanisme + répartition finale 13 commandes dédiées / ~21 sujets / 2 retirés (détail ci-dessus).
+
+### État de sortie
+
+**Refonte UX des commandes close en 2 leviers** (D83 étape 54, D84 étape 55). Aucune primitive `SYS_*` supprimée ou réécrite — seule la façade joueur change. Aucun fichier `bot/` touché (D-P3-1). Un point ouvert relevé en cours de route et volontairement non traité : `!tutorial` (Pell, Alne) devrait exister dans chaque capitale raciale, pas seulement Alne — hors périmètre de cette refonte, laissé au PE.
+
+**Leçon méthodologique retenue** : avant de replier un verbe en sujet de service pour cause d'« usage unique », vérifier par un grep sur l'ensemble du corpus PNJ (pas seulement la ville en cours) — un diagnostic scopé à un seul roster peut manquer des archétypes déjà répliqués ailleurs et proposer une régression déguisée en amélioration.

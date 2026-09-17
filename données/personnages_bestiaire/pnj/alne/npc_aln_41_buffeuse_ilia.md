@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Service de buffs pré-raid** : `!buff` (bénédictions temporaires) ; complète Elara 03 pour la préparation d'endgame.
+- **Sujet de service `benediction`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander ilia benediction` — bénédictions temporaires ; complète Elara 03 pour la préparation d'endgame.
 - Porteuse du **fil « le Dôme qui change »** (sa bénédiction-marqueur = mécanique de sélection ; croise Dorn 12, Bran 73, Vira 75). Reliée à `QST_NEU_DOME_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler ilia`) : *« Tu montes à l'Arbre ? Approche, que je te bénisse. La vigueur, la chance, la résistance — tout, sauf une. Ne demande pas laquelle. »*
-- `!buff` (bénédictions de départ) ; la bénédiction rare est verrouillée (flag `blessing_withheld`).
+- `!demander ilia benediction` (sujet de service, K0) : bénédictions de départ ; la bénédiction rare est verrouillée (flag `blessing_withheld`). Équivalent GM `!sys_grant_buff` ; IA `SYS_APPLY_BUFF`.
 - `NPC_SECRET_PROBED` slot 9 : hook « buff-marqueur du Dôme » pour l'orchestrateur.

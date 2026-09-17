@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Base documentaire du Dôme** : `!dome_log` (consultation publique) ; recoupe Wrenna 11 (disparus) et alimente les quêtes d'enquête.
+- **Sujet de service `registre_raids`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander sella registre_raids` — base documentaire du Dôme (consultation publique) ; recoupe Wrenna 11 (disparus) et alimente les quêtes d'enquête.
 - Nœud de croisement des deux fils : **« le Dôme qui change »** (récits identiques) ET **« la mémoire réécrite »** (ses notes qui changent, pont vers Valerius 01 / Ombric 21). Co-donneuse de `QST_NEU_DOME_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler sella`) : *« Vous redescendez ? Parfait, j'ai des questions. Beaucoup de questions. Asseyez-vous, on va tout consigner. Encore une fois. »*
-- `!dome_log [étage]` consulte les dépositions publiques.
+- `!demander sella registre_raids [étage]` (sujet de service, K0) : consulte les dépositions publiques. Équivalent GM `!sys_dome_gate` ; IA `SYS_LOG_RAID`.
 - `NPC_SECRET_PROBED` slot 9 : hook « réécriture de la mémoire » pour l'orchestrateur (relie fils Dôme et Mémoire).

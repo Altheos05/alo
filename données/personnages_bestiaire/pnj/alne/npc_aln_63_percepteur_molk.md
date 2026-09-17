@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Perception fiscale** : `!tax_pay` (taxes de marché) — ponction régulière qui régule la masse de Yrds joueur (anti-inflation).
+- **Sujet de service `taxe`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander molk taxe` — taxes de marché, ponction régulière qui régule la masse de Yrds joueur (anti-inflation).
 - Amorce de `QST_NEU_TAXE_01` (« La Taxe Fantôme ») ; le K3 (dîme du Système) relie directement au **fil méta** (le Cardinal comme bénéficiaire caché ; croise le fil des « canaux » — Pinn 43, Cael 61), jamais confirmé.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler molk`) : *« Vous exercez un commerce à Alne ? Alors vous me devez quelque chose. Tout le monde me doit quelque chose. Même, semble-t-il, à quelqu'un que je ne connais pas. »*
-- `!tax_pay` (acquittement des taxes) ; la « taxe fantôme » = flag `SYS_FLAG_VOID_TAX`.
+- `!demander molk taxe` (sujet de service, K0) : acquittement des taxes. Équivalent GM `!sys_tax` ; IA `SYS_LEVY_TAX`. La « taxe fantôme » = flag `SYS_FLAG_VOID_TAX`.
 - `NPC_SECRET_PROBED` slot 9 : hook « dîme du Cardinal » réservé à l'orchestrateur (fil méta).

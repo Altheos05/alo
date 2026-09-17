@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Raccourcis de quête** (`!copy_scroll`) : marché gris qui permet de contourner des prérequis — levier économique et risque de trame.
+- **Sujet de service `copie`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander denn copie` — marché gris qui permet de contourner des prérequis de quête — levier économique et risque de trame.
 - Vecteur involontaire du **fil « la mémoire réécrite »** (ses duplicatas servent à injecter de faux textes) et relais du **fil « marché sous le marché »** (via Quill 56). Relié à `QST_NEU_MEMOIRE_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler denn`) : *« Une copie ? Bien sûr. Conforme, ou… avantageuse ? Les deux prix sont affichés. Enfin, l'un des deux. »*
-- `!copy_scroll <parchemin>` (copie légale) ; offres grises sous `AFF`/`PAY`.
+- `!demander denn copie <parchemin>` (sujet de service, K0) : copie légale ; offres grises sous `AFF`/`PAY`. Équivalent GM `!sys_lore_unlock` ; IA `SYS_GRANT_LORE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « injection de faux textes » pour l'orchestrateur.

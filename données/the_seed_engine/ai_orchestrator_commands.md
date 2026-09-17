@@ -146,8 +146,9 @@
 - `SYS_SET_ENV_HAZARD(Zone_ID, Hazard_Type, Value)` : Configurer un danger environnemental (Lave, Acide, Gel, Oxygène).
 - `SYS_GENERATE_CARDINAL_QUEST(Myth_Source, Zone_ID)` : Quête auto-générée à partir de mythologie nordique.
 
-## 14. 🌳 Services de Capitale Neutre — Alne (lot 2.3)
-*Équivalents IA des commandes Joueur du roster d'Alne (`NPC_ALN_00-99`, cf. §21 de `whatsapp_commands_list.md`). Règle de complétude (D). Réutilisent quand c'est possible les primitives existantes (`SYS_GRANT_ITEM`, `SYS_SET_SHOP_PRICES`, `SYS_QUEST_HOOK`, `SYS_SET_ENV_HAZARD`, `SYS_SUMMON_MOUNT`).*
+## 14. 🌳 Services de Capitale Neutre — Alne (lot 2.3) — refonte D84
+
+*Équivalents IA du roster d'Alne (`NPC_ALN_00-99`, cf. §21 de `whatsapp_commands_list.md`, réécrite en registre de sujets de service étape 55 — D84, `npc_knowledge_protocol.md` §2-bis). ~21 de ces primitives sont désormais déclenchées par un sujet `!demander`/`!parler` plutôt qu'une commande dédiée ; **13 exceptions gardent une commande de premier rang** (§21.1) — 3 mécaniques à point d'accès multiple (`SYS_SET_FACTION_STANDING`, `SYS_APPLY_SOCKET`, `SYS_TUTORIAL_STEP`) et 10 archétypes déjà répliqués dans d'autres villes (`SYS_SET_TRADE_ROUTE`, `SYS_QUEST_HOOK`/raid, `SYS_SUMMON_MOUNT`, `SYS_APPLY_BUFF`/sharpen, `SYS_FLAG_ILLEGAL_GOODS`/fence, `SYS_QUEST_HOOK`/oracle, `SYS_QUERY_REGISTRY`/memorial, `SYS_SET_ITEM_STATE`/laundry, `SYS_FLAG_SOUL_CONTRACT`/loan, `SYS_APPLY_HEAL`). Règle de complétude (D). Réutilisent quand c'est possible les primitives existantes (`SYS_GRANT_ITEM`, `SYS_SET_SHOP_PRICES`, `SYS_QUEST_HOOK`, `SYS_SET_ENV_HAZARD`, `SYS_SUMMON_MOUNT`).*
 - `SYS_SET_TRADE_ROUTE(Route_ID, State)` : Ouvre/ferme/perturbe une des 9 routes aériennes (blocus, essaim `MOB_AIR_*`). Face joueur : `!routes` / `!voyage` (Halvard `10`, Wrenna `11`).
 - `SYS_LOG_RAID(Raid_ID, Roster, Dome_Floor)` : Inscrit un raid montant au Dôme `ZONE_YGG_DUN_001` (Dorn `12`, Sella `13`).
 - `SYS_SPAWN_ESCORT(Avatar_ID, Escort_Type)` : Matérialise guide/coursier/mercenaire (Torin `14`, Pip `80`, Della `76`).

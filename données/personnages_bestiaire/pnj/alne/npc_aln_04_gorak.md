@@ -38,11 +38,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Source de service** : tank temporaire (500 Yrds/h) — soutient les petits groupes vers le Dôme, canal de dépense pour joueurs solos/duos.
+- **Sujet de service `mercenaire`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander gorak mercenaire` — tank temporaire (500 Yrds/h), soutient les petits groupes vers le Dôme, canal de dépense pour joueurs solos/duos.
 - Mécanique **Risk/Reward** signature : contrat non honoré → flag `MERC_BETRAYED` → Gorak devient hostile hors zone neutre (le seul cas où un notable d'Alne attaque). Donneur de `QST_NEU_MERC_01` via Della 76.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler gorak`) : *« Cinq cents l'heure. Payé à la fin. Casse pas la règle. Tu veux un mur ou pas ? »*
-- `!hire gorak <heures>` : pose un contrat (débit à échéance). Non-paiement → `MERC_BETRAYED` actif à la sortie de `ZONE_NEU_CAP_001`.
+- `!demander gorak mercenaire <heures>` (sujet de service, K0) : pose un contrat (débit à échéance). Non-paiement → `MERC_BETRAYED` actif à la sortie de `ZONE_NEU_CAP_001`. Équivalent GM `!sys_spawn_merc` ; IA `SYS_SPAWN_ESCORT`.
 - Hors zone neutre uniquement : peut passer hostile (anti-PK d'Alne le protège en ville).

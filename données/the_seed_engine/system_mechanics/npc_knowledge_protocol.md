@@ -1,6 +1,6 @@
 # 🧾 PROTOCOLE MAÎTRE — Quantité Informationnelle des PNJ (QI) & Rencontres Canoniques
 
-> **Statut** : DOCUMENT MAÎTRE (étape 5, lot 2.0) — décisions **D16 → D19** actées par l'ACP.
+> **Statut** : DOCUMENT MAÎTRE (étape 5, lot 2.0) — décisions **D16 → D19** actées par l'ACP. **D84** (étape 55) ajoutée en §2-bis : les *sujets de service*.
 > **Rôle** : définir l'enveloppe finie et auditable de ce qu'un PNJ **sait**, **révèle**, **cache** et **ignore**,
 > afin qu'aucune requête joueur non traitée n'atteigne le LLM sans périmètre — un PNJ ne peut JAMAIS
 > révéler une information qui n'est pas dans son enveloppe.
@@ -74,6 +74,39 @@ l'union de ses K0+K1 uniquement — deux PNJ ne « fuient » pas leurs secrets e
 
 ---
 
+## 2-bis. Sujets de Service (D84) — quand une question déclenche une action
+
+> **Contexte** : diagnostic UX étape 54 — §21 de `whatsapp_commands_list.md` exposait ~30 verbes joueur quasi jetables, un par PNJ de service (`!laundry`, `!sharpen`, `!gazette`, `!fence`…), une interface superficielle qui recopiait 1:1 la liste des PNJ au lieu de la cacher derrière un petit nombre de verbes. **D84** : ces services ne sont pas un système à part — ce sont des sujets `!demander` comme les autres, qui déclenchent en plus une primitive `SYS_*` déjà existante.
+
+### 2-bis.1 Définition
+
+Un **sujet de service** est un slot `T_NPC_KNOWLEDGE` (K0 ou K1, jamais K2/K3 — un service ne se "débloque" pas, il se **rend**) marqué `is_service = TRUE`, avec deux colonnes supplémentaires :
+
+| Colonne | Rôle |
+|---|---|
+| `service_sys_command` | Primitive `SYS_*` déclenchée après la révélation (ex. `SYS_APPLY_HEAL`, `SYS_SEAL_CONTRACT`) — c'est exactement l'ancien « Équivalent IA » de la commande dédiée qu'il remplace |
+| `service_cost_yrds` | Coût à chaque invocation (nullable — certains services sont gratuits, ex. `!routes` consultation) |
+
+### 2-bis.2 Pipeline (étend §2, n'ajoute pas de nouvel appel LLM)
+
+1. Étapes 1-4 du pare-feu (§2) **inchangées** : résolution du sujet, KX/K3/K2 comme avant.
+2. **Nouvelle étape 4-bis** : si le slot matché a `is_service = TRUE`, après la ligne de révélation (K0/K1, donc toujours visible — pas de condition à vérifier), le bot **invoque `service_sys_command`** via le contrat `SYS_*` standard en 6 étapes (**D-DET-2**, inchangé : existence → prérequis → autorisation → lock → exécution transactionnelle → résultat). Le débit de `service_cost_yrds` (si non nul) fait partie de cette exécution, pas de la résolution QI.
+3. Si le contrat `SYS_*` échoue (Yrds insuffisants, prérequis non rempli…), le bot répond par l'échec **normal** de cette primitive (le même message qu'aurait produit l'ancienne commande dédiée) — la ligne de révélation K0/K1 reste acquise (le PNJ a répondu), seule l'action peut échouer.
+
+**Invariant I4** : un sujet de service n'est **jamais** injecté au LLM pour décider s'il faut l'exécuter — la primitive est fixe, déclarée à l'avance dans la fiche du PNJ, jamais choisie dynamiquement (cohérent D-DET-1).
+
+### 2-bis.3 Ce qui NE devient PAS un sujet de service
+
+- **Paiement pour une information** (l'ancien `!buy_info`/`!buy_silence`) : c'est un K2 avec `unlock_condition = PAY:<N>` **déjà supporté** (§1.3) — aucune extension nécessaire, ce n'était pas un vrai service, juste une info payante.
+- **Mécaniques universelles** (réputation raciale, artisanat de gemmes, onboarding) : quand un mécanisme est appelé à exister dans plusieurs villes/PNJ (pas un seul point d'accès), il garde une commande dédiée de premier rang plutôt que de passer par un sujet — un sujet de service n'a de sens que pour un point d'accès **unique** (« un seul adaptateur = un seam hypothétique, deux adaptateurs = un seam réel »).
+- **Archétypes déjà répliqués dans plusieurs villes** : découvert en vérifiant chaque candidat avant conversion (étape 55) — près de la moitié des « verbes Alne » du diagnostic initial (`!voyage`, `!raid_register`, `!mount_rent`, `!sharpen`, `!fence`, `!oracle`, `!memorial`, `!laundry`, `!loan`, `!heal`) sont en réalité déjà utilisés tels quels par des PNJ équivalents dans 2 à 5 autres villes (ex. `!oracle` : Voulg, Swilvane, Gattan, Lioda ont chacune un oracle). Ce sont de vrais verbes génériques (deux adaptateurs ou plus = un seam réel), pas des services à point d'accès unique — les convertir en sujet propre à Alne aurait désynchronisé Alne du reste du monde. **Toujours vérifier par un grep multi-villes avant de convertir un verbe en sujet, jamais seulement dans le roster de la ville en cours.**
+
+### 2-bis.4 Découverte : le menu contextuel fait le travail de mémorisation
+
+Le joueur n'a jamais besoin de connaître le mot-clé exact du sujet : `!parler [NPC]` sur un PNJ de service affiche, via le **menu contextuel numéroté** (D83, `menu_contextuel_protocol.md` §3.2), les sujets d'information ET les sujets de service disponibles comme options numérotées — répondre par un chiffre compose et résout `!demander [NPC] [sujet]` automatiquement. Le mot-clé texte (`!demander sud buanderie`) reste disponible pour qui le connaît déjà, exactement comme pour n'importe quel autre sujet QI.
+
+---
+
 ## 3. Rencontres canoniques (D19) — les personnages de la trame principale
 
 Les personnages canoniques (Kirito, Asuna, Leafa, Sinon, Yuuki, Klein, Lisbeth, Silica, Argo, Yui,
@@ -100,6 +133,7 @@ Alicia Rue, Sakuya, Mortimer*, Eugene*…) sont **difficiles à rencontrer** par
 | Débloquer un slot K2/K3 pour un joueur | — | `!sys_npc_unlock [NPC_ID] [QI_ID] [Avatar]` | `SYS_NPC_KNOWLEDGE_UNLOCK(NPC_ID, QI_ID, Avatar_ID)` |
 | Matérialiser un canonique | — | `!sys_canon_spawn [NPC_ID] [Zone_ID] [Durée_min]` | `SYS_SPAWN_CANON(NPC_ID, Zone_ID, Duration, Silent?)` |
 | Sonde d'un secret (événement) | *(implicite via question K3)* | — | Réception `NPC_SECRET_PROBED(NPC_ID, Avatar_ID, QI_ID)` |
+| Sujet de service (D84) | *(aucune nouvelle — `!demander [NPC] [sujet]` ci-dessus)* | *(équivalent GM déjà existant, propre à chaque service — inchangé, cf. `whatsapp_commands_list.md` §21)* | *(équivalent IA déjà existant, propre à chaque service — inchangé, ex. `SYS_APPLY_HEAL`)* |
 
 Commandes propagées dans `whatsapp_commands_list.md` (§ Joueur / § GM) et `ai_orchestrator_commands.md` (§ PNJ).
 

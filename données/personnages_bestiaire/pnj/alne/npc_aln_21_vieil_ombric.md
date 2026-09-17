@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Service de restauration** : `!repair_book` / expertise d'ouvrages anciens (datation = détection de faux, utile aux quêtes).
+- **Sujet de service `restauration`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander ombric restauration` — expertise d'ouvrages anciens (datation = détection de faux, utile aux quêtes).
 - Témoin technique du **fil « la mémoire réécrite »** : il apporte la *preuve matérielle* (encre impossible) que Nima 20 soupçonne. Relié à `QST_NEU_MEMOIRE_01`, pont vers Aldemar 99.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler ombric`) : *« Pose ton livre, doucement. Je vais te dire son âge, sa race et ses mensonges. Le reste, garde-le pour toi. »*
-- `!repair_book` (restauration) ; expertise de datation d'ouvrages.
+- `!demander ombric restauration` (sujet de service, K0) : expertise de datation d'ouvrages. Équivalent GM `!sys_item_state` ; IA `SYS_SET_ITEM_STATE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « falsification historique » pour l'orchestrateur.

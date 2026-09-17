@@ -193,37 +193,49 @@
 
 > Équivalents GM/IA : `!sys_npc_relation`, `!sys_set_affinity` · `SYS_NPC_RELATION_GET`, `SYS_NPC_RELATION_TOUCH`, `SYS_SET_AFFINITY`. Détail : `table_t_npc_relations.md`.
 
-## 21. 🌳 Services de Capitale Neutre — Alne (lot 2.3)
-*Commandes de service introduites par le roster d'Alne (`NPC_ALN_00-99`, `ZONE_NEU_CAP_001`). Règle de complétude (D) : chaque commande Joueur possède un équivalent GM (`!sys_*`) et IA (`SYS_*`, cf. §14 de `ai_orchestrator_commands.md`). Les commandes déjà couvertes par les sections 1-20 (`!parler`, `!shop_list`, `!repair`, `!forge`, `!enchant`, `!tame`, `!bank_depot/retrait`, `!mail_send`, `!outfit`, `!learn_skill`, `!bounty`, `!appraise`, `!perform`, `!bet`) sont réutilisées telles quelles.*
+## 21. 🌳 Services de Capitale Neutre — Alne (lot 2.3) — refonte D84 (étape 55)
 
-| Commande Joueur | Rôle | PNJ type | Équivalent GM | Équivalent IA |
+*Services introduits par le roster d'Alne (`NPC_ALN_00-99`, `ZONE_NEU_CAP_001`). Diagnostic étape 54 : la version précédente exposait ~30 verbes joueur dédiés, un par PNJ — interface superficielle. **D84** : les services à **point d'accès unique** (seul Alne les offre) se demandent désormais par `!parler`/`!demander` (§20), déjà l'interface la plus profonde du jeu (résout contre l'enveloppe QI entière d'un PNJ). Le §21.1 liste les mécaniques **conservées en commande dédiée** — et c'est une liste plus longue qu'attendu au premier diagnostic : une vérification croisée avec les PNJ des 8 autres villes a montré que la moitié de ces « verbes Alne » sont en réalité déjà des **archétypes multi-villes** (deux adaptateurs ou plus = un seam réel, pas un simple flavor Alne) — les replier dans un sujet propre à Alne aurait désynchronisé Alne du reste du monde, pas amélioré l'interface. Le §21.2 est le **registre de sujets de service** restant (`npc_knowledge_protocol.md` §2-bis) : la colonne « Sujet » est un mot-clé pour `!demander`, **jamais un nom de commande** — le joueur n'a pas besoin de le connaître, `!parler [NPC]` l'affiche dans le menu contextuel numéroté (D83).*
+
+### 21.1 Mécaniques conservées en commande dédiée
+
+| Commande Joueur | Rôle | PNJ (Alne) | Équivalent GM | Équivalent IA | Pourquoi pas un sujet |
+|---|---|---|---|---|---|
+| `!reputation [race]` | Consulter/améliorer le standing racial | Cassia `25` | `!sys_faction_set` | `SYS_SET_FACTION_STANDING` | Stat du joueur (comme `!achievements`/`!rankings` §11), pas une action rendue par un PNJ |
+| `!gem_set [équip] [gemme]` | Sertissage de gemme | Vireth `34` | `!sys_item_enchant` | `SYS_APPLY_SOCKET` | Artisanat générique (famille `MAT_GEM_*`, Granzam) — voisin de `!enchant` §7, pas propre à Alne |
+| `!tutorial` | Onboarding des mécaniques (R0, éco) | Pell `96` | `!sys_tutorial` | `SYS_TUTORIAL_STEP` | Mécanique universelle d'accueil ; ⚠️ **point ouvert non traité ici** : devrait à terme exister dans chaque capitale raciale, pas seulement Alne |
+| `!voyage [Cité]` | Voyage inter-cités | Halvard `10` | `!sys_route_state` | `SYS_SET_TRADE_ROUTE` | **Archétype multi-villes** : Sari `NPC_SWI_89` (voyagiste) l'offre aussi à Swilvane |
+| `!raid_register` / `!raid_join` | Inscrire / rejoindre un raid | Dorn `12`, Vira `75` | `!sys_raid_form` | `SYS_QUEST_HOOK` | **Archétype multi-villes** : gardien de l'amphithéâtre `NPC_LIO_16` l'offre aussi à Lioda |
+| `!mount_rent` | Louer une monture aérienne | Wick `84` | `!sys_grant_mount` | `SYS_SUMMON_MOUNT` | **Archétype multi-villes** : maréchal des ailes `NPC_DUS_75` à Duskarn |
+| `!sharpen` | Affûtage (buff tranchant) | Griss `88` | `!sys_grant_buff` | `SYS_APPLY_BUFF` | **Archétype multi-villes** : Hilde `NPC_GAT_27` à Gattan (territoire de la forge) |
+| `!fence` | Recel d'objets volés | Morne `55` | `!sys_flag [Avatar] illegal_goods` | `SYS_FLAG_ILLEGAL_GOODS` | **Archétype multi-villes** : receleur Lave-Sombre `NPC_VOU_49` à Voulg |
+| `!loan` | Usure / prêt à intérêt | Sept-Doigts `53` | `!sys_flag [Avatar] soul_contract` | `SYS_FLAG_SOUL_CONTRACT` | **Archétype multi-villes** : prêteur Grip `NPC_SWI_47` (Swilvane), prêteur Fenn `NPC_BRO_05` (Brokkheim) |
+| `!oracle` | Consultation d'oracle (hooks de quête) | Isilde `98` | `!sys_quest_give` | `SYS_QUEST_HOOK` | **Archétype très répandu** (4+ villes : Voulg, Swilvane, Gattan, Lioda ont chacune un oracle) |
+| `!memorial` | Registre/hommage aux comptes bannis | Sorne `97` | `!sys_registry` | `SYS_QUERY_REGISTRY` | **Archétype très répandu** (5+ villes : Voulg, Lioda, Gattan, Granzam ont chacune un gardien de mémorial) |
+| `!laundry` | Lessive/entretien du linge | Sud `87` | `!sys_item_state` | `SYS_SET_ITEM_STATE` | **Archétype multi-villes** : lavandière Hanna `NPC_SWI_44` à Swilvane, écho de la corvée de Gattan |
+| `!heal` (mineur) | Soins de fortune/rue | Osmé `40`, Aeliss `91` | `!sys_heal` | `SYS_APPLY_HEAL` | **Archétype multi-villes** : soigneur d'arène `NPC_VOU_24` et médecin de guerre `NPC_VOU_38` (Voulg), Gratta/Malvo (Gattan) |
+
+### 21.2 Registre des sujets de service (`!demander [NPC] [Sujet]`) — point d'accès unique, Alne seule
+
+| Sujet (mot-clé QI) | Rôle | PNJ | Équivalent GM | Équivalent IA (`service_sys_command`) |
 |---|---|---|---|---|
-| `!voyage [Cité]` / `!routes` | Hub aérien : voyage inter-cités, état des 9 routes | Halvard `10`, Wrenna `11` | `!sys_route_state` | `SYS_SET_TRADE_ROUTE` |
-| `!dome_enter` / `!dome_log [étage]` | Accès endgame / registre des raids | Dorn `12`, Sella `13` | `!sys_dome_gate` | `SYS_LOG_RAID` |
-| `!raid_register` / `!raid_join` | Inscrire / rejoindre un raid | Dorn `12`, Vira `75` | `!sys_raid_form` | `SYS_QUEST_HOOK` |
-| `!hire_guide [dome\|ville]` / `!courier` | Guide / coursier | Torin `14`, Pip `80` | `!sys_escort` | `SYS_SPAWN_ESCORT` |
-| `!gather` | Récolte guidée (sève, flore) | Yssa `15` | *(réutilise récolte §16)* | `SYS_STOCK_HARVEST_NODE` |
-| `!biblio_search` / `!translate [texte]` / `!copy_scroll` | Bibliothèque : recherche, traduction, copie | Nima `20`, Lingua `22`, Denn `23` | `!sys_lore_unlock` | `SYS_GRANT_LORE` |
-| `!repair_book` | Restauration/datation d'ouvrage | Ombric `21` | `!sys_item_state` | `SYS_SET_ITEM_STATE` |
-| `!reputation [race]` | Consulter/améliorer le standing racial | Cassia `25` | `!sys_faction_set` | `SYS_SET_FACTION_STANDING` |
-| `!broker [denrée]` / `!market_stall` | Courtage de denrées / location d'étal | Grède `26`, Bost `24` | `!sys_market_price` | `SYS_SET_SHOP_PRICES` |
-| `!gem_set [équip] [gemme]` | Sertissage de gemme | Vireth `34` | `!sys_item_enchant` | `SYS_APPLY_SOCKET` |
-| `!buff` | Bénédictions/buffs de départ | Ilia `41` | `!sys_grant_buff` | `SYS_APPLY_BUFF` |
-| `!vault` | Coffre/consigne personnel | Lom `46` | `!sys_vault` | `SYS_SET_VAULT` |
-| `!fence` / `!smuggle` / `!loan` / `!forge_doc` / `!ink` | Marché noir : recel, contrebande, usure, faux, marquage | Morne `55`, Rask `57`, Sept-Doigts `53`, Quill `56`, Sten `59` | `!sys_flag [Avatar] [flag]` | `SYS_FLAG_ILLEGAL_GOODS` / `SYS_FLAG_SOUL_CONTRACT` / `SYS_CLEAR_PK_FLAG` |
-| `!buy_info` / `!buy_silence` | Renseignement / discrétion payante | Wisp `58`, Tibbe `50` | `!sys_npc_unlock` | `SYS_NPC_KNOWLEDGE_UNLOCK` |
-| `!contract` / `!write_letter` | Actes notariés / écriture publique | Verd `62`, Emm `67` | `!sys_contract` | `SYS_SEAL_CONTRACT` |
-| `!tax_pay` | Acquitter les taxes de marché | Molk `63` | `!sys_tax` | `SYS_LEVY_TAX` |
-| `!hire_merc [profil]` | Louer un mercenaire | Della `76`, Gorak `04` | `!sys_spawn_merc` | `SYS_SPAWN_ESCORT` |
-| `!mount_rent` | Louer une monture aérienne | Wick `84` | `!sys_grant_mount` | `SYS_SUMMON_MOUNT` |
-| `!laundry` | Lessive/entretien du linge | Sud `87` | `!sys_item_state` | `SYS_SET_ITEM_STATE` |
-| `!sharpen` | Affûtage (buff tranchant) | Griss `88` | `!sys_grant_buff` | `SYS_APPLY_BUFF` |
-| `!portrait` | Portrait cosmétique | Ode `83` | `!sys_cosmetic` | `SYS_SET_COSMETIC` |
-| `!gazette` | Lire/publier une annonce | Prell `89` | `!sys_announce` | `SYS_ANNOUNCE` |
-| `!oracle` | Consultation d'oracle (hooks de quête) | Isilde `98` | `!sys_quest_give` | `SYS_QUEST_HOOK` |
-| `!memorial` | Registre/hommage aux comptes bannis | Sorne `97` | `!sys_registry` | `SYS_QUERY_REGISTRY` |
-| `!heal` (mineur) | Soins de fortune/rue | Osmé `40`, Aeliss `91` | `!sys_heal` | `SYS_APPLY_HEAL` |
-| `!tutorial` | Onboarding des mécaniques (R0, éco) | Pell `96` | `!sys_tutorial` | `SYS_TUTORIAL_STEP` |
+| `routes` | État des 9 routes aériennes au départ d'Alne | Wrenna `11` | `!sys_route_state` | `SYS_SET_TRADE_ROUTE` |
+| `dome` | Accès endgame (Dôme d'Yggdrasil) | Dorn `12` | `!sys_dome_gate` | `SYS_LOG_RAID` |
+| `registre_raids` | Registre des raids | Sella `13` | `!sys_dome_gate` | `SYS_LOG_RAID` |
+| `guide` / `coursier` | Guide / coursier | Torin `14`, Pip `80` | `!sys_escort` | `SYS_SPAWN_ESCORT` |
+| *(récolte guidée : réutilise `!gather` §16 tel quel, Yssa `15` — pas un sujet)* | | | | |
+| `recherche_biblio` / `traduction` / `copie` | Bibliothèque : recherche, traduction, copie | Nima `20`, Lingua `22`, Denn `23` | `!sys_lore_unlock` | `SYS_GRANT_LORE` |
+| `restauration` | Restauration/datation d'ouvrage | Ombric `21` | `!sys_item_state` | `SYS_SET_ITEM_STATE` |
+| `courtage` / `etal` | Courtage de denrées / location d'étal | Grède `26`, Bost `24` | `!sys_market_price` | `SYS_SET_SHOP_PRICES` |
+| `taxe` | Acquitter les taxes de marché | Molk `63` | `!sys_tax` | `SYS_LEVY_TAX` |
+| `benediction` | Bénédictions/buffs de départ | Ilia `41` | `!sys_grant_buff` | `SYS_APPLY_BUFF` |
+| `consigne` | Coffre/consigne personnel *(redirige narrativement vers `!bank_depot`/`!bank_retrait` §6 — pas un stockage distinct)* | Lom `46` | `!sys_vault` | `SYS_SET_VAULT` |
+| `contrebande` / `faux` / `marquage` | Marché noir : contrebande, faux, marquage | Rask `57`, Quill `56`, Sten `59` | `!sys_flag [Avatar] [flag]` | `SYS_FLAG_ILLEGAL_GOODS` |
+| *(renseignement/discrétion payante : déjà un sujet K2 `PAY:<N>` standard, cf. `npc_knowledge_protocol.md` §2-bis.3 — pas un sujet de service, aucune fiche à changer côté mécanisme)* | | Wisp `58`, Tibbe `50` | — | — |
+| `acte_notarie` / `lettre` | Actes notariés / écriture publique | Verd `62`, Emm `67` | `!sys_contract` | `SYS_SEAL_CONTRACT` |
+| `mercenaire` | Louer un mercenaire | Della `76`, Gorak `04` | `!sys_spawn_merc` | `SYS_SPAWN_ESCORT` |
+| `portrait` | Portrait cosmétique *(même primitive que `!outfit` §6, `SYS_SET_COSMETIC`)* | Ode `83` | `!sys_cosmetic` | `SYS_SET_COSMETIC` |
+| `gazette` | Lire/publier une annonce | Prell `89` | `!sys_announce` | `SYS_ANNOUNCE` |
 
 ## 22. 🎒 Système de port & loadout (D45/D46)
 

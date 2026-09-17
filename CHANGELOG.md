@@ -8,14 +8,46 @@ Le projet suit une numérotation `0.x.y` tant qu'il n'est pas lancé publiquemen
 
 ---
 
-## [Non publié] — session de reprise, étapes 53-54 (2026-09-17)
+## [Non publié] — sujets de service (étape 55, 2026-09-17)
 
 Travail effectué mais **non commité** au moment de la rédaction de ce changelog — voir `git status`.
 
+### Modifié
+- **Sujets de service (D84)** : sur les ~30 verbes dédiés de la §21 `whatsapp_commands_list.md` (services de Capitale Alne), ~21 deviennent des sujets `!demander [NPC] [sujet]` (K0/K1) déclenchant leur primitive `SYS_*` déjà existante ; **13 gardent une commande dédiée** — 3 mécaniques à point d'accès multiple (réputation, sertissage de gemme, tutoriel) et **10 archétypes déjà répliqués dans 2 à 5 autres villes**, trouvés par vérification croisée *après* le diagnostic initial (`!voyage`, `!raid_register`, `!mount_rent`, `!sharpen`, `!fence`, `!oracle`, `!memorial`, `!laundry`, `!loan`, `!heal`). Nouveau §2-bis dans `npc_knowledge_protocol.md`, colonnes `is_service`/`service_sys_command`/`service_cost_yrds` sur `T_NPC_KNOWLEDGE`, 26 fiches PNJ d'Alne mises à jour.
+
+### Retiré
+- `!buy_info`/`!buy_silence` — redondants avec le K2 `PAY:<N>` déjà supporté, aucune extension nécessaire.
+
+### Décisions
+- **D84** — Sujets de service.
+
+### Note méthodologique
+Le diagnostic initial (étape 54) n'avait vérifié la duplication de verbe qu'à l'intérieur du roster d'Alne. La conversion mécanique a été interrompue à deux reprises (correction de scope envoyée à un agent en cours d'exécution, puis limite de session) ; à la reprise, l'état réel des fichiers a été vérifié par `git diff` avant de continuer plutôt que supposé — un seul fichier converti par erreur (`heal`/Osmé) a été restauré.
+
+---
+
+## [0.12.0] — 2026-09-17 — Menu contextuel numéroté (D83)
+
+**Commit** `b2be09d` — *« Étape 54 : menu contextuel numéroté (D83) »*
+
 ### Ajouté
-- `registre_decisions.md` — registre consolidé de toutes les décisions `D1`–`D83` + familles `D-SOC/IA/RAG/NLU/SPE/ORC/DET/MOD/P3`, avec source/étape/statut. Remplace le grep manuel pour toute allocation future de numéro.
+- **Menu contextuel numéroté** : `system_mechanics/menu_contextuel_protocol.md` + table `T_PENDING_MENUS` — couche de présentation 100% déterministe (pré-NLU), diagnostic UX (skill `codebase-design`) sur la surface de ~190-200 commandes joueur. Après un tour de combat/dialogue/boutique/mouvement/tableau de quêtes, 1-8 options numérotées résolues par L1 + `9` aide universelle ; résolution par citation ou chiffre nu (TTL par contexte). Coexiste avec toutes les commandes texte existantes, aucune retirée. Commandes `!menu`/`!sys_menu_force`/`SYS_MENU_RENDER`, pipeline amendé d'un « étage 0 ».
+
+### Corrigé
+- Fusion de paragraphes ratée dans `alo_context.md` (le texte de l'ancienne entrée étape 52 était resté accroché à la fin du paragraphe étape 53, introduite par erreur pendant la session précédente) → scindée en deux entrées distinctes.
+
+### Décisions
+- **D83** — Menu contextuel numéroté.
+
+---
+
+## [0.11.0] — 2026-09-17 — Backlog documentaire clos + registre de décisions
+
+**Commit** `fedf152` — *« Étape 53 : backlog documentaire clos (D80) + registre de décisions + changelog »*
+
+### Ajouté
+- `registre_decisions.md` — registre consolidé de toutes les décisions `D1`–`D82` + familles `D-SOC/IA/RAG/NLU/SPE/ORC/DET/MOD/P3`, avec source/étape/statut. Remplace le grep manuel pour toute allocation future de numéro.
 - `CHANGELOG.md` — ce fichier.
-- **Menu contextuel numéroté (D83, étape 54)** : `system_mechanics/menu_contextuel_protocol.md` + table `T_PENDING_MENUS` — couche de présentation 100% déterministe (pré-NLU), diagnostic UX (skill `codebase-design`) sur la surface de ~190-200 commandes joueur. Après un tour de combat/dialogue/boutique/mouvement/tableau de quêtes, 1-8 options numérotées résolues par L1 + `9` aide universelle ; résolution par citation ou chiffre nu (TTL par contexte). Coexiste avec toutes les commandes texte existantes, aucune retirée. Commandes `!menu`/`!sys_menu_force`/`SYS_MENU_RENDER`, pipeline amendé d'un « étage 0 ».
 - Registre de « guildes de métier » hors `T_GUILDS` (`table_t_guilds.md` §5) : `GUILDE_LEP_FORGES`, `GUILDE_SPR_TRESORS`, `GUILDE_CARAVANIERS`.
 - Zone `ZONE_ROUTE_LUGRU` (Corridor Souterrain de Lugru) dans l'atlas — raccourci direct Sylph ↔ Alne, point ouvert depuis l'étape 2.
 - Commandes `!sys_rag_reindex [scope]` / `SYS_RAG_REINDEX(scope)` propagées dans les registres GM/IA (spécifiées depuis l'étape 40, jamais propagées).
@@ -29,7 +61,6 @@ Travail effectué mais **non commité** au moment de la rédaction de ce changel
 - Collision de numérotation **D45/D46** (deux décisions distinctes par numéro) → renumérotées **D81/D82**.
 - Bloc de journal dupliqué mot pour mot (« ÉTAPE 11 »/« ÉTAPE 12 » présentes deux fois dans `alo_progression.md`) → dédupliqué.
 - Citation croisée D13/D15 dans `02_cdc_items.md` (grille de prix attribuée au mauvais numéro).
-- Fusion de paragraphes ratée dans `alo_context.md` (le texte de l'ancienne entrée étape 52 était resté accroché à la fin du paragraphe étape 53, introduite par erreur pendant la session précédente) → scindée en deux entrées distinctes.
 
 ### Retiré
 - 14 fiches d'accessoires (`anneaux/ceintures/colliers/capes`) → archivées dans `ressources_brutes/deprecated_v1/accessoires/` (conséquence de D39, actée depuis l'étape 10-quater mais jamais exécutée).

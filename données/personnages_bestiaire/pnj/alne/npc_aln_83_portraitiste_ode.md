@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Portraits cosmétiques** : `!portrait` (image d'avatar/guilde) ; souvenir personnalisable, puits de Yrds cosmétique.
+- **Sujet de service `portrait`** (D84, `npc_knowledge_protocol.md` §2-bis, même primitive que `!outfit` §6) : `!demander ode portrait` — image d'avatar/guilde, souvenir personnalisable, puits de Yrds cosmétique.
 - Porteuse du **fil méta** (le futur « déjà écrit » lu par sa main = le Système connaît la suite ; croise Isilde 98, Ode/Vane sur l'identité). Reliée à `QST_NEU_PORTRAIT_01`.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler ode`) : *« Asseyez-vous, ne bougez plus. Je vais vous peindre… un peu tel que vous êtes, un peu tel que vous serez. Ma main choisit. Pardonnez-lui les détails. »*
-- `!portrait` (image cosmétique) ; les portraits « prophétiques » = hooks de quête verrouillés.
+- `!demander ode portrait` (sujet de service, K0) : image cosmétique. Équivalent GM `!sys_cosmetic` ; IA `SYS_SET_COSMETIC`. Les portraits « prophétiques » = hooks de quête verrouillés.
 - `NPC_SECRET_PROBED` slot 9 : hook « futur déjà écrit » réservé à l'orchestrateur (fil méta).

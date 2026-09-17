@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Marché du statut PK** : `!ink` (tatouage cosmétique) en façade ; l'effacement de statut = `SYS_CLEAR_PK_FLAG` illicite (très cher, tracé).
+- **Sujet de service `marquage`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander sten marquage` — tatouage cosmétique en façade ; l'effacement de statut = `SYS_CLEAR_PK_FLAG` illicite (très cher, tracé).
 - Son K3 (réécriture du statut-joueur) touche le **fil méta** (pouvoir de réécriture d'état, « quelqu'un très haut ferme les yeux » → pont vers le fil du Cardinal). Croise « marché sous le marché » et « neutralité fragile ».
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler sten`) : *« Assieds-toi, montre la peau. Un motif ? Facile. Faire disparaître ce que tu as fait ? Ça, c'est une autre aiguille, et un autre prix. »*
-- `!ink` (cosmétique) ; effacement de statut PK = flag `SYS_FLAG_PK_LAUNDERING`.
+- `!demander sten marquage` (sujet de service, K0) : tatouage cosmétique. Équivalent GM `!sys_flag [Avatar] pk_laundering` ; IA `SYS_CLEAR_PK_FLAG`. Effacement de statut PK = flag `SYS_FLAG_PK_LAUNDERING`.
 - `NPC_SECRET_PROBED` slot 9 : hook « réécriture du statut-joueur » réservé à l'orchestrateur (fil méta).

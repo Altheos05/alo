@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Courtage de mercenaires** : `!hire_merc` (escorte, renfort, garde) ; interface d'accès aux PNJ/joueurs mercenaires (dont Gorak 04).
+- **Sujet de service `mercenaire`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander della mercenaire` — escorte, renfort, garde ; interface d'accès aux PNJ/joueurs mercenaires (dont Gorak 04, même sujet).
 - Pilier du **fil « marché sous le marché »** (contrats de PK déguisés en contrats de mercenaire ; croise Nyx 54, Sept-Doigts 53, Ryn 77). Donneuse de `QST_NEU_DUEL_01` (volet contrats).
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler della`) : *« Un bras à louer ? Tu es au bon endroit. Escorte, garde, renfort de raid… ou autre chose. Dis-moi le travail, je te donne le prix. Je ne pose pas de questions. »*
-- `!hire_merc` (location de mercenaire) ; les contrats gris = flag `SYS_FLAG_GRAY_CONTRACT`.
+- `!demander della mercenaire` (sujet de service, K0) : location de mercenaire. Équivalent GM `!sys_spawn_merc` ; IA `SYS_SPAWN_ESCORT`. Les contrats gris = flag `SYS_FLAG_GRAY_CONTRACT`.
 - `NPC_SECRET_PROBED` slot 9 : hook « contrats de disparition » pour l'orchestrateur.

@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Hub logistique** : point d'accès `!voyage <cité>` (les 9 routes) ; relaie les états de route de l'orchestrateur (`SYS_SET_TRADE_ROUTE`, blocus).
+- **Hub logistique** : `!voyage [Cité]` / `!routes` (les 9 routes) — relaie les états de route de l'orchestrateur (`SYS_SET_TRADE_ROUTE`, blocus). *(Verbe dédié conservé — D84 ne le convertit pas en sujet de service : archétype répliqué à Swilvane, cf. `npc_swi_89_voyagiste_sari.md`.)*
 - Son K3 nourrit discrètement le **fil « le Dôme qui change »** (côté chiffres) et son K2 le fil « neutralité fragile » (fret d'armes de Kael 07). Croise Wrenna 11 sur les disparus.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler halvard`) : *« Bienvenue au Grand Débarcadère. Neuf routes, un seul tableau, et c'est moi qui le tiens. Vous partez où ? »*
-- `!voyage <cité>` / `!routes` (horaires, état) actifs au Débarcadère.
+- `!voyage [Cité]` / `!routes` : horaires, état des 9 routes, réservation. Équivalent GM `!sys_route_state` ; IA `SYS_SET_TRADE_ROUTE`.
 - `NPC_SECRET_PROBED` slot 9 : hook « disparus du Dôme » pour l'orchestrateur.

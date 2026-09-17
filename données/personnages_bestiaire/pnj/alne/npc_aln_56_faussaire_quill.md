@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Faux & accès illicites** : `!forge_doc` (faux papiers) — voie détournée d'accès (guildes, Dôme) ; source du laissez-passer d'endgame illégitime.
+- **Sujet de service `faux`** (D84, `npc_knowledge_protocol.md` §2-bis) : `!demander quill faux` — faux papiers, voie détournée d'accès (guildes, Dôme), source du laissez-passer d'endgame illégitime.
 - Nœud de croisement : **« marché sous le marché »** (faux, contrats) ET **« la mémoire réécrite » / fil méta** (l'encre qui « écrit dans le Système » = même main que la réécriture des livres ; croise Ombric 21, Lingua 22). Révélation méta réservée orchestrateur.
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler quill`) : *« Un papier qui t'ouvre une porte fermée ? Un sceau que tu n'as pas le droit d'avoir ? Assieds-toi. Tout se calligraphie, ici. »*
-- `!forge_doc` (faux document) ; le laissez-passer Dôme = flag `SYS_FLAG_FORGED_ACCESS`.
+- `!demander quill faux` (sujet de service, K0) : faux document. Équivalent GM `!sys_flag [Avatar] illegal_goods` ; IA `SYS_FLAG_ILLEGAL_GOODS`. Le laissez-passer Dôme = flag `SYS_FLAG_FORGED_ACCESS`.
 - `NPC_SECRET_PROBED` slot 9 : hook « faux qui réécrit le Système » réservé à l'orchestrateur (fil méta).

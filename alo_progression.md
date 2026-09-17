@@ -1779,3 +1779,29 @@ Les convertir en sujet propre à Alne aurait désynchronisé Alne du reste du mo
 **Refonte UX des commandes close en 2 leviers** (D83 étape 54, D84 étape 55). Aucune primitive `SYS_*` supprimée ou réécrite — seule la façade joueur change. Aucun fichier `bot/` touché (D-P3-1). Un point ouvert relevé en cours de route et volontairement non traité : `!tutorial` (Pell, Alne) devrait exister dans chaque capitale raciale, pas seulement Alne — hors périmètre de cette refonte, laissé au PE.
 
 **Leçon méthodologique retenue** : avant de replier un verbe en sujet de service pour cause d'« usage unique », vérifier par un grep sur l'ensemble du corpus PNJ (pas seulement la ville en cours) — un diagnostic scopé à un seul roster peut manquer des archétypes déjà répliqués ailleurs et proposer une régression déguisée en amélioration.
+
+---
+
+## ÉTAPE 56 — Correctif `scripts/seed-generator.js` : parseur QI (demande PE explicite) ✅ (2026-09-17)
+
+**Objectif** : sur demande PE explicite (« on répare le parseur QI en priorité », suite à l'audit d'avancement du moteur déterministe qui a trouvé `T_NPC_KNOWLEDGE = 0 ligne` en base). Intervention hors périmètre habituel ACP (`scripts/` n'est pas `bot/`, mais reste du code — zéro-code ACP levé ici par demande PE explicite, cf. persona §5.1).
+
+**Diagnostic (deux bugs empilés dans `parseNPCs()`, tous deux causant l'échec à 100%)** :
+1. **Décalage de colonne** : le gabarit réel des fiches (D33, `| # | QI_ID | Niv | Sujet | Contenu | Condition |`) a une colonne `#` de numéro de ligne que le parseur ne comptait pas — il lisait `parts[1]` (le numéro, ex. `"1"`) en croyant lire le `QI_ID`, sur 100 % des ~3 300 fiches PNJ (le format est uniforme sur tout le corpus, vérifié Gattan/Swilvane/Alne).
+2. **Backticks jamais retirés** : même corrigé, `QI_ID` reste entouré de backticks (`` `QI_ALN_87_01` ``) dans la cellule brute — le test `/^QI_\w+/` échoue tant qu'ils ne sont pas retirés.
+3. (trouvé en corrigeant, cohérent avec le design documenté) **K3/KX exclus à tort** : le code sautait les slots K3 et KX avec un avertissement « niveau K interdit ». Or `table_t_npc_knowledge.md` (trigger K3) documente que le pare-feu D18 filtre **à l'injection** (vue K0+K1+(K2∩unlocks)), pas à l'ingestion — K3/KX doivent être stockés (la ligne de déflection/ignorance en dépend). Corrigé : tous les niveaux valides (K0-K3, KX) sont désormais insérés ; seul un niveau réellement invalide (typo) est sauté et averti.
+
+**Fix** : réindexé sur `parts[2]` (QI_ID), `parts[3]` (niveau), `parts[4]` (sujet/topic_tags), `parts[5]` (contenu), `parts[6]` (condition/déflection) ; backticks retirés avant test et stockage ; validation du niveau contre l'énumération réelle du schéma (`K0,K1,K2,K3,KX`) au lieu d'une liste d'exclusion codée en dur ; nettoyage mineur de la regex d'extraction de la ligne de déflection (laissait un `": "` et un `" |"` parasites en tête/queue).
+
+**Vérification (dry-run, sans DB — indisponible dans cet environnement)** : `node scripts/seed-generator.js` régénère correctement — **10 941 lignes QI sur 1 104 PNJ** (contre 0 avant), **0 avertissement `[SKIP]`** sur tout le corpus. Distribution par niveau cohérente avec les budgets D17 (K0 3238 / K1 3233 / K2 2239 / K3 1157 / KX 1074). Échantillon contrôlé (Sud `NPC_ALN_87`) : QI_ID propre, ligne K3 avec `unlock_condition=NULL` + `deflection_line` correctement extraite, ligne KX avec la ligne d'ignorance en `content`.
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 56.1 | 🔧 Corrigé — décalage de colonne, backticks, filtre K3/KX erroné, nettoyage regex déflection | `scripts/seed-generator.js` |
+| 56.2 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### État de sortie
+
+**Parseur QI corrigé et vérifié en dry-run** (fichier généré non commité, script uniquement). **Non fait, volontairement, hors périmètre de cette demande précise** : (a) régénérer `seed_data.sql` — le fichier committé date du 11 juillet et est désormais très en retard sur tout le contenu ajouté depuis (étapes 38-55 : social, guildes, dépeçage, variants, sujets de service…), le régénérer maintenant mélangerait le correctif QI avec un rattrapage massif de contenu, décision distincte à prendre par le PE ; (b) recharger en base (`rebuild.sh`) — commande destructive (`DROP DATABASE`), jamais lancée sans confirmation explicite, et de toute façon un Postgres local accessible n'existe pas dans cet environnement. Le correctif de code est prêt et vérifié ; la bascule en base reste une action du PE.

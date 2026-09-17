@@ -393,17 +393,22 @@ function parseNPCs() {
         }
         if (inQISection && line.startsWith('|') && line.split('|').length >= 6) {
           const parts = line.split('|').map(p => p.trim());
-          if (parts.length >= 7 && /^QI_\w+/.test(parts[1])) {
-            const kLevel = (parts[2] || '').trim().toUpperCase();
-            if (kLevel === 'K3' || kLevel === 'KX' || kLevel.startsWith('K') && !['K0','K1','K2'].includes(kLevel)) {
-              console.warn(`  [SKIP] ${parts[1]} — niveau K interdit : ${kLevel}`);
+          // Gabarit réel (D33) : | # | QI_ID | Niv | Sujet | Contenu | Condition |
+          // -> QI_ID est en parts[2] (parts[1] = numéro de ligne), jamais parts[1].
+          const qiId = (parts[2] || '').replace(/`/g, '');
+          if (parts.length >= 8 && /^QI_\w+/.test(qiId)) {
+            const kLevel = (parts[3] || '').trim().toUpperCase();
+            if (!['K0', 'K1', 'K2', 'K3', 'KX'].includes(kLevel)) {
+              console.warn(`  [SKIP] ${qiId} — niveau QI invalide : "${kLevel}"`);
               continue;
             }
+            // K3/KX sont stockés comme les autres : le pare-feu (D18) filtre à l'injection
+            // (vue K0+K1+(K2∩unlocks)), pas à l'ingestion — cf. table_t_npc_knowledge.md trigger K3.
             knowledgeRows.push([
-              parts[1], npcId, parts[2], parts[3] || '',
-              parts[4]?.replace(/\n/g, ' ') || '',
-              parts[5]?.includes('JAMAIS') ? null : (parts[5] || null),
-              parts[5]?.includes('déflection') || parts[5]?.includes('deflection') || parts[6]?.includes('*') ? parts.slice(5).join(' | ').replace(/^.*déflection|deflection\s*[:\-–]\s*/i, '').replace(/`/g, '').trim() : null
+              qiId, npcId, kLevel, parts[4] || '',
+              parts[5]?.replace(/\n/g, ' ') || '',
+              parts[6]?.includes('JAMAIS') ? null : (parts[6] || null),
+              parts[6]?.includes('déflection') || parts[6]?.includes('deflection') ? parts.slice(6).join(' | ').replace(/^.*?d[ée]flection\s*[:\-–]\s*/i, '').replace(/\s*\|\s*$/, '').replace(/`/g, '').trim() : null
             ]);
           }
         }

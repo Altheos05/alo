@@ -81,6 +81,7 @@ Message WA → processMessage() → Intent (regex + ML zero-shot)
                      Réponse ← ─── Synthèse ─── Lock + DB
 ```
 
+0. **Résolution du menu contextuel numéroté (D83)** : citation d'un message-menu du bot, ou chiffre nu avec menu non expiré → résolution directe vers la commande déjà paramétrée, sans passer par la classification d'intention. Cf. `system_mechanics/menu_contextuel_protocol.md`.
 1. **Message entrant** → `whatsapp.js` → `processMessage()` dans `message-handler.js`
 2. **Classification d'intention** : keyword scoring → ML zero-shot (`models/intent.js`) → regex patterns (`agents/router.js`)
 3. **Extraction d'entités** : NER ONNX → regex IDs → fuzzy gazetteer (`models/ner.js` + `services/gazetteer.js`)

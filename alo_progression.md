@@ -1666,6 +1666,42 @@ Vérifié par exécution (31/31 ✅) : **nR14-b CLOS** (`parsePipeTableStats()` 
 
 ---
 
+## ÉTAPE 54 — Menu contextuel numéroté (D83) ✅ (2026-09-17)
+
+**Objectif** : sur demande PE explicite, penser le design UX de la couche déterministe (avant tout volet IA) pour un « joueur lambda » qui veut de la fluidité sans retenir la totalité des ~190-200 commandes `!*` — condition explicite du PE : rester 100% déterministe pour garantir un C4 de secours solide, indépendant de toute IA.
+
+**Diagnostic (skill `codebase-design`, vocabulaire module profond/superficiel)** : l'interface de commandes est **inconsistante** — de bons instincts de profondeur existent déjà (`!use [Item_ID]` cache tout un pan de comportement derrière un seul verbe ; `!demander [NPC] [sujet]` résout contre l'enveloppe QI entière du PNJ), mais la §21 (`whatsapp_commands_list.md`, services de Capitale Alne) expose **~34 verbes quasi jetables**, un par PNJ de service (`!laundry`, `!sharpen`, `!portrait`, `!gazette`, `!fence`/`!smuggle`/`!loan`…) — une interface superficielle qui recopie 1:1 la liste interne des PNJ plutôt que de la cacher.
+
+**Décision d'exécution** : deux leviers identifiés, tous deux compatibles C4 (zéro IA). Levier 1 (présentation, menu contextuel) traité **en premier** — gain immédiat, zéro risque, ne touche à aucun contenu déjà livré. Levier 2 (fusion des ~34 verbes de la §21 dans `!demander`/`!parler`) **reporté** — c'est une refonte de contenu existant (documentation + raccords GM/IA déjà propagés), pas un ajout ; noté en « Point ouvert » d'`alo_context.md` pour reprise ultérieure sur demande PE.
+
+**Design retenu (D83)** : après un tour de combat/dialogue/boutique/mouvement/tableau de quêtes, le bot ajoute un bloc de 1-8 options numérotées **déjà entièrement résolues par L1** (pas de saisie complémentaire), + `9` = aide contextuelle universelle (ne consomme jamais le menu), + `0` = pagination si plus de 8 options valides. Résolution par **citation** du message-menu (garantie, zéro ambiguïté) ou par **chiffre nu** si un menu non expiré existe pour l'avatar (`T_PENDING_MENUS`, TTL 60-300s selon contexte — court en combat, plus long en dialogue/boutique/quêtes). **Ne retire aucune commande texte existante** : les deux voies restent valides en permanence, un joueur expérimenté peut continuer à taper `!attaque` directement. Le contenu d'un menu est **toujours** calculé par L1 à partir de l'état réel (sorts connus, inventaire, stock, zones adjacentes, quêtes) — jamais généré ou choisi par un LLM (cohérent D-DET-1 frontière déterministe, D-RAG-8 anti-hallucination : un LLM qui invente une option ferait exécuter une action invalide). `SYS_MENU_RENDER` est une primitive de **lecture/formatage**, explicitement hors du contrat `SYS_*` en 6 étapes de D-DET-2 (réservé aux mutations d'état) — distinction documentée pour éviter qu'un futur développeur n'alourdisse inutilement une primitive de présentation avec un contrat de transaction.
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 54.1 | ➕ Créé — protocole maître du mécanisme (concept, algorithme de résolution, TTL par contexte, gabarits combat/dialogue/boutique/mouvement/quêtes, risques assumés) | `données/the_seed_engine/system_mechanics/menu_contextuel_protocol.md` |
+| 54.2 | ➕ Créé — table `T_PENDING_MENUS` (état éphémère, clé primaire = avatar, remplacement jamais empilement) | `données/cardinal_system_db/MLD_Logic/table_t_pending_menus.md` |
+| 54.3 | ✏️ Modifié — `!sys_menu_force` ajouté §1, `!menu` ajouté §2 | `données/the_seed_engine/whatsapp_commands_list.md` |
+| 54.4 | ✏️ Modifié — `SYS_MENU_RENDER` ajouté §6 | `données/the_seed_engine/ai_orchestrator_commands.md` |
+| 54.5 | ✏️ Modifié — « étage 0 » ajouté au dispatcher, avant la classification d'intention | `directives_generation/18_cdc_orchestration_runtime.md` |
+| 54.6 | ✏️ Modifié — étape 0 ajoutée au pipeline d'exécution décrit | `README.md` |
+| 54.7 | ✏️ Modifié — **D83** ajoutée au tableau des décisions, prochain numéro libre → D84 | `cahier_des_charges.md` |
+| 54.8 | ✏️ Modifié — **D83** ajoutée, prochain numéro libre → D84 | `registre_decisions.md` |
+| 54.9 | ✏️ Modifié — ligne « Dernière mise à jour » (étape 54), documents maîtres, compte de tables MLD (23→24), « Point ouvert » (refonte §21 reportée), « Prochaine étape » | `alo_context.md` |
+| 54.10 | 🔧 Corrigé — bug de fusion trouvé en éditant : le texte de l'ancienne étape 52 était resté accroché à la fin du paragraphe étape 53 (créé par erreur à l'étape 53 précédente) ; scindé en deux entrées `Historique proche` distinctes | `alo_context.md` |
+| 54.11 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### Décisions actées
+
+- **D83** : menu contextuel numéroté — couche de présentation déterministe pré-NLU, résolution par citation ou chiffre nu (TTL par contexte), coexistence totale avec les commandes texte existantes, contenu toujours calculé par L1.
+
+### État de sortie
+
+Levier 1 du diagnostic UX étape 54 **livré** (spec + table + commandes + amendement pipeline). Levier 2 (refonte §21) **volontairement non traité** cette étape, documenté en Point ouvert pour reprise sur demande PE. Aucune commande existante retirée, aucun fichier `bot/` touché (D-P3-1) — l'implémentation réelle du dispatcher/de `T_PENDING_MENUS` reste au PE.
+
+---
+
 ## ÉTAPE 53 (suite) — Versionnage du projet : `CHANGELOG.md` ✅ (2026-09-17)
 
 **Objectif** : demande PE explicite de reprise — se servir des fichiers de contexte (`alo_progression.md`, `alo_context.md`, `registre_decisions.md`) et de l'historique de commits git réel pour produire un changelog versionné du projet.

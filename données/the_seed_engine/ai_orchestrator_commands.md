@@ -59,6 +59,7 @@
 - `SYS_OVERRIDE_BGM(Track_Name)` : (Narration) Le bot précise au joueur que la musique du monde virtuel vient de changer (ex: *BGM: Boss Theme*).
 - `SYS_PAUSE_INSTANCE(Combat_ID)` : L'IA gèle le timer d'un combat asynchrone si une maintenance ou une vérification est requise.
 - `SYS_RAG_REINDEX(scope)` : Force la ré-indexation incrémentale par hash de l'index vectoriel RAG (`scope` = `fiche`/`dossier`/`global` ; D-RAG-9, `15_cdc_rag.md`) — permet à une fiche modifiée de remonter à jour dans la constellation sans réentraînement complet. Respecte le verrou d'ingestion K3/méta/secret (D-RAG-2/D22) : les sections exclues à l'ingestion le restent après réindexation. Équivalent GM : `!sys_rag_reindex`.
+- `SYS_MENU_RENDER(Avatar_ID, Context_Type, Context_Ref)` : Primitive de **lecture/formatage** (D83, `system_mechanics/menu_contextuel_protocol.md`) — calcule et attache le bloc de menu contextuel numéroté (1-8 options + `9` aide) à une réponse du bot, à partir de l'état réel de l'avatar (sorts connus, inventaire, stock boutique, zones adjacentes, quêtes du board). Jamais appelée par le LLM pour choisir les options — toujours L1. Ne suit **pas** le contrat `SYS_*` en 6 étapes de D-DET-2 (réservé aux mutations d'état) : cette primitive ne modifie rien. Équivalent GM : `!sys_menu_force`.
 
 ## 7. 🏰 Grand Quests & Événements Mondiaux
 - `SYS_TRIGGER_GRAND_QUEST(Quest_Type, Quest_JSON)` : L'IA déclenche une Grand Quest serveur-wide (Excalibur, World Tree, Purge).

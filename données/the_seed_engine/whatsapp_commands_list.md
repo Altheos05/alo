@@ -27,6 +27,7 @@
 - `!sys_open_corridor [Zone_A] [Zone_B]` : Ouvre manuellement un portail bidirectionnel entre deux zones (équivalent GM du Cristal de Corridor `CSM_CRI_006`). Équivalent IA : `SYS_OPEN_CORRIDOR`. Les joueurs le franchissent par `!enter_portal`.
 - `!sys_recall_party [Party_ID] [Ancre_Avatar_ID]` : Rappelle les membres consentants d'un groupe vers une ancre (équivalent GM du Cristal de Ralliement `CSM_CRI_010`). Équivalent IA : `SYS_GROUP_RECALL`. Chaque membre confirme par `!accept_rally`.
 - `!sys_rag_reindex [scope]` : Force la ré-indexation incrémentale par hash de l'index vectoriel RAG (`scope` = `fiche`/`dossier`/`global` ; D-RAG-9, `15_cdc_rag.md`) — une fiche modifiée doit remonter à jour dans la constellation sans réentraînement. Respecte le verrou d'ingestion K3/méta/secret (D-RAG-2/D22). Équivalent IA : `SYS_RAG_REINDEX`.
+- `!sys_menu_force [Avatar] [Contexte]` : Force l'affichage d'un menu contextuel de test pour un avatar (debug/support — D83, `system_mechanics/menu_contextuel_protocol.md`), même hors situation de jeu réelle. Équivalent IA : `SYS_MENU_RENDER`.
 
 ## 2. 📚 Encyclopédie & Index Système (Guide d'Argo)
 *Le savoir est verrouillé. Les joueurs débloquent la documentation en explorant.*
@@ -35,6 +36,7 @@
 - `!encyclopedia` : Liste les pages de Lore débloquées par l'exploration du joueur.
 - `!wiki [Nom_Monstre_ou_Lieu]` : Affiche la fiche Fandom détaillée (Stats, Faiblesses). *Requiert que le joueur ait vaincu le monstre au moins une fois ou exploré la zone (Discovery Level).*
 - `!lore [Titre]` : Affiche un document d'histoire ancienne (ex: *La Chute de Jötunheimr*) trouvé en loot.
+- `!menu` : Réaffiche le dernier menu contextuel numéroté actif (s'il n'a pas expiré) — cf. `system_mechanics/menu_contextuel_protocol.md` (D83). Après un tour de combat, une ouverture de dialogue, une boutique, une arrivée en zone ou un tableau de quêtes, le bot propose déjà 1-8 actions numérotées (+ `9` aide contextuelle) : répondre par un chiffre (ou en citant le message) équivaut à taper la commande complète, sans jamais retirer la commande texte.
 
 ## 3. 🚪 Mouvement Dynamique & Architecture des Groupes WhatsApp
 *Se déplacer dans ALO met à jour la zone du joueur (état L1 `current_zone_id`) ; le changement de groupe WhatsApp n'a lieu qu'au franchissement d'une frontière de **territoire** (13 territoires — atlas §2-bis, D76).*

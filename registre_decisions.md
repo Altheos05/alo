@@ -1,6 +1,6 @@
 # 📜 Registre des Décisions — Projet ALO
 
-> **Règle d'usage (obligatoire)** : avant d'allouer un nouveau numéro `D<nn>` ou un nouveau préfixe `D-<SLUG>-<n>`, consulter ce fichier en premier — il remplace le grep manuel dans tout le projet. Prochain numéro simple libre : **D83**. Ce registre couvre le dépôt git (`données/`, `directives_generation/`, `cahier_des_charges.md`, `alo_context.md`, `alo_progression.md`). Il ne couvre **pas** `directives_generiques/` (kit générique du PE, non versionné, espace de nommage volontairement distinct — voir §4).
+> **Règle d'usage (obligatoire)** : avant d'allouer un nouveau numéro `D<nn>` ou un nouveau préfixe `D-<SLUG>-<n>`, consulter ce fichier en premier — il remplace le grep manuel dans tout le projet. Prochain numéro simple libre : **D84**. Ce registre couvre le dépôt git (`données/`, `directives_generation/`, `cahier_des_charges.md`, `alo_context.md`, `alo_progression.md`). Il ne couvre **pas** `directives_generiques/` (kit générique du PE, non versionné, espace de nommage volontairement distinct — voir §4).
 >
 > Constitué le 2026-09-17 (étape 53, session de reprise) par inventaire exhaustif (agent Explore, lecture intégrale des 24 CDC `directives_generation/`, de `alo_progression.md`, `cahier_des_charges.md`, `alo_context.md`, `README.md`, des fiches de données référençant une décision). Deux anomalies réelles trouvées ont été corrigées dans la foulée (§3) ; le reste est classé par ordre croissant, avec statut et sources.
 
@@ -94,6 +94,7 @@
 | D80 | Corridor Souterrain de Lugru formalisé dans l'atlas (`ZONE_ROUTE_LUGRU`) + trigger L4 découplé (`link_type='FLY'`, pas `Type=ROUTE`) | 53 | ✅ | `cahier_des_charges.md` §7, atlas, `table_t_zone_links.md` |
 | D81 | *(ex-D45, renuméroté étape 53)* Barème QI Archipel | 11 | ✅ | `alo_progression.md` |
 | D82 | *(ex-D46, renuméroté étape 53)* Fils rouges Undine | 11 | ✅ | idem |
+| D83 | Menu contextuel numéroté (couche déterministe, pré-NLU) : 1-8 options résolues par L1 + `9` aide universelle ; résolution par citation du message-menu ou chiffre nu avec TTL par contexte ; ne retire aucune commande texte existante | 54 | ✅ | `system_mechanics/menu_contextuel_protocol.md` |
 
 ---
 
@@ -141,4 +142,4 @@ Ce dossier est un **kit méthodologique générique** extrait par le PE (réutil
 
 ## 5. Prochain numéro libre
 
-**D83** (simple). Pour les préfixes `D-<SLUG>`, vérifier la plage déjà consommée en §2 avant d'ajouter — chaque famille est contiguë et complète, pas de trou à combler.
+**D84** (simple). Pour les préfixes `D-<SLUG>`, vérifier la plage déjà consommée en §2 avant d'ajouter — chaque famille est contiguë et complète, pas de trou à combler.

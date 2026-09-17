@@ -122,22 +122,23 @@ Chaque ville couvre les 6 catégories (1 emploi/catégorie), avec ancrage racial
 |---|---:|---|
 | `npc` | 47 | Employeur PNJ vérifié (dossier `pnj/<ville>/`) |
 | `city` | 17 | Gardes municipaux, temple, voirie, guides, maison d'hôtes |
-| `guild` | 2 | `JOB_LOG_012`, `JOB_LOG_013` (voir `[BESOIN_GUILD]`) |
+| `guild` | 2 | `JOB_LOG_012`, `JOB_LOG_013` — référencent une guilde de métier lore (`table_t_guilds.md` §5), pas une ligne `T_GUILDS` |
 | `property` | 0 | **Non utilisé** — auberge exploitable joueur = BACKLOG (CDC §4) |
 
 ---
 
-## 4. `[BESOIN_*]` relevés — à réconcilier par l'orchestrateur
+## 4. `[BESOIN_*]` relevés — **tous résolus** (session de reprise post-étape 52)
 
-### `[BESOIN_NPC]` — employeur PNJ manquant
-- **`JOB_HOS_012` (Brokkheim)** : `[BESOIN_NPC: aubergiste/tavernier dédié Brokkheim]`. Aucune auberge/taverne dans `pnj/brokkheim/`. Rattaché provisoirement au `NPC_BRO_20` (Concierge de la Forge-Mère, dortoir). → créer un PNJ aubergiste Brokkheim ou entériner le dortoir.
-- **`JOB_HOS_013` (Penwether)** : `[BESOIN_NPC: aubergiste/tavernier dédié Penwether]`. Aucune auberge/taverne dans `pnj/penwether/`. Rattaché à `employer_type='city'` (maison d'hôtes municipale). → créer un PNJ aubergiste Penwether.
+### `[BESOIN_NPC]` — employeur PNJ manquant → entériné, pas de PNJ créé
+- **`JOB_HOS_012` (Brokkheim)** : le dortoir de la Forge-Mère (`NPC_BRO_20`, concierge) est la solution **définitive**, pas un pis-aller — cohérent avec la culture leprechaun d'hébergement collectif d'atelier. Aucun nouveau PNJ créé (le roster Brokkheim reste 100/100, D17).
+- **`JOB_HOS_013` (Penwether)** : la maison d'hôtes municipale (`employer_type='city'`) est la solution **définitive** — un aubergiste nommé et récurrent contredirait l'étiquette du Voile (anonymat). Aucun nouveau PNJ créé (roster Penwether 100/100, D17).
 
-### `[BESOIN_GUILD]` — guilde employeur non instanciée
-- **`JOB_LOG_012` (Brokkheim)** : `[BESOIN_GUILD: Guilde des Forges de Brokkheim]` — `employer_ref` guild_uuid à instancier dans `T_GUILDS` (aucun ID inventé).
-- **`JOB_LOG_013` (Penwether)** : `[BESOIN_GUILD: Guilde des Chercheurs de Trésors de Penwether]` — idem.
+### `[BESOIN_GUILD]` — guilde employeur non instanciée → résolu par un registre de guildes de métier
+- **`JOB_LOG_012` (Brokkheim)** → `GUILDE_LEP_FORGES`.
+- **`JOB_LOG_013` (Penwether)** → `GUILDE_SPR_TRESORS`.
+- **`JOB_LOG_002` (seed, Caravanier)** → `GUILDE_CARAVANIERS`.
 
-> Rappel cohérent avec le seed `JOB_LOG_002` (Caravanier, `employer_type='guild'`) qui reste lui aussi sans guild_uuid concret tant que `T_GUILDS` n'est pas peuplée (lot guildes G5).
+Constat structurel qui a débloqué le point : `T_GUILDS` exige `leader_avatar_uuid NOT NULL` (un fondateur **joueur**) — une guilde de métier PNJ ne peut donc jamais y avoir de ligne légitime sans inventer un faux avatar. Les 3 emplois référencent désormais un identifiant de guilde de métier stable, documenté dans `table_t_guilds.md` §5 (registre séparé, hors `T_GUILDS`) — zéro `guild_uuid` fabriqué, zéro ligne `T_GUILDS` polluée par une entrée non-joueur. `T_GUILDS` elle-même reste vide tant qu'aucun joueur n'a fondé de guilde (comportement normal, pas un manque de peuplement).
 
 ### `[BESOIN_RECONCILIATION]` — fichiers maîtres non touchés (attendu par D37)
 1. **`table_t_jobs.md`** : ajouter les 66 lignes ci-dessus au dictionnaire `T_JOBS_DICT` (le §2 du fichier maître n'accueille pour l'instant que les 12 archétypes seed). Aucune collision d'ID (les seed s'arrêtent à `_002` par catégorie ; ce lot démarre à `_003`).

@@ -12,7 +12,7 @@ CREATE TABLE T_JOBS_DICT (
                             CHECK (job_category IN ('hospitality','crafting','guard','logistics','commerce','service')),
     employer_type       VARCHAR(10) NOT NULL
                             CHECK (employer_type IN ('npc','property','guild','city')),
-    employer_ref        VARCHAR(50),                 -- NPC_ID / property_uuid / guild_uuid / zone_id selon employer_type
+    employer_ref        VARCHAR(50),                 -- NPC_ID / property_uuid / ID guilde de métier (lore, PAS un guild_uuid T_GUILDS) / zone_id selon employer_type
     zone_id             VARCHAR(50) REFERENCES T_ZONES(zone_id),
     required_level      INT NOT NULL DEFAULT 1,
     wage_yrds_shift     INT NOT NULL DEFAULT 0,       -- salaire par service accompli
@@ -40,7 +40,7 @@ CREATE TABLE T_AVATAR_JOB (
 
 ## 2. Dictionnaire d'archétypes (seed structurel — dictionnaire complet délégué)
 
-> **Dictionnaire complet livré (lot SOC-1, étape 43)** : **66 emplois** (11 par catégorie × 6 catégories, ≥ 5 par capitale × 11 villes, ancrage racial), numérotés `_003`→`_013` par catégorie à la suite des seed ci-dessous (aucune collision). Source de vérité des fiches : `données/game_design/emplois/` + `_index_emplois.md`. Les 12 lignes ci-dessous restent les **archétypes de référence** ; `[BESOIN_*]` du lot arbitrés à l'étape 43 (2 aubergistes dédiés Brokkheim/Penwether rattachés provisoirement npc/city, 2 employeurs `guild` sans `guild_uuid` en attente de peuplement de `T_GUILDS` — même statut que le seed `JOB_LOG_002`).
+> **Dictionnaire complet livré (lot SOC-1, étape 43)** : **66 emplois** (11 par catégorie × 6 catégories, ≥ 5 par capitale × 11 villes, ancrage racial), numérotés `_003`→`_013` par catégorie à la suite des seed ci-dessous (aucune collision). Source de vérité des fiches : `données/game_design/emplois/` + `_index_emplois.md`. Les 12 lignes ci-dessous restent les **archétypes de référence**. `[BESOIN_*]` du lot — **résolus** (session de reprise post-étape 52) : les 2 aubergistes Brokkheim/Penwether sont entérinés `npc`/`city` (dortoir de la Forge-Mère, maison d'hôtes municipale — choix thématique définitif, pas un pis-aller) ; les 3 employeurs `employer_type='guild'` (`JOB_LOG_002/012/013`) référencent désormais un ID de **guilde de métier** stable (`table_t_guilds.md` §5) — jamais un `guild_uuid` de `T_GUILDS`, réservée aux guildes de joueurs (précision de portée ajoutée en tête de `table_t_guilds.md`).
 
 
 | `job_id` | Titre | Catégorie | Employeur | Niv. min | Salaire/service | Réputation |

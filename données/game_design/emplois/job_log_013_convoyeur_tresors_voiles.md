@@ -4,7 +4,7 @@
 - **JOB_ID** : `JOB_LOG_013`
 - **Titre** : Convoyeur de trésors voilés
 - **Catégorie** : logistics
-- **Employeur** : `guild` → `[BESOIN_GUILD: Guilde des Chercheurs de Trésors de Penwether]`
+- **Employeur** : `guild` → `GUILDE_SPR_TRESORS` (Guilde des Chercheurs de Trésors de Penwether — guilde de métier, lore ; cf. `table_t_guilds.md` §5, distincte de `T_GUILDS`)
 - **Zone** : Penwether (`ZONE_SPR_CAP_001`)
 
 ## Paramètres

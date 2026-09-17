@@ -4,7 +4,7 @@
 - **JOB_ID** : `JOB_LOG_012`
 - **Titre** : Convoyeur de lingots
 - **Catégorie** : logistics
-- **Employeur** : `guild` → `[BESOIN_GUILD: Guilde des Forges de Brokkheim]` (convois de métal précieux)
+- **Employeur** : `guild` → `GUILDE_LEP_FORGES` (Guilde des Forges de Brokkheim — guilde de métier, lore ; cf. `table_t_guilds.md` §5, distincte de `T_GUILDS`)
 - **Zone** : Brokkheim (`ZONE_LEP_CAP_001`)
 
 ## Paramètres

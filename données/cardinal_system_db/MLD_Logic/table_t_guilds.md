@@ -1,5 +1,7 @@
 # Table MLD : T_GUILDS
 
+> **Périmètre** : `T_GUILDS` modélise exclusivement les **guildes de joueurs** — dynamiques, fondées via `!guild_create` par un avatar (`leader_avatar_uuid NOT NULL`), avec trésorerie/QG/recrutement. Les emplois `T_JOBS_DICT.employer_type='guild'` référencent des **guildes de métier** (factions de lore statiques : Forges de Brokkheim, Chercheurs de Trésors de Penwether, Caravaniers) — ce ne sont **jamais** des lignes `T_GUILDS` (elles n'ont pas de fondateur-joueur). Registre de ces guildes de métier : §5.
+
 ## 1. Structure SQL
 
 ```sql
@@ -74,3 +76,15 @@ CREATE INDEX idx_guild_members_avatar ON T_GUILD_MEMBERS(avatar_uuid);
 | Coffre | `!guild_deposit [Montant]`, `!guild_withdraw [Montant]` | — | `SYS_GUILD_TRANSFER` |
 | Taxe | `!guild_tax [%]` (leader only) | — | `SYS_GUILD_SET_TAX` |
 | QG | `!guild_upgrade` | — | `SYS_GUILD_UPGRADE` |
+
+## 5. Guildes de métier (lore, hors `T_GUILDS`) — peuplement backlog résolu
+
+Factions statiques référencées par `T_JOBS_DICT.employer_ref` quand `employer_type='guild'`. Aucun `guild_uuid` : identifiant textuel stable, pas de trésorerie/QG/membership joueur — ce sont des employeurs de lore, pas des guildes jouables.
+
+| ID lore | Nom | Ancrage | Rôle | Emplois |
+|---|---|---|---|---|
+| `GUILDE_LEP_FORGES` | Guilde des Forges de Brokkheim | Brokkheim (`ZONE_LEP_CAP_001`) | Corporation leprechaun du travail des métaux précieux ; exporte lingots de mithril/orichalque vers les autres capitales sous escorte | `JOB_LOG_012` |
+| `GUILDE_SPR_TRESORS` | Guilde des Chercheurs de Trésors de Penwether | Penwether (`ZONE_SPR_CAP_001`) | Corporation spriggan des fouilleurs de ruines ; achemine ses trouvailles sous illusion pour déjouer les pilleurs | `JOB_LOG_013` |
+| `GUILDE_CARAVANIERS` | Guilde des Caravaniers d'Alfheim | Neutre / inter-cités (aucune capitale d'attache) | Corporation de transporteurs opérant sur l'ensemble des routes terrestres et aériennes ; archétype seed sans zone fixe | `JOB_LOG_002` |
+
+Ce registre clôt les trois `[BESOIN_GUILD]` relevés dans `_index_emplois.md` (étape 43) : les emplois `guild` référencent désormais un ID lore stable au lieu d'un `guild_uuid` en attente.

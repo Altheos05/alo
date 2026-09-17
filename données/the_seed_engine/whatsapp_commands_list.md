@@ -26,6 +26,7 @@
 - `!sys_shop_restock [SHOP_ID]` : Force le réassort d'une boutique (réécrit `T_SHOP_ITEMS.stock` selon `T_SHOPS.restock_days`). Employé par les fiches boutiques C-1+. Équivalent IA : `SYS_SHOP_RESTOCK`.
 - `!sys_open_corridor [Zone_A] [Zone_B]` : Ouvre manuellement un portail bidirectionnel entre deux zones (équivalent GM du Cristal de Corridor `CSM_CRI_006`). Équivalent IA : `SYS_OPEN_CORRIDOR`. Les joueurs le franchissent par `!enter_portal`.
 - `!sys_recall_party [Party_ID] [Ancre_Avatar_ID]` : Rappelle les membres consentants d'un groupe vers une ancre (équivalent GM du Cristal de Ralliement `CSM_CRI_010`). Équivalent IA : `SYS_GROUP_RECALL`. Chaque membre confirme par `!accept_rally`.
+- `!sys_rag_reindex [scope]` : Force la ré-indexation incrémentale par hash de l'index vectoriel RAG (`scope` = `fiche`/`dossier`/`global` ; D-RAG-9, `15_cdc_rag.md`) — une fiche modifiée doit remonter à jour dans la constellation sans réentraînement. Respecte le verrou d'ingestion K3/méta/secret (D-RAG-2/D22). Équivalent IA : `SYS_RAG_REINDEX`.
 
 ## 2. 📚 Encyclopédie & Index Système (Guide d'Argo)
 *Le savoir est verrouillé. Les joueurs débloquent la documentation en explorant.*

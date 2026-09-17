@@ -6,7 +6,7 @@
 - **Catégorie** : hospitality
 - **Employeur** : `city` → `ZONE_SPR_CAP_001` (Maison d'hôtes municipale de Penwether)
 - **Zone** : Penwether (`ZONE_SPR_CAP_001`)
-- **Note** : `[BESOIN_NPC: aubergiste/tavernier dédié Penwether]` — aucune auberge PNJ listée à Penwether ; le service s'exerce à la maison d'hôtes de la ville en attendant.
+- **Note** : entériné (session de reprise post-étape 52) — Penwether n'aura pas d'aubergiste PNJ nommé : la maison d'hôtes municipale (`employer_type='city'`) est la solution définitive. Cohérent avec la culture spriggan du Voile (anonymat de rigueur) — un hôte identifié et récurrent contredirait l'étiquette qui interdit de reconnaître un client démasqué.
 
 ## Paramètres
 - **Niveau requis** : 8

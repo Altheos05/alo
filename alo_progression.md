@@ -369,56 +369,8 @@ Lot 2.9 **CLOS** : `pnj/duskarn/` = **100 fichiers, séquence 00-99 complète, q
 
 ### Décisions actées
 
-- **D45** : Barème QI appliqué à l'Archipel — **budget 12** hubs (`00` Goutte, `01` Thalassa, `08` Nerio, `09` Amiral, `99` Mémoire) ; **budget 10** autres.
-- **D46** : Fils rouges Undine — (1) 🌊 Les Eaux Qui Mentent, (2) 🧪 La Recette Corrompue, (3) 🐚 L'Appel des Abysses, (4) 🩸 Les Cendres de Voulg, (5) 🏛️ L'Académie Sans Nom, (6) 🔮 Fil méta — Le Souffle du Monde.
-- **D47** : Verrou fil méta Undine (régulation hydrique du serveur) réservé aux PNJ 00, 99, 98, 08 ; règle D22.
-
-### État de sortie
-
-Lot 2.7 **CLOS** : `pnj/archipel/` = **100 fichiers, séquence 00-99 complète, quotas D34 respectés**. Liens Zarn/Nerio activés. Prochaine étape = **Lot 2.8 Lioda** (Puca).
-
----
-
-## ÉTAPE 12 — Lot 2.8 PNJ Lioda : roster + 100 fiches ✅ CLOS (2026-07-08)
-
-**Objectif** : produire le roster `NPC_LIO_00-99` et les 100 fiches au gabarit D17 pour la capitale Puca (`ZONE_PUC_CAP_001`), avec émoji 🎭, différenciateur « cité-amphithéâtre instrumentale, magie de musique, Harmonie de Fond cardinal », 6 fils rouges distincts.
-
-### Modifications
-
-| # | Action | Fichier(s) |
-|---|---|---|
-| 12.1 | ➕ Créé — **Roster LIO 00-99** dans `_index_pnj.md` + en-tête (différenciateur, sous-lieux, 6 fils rouges Puca, lien Luthien `NPC_SWI_06` activé). Notables `01-07` refichés D17 depuis `capitale_lioda.md` (Cordelia, Viel, Polka, Fitz, Séléna, Tam, Seigneur Silencieux). | `_index_pnj.md` |
-| 12.2 | ➕ Créé — **100 fiches PNJ de Lioda** `npc_lio_00-99_*.md`, gabarit D17 (5 sections, émoji 🎭, budget 12 pour hubs 00/01/07/08/09/99 → 3/3/3/2/1). Seigneur Silencieux en `07`. 6 fils rouges distribués. Lien Swilvane honoré : Luthien `NPC_SWI_06` via LIO_56/LIO_88/LIO_90/LIO_94. | `pnj/lioda/` (100 fichiers) |
-| 12.3 | ✏️ Modifié — Compteurs d'état (100/100, lot 2.8 ✅) et bascule → Lot 2.9 Duskarn. | `_index_pnj.md`, `alo_context.md` |
-
-### Décisions actées
-
-- **D48** : Barème QI appliqué à Lioda — **budget 12** hubs (`00` Note, `01` Cordelia, `07` Seigneur, `08` Chancelier, `09` Capitaine, `99` Mémoire) ; **budget 10** autres. is_essential VRAI pour 00/07/08 (hubs méta/gouvernance).
-- **D49** : Fils rouges Puca — (1) 🎵 La Partition Qui Marche Seule, (2) 🎭 Le Masque Qui Oublie, (3) 🎶 Le Refrain de l'Ombre, (4) 🔇 Le Silence Interdit, (5) ⚔️ L'Espionne aux Cordes, (6) 🔮 Fil méta — La Partition Originelle.
-- **D50** : Verrou fil méta Lioda (Partition Originelle = fréquence de compilation du monde) réservé aux PNJ 00, 07, 99, 98, 05 ; règle D22.
-
-### État de sortie
-
-Lot 2.8 **CLOS** : `pnj/lioda/` = **100 fichiers, séquence 00-99 complète, quotas D34 respectés** (SERVICE 48, GUARD 12, MERCHANT 21, QUEST_GIVER 9, SKILL_MASTER 6, LORD 2, BLACK_MARKET 2). Lien Luthien activé. Prochaine étape = **Lot 2.9 Duskarn** (Imp).
-
----
-
-## ÉTAPE 11 — Lot 2.7 PNJ Archipel d'Écume : roster + 100 fiches ✅ CLOS (2026-07-08)
-
-**Objectif** : produire le roster `NPC_UND_00-99` et les 100 fiches au gabarit D17 pour la capitale Undine (`ZONE_UND_CAP_001`), avec émoji 🌊, différenciateur « cité lacustre flottante, capitale de la guérison, donjon sous-marin T5 », 6 fils rouges distincts.
-
-### Modifications
-
-| # | Action | Fichier(s) |
-|---|---|---|
-| 11.1 | ➕ Créé — **Roster UND 00-99** (table NN/Nom/Rôle/Sous-lieu/`role_type`/Angle) dans `_index_pnj.md` + en-tête (différenciateur, sous-lieux, 6 fils rouges Undine, liens Zarn `NPC_GAT_60` + Nerio `NPC_ALN_92`/`NPC_SWI_92` activés). Notables `01-07` refichés D17 depuis `archipel_territoire_undine.md` (Thalassa, Rurik, Nérée, Kryx, Sirena, Finbar, Coralia). Maëlle `10` / Morgane `11` repris des actes étapes 3. | `_index_pnj.md` |
-| 11.2 | ➕ Créé — **100 fiches PNJ de l'Archipel** `npc_und_00-99_*.md`, gabarit D17 (5 sections, émoji 🌊, QI 3/3/2/1/1 ; budget 12 pour hubs 00/01/08/09/99 → 3/3/3/2/1). Nerio en `08` (Lord canon). 6 fils rouges distribués. Liens inter-cités honorés : Zarn `NPC_GAT_60` (via UND_90), Nerio `NPC_ALN_92`/`NPC_SWI_92` (via UND_92). | `pnj/archipel/` (100 fichiers) |
-| 11.3 | ✏️ Modifié — Compteurs d'état (100/100, lot 2.7 ✅), quotas D34 : SERVICE 48 / GUARD 12 / MERCHANT 22 / QUEST_GIVER 10 / SKILL_MASTER 5 / LORD 1 / BLACK_MARKET 2 (3 SERVICE réclassés QUEST_GIVER pour respecter le plafond 48). Bascule « Prochaine étape » → Lot 2.8 Lioda. | `_index_pnj.md`, `alo_context.md` |
-
-### Décisions actées
-
-- **D45** : Barème QI appliqué à l'Archipel — **budget 12** hubs (`00` Goutte, `01` Thalassa, `08` Nerio, `09` Amiral, `99` Mémoire) ; **budget 10** autres.
-- **D46** : Fils rouges Undine — (1) 🌊 Les Eaux Qui Mentent, (2) 🧪 La Recette Corrompue, (3) 🐚 L'Appel des Abysses, (4) 🩸 Les Cendres de Voulg, (5) 🏛️ L'Académie Sans Nom, (6) 🔮 Fil méta — Le Souffle du Monde.
+- **D81** *(renuméroté depuis D45, collision avec le D45 « système de port » de l'étape 10-quinquies — cf. registre des décisions)* : Barème QI appliqué à l'Archipel — **budget 12** hubs (`00` Goutte, `01` Thalassa, `08` Nerio, `09` Amiral, `99` Mémoire) ; **budget 10** autres.
+- **D82** *(renuméroté depuis D46, collision avec le D46 « tenue par défaut » de l'étape 10-quinquies — cf. registre des décisions)* : Fils rouges Undine — (1) 🌊 Les Eaux Qui Mentent, (2) 🧪 La Recette Corrompue, (3) 🐚 L'Appel des Abysses, (4) 🩸 Les Cendres de Voulg, (5) 🏛️ L'Académie Sans Nom, (6) 🔮 Fil méta — Le Souffle du Monde.
 - **D47** : Verrou fil méta Undine (régulation hydrique du serveur) réservé aux PNJ 00, 99, 98, 08 ; règle D22.
 
 ### État de sortie
@@ -1670,3 +1622,73 @@ Vérifié par exécution (31/31 ✅) : **nR14-b CLOS** (`parsePipeTableStats()` 
 ### État de sortie
 
 **Le chantier ouvert par l'étude 23 (D77/D78/D79) est désormais entièrement clos** : rareté découplée du tier (créations futures), récolte par partie sur les 16 boss nommés (territoriaux + axe vertical), variants sur les mobs communs — **aucun arbitrage PE en attente sur ce sujet**. Aucune ROM ni donnée propriétaire d'un jeu commercial utilisée à aucune étape (49-52). Bestiaire (256 fiches, étape 36) et `T_SPAWN_TABLES` (budget de zone) intacts.
+
+---
+
+## ÉTAPE 53 — Backlog documentaire mineur clos + D80 ✅ (2026-09-17)
+
+**Objectif** : reprise de session sur demande PE explicite (« remettre le projet à l'ordre du jour »). Deux fronts choisis : (1) nettoyage du registre de décisions D1-D79 (skill `domain-modeling`, inventaire par agent Explore — livrable séparé, cf. entrée suivante à son atterrissage) ; (2) fronts (b) du point « Prochaine étape » d'`alo_context.md` — backlog documentaire mineur.
+
+**Constat de départ** : sur les 4 points listés « à arbitrer PE », un seul (accessoires, D39) était en réalité déjà tranché — `05_cdc_accessoires.md` avait acté le gel et l'archivage dès l'étape 10-quater, mais l'action d'archivage n'avait jamais été exécutée (les 14 fiches étaient toujours en place, `cahier_des_charges.md` §10 le documentait explicitement comme « statu quo assumé »). Les 3 autres (taverniers, guildes, corridor) étaient de vrais points ouverts.
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 53.1 | 🗄️ Archivé — exécution de la conséquence 2 déjà actée (jamais faite) : 14 fiches accessoires → `deprecated_v1/` | `ressources_brutes/deprecated_v1/accessoires/{anneaux,ceintures,colliers,capes}/` (depuis `données/items_equipements/accessoires/`) |
+| 53.2 | ✏️ Modifié — statut passé de « ⏳ à arbitrer » à « ✅ clos » (accessoires) + note taverniers/guildes/T_GUILDS mise à jour | `cahier_des_charges.md` |
+| 53.3 | ✏️ Modifié — conséquence 2 marquée faite | `directives_generation/05_cdc_accessoires.md` |
+| 53.4 | ✏️ Modifié — `[BESOIN_NPC]` JOB_HOS_012/013 entérinés (dortoir Forge-Mère / maison d'hôtes municipale = solutions définitives, pas de PNJ créé) | `données/game_design/emplois/job_hos_012_intendant_dortoir_forge_mere.md`, `job_hos_013_hote_maison_masques.md` |
+| 53.5 | ✏️ Modifié — `[BESOIN_GUILD]` JOB_LOG_002/012/013 résolus par référence à un registre de guildes de métier hors `T_GUILDS` | `données/game_design/emplois/job_log_012_convoyeur_lingots.md`, `job_log_013_convoyeur_tresors_voiles.md` |
+| 53.6 | ✏️ Modifié — §5 « Guildes de métier (lore) » créée (`GUILDE_LEP_FORGES`, `GUILDE_SPR_TRESORS`, `GUILDE_CARAVANIERS`) + note de portée en tête (T_GUILDS = guildes de joueurs exclusivement) | `données/cardinal_system_db/MLD_Logic/table_t_guilds.md` |
+| 53.7 | ✏️ Modifié — commentaire `employer_ref` clarifié + note dictionnaire (BESOIN_* résolus) | `données/cardinal_system_db/MLD_Logic/table_t_jobs.md` |
+| 53.8 | ✏️ Modifié — §4 réécrite, `[BESOIN_NPC]`/`[BESOIN_GUILD]` clos, table de répartition employeur mise à jour | `données/game_design/emplois/_index_emplois.md` |
+| 53.9 | ✏️ Modifié — `!sys_rag_reindex [scope]` ajouté §1 (D-RAG-9) | `données/the_seed_engine/whatsapp_commands_list.md` |
+| 53.10 | ✏️ Modifié — `SYS_RAG_REINDEX(scope)` ajouté §6 | `données/the_seed_engine/ai_orchestrator_commands.md` |
+| 53.11 | ✏️ Modifié — §14 : `[BESOIN_COMMANDE]` levé, propagation actée (P3 ouvert depuis l'étape 44, réserve caduque) | `directives_generation/15_cdc_rag.md` |
+| 53.12 | ✏️ Modifié — `ZONE_ROUTE_LUGRU` ajouté au registre §4.2 (Sylph) + liaison `NEU_CAP_001` §4.11 (D80) | `données/cartographie/atlas_monde_liaisons.md` |
+| 53.13 | ✏️ Modifié — trigger L4 reformulé (`link_type='FLY'` au lieu de `Type=ROUTE`) | `données/cardinal_system_db/MLD_Logic/table_t_zone_links.md` |
+| 53.14 | ✏️ Modifié — **D80** ajoutée au tableau des décisions | `cahier_des_charges.md` |
+| 53.15 | ✏️ Modifié — ligne « Dernière mise à jour », « Point ouvert » vidé, « Prochaine étape » (b) marquée close, entrée ajoutée à « Documents maîtres » | `alo_context.md` |
+| 53.16 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+| 53.17 | ➕ Créé — **registre unique des décisions D1-D82 + D-SLUG-N** (front 2 de la session, skill `domain-modeling`, inventaire par agent Explore sur l'ensemble du dépôt + `directives_generiques/` non versionné) | `registre_decisions.md` |
+| 53.18 | ✏️ Modifié — collision D45/D46 résolue (renumérotés **D81**/**D82**, le couple « port/tenue » opérationnellement enraciné fait autorité sur les numéros d'origine) ; blocs « ÉTAPE 11 »/« ÉTAPE 12 » dupliqués littéralement supprimés (une seule occurrence conservée) | `alo_progression.md` (cette même modification) |
+| 53.19 | ✏️ Modifié — citation croisée corrigée : grille de prix attribuée à D15 (pas D13) | `directives_generation/02_cdc_items.md` |
+
+### Décisions actées (front 2)
+
+- **D81** *(ex-D45)* : Barème QI Archipel — renuméroté pour lever la collision avec D45 « système de port ».
+- **D82** *(ex-D46)* : Fils rouges Undine — renuméroté pour lever la collision avec D46 « tenue par défaut ».
+
+### État de sortie (front 2 — registre de décisions)
+
+**Registre de décisions consolidé et publié** (`registre_decisions.md`, documents maîtres). D1-D82 + 10 familles `D-SLUG-N` recensées avec source, étape et statut. Deux vraies collisions numériques trouvées et résolues (D45/D46), une citation croisée corrigée (D13/D15), une duplication de blocs de journal supprimée. Le kit générique non versionné `directives_generiques/` reste un espace de nommage **volontairement distinct** (D71-D75/D-DET-1→3 y ont un sens différent) — documenté, non modifié (hors périmètre ACP). Prochain numéro simple libre : **D83**.
+
+---
+
+## ÉTAPE 53 (suite) — Versionnage du projet : `CHANGELOG.md` ✅ (2026-09-17)
+
+**Objectif** : demande PE explicite de reprise — se servir des fichiers de contexte (`alo_progression.md`, `alo_context.md`, `registre_decisions.md`) et de l'historique de commits git réel pour produire un changelog versionné du projet.
+
+**Constat de départ** : le dépôt porte les traces d'une réécriture d'historique (`refs/original/refs/heads/main` toujours présent, jamais nettoyé après le commit `26a7e57` « nettoie .gitignore et synchronise l'index »). Conséquence : plusieurs hachages de commit cités dans `alo_progression.md`/`alo_context.md` pour les étapes 44-48 (`1940f57`, `b0ab4dd`, `ca315f1`, `9d4143a`, `aa4386b`, `3ddf391`) ne correspondent à **aucun objet résolvable** dans l'historique git actuel (30 commits sur `main`). Le changelog a été bâti exclusivement sur les hachages réels et actuels, la correspondance avec les anciennes citations étant vérifiée narrativement (contenu), pas par hachage.
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 53.20 | ➕ Créé — `CHANGELOG.md` : v0.1.0 → v0.10.0 mappées sur les 30 commits réels de `main` (groupés par chantier quand une série de commits forme un seul cycle correctif, ex. l'audit bot R1→nR15 en 17 commits = v0.8.0), section « Non publié » pour le travail en cours de cette session, section « Vers 1.0.0 » listant les conditions de lancement déjà documentées dans le backlog | `CHANGELOG.md` |
+| 53.21 | ✏️ Modifié — entrée ajoutée à « Documents maîtres » | `alo_context.md` |
+| 53.22 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### État de sortie
+
+Projet versionné de v0.1.0 (commit `3da2976`, fondations) à v0.10.0 (commit `6a56305`, D77-D79) + une section « Non publié » couvrant le travail non commité de la session en cours (backlog documentaire + D80 + registre de décisions). Convention retenue : SemVer `0.x.y` tant que le projet n'est pas lancé publiquement (cohérent avec le backlog réel : audit CGU des API gratuites toujours en réserve depuis l'étape 39). Anomalie de fiabilité des hachages historiques documentée en tête de `CHANGELOG.md` plutôt que silencieusement contournée.
+
+### Décisions actées
+
+- **D80** : `ZONE_ROUTE_LUGRU` formalisé — raccourci souterrain PK `SYL_HUNT_002` ↔ `NEU_CAP_001`, `link_type='UNDERGROUND'` ; trigger L4 découplé (vol requis = `link_type='FLY'`, plus la simple étiquette `Type=ROUTE`).
+- **Précision de portée (non numérotée, clarification de D-SOC/D37)** : `T_GUILDS` = guildes de joueurs exclusivement (`leader_avatar_uuid NOT NULL`) ; les guildes-employeurs de lore (`employer_type='guild'` dans `T_JOBS_DICT`) vivent dans un registre séparé (`table_t_guilds.md` §5), jamais comme ligne `T_GUILDS` fabriquée.
+
+### État de sortie
+
+**Backlog documentaire mineur clos en totalité** (4/4 points). Aucun fichier PNJ ajouté (roster D17 = 1200, intact), aucune ligne `T_SPAWN_TABLES`/`T_GUILDS` fabriquée, `bot/` non touché (D-P3-1). Seul reliquat social explicitement **non rouvert** : auberge exploitable joueur (report PE, distinct du backlog documentaire — nécessiterait une nouvelle entité `T_PROPERTIES`/logique de location, hors périmètre d'une session de nettoyage). Chantier parallèle en cours : inventaire exhaustif D1-D79 pour consolidation du registre de décisions (skill `domain-modeling`).

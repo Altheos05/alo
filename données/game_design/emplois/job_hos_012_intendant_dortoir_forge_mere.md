@@ -6,7 +6,7 @@
 - **Catégorie** : hospitality
 - **Employeur** : `npc` → `NPC_BRO_20` (Concierge de la Forge-Mère) — hébergement des forgerons
 - **Zone** : Brokkheim (`ZONE_LEP_CAP_001`)
-- **Note** : `[BESOIN_NPC: aubergiste/tavernier dédié Brokkheim]` — aucune auberge propre listée à Brokkheim ; le service s'exerce au dortoir de la Forge-Mère en attendant.
+- **Note** : entériné (session de reprise post-étape 52) — Brokkheim n'aura pas d'auberge dédiée : le dortoir communal de la Forge-Mère, tenu par le concierge `NPC_BRO_20`, est la solution définitive. Cohérent avec la culture leprechaun (travail continu en rotation, hébergement collectif d'atelier plutôt que commerce d'auberge indépendant).
 
 ## Paramètres
 - **Niveau requis** : 10

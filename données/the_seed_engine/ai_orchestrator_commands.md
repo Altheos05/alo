@@ -58,6 +58,7 @@
 - `SYS_ANNOUNCE_GLOBAL(Texte)` : L'IA pousse un message épinglé dans tous les groupes WhatsApp de la communauté en tant qu'Alerte Rouge.
 - `SYS_OVERRIDE_BGM(Track_Name)` : (Narration) Le bot précise au joueur que la musique du monde virtuel vient de changer (ex: *BGM: Boss Theme*).
 - `SYS_PAUSE_INSTANCE(Combat_ID)` : L'IA gèle le timer d'un combat asynchrone si une maintenance ou une vérification est requise.
+- `SYS_RAG_REINDEX(scope)` : Force la ré-indexation incrémentale par hash de l'index vectoriel RAG (`scope` = `fiche`/`dossier`/`global` ; D-RAG-9, `15_cdc_rag.md`) — permet à une fiche modifiée de remonter à jour dans la constellation sans réentraînement complet. Respecte le verrou d'ingestion K3/méta/secret (D-RAG-2/D22) : les sections exclues à l'ingestion le restent après réindexation. Équivalent GM : `!sys_rag_reindex`.
 
 ## 7. 🏰 Grand Quests & Événements Mondiaux
 - `SYS_TRIGGER_GRAND_QUEST(Quest_Type, Quest_JSON)` : L'IA déclenche une Grand Quest serveur-wide (Excalibur, World Tree, Purge).

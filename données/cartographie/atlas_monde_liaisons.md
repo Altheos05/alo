@@ -125,9 +125,10 @@ CAP (capitale, safe) ── HUNT_001 (chasse intérieure)
 |---|---|---|---|---|---|
 | `ZONE_SYL_CAP_001` | Swilvane | CAP | 1 | ✅ | `SYL_HUNT_001`, `SYL_HUNT_002`, `SYL_DUN_001`, `ROUTE_SYL_ALN` |
 | `ZONE_SYL_HUNT_001` | Prairies de Sylvain | HUNT | 1 | ❌ | `SYL_CAP_001`, `SYL_HUNT_002` |
-| `ZONE_SYL_HUNT_002` | Forêt de Lugru | HUNT | 3 | ❌ | `SYL_CAP_001`, `SYL_HUNT_001`, `SYL_DUN_001`, `CAI_HUNT_002`, `SAL_HUNT_002` |
+| `ZONE_SYL_HUNT_002` | Forêt de Lugru | HUNT | 3 | ❌ | `SYL_CAP_001`, `SYL_HUNT_001`, `SYL_DUN_001`, `CAI_HUNT_002`, `SAL_HUNT_002`, `ROUTE_LUGRU` |
 | `ZONE_SYL_DUN_001` | Donjon du Vent Hurlant | DUN | 4 | ❌ | `SYL_CAP_001`, `SYL_HUNT_002` |
 | `ZONE_ROUTE_SYL_ALN` | Route Aérienne Swilvane–Alne | ROUTE | 2 | ❌ | `SYL_CAP_001`, `NEU_CAP_001` |
+| `ZONE_ROUTE_LUGRU` | Corridor Souterrain de Lugru | ROUTE | 3 | ❌ | `SYL_HUNT_002`, `NEU_CAP_001` — raccourci direct Forêt de Lugru ↔ Alne (D80), `link_type=UNDERGROUND` (à pied, pas de vol requis) |
 
 ### 4.3 Territoire Salamander (S) — *fiches existantes ✅ complet (donjon + route : étape 3)*
 
@@ -218,7 +219,7 @@ CAP (capitale, safe) ── HUNT_001 (chasse intérieure)
 
 | ID | Nom | Type | Tier | Safe | Liaisons | Condition d'accès |
 |---|---|---|---|---|---|---|
-| `ZONE_NEU_CAP_001` | Alne (capitale neutre) | CAP | 1 | ✅ | Les 9 `ROUTE_*_ALN`, `YGG_DUN_001`, `JOT_FLD_001`, `AIN_HUB_001` | Libre |
+| `ZONE_NEU_CAP_001` | Alne (capitale neutre) | CAP | 1 | ✅ | Les 9 `ROUTE_*_ALN`, `ROUTE_LUGRU` (D80, raccourci souterrain), `YGG_DUN_001`, `JOT_FLD_001`, `AIN_HUB_001` | Libre |
 | `ZONE_YGG_DUN_001` | Dôme d'Yggdrasil | RAID | 8 | ❌ | `NEU_CAP_001`, `YGG_TOP_001` | Grand Quest (raid multi-guildes) — boss `BOSS_YGG_001` Le Gardien du Dôme |
 | `ZONE_YGG_TOP_001` | Sommet d'Yggdrasil | TOP | 10 | ✅ | `YGG_DUN_001` | 🔒 Verrouillé — victoire de la Grand Quest |
 | `ZONE_JOT_FLD_001` | Abysse de Jötunheimr | FLD | 7 | ❌ | `NEU_CAP_001` (crevasse sous Alne), `JOT_RAID_001` | Item-clé « Clé de Glace » — **vol impossible** |
@@ -257,6 +258,7 @@ graph TD
     SPR[Penwether + terr. Spriggan] ---|route| ALNE
     GNO[Granzam + terr. Gnome] ---|route| ALNE
     SAL ---|frontière| SYL --- CAI --- PUC --- UND --- LEP --- IMP --- SPR --- GNO --- SAL
+    SYL ---|corridor souterrain, D80| ALNE
 ```
 
 ---

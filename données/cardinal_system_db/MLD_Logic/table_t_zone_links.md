@@ -35,7 +35,7 @@ CREATE INDEX idx_zonelinks_locked ON T_ZONE_LINKS(is_locked) WHERE is_locked = T
 | L1 | **Canonisation** | À l'insertion, ordre lexical `zone_a < zone_b` — pas de doublon inversé |
 | L2 | **Anti-boucle** | Refuser `zone_a = zone_b` |
 | L3 | **Profondeur donjon** | Refuser une 3ᵉ liaison sur une zone DUN/RAID |
-| L4 | **Route = vol** | Forcer `requires_flight = TRUE` si une extrémité est de type ROUTE |
+| L4 | **Vol requis** | Forcer `requires_flight = TRUE` si `link_type = 'FLY'` (et non plus « une extrémité est de type ROUTE » — corrigé D80 : `ZONE_ROUTE_LUGRU` est un `ROUTE` souterrain `link_type='UNDERGROUND'`, franchi à pied) |
 | L5 | **Sync connected_zones** | Toute insertion/suppression régénère `T_ZONES.connected_zones` des deux zones concernées |
 
 ## 4. Équivalents Commandes

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap">
+<style>
+  body{margin:0;background:#050810;}
+  .hud{--accent:#8fd67a;--glow:rgba(143,214,122,0.4);--text-strong:#eaf6ff;--text-muted:#8fb4c9;--text-faint:#4d6b7d;font-family:'Rajdhani',Arial,sans-serif;}
+  .hud *{box-sizing:border-box;font-family:inherit}
+  .hud-bg{background:radial-gradient(circle at 50% 22%, rgba(143,214,122,0.14), transparent 60%), linear-gradient(180deg,#060b14,#050810);}
+  .hud-panel{background:rgba(13,27,43,0.9);border:1.5px solid var(--accent);box-shadow:0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 46px var(--glow);position:relative}
+  .hud-corner{position:absolute;width:30px;height:30px}
+  .hud-dot{width:8px;height:8px;border-radius:50%}
+  .hud-bar-track{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:3px;overflow:hidden;position:relative;height:20px}
+  .hud-bar-fill{height:100%;position:relative}
+  .hud-bar-cap{position:absolute;top:0;right:0;width:3px;height:100%;background:#fff;box-shadow:0 0 8px #fff}
+  .fact-lbl{font-size:18px;color:var(--text-muted)}
+  .fact-val{font-size:18px;font-weight:700;color:var(--text-strong)}
+</style>
+</head>
+<body>
+<div class="hud hud-bg" style="width:1080px;height:1440px;display:flex;align-items:center;justify-content:center;position:relative;">
+  <div class="hud-panel" style="width:984px;height:1344px;border-radius:6px;display:flex;flex-direction:column;overflow:hidden;">
+    <div class="hud-corner" style="top:-2px;left:-2px;border-top:3px solid var(--accent);border-left:3px solid var(--accent);border-radius:4px 0 0 0;"></div>
+    <div class="hud-corner" style="top:-2px;right:-2px;border-top:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:0 4px 0 0;"></div>
+    <div class="hud-corner" style="bottom:-2px;left:-2px;border-bottom:3px solid var(--accent);border-left:3px solid var(--accent);border-radius:0 0 0 4px;"></div>
+    <div class="hud-corner" style="bottom:-2px;right:-2px;border-bottom:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:0 0 4px 0;"></div>
+    <div style="height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(143,214,122,0.25);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="hud-dot" style="background:var(--accent);box-shadow:0 0 6px var(--accent);"></span>
+        <span class="hud-dot" style="background:rgba(255,255,255,0.2);"></span>
+        <span class="hud-dot" style="background:rgba(255,255,255,0.2);"></span>
+        <span style="margin-left:10px;font-weight:700;font-size:20px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;">Familier</span>
+      </div>
+      <div style="font-weight:600;font-size:18px;color:var(--text-faint);">Niv. {{level}}</div>
+    </div>
+    <div style="padding:28px 44px 8px 44px;flex-shrink:0;">
+      <div style="font-weight:700;font-size:34px;color:var(--text-strong);">{{petName}}</div>
+      <div style="font-size:17px;color:var(--text-muted);margin-top:4px;">{{species}} · {{status}}</div>
+    </div>
+    <div style="padding:20px 44px 0 44px;flex-shrink:0;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span class="fact-lbl">PV</span><span class="fact-val">{{hp}} / {{hpMax}}</span></div>
+      <div class="hud-bar-track"><div class="hud-bar-fill" style="width:{{hpPercent}}%;background:linear-gradient(90deg,#1f5a2e,#8fd67a);"><div class="hud-bar-cap"></div></div></div>
+    </div>
+    <div style="padding:18px 44px 0 44px;flex-shrink:0;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span class="fact-lbl">Faim</span><span class="fact-val">{{hunger}} / 100</span></div>
+      <div class="hud-bar-track"><div class="hud-bar-fill" style="width:{{hunger}}%;background:linear-gradient(90deg,#6e5a1f,#d6b23f);"><div class="hud-bar-cap"></div></div></div>
+    </div>
+    <div style="padding:18px 44px 0 44px;flex-shrink:0;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span class="fact-lbl">Loyauté</span><span class="fact-val">{{loyalty}} / 100</span></div>
+      <div class="hud-bar-track"><div class="hud-bar-fill" style="width:{{loyalty}}%;background:linear-gradient(90deg,#5a1f5a,#d67ad6);"><div class="hud-bar-cap"></div></div></div>
+    </div>
+    <div style="flex-grow:1;"></div>
+    <div style="height:70px;flex-shrink:0;border-top:1px solid rgba(143,214,122,0.25);display:flex;align-items:center;justify-content:center;">
+      <div style="font-weight:600;font-size:13px;letter-spacing:3px;color:var(--text-faint);text-transform:uppercase;">Système Cardinal · ALO</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

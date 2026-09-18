@@ -67,13 +67,21 @@ export async function handleMove(db, playerUuid, entities) {
   const zoneGroup = getGroupForZone(targetZone);
   const groupMsg = zoneGroup ? `\n💬 Tu es maintenant dans le groupe **${zoneGroup.groupName}**.` : '';
 
-  return render('move', {
+  const text = render('move', {
     destination: targetZone,
     distance: 1,
     time: travelTime,
     cost,
     travelTime,
   }) + groupMsg;
+
+  return {
+    text,
+    card: {
+      template: 'mouvement',
+      variables: { destination: targetZone, cost, travelTime },
+    },
+  };
 }
 
 export async function getNeighborsForZone(zoneId) {

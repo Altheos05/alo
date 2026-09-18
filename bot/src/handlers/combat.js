@@ -128,12 +128,27 @@ export async function handleAttack(db, playerUuid, entities) {
   }
 
   logger.info('Combat engagé', { playerUuid, monsterId: monster.monster_id, monsterLevel: monster.level });
-  return render('attack_start', {
+  const text = render('attack_start', {
     monsterName: monster.name,
     monsterLevel: monster.level,
     monsterHp: monster.base_hp,
     skillName: 'Attaque de base',
   });
+
+  return {
+    text,
+    card: {
+      template: 'combat_rencontre',
+      variables: {
+        monsterName: monster.name,
+        monsterLevel: monster.level,
+        monsterHp: monster.base_hp,
+        monsterHpMax: monster.base_hp,
+        monsterHpPercent: 100,
+        skillName: 'Attaque de base',
+      },
+    },
+  };
 }
 
 export async function handleCombatAction(db, playerUuid, action) {

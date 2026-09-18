@@ -6,6 +6,18 @@ import * as movement from '../handlers/movement.js';
 import * as combat from '../handlers/combat.js';
 import * as playerService from '../handlers/player.js';
 import * as dialogue from '../handlers/dialogue.js';
+import * as bank from '../handlers/bank.js';
+import * as mailHandler from '../handlers/mail.js';
+import * as encyclopedia from '../handlers/encyclopedia.js';
+import * as achievements from '../handlers/achievements.js';
+import * as skillsHandler from '../handlers/skills.js';
+import * as petsHandler from '../handlers/pets.js';
+import * as craftHandler from '../handlers/craft.js';
+import * as partyHandler from '../handlers/party.js';
+import * as guildHandler from '../handlers/guild.js';
+import * as equipmentHandler from '../handlers/equipment.js';
+import * as registrationHandler from '../handlers/registration.js';
+import * as diplomacyHandler from '../handlers/diplomacy.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import config from '../config.js';
@@ -31,15 +43,26 @@ export async function processMessage(db, text, playerId = null, groupId = null, 
     return { response: render('error'), routing };
   }
 
-  let response;
+  let result;
   try {
-    response = await executeIntent(db, routing, playerId, phoneNumber);
+    result = await executeIntent(db, routing, playerId, phoneNumber);
   } catch (err) {
     logger.error('Erreur lors de l\'exécution de l\'intent', {
       intent: routing.intent,
       error: err.message,
     });
-    response = `❌ Une erreur est survenue : ${err.message}`;
+    result = `❌ Une erreur est survenue : ${err.message}`;
+  }
+
+  // Un handler peut renvoyer soit un texte brut, soit { text, card } quand une
+  // carte visuelle (rendue par cardRenderer) accompagne la réponse (cf. dialogue.js).
+  let response;
+  let card = null;
+  if (result && typeof result === 'object') {
+    response = result.text;
+    card = result.card || null;
+  } else {
+    response = result;
   }
 
   if (!response) {
@@ -51,16 +74,21 @@ export async function processMessage(db, text, playerId = null, groupId = null, 
     confidence: routing.confidence.toFixed(2),
     playerId,
     responseLength: response.length,
+    hasCard: !!card,
   });
 
   return {
     response,
+    card,
     routing,
   };
 }
 
 async function executeIntent(db, routing, playerId, phoneNumber = null) {
   switch (routing.intent) {
+    case 'SHOP_LIST':
+      return economy.handleShopList(db, playerId);
+
     case 'BUY':
       return economy.handleBuy(db, playerId, routing.entities);
 
@@ -82,6 +110,12 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       }
       return combat.handleAttack(db, playerId, routing.entities);
     }
+
+    case 'SKILL_LIST':
+      return skillsHandler.handleSkillList(db, playerId);
+
+    case 'PET':
+      return petsHandler.handlePet(db, playerId, routing.raw || '');
 
     case 'USE_SKILL': {
       const existingCombat = combat.getCombatStatus(playerId);
@@ -106,33 +140,58 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
     case 'HELP':
       return render('help');
 
+    case 'ENCYCLOPEDIA':
+      return encyclopedia.handleEncyclopedia(db, playerId);
+
+    case 'WIKI':
+      return encyclopedia.handleWiki(db, playerId, routing.raw || '');
+
+    case 'LORE_DOC':
+      return encyclopedia.handleLoreDoc(db, playerId, routing.raw || '');
+
+    case 'ACHIEVEMENTS':
+      return achievements.handleAchievements(db, playerId);
+
+    case 'RANKINGS':
+      return achievements.handleRankings(db, playerId, routing.raw || '');
+
     case 'LORE_QUERY': {
       const lore = await retrieveLore(db, routing.raw || '');
       return lore || `📖 Mes connaissances sur ce sujet sont limitées. Interroge un PNJ ou explore le monde pour en apprendre plus.`;
     }
 
     case 'VAULT':
-      return `🏦 La banque n'est pas encore ouverte. Reviens dans une prochaine mise à jour.`;
+      return bank.handleVault(db, playerId, routing.entities, routing.raw || '');
 
     case 'MAIL':
-      return `📫 Le service de courrier n'est pas encore disponible.`;
+      return mailHandler.handleMail(db, playerId, routing.raw || '');
 
     case 'EQUIP':
-      return `⚔️ L'équipement n'est pas encore implémenté. Utilise *inventaire* pour voir tes objets.`;
+      return equipmentHandler.handleEquip(db, playerId, routing.raw || '');
 
     case 'PARTY':
+      return partyHandler.handlePartyCommand(db, playerId, routing.raw || '');
+
     case 'GUILD':
+      return guildHandler.handleGuildCommand(db, playerId, routing.raw || '');
+
     case 'SOCIAL':
-      return `🤝 Les fonctionnalités sociales (groupes, guildes) arrivent dans une prochaine mise à jour.`;
+      return `🤝 Tape "groupe" ou "guilde" pour gérer tes groupes et guildes.`;
 
     case 'CRAFT':
-      return `🔨 L'artisanat n'est pas encore implémenté.`;
+      return craftHandler.handleCraft(db, playerId, routing.raw || '');
 
     case 'EMOTE':
       return `🎭 ${routing.match?.[1] || '*fait une action mystérieuse*'}`;
 
     case 'WHISPER':
       return `📩 Message privé à **${routing.entities.target || 'inconnu'}** : ${routing.match?.[1] || ''}`;
+
+    case 'LINK_START':
+      return registrationHandler.handleLinkStart(db, phoneNumber, routing.raw || '');
+
+    case 'DIPLOMACY':
+      return diplomacyHandler.handleDiplomacy(db, playerId);
 
     case 'SYS':
       return handleSysCommand(db, routing, playerId, phoneNumber);

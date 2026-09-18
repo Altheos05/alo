@@ -1805,3 +1805,194 @@ Les convertir en sujet propre à Alne aurait désynchronisé Alne du reste du mo
 ### État de sortie
 
 **Parseur QI corrigé et vérifié en dry-run** (fichier généré non commité, script uniquement). **Non fait, volontairement, hors périmètre de cette demande précise** : (a) régénérer `seed_data.sql` — le fichier committé date du 11 juillet et est désormais très en retard sur tout le contenu ajouté depuis (étapes 38-55 : social, guildes, dépeçage, variants, sujets de service…), le régénérer maintenant mélangerait le correctif QI avec un rattrapage massif de contenu, décision distincte à prendre par le PE ; (b) recharger en base (`rebuild.sh`) — commande destructive (`DROP DATABASE`), jamais lancée sans confirmation explicite, et de toute façon un Postgres local accessible n'existe pas dans cet environnement. Le correctif de code est prêt et vérifié ; la bascule en base reste une action du PE.
+
+---
+
+## ÉTAPE 56 (suite) — Régénération de `seed_data.sql` (demande PE explicite) ✅ (2026-09-18)
+
+**Objectif** : le PE a tranché le point laissé en suspens ci-dessus — régénérer `seed_data.sql` maintenant, malgré le rattrapage de contenu que cela implique.
+
+**Exécution** : `node scripts/seed-generator.js > seed_data.sql`. **0 avertissement, 0 erreur** sur l'ensemble des sous-parseurs (items, monstres, spawns, PNJ, QI, boutiques, compétences, quêtes), pas seulement la partie QI.
+
+**Comparaison des compteurs (ancien fichier du 11 juillet → nouveau)** :
+
+| Section | Avant | Après | Explication |
+|---|---|---|---|
+| Items | 940 | 926 | **-14, attendu** : les 14 fiches d'accessoires archivées `ressources_brutes/deprecated_v1/` à l'étape 53 (D39) ne sont plus dans `données/` |
+| Monstres | 256 | 256 | inchangé |
+| Spawns | 256 | 256 | inchangé |
+| PNJ | 1104 | 1104 | inchangé |
+| **QI** | *(0, bloc absent car `if (length > 0)`)* | **10 941** | le correctif de l'étape 56 |
+| Boutiques | 302 | 302 | inchangé |
+| Articles boutique | 1956 | 1956 | inchangé |
+| Compétences | 300 | 300 | inchangé |
+| Quêtes | 74 | 74 | inchangé *(≠ 79 mentionné dans certains docs narratifs — écart non-instruit, hors périmètre de cette régénération, à vérifier séparément si besoin)* |
+
+Aucune régression sur les sections déjà fonctionnelles ; la seule variation hors QI (-14 items) est directement attribuable à un archivage déjà acté et documenté (étape 53).
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 56.3 | 🔄 Régénéré — `node scripts/seed-generator.js > seed_data.sql` (641 Ko/5 618 lignes → 2,7 Mo/16 769 lignes) | `seed_data.sql` |
+| 56.4 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### État de sortie
+
+**`seed_data.sql` à jour avec le contenu réel de `données/` (étapes 38-56 comprises) et le correctif QI appliqué.** Reste hors périmètre, toujours à la décision du PE : recharger effectivement en base (`rebuild.sh`, destructif — `DROP DATABASE`) pour que `T_NPC_KNOWLEDGE` soit peuplée dans l'instance réelle. Écart mineur relevé, non instruit : le compteur de quêtes du générateur (74) diverge du chiffre narratif documenté ailleurs (79, étape 43) — mérite une vérification séparée si le PE le juge utile.
+
+---
+
+## ÉTAPE 57 — Cartes visuelles (canvas Artifact) + pipeline de rendu réel dans `bot/` 🔶 en cours (2026-09-18)
+
+**Objectif** : suite au constat qu'aucune vue visuelle n'existait pour le layer de commandes WhatsApp (tout était du texte brut), production d'un canvas de gabarits visuels (Design Artifact, hors `bot/`, zéro-code) puis, sur demande PE explicite (« câble le pipeline »), câblage réel d'une partie de ces gabarits dans `bot/` pour qu'ils reflètent des données dynamiques propres à qui tape la commande — jamais de valeur figée.
+
+**Volet 1 — Canvas Artifact (structurel, zéro-code)** : `https://claude.ai/artifact/GVEkZzxn3gRuGw94HvMXcK` (« Cartes ALO — Templates »), **64 gabarits `.dc.html`** au format HUD holographique façon SAO (police Rajdhani, panneau à coins découpés, barres PV/PM à capuchon lumineux, accent par contexte), 1080×1440 (mobile). Couvre : cartes d'objet (Personnage, Monstre, Lieu, Compétence, Item, Quête, Guilde), les 23 sections de `whatsapp_commands_list.md` (menus D83 + sous-menus, Encyclopédie/Guide d'Argo, Inscription, Notifications/Alertes, Confirmation générique, et un gabarit par domaine annexe : Hôtel des Ventes, Vol, Illusion, Musique, Logement, Pêche, Carte, Compétences, Alliance).
+
+**Volet 2 — Pipeline réel (code, `bot/`, demande PE explicite — exception au zéro-code ACP)** :
+- `bot/src/services/cardRenderer.js` (nouveau) : rend un gabarit HTML (`bot/src/cards/templates/*.html`, syntaxe `{{variable}}`) en PNG via **le Chromium déjà lancé par `whatsapp-web.js`** (`client.pupBrowser`) — **aucune dépendance ajoutée** à `package.json`. Toute variable non fournie disparaît (jamais de valeur figée qui traînerait) ; tout échec de rendu retombe silencieusement sur le texte seul (jamais d'exception qui casserait la réponse). Exporte aussi `menuRow()`/`escapeHtml()` pour les cartes à liste de longueur variable.
+- 7 gabarits de production câblés (dans `bot/src/cards/templates/`) : `dialogue_talk`, `dialogue_relation`, `personnage`, `inventaire`, `quetes`, `combat_rencontre`, `mouvement`.
+- Handlers modifiés pour renvoyer `{ text, card }` (au lieu d'une chaîne brute) quand une carte existe, données 100 % réelles et propres au joueur qui a tapé la commande :
+  - `handlers/dialogue.js` (`handleTalk`) — ajoute la lecture d'`affinity_tier` dans `T_NPC_RELATIONS` (avatar × PNJ) pour le badge de relation.
+  - `handlers/player.js` (`handleStatus`, `handleInventory`, `handleQuests`) — PV/PM/niveau/Yrds réels (`t_avatars`), inventaire et quêtes réels, listes tronquées à 8 lignes + compteur de dépassement.
+  - `handlers/movement.js` (`handleMove`) — coût MP et durée réels du trajet.
+  - `handlers/combat.js` (`handleAttack`) — PV de base réels du monstre rencontré (`t_monsters_dict`), scope volontairement limité à l'ouverture du combat (pas un visuel par coup porté — spam d'images sinon).
+  - `!relation` (`dialogue_relation`) : gabarit prêt mais **pas encore branché** — aucun intent/route n'existe pour cette commande dans `router.js`/`intent.js`.
+- `orchestrator/message-handler.js` : normalise le retour des handlers (chaîne brute OU `{text, card}`) sans casser les handlers non touchés.
+- `services/whatsapp.js` : si une carte est présente, rend le PNG et l'envoie via `MessageMedia` (légende = texte) ; repli texte-seul si le rendu échoue.
+- `tests/integration.mjs` : 3 assertions (`Handler STATUS/INVENTORY/QUESTS`) mises à jour pour le nouveau contrat de retour (`result.text` au lieu de `result`). `node --check` OK sur tous les fichiers touchés ; suite non exécutable ici (pas de Postgres dans cet environnement).
+
+**Découverte en cours de route (Boutique, non résolue)** : `T_SHOPS`/`T_SHOP_ITEMS` existent dans le MLD (`table_t_shops.md`) avec triggers d'anti-arbitrage et d'exclusivité par ville (S4/S5/S6) — mais `engine/economy.js` (`buyItem`/`sellItem`) ne les interroge jamais : l'achat/vente actuel se fait sur le catalogue global plat `t_items_dict`, depuis n'importe où. `getShopInventory(db, zoneId)` a été ajoutée (lecture seule, jointure `T_SHOPS`×`T_SHOP_ITEMS`×`T_ITEMS_DICT` par zone) pour permettre un futur `!shop_list` fidèle aux prix/stock réels d'une boutique — **mais elle n'est encore appelée par aucun handler/intent/gabarit**. Refonte de `buyItem`/`sellItem` pour les rendre shop-conscients délibérément non tentée dans cette session (code transactionnel déjà testé, décision d'équilibrage économique, pas une simple question de câblage).
+
+**Décision PE** : pour les ~55 gabarits restants (Boutique, Banque, Courrier, Équipement, Artisanat, Groupe/Guilde, Encyclopédie/Wiki/Lore, Vol, Illusion, Musique, Mariage/Housing, Pêche/Récolte, Navigation/Cristaux, Compétences avancées, Alliances, Familier, Succès/Classement, Inscription, Notifications/Confirmation), aucune fonctionnalité de jeu réelle n'existe encore en base — le PE a tranché : **construire les fonctionnalités manquantes une par une, puis câbler leur carte dessus** (pas de repli sur des maquettes statiques, pas de données inventées).
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 57.1 | 🆕 Créé — service de rendu de cartes | `bot/src/services/cardRenderer.js` |
+| 57.2 | 🆕 Créé — 7 gabarits de carte de production | `bot/src/cards/templates/*.html` |
+| 57.3 | 🔧 Modifié — carte + relation PNJ | `bot/src/handlers/dialogue.js` |
+| 57.4 | 🔧 Modifié — cartes statut/inventaire/quêtes | `bot/src/handlers/player.js` |
+| 57.5 | 🔧 Modifié — carte de déplacement | `bot/src/handlers/movement.js` |
+| 57.6 | 🔧 Modifié — carte de rencontre de combat | `bot/src/handlers/combat.js` |
+| 57.7 | 🔧 Modifié — normalisation `{text, card}` | `bot/src/orchestrator/message-handler.js` |
+| 57.8 | 🔧 Modifié — envoi `MessageMedia` si carte | `bot/src/services/whatsapp.js` |
+| 57.9 | 🔧 Modifié — 3 assertions mises à jour | `bot/tests/integration.mjs` |
+| 57.10 | 🆕 Ajouté — `getShopInventory()` (lecture seule) | `bot/src/engine/economy.js` |
+| 57.11 | 🆕 Ajouté — intent `SHOP_LIST` (regex + mots-clés ML) | `bot/src/agents/router.js`, `bot/src/models/intent.js` |
+| 57.12 | 🆕 Ajouté — `handleShopList` + carte `boutique` | `bot/src/handlers/economy.js` |
+| 57.13 | 🆕 Créé — gabarit de carte boutique | `bot/src/cards/templates/boutique.html` |
+| 57.14 | 🔧 Modifié — branchement `case 'SHOP_LIST'` | `bot/src/orchestrator/message-handler.js` |
+| 57.15 | 🔧 Modifié — textes `shop_list`/`shop_list_empty` | `bot/src/services/template.js` |
+| 57.16 | 🔧 Modifié — tests `Handler SHOP_LIST` + `ProcessMessage — boutique` | `bot/tests/integration.mjs` |
+| 57.17 | 🐛 **Corrigé — bug pré-existant critique** : `extractEntities()` (async) appelé sans `await` — `routing.entities` était un `Promise` nu depuis toujours, `zoneId`/`itemId`/`quantity`/`skillId`/`monsterId` (issus de `models/ner.js`) n'atteignaient donc **jamais** les handlers réels (seuls `keyword`/`target`, réassignés à la main dans `router.js`, survivaient). Un simple `await` ajouté | `bot/src/agents/router.js` |
+| 57.18 | 🆕 Créé — moteur banque (`T_BANK_VAULTS`, dépôt/retrait Yrds transactionnels, création paresseuse du coffre au premier accès — même philosophie sparse que `T_NPC_RELATIONS`) | `bot/src/engine/bank.js` |
+| 57.19 | 🆕 Créé — handler `handleVault` (consultation / dépôt / retrait, verbe extrait de `routing.raw`, montant de `entities.quantity`) + carte `banque` | `bot/src/handlers/bank.js` |
+| 57.20 | 🆕 Créé — gabarit de carte banque | `bot/src/cards/templates/banque.html` |
+| 57.21 | 🔧 Modifié — textes `bank_status`/`bank_deposit`/`bank_withdraw`/`bank_fail_*` | `bot/src/services/template.js` |
+| 57.22 | 🔧 Modifié — `case 'VAULT'` branché sur `bank.handleVault` (remplace le stub « pas encore ouverte ») | `bot/src/orchestrator/message-handler.js` |
+| 57.23 | 🔧 Modifié — tests `Handler VAULT` + régression explicite du bug 57.17 (`entities.quantity` doit être résolu) | `bot/tests/integration.mjs` |
+| 57.24 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### État de sortie
+
+**Rien commité** (attente du « commit tout ça » habituel). Repo syntaxiquement propre (`node --check` OK sur tous les fichiers `bot/` touchés). Canvas Artifact à 64 gabarits, **9 réellement câblés et vérifiés dynamiques** (dialogue×2, personnage, inventaire, quêtes, mouvement, combat, boutique, **banque**) — aucune valeur figée sur aucun d'eux.
+
+**Correction transversale importante (57.17)** : le bug `extractEntities` sans `await` ne touchait pas que la Banque — il dégradait silencieusement **tout le pipeline de commandes en langage naturel** depuis (au minimum) l'introduction de `models/ner.js` : `!je vais [zone]` ne recevait jamais de `zoneId` résolu par NER (`entities.zoneId` toujours `undefined`, seul le fallback `entities.target`, réservé à ATTACK, fonctionnait), `!utilise [sort]` ne recevait jamais de `skillId`, et la résolution d'objet par ID (hors mot-clé générique) pour `!achète`/`!vends` était perdue. Aucun test existant ne le couvrait (les tests appellent soit les handlers directement avec des `entities` construits à la main, soit des chemins « sans cible » qui ne dépendent pas de l'extraction). Un test de régression a été ajouté spécifiquement pour ce bug.
+
+**Banque close pour son périmètre choisi (Yrds uniquement)** : consultation, dépôt, retrait — transactionnel, verrouillage de ligne, coffre créé à la première utilisation. **Non fait, volontairement** : le stockage d'objets (`items_stored` JSONB dans `T_BANK_VAULTS`) n'est pas branché — seule la partie monétaire du coffre personnel est fonctionnelle. Coffre de guilde/mariage (`owner_type='guild'|'marriage'`) non abordé — dépend de Guilde et Mariage, pas encore construits.
+
+**Boutique close pour son périmètre choisi** : `!shop_list`/« boutique » liste désormais les articles réellement en vente dans la zone du joueur (`T_SHOPS`×`T_SHOP_ITEMS`×`T_ITEMS_DICT`, prix et stock réels, par PNJ marchand). **Question laissée ouverte, volontairement** : `buyItem`/`sellItem` restent sur le catalogue global plat (`t_items_dict`) et n'utilisent toujours pas `T_SHOPS`/`T_SHOP_ITEMS` — un joueur peut donc voir un prix de boutique via la carte puis acheter à un prix différent via `!buy`. Corriger cela est un choix d'équilibrage économique (transactions déjà testées, triggers d'anti-arbitrage S4-S6 documentés dans `table_t_shops.md`), pas une question de câblage — à trancher explicitement avant de toucher `engine/economy.js` côté transaction.
+
+**Courrier (`T_MAIL`) construit — boîte de réception, lecture+retrait, envoi** :
+- `bot/src/engine/mail.js` (nouveau) : `getInbox` (liste non expirée, non-lus en tête), `claimMail` (transactionnel — marque `claimed`, crédite `attached_yrds`/`attached_item` réels), `sendMail` (résolution du destinataire par `whatsapp_phone` réel, pas par nom approximatif).
+- `bot/src/handlers/mail.js` (nouveau) : `mail` seul → liste (carte `courrier`, données réelles) ; `mail lire [N]` → ouvre + réclame le n-ième courrier de la boîte ; `mail envoyer [numéro] [message]` → envoi réel à un joueur existant (recherché par numéro WhatsApp, pas par nom — pas d'ambiguïté possible). Parsing par regex directe sur `routing.raw` (comme la Banque) plutôt que via le sac `entities` générique, pour éviter tout risque de perte de précision sur un numéro de téléphone long.
+- `bot/src/cards/templates/courrier.html` (nouveau) — liste de messages, même famille visuelle que `inventaire`/`quetes`.
+- `case 'MAIL'` branché sur `mailHandler.handleMail` (remplace le stub « pas encore disponible »).
+- **Non fait, volontairement** : composer un courrier avec pièce jointe (Yrds/objet) depuis le chat n'est pas exposé — `sendMail` n'accepte que sujet+corps ; l'attache reste un levier réservé au contenu scripté/GM (`!sys_grant_item` etc.) pour l'instant.
+
+### Modifications (suite)
+
+| # | Action | Fichier |
+|---|---|---|
+| 57.25 | 🆕 Créé — moteur courrier | `bot/src/engine/mail.js` |
+| 57.26 | 🆕 Créé — handler courrier + carte | `bot/src/handlers/mail.js` |
+| 57.27 | 🆕 Créé — gabarit de carte courrier | `bot/src/cards/templates/courrier.html` |
+| 57.28 | 🔧 Modifié — `case 'MAIL'` branché (remplace le stub) | `bot/src/orchestrator/message-handler.js` |
+| 57.29 | 🔧 Modifié — tests `Handler MAIL` + `ProcessMessage — mail` | `bot/tests/integration.mjs` |
+| 57.30 | ✏️ Modifié — journal (cette entrée) | `alo_progression.md` |
+
+### État de sortie (mise à jour)
+
+**10 cartes réellement câblées et dynamiques** sur les 64 du canvas (dialogue×2, personnage, inventaire, quêtes, mouvement, combat, boutique, banque, **courrier**). `node --check` OK sur l'ensemble des fichiers `bot/` modifiés ou créés cette session (balayage complet effectué, pas seulement les fichiers de cet incrément). Rien commité.
+
+**Reste à construire après ce point** : Équipement, Groupe/Guilde, Vol, Illusion, Musique, Mariage/Housing, Pêche/Récolte, Navigation/Cristaux, Alliances, Inscription, Notifications/Confirmation — suite en ÉTAPE 58 (`/implement`).
+
+---
+
+## ÉTAPE 58 — `/implement le reste` : 9 systèmes construits, gabarits réels partout ✅ (2026-09-18)
+
+**Objectif** : suite directe de l'étape 57, via la commande `/implement` (post-planification, TDD aux coutures pré-convenues, vérification puis commit). Reprise étape par étape de la liste laissée ouverte, chaque système suivant le même protocole que Boutique/Banque/Courrier : lire le vrai schéma MLD avant d'écrire une ligne, construire moteur + handler + gabarit de carte + câblage routeur, jamais de donnée inventée.
+
+### Systèmes construits (schéma réel vérifié pour chacun)
+
+1. **Encyclopédie / Wiki / Lore** (`T_ENCYCLOPEDIA_DICT` + `T_UNLOCKED_LORE`) — `!encyclopedia` (liste plate des pages débloquées, fidèle au libellé exact de la commande dans `whatsapp_commands_list.md` — pas de hub par catégorie comme l'esquissait la maquette Artifact), `!wiki [terme]`, `!lore [terme]` — recherche tous-catégories confondues, **jamais de fuite de contenu non débloqué** (brouillard de guerre respecté : titre seul si verrouillé, jamais le contenu).
+2. **Succès & Classement** (`T_ACHIEVEMENTS_DICT`/`T_UNLOCKED_ACHIEVEMENTS`, `T_AVATARS`) — `!achievements` (liste réelle), `!rankings` (Top 10 réel par Yrds ou Niveau ; classement par boss tués non fait — aucun compteur agrégé de kills de boss n'existe actuellement).
+3. **Compétences avancées** (`T_AVATAR_SKILLS`/`T_SKILLS_DICT`) — `!skills`/`compétences` liste les sorts/OSS/passives réellement appris avec rang de maîtrise réel.
+4. **Familier** (`T_PETS`) — statut (PV/faim/loyauté réels) + `nourrir`.
+5. **Artisanat** (`T_RECIPES`) — domaines + liste de recettes + fabrication transactionnelle réelle (ingrédients JSONB consommés, Yrds débités, résultat crédité selon `success_rate`). **Constat important** : `T_RECIPES` est **vide** dans `seed_data.sql` actuel et `scripts/seed-generator.js` n'a aucun parseur pour ce contenu — le code est correct et réel, mais il n'y a **aucune recette à fabriquer** tant que du contenu n'est pas écrit puis généré.
+6. **Groupe & Guilde** (`T_PARTIES`/`T_PARTY_MEMBERS`, `T_GUILDS`/`T_GUILD_MEMBERS`) — créer/inviter (par numéro WhatsApp réel)/quitter un groupe ; créer/quitter/dissoudre une guilde ; vues de statut réelles (trésorerie, membres, rangs).
+7. **Équipement** (`T_AVATARS.equip_*` + `T_INVENTORY.slot_equipped`) — `!equiper [Item_ID] [emplacement]` / `!unequip [emplacement]` avec validation réelle du préfixe d'objet par slot (invariant A1 du MLD), mirroir des 5 slots d'armure sur `T_AVATARS` (directive D44 — PAS PLUS que 5), mains/ceinture/dos gérés uniquement via `T_INVENTORY`.
+8. **Inscription** (`!link_start [Race] [Nom]`) — **branchement d'un chemin qui existait déjà à moitié** : `services/player.js` avait une fonction `createPlayer` complète et jamais appelée nulle part (ni intent, ni handler, ni route) — un joueur non enregistré tournait silencieusement sur un UUID factice fixe (`00000000-0000-0000-0000-000000000001`) sans jamais être invité à s'inscrire. Résolu Race → capitale (`T_RACES.capital_zone_id` réel), création réelle de l'avatar.
+9. **Alliances / Diplomatie** (`T_DIPLOMACY`) — **correction de périmètre** : la maquette Artifact "Alliance" (fondée sur `!alliance_create [Guilde]`) suggérait des alliances **de guildes** ; le vrai schéma `T_DIPLOMACY` ne modélise que des relations **de race à race** (neutre/alliée/en guerre/trêve/vassalisée), pilotées par un Lord via `!race_council`. Implémenté en lecture seule (`diplomatie`/`alliances`) : relations réelles de la race du joueur. Les commandes de mutation (`!race_council`, `!lord_campaign`, `!alliance_war` de guildes) ne sont pas câblées — elles supposent un rôle « Lord » dont aucune vérification n'existe dans le code actuel (contrairement à `isGm()` qui existe pour les commandes SYS).
+
+### Bug transversal corrigé au passage
+
+Le pattern `INVENTORY` du routeur incluait par erreur le mot-clé `equipement` dans son énumération — il aurait intercepté toute tentative d'ouvrir la nouvelle vue Équipement avant qu'elle n'atteigne le nouvel intent `EQUIP`. Retiré (`equipement` appartient désormais sans ambiguïté à `EQUIP`).
+
+### Explicitement NON fait, avec la raison précise (schéma vérifié, pas de fabrication)
+
+| Système | Constat |
+|---|---|
+| **Vol** | `T_AVATARS` n'a que `is_flying` (bool) et `flight_altitude` (int) — aucune jauge de 10 min, aucun mode assisté/libre en base. Un `!vol` minimal (bascule `is_flying`) serait honnête mais n'apporterait rien vs. l'attente du PE (jauge, mode) ; non construit plutôt que construire une fausse jauge. |
+| **Illusion / Musique** | Aucune table dédiée — ce sont des sorts `MAG_*` normaux censés passer par le système de compétences existant. Or `USE_SKILL` **ne fonctionne qu'en combat actif** (`handlers/combat.js`) : lancer une mélodie de buff ou une illusion hors combat demanderait d'étendre le moteur de compétences au hors-combat (ciblage de groupe, application d'effet sans session de combat) — chantier à part entière, pas une carte à câbler. |
+| **Mariage** | `T_MARRIAGES` est réel mais très contraignant (genre homme/femme non négociable, logement obligatoire au préalable, coffre commun, cadeau de cérémonie selon niveau moyen, séparation avec répartition par provenance via `T_MARRIAGE_ASSETS`) — trop de règles imbriquées pour un incrément honnête sans risquer une implémentation bâclée d'un système à fort enjeu narratif (D-SOC-8/9). |
+| **Housing** | `T_PROPERTIES` est réel et plus autonome que le Mariage (louer/acheter, checkpoint sûr, stockage, création d'un vrai groupe WhatsApp privé via `T_WA_GROUPS`) — le plus proche d'être fait, mais non commencé faute de budget dans cette session ; bon candidat pour la prochaine. |
+| **Pêche / Récolte** | Aucune table dédiée trouvée ; repose vraisemblablement sur `T_ITEMS_DICT`/nodes de zone (`FLO_*` mentionnés dans la doc commandes) sans MLD dédié identifié — nécessite une recherche schéma plus approfondie avant de coder. |
+| **Navigation / Cristaux** | `T_ZONE_LINKS` (déjà utilisée par le mouvement) couvre la carte ; les cristaux sont des items (`CSM_CRI_*`) à effet spécial — pas de nouvelle table, mais la logique d'effet par cristal (téléportation, corridor de groupe, rappel) n'a pas été implémentée. |
+| **Notifications / Alertes / Confirmation** | Ce ne sont pas des commandes liées à une table — c'est un mécanisme de push système transverse (annonces, alertes de danger, confirmations d'action risquée). Nécessite une décision d'architecture (déclenché par quoi, envoyé à qui) plutôt qu'un simple handler ; non abordé. |
+
+### Modifications
+
+23 nouveaux fichiers (`bot/src/engine/{achievements,bank,craft,diplomacy,encyclopedia,equipment,guild,mail,party,pets,skills}.js`, `bot/src/handlers/{achievements,bank,craft,diplomacy,encyclopedia,equipment,guild,mail,party,pets,registration,skills}.js`, `bot/src/services/cardRenderer.js`, 12 nouveaux gabarits `bot/src/cards/templates/*.html`), plus modifications de `router.js`, `intent.js`, `message-handler.js`, `template.js`, `economy.js` (retrait du stub `handleCraft` mort), `tests/integration.mjs` (≈25 nouvelles assertions).
+
+### État de sortie
+
+**22 gabarits de carte de production réels** (0 valeur figée — vérifié fichier par fichier). `node --check` OK sur l'intégralité des fichiers `bot/` du dépôt (balayage complet, pas seulement les fichiers touchés). Build/typecheck : projet en JavaScript pur (pas de `tsc`), aucune étape de compilation à vérifier. Suite d'intégration non exécutable dans cet environnement (pas de Postgres accessible) — vérifiée par lecture et cohérence de schéma uniquement, comme pour toute l'étape 57.
+
+**Prochaine session logique** : Housing (le plus proche d'être fait), puis Mariage (dépend de Housing), puis Pêche/Récolte (nécessite d'abord de localiser le bon MLD), puis la décision d'architecture Notifications/Confirmation.
+
+### `/code-review` (deux sous-agents parallèles, axes Standards + Spec) — corrections appliquées
+
+**Découverte critique du sous-agent Spec** : un fichier `schema.sql` **racine, faisant autorité**, existe et n'avait pas été consulté — tout le travail de cette session (et de la précédente) s'appuyait sur les fiches `données/cardinal_system_db/MLD_Logic/*.md`, qui se sont révélées **ponctuellement en retard sur le schéma réel** (colonne renommée `avatar_id` → `avatar_uuid` sans que la fiche correspondante soit mise à jour). Corrigé et vérifié table par table contre `schema.sql` pour l'ensemble des tables touchées cette étape — un seul autre écart trouvé après vérification complète (voir ci-dessous), tout le reste concorde.
+
+**Corrections appliquées (bugs réels, auraient cassé à l'exécution)** :
+- `engine/achievements.js` — `t_unlocked_achievements.avatar_id` → `avatar_uuid` (le nom réel).
+- `engine/party.js` — `t_party_members.avatar_id` → `avatar_uuid` partout (5 requêtes) ; `engine/guild.js` utilisait déjà le bon nom pour `t_guild_members`, incohérence entre les deux fichiers du même lot.
+- `engine/equipment.js` — le commentaire affirmant que seuls les 5 slots d'armure sont mirroirés sur `T_AVATARS` était faux : `schema.sql` a aussi `hand_main, hand_off, gear_belt, belt_left, belt_right, gear_back, back_type` en colonnes réelles. Étendu le mirroir à ces slots (dont la synchronisation de `back_type` selon le préfixe `BAG_`/`HRN_`) ; ajouté les invariants documentés manquants **A2** (`hand_off` exige la passive `PAS_CBT_*`) et **A3** (`belt_left`/`belt_right` exigent `gear_belt` déjà équipée).
+
+**Corrections de fiabilité (Standards, écarts confirmés par rapport au patron `BEGIN…FOR UPDATE…COMMIT/ROLLBACK` déjà suivi par `economy.js`/`bank.js`/`craft.js`/`mail.js`)** :
+- `engine/party.js` `createParty`/`inviteToParty` : fenêtre TOCTOU (vérification hors transaction, ou verrou sur une ligne qui n'existe pas encore pour une nouvelle party) — fermée avec `pg_advisory_xact_lock(hashtext(avatarUuid))`, un idiome Postgres standard pour verrouiller par clé logique quand aucune ligne n'existe encore à verrouiller. Même correctif appliqué à `engine/guild.js` `createGuild` (aucune contrainte SQL n'impose une seule guilde par avatar — G5 est une invariant d'application, pas de schéma).
+- `engine/party.js` `leaveParty`, `engine/guild.js` `leaveGuild` : suites de requêtes non transactionnelles (risque de désynchronisation `member_count`/promotion de chef en cas de départs concurrents) — regroupées en transactions avec verrouillage de ligne.
+- `logger.error` manquant dans les catch de `equipment.js`/`guild.js`/`party.js` (échecs auparavant silencieux côté serveur) — ajouté, cohérent avec le reste du fichier.
+
+**Corrections de fidélité au spec (`whatsapp_commands_list.md` §7/§8)** :
+- §7 liste exactement `!craft_list`/`!forge`/`!repair`/`!enchant`/`!alchimie`/`!cook`/`!mine` — le routeur et le handler `craft.js` ne reconnaissaient que `craft`/`fabrique`/`forge`/`artisanat`/`recette`. Étendu pour reconnaître les 7 mots-clés réels ; `!repair`/`!mine` ne sont **pas** des `craft_type` de `T_RECIPES` (réparation de durabilité et extraction de minerai sont des mécaniques distinctes non construites) — répondent désormais un message honnête plutôt que d'être confondus avec une recherche de recette.
+- §8 : `!pet_feed` (commande littérale du spec) ne matchait pas le pattern routeur `PET` à cause d'une frontière de mot (`\b`) qui échoue entre "pet" et "_" (soulignement = caractère de mot) — corrigé.
+
+**Nettoyage (Standards, smells de duplication signalés)** : `pct()` et le bloc `<div class="overflow">` étaient réimplémentés à l'identique dans 3 et 4 fichiers respectivement, `MAX_CARD_ROWS = 8` redéclaré dans 6 fichiers — centralisés dans `cardRenderer.js` (`pct()`, `overflowLine()`, export de `MAX_CARD_ROWS`), tous les appelants mis à jour.
+
+**Non corrigé, volontairement** : la construction de markup à la main dans `handlers/skills.js` (au lieu de `menuRow`) — le sous-agent Standards l'a lui-même qualifiée de justifiée par la mise en page à points de rang (`.rank-dot`), qu'aucun helper existant ne couvre ; forcer l'abstraction aurait été une généralisation spéculative pour un seul appelant.
+
+Balayage `node --check` complet ré-exécuté après corrections — aucune régression.

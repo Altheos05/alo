@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap">
+<style>
+  body{margin:0;background:#050810;}
+  .hud{--accent:#c9963f;--glow:rgba(201,150,63,0.4);--text-strong:#eaf6ff;--text-muted:#8fb4c9;--text-faint:#4d6b7d;font-family:'Rajdhani',Arial,sans-serif;}
+  .hud *{box-sizing:border-box;font-family:inherit}
+  .hud-bg{background:radial-gradient(circle at 50% 22%, rgba(201,150,63,0.14), transparent 60%), linear-gradient(180deg,#060b14,#050810);}
+  .hud-panel{background:rgba(13,27,43,0.9);border:1.5px solid var(--accent);box-shadow:0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 46px var(--glow);position:relative}
+  .hud-corner{position:absolute;width:30px;height:30px}
+  .hud-dot{width:8px;height:8px;border-radius:50%}
+  .fact-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .fact-lbl{font-size:18px;color:var(--text-muted)}
+  .fact-val{font-size:18px;font-weight:700;color:var(--text-strong)}
+  .menu-row{display:flex;align-items:center;gap:18px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.07)}
+  .menu-num{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;color:var(--accent);flex-shrink:0}
+  .menu-label{font-weight:600;font-size:22px;color:var(--text-strong);flex-grow:1}
+  .menu-sub{font-size:15px;color:var(--text-faint);font-weight:500;margin-left:8px}
+</style>
+</head>
+<body>
+<div class="hud hud-bg" style="width:1080px;height:1440px;display:flex;align-items:center;justify-content:center;position:relative;">
+  <div class="hud-panel" style="width:984px;height:1344px;border-radius:6px;display:flex;flex-direction:column;overflow:hidden;">
+    <div class="hud-corner" style="top:-2px;left:-2px;border-top:3px solid var(--accent);border-left:3px solid var(--accent);border-radius:4px 0 0 0;"></div>
+    <div class="hud-corner" style="top:-2px;right:-2px;border-top:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:0 4px 0 0;"></div>
+    <div class="hud-corner" style="bottom:-2px;left:-2px;border-bottom:3px solid var(--accent);border-left:3px solid var(--accent);border-radius:0 0 0 4px;"></div>
+    <div class="hud-corner" style="bottom:-2px;right:-2px;border-bottom:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:0 0 4px 0;"></div>
+    <div style="height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(201,150,63,0.25);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="hud-dot" style="background:var(--accent);box-shadow:0 0 6px var(--accent);"></span>
+        <span class="hud-dot" style="background:rgba(255,255,255,0.2);"></span>
+        <span class="hud-dot" style="background:rgba(255,255,255,0.2);"></span>
+        <span style="margin-left:10px;font-weight:700;font-size:20px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;">Guilde</span>
+      </div>
+      <div style="font-weight:600;font-size:18px;color:var(--text-faint);">{{memberCount}} membres</div>
+    </div>
+    <div style="padding:26px 44px 8px 44px;flex-shrink:0;">
+      <div style="font-weight:700;font-size:30px;color:var(--text-strong);">{{guildName}} <span style="color:var(--accent);font-size:20px;">{{guildTag}}</span></div>
+      <div style="font-size:16px;color:var(--text-faint);margin-top:4px;">Niveau {{guildLevel}}</div>
+    </div>
+    <div style="padding:6px 44px 0 44px;flex-shrink:0;">
+      <div class="fact-row" style="border-bottom:none;"><span class="fact-lbl">Trésorerie</span><span class="fact-val">{{treasury}} Yrds</span></div>
+    </div>
+    <div style="height:1px;background:rgba(201,150,63,0.2);margin:12px 44px 0 44px;"></div>
+    <div style="flex-grow:1;padding:16px 44px 0 44px;overflow:hidden;">{{itemsHtml}}</div>
+    <div style="height:70px;flex-shrink:0;border-top:1px solid rgba(201,150,63,0.25);display:flex;align-items:center;justify-content:center;">
+      <div style="font-weight:600;font-size:13px;letter-spacing:3px;color:var(--text-faint);text-transform:uppercase;">Système Cardinal · ALO</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

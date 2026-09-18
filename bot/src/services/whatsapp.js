@@ -1,10 +1,11 @@
 import ww from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 
-const { Client, LocalAuth } = ww;
+const { Client, LocalAuth, MessageMedia } = ww;
 import logger from '../utils/logger.js';
 import config from '../config.js';
 import { processMessage } from '../orchestrator/message-handler.js';
+import { renderCard } from './cardRenderer.js';
 import pool from '../db/pool.js';
 
 let client = null;
@@ -65,7 +66,20 @@ export async function initWhatsApp() {
     try {
       const result = await processMessage(pool, text, null, groupId, phoneNumber);
       const reply = result.response;
-      if (reply) await msg.reply(reply);
+
+      let sentAsCard = false;
+      if (result.card) {
+        const buffer = await renderCard(client, result.card.template, result.card.variables);
+        if (buffer) {
+          const media = new MessageMedia('image/png', buffer.toString('base64'), `${result.card.template}.png`);
+          await msg.reply(media, undefined, { caption: reply });
+          sentAsCard = true;
+        } else {
+          logger.warn('Carte non rendue — repli sur le texte', { template: result.card.template });
+        }
+      }
+
+      if (!sentAsCard && reply) await msg.reply(reply);
     } catch (err) {
       logger.error('Erreur traitement message WhatsApp', { error: err.message });
       await msg.reply('❌ Une erreur est survenue. Réessaie plus tard.');

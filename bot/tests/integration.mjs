@@ -6,6 +6,18 @@ import * as combat from '../src/handlers/combat.js';
 import * as movement from '../src/handlers/movement.js';
 import * as economy from '../src/handlers/economy.js';
 import * as dialogue from '../src/handlers/dialogue.js';
+import * as bank from '../src/handlers/bank.js';
+import * as mailHandler from '../src/handlers/mail.js';
+import * as encyclopedia from '../src/handlers/encyclopedia.js';
+import * as achievements from '../src/handlers/achievements.js';
+import * as skillsHandler from '../src/handlers/skills.js';
+import * as petsHandler from '../src/handlers/pets.js';
+import * as craftHandler from '../src/handlers/craft.js';
+import * as partyHandler from '../src/handlers/party.js';
+import * as guildHandler from '../src/handlers/guild.js';
+import * as equipmentHandler from '../src/handlers/equipment.js';
+import * as registrationHandler from '../src/handlers/registration.js';
+import * as diplomacyHandler from '../src/handlers/diplomacy.js';
 import * as playerService from '../src/handlers/player.js';
 import { loadGazetteer } from '../src/services/gazetteer.js';
 import { applyStatusEffect, tickStatusEffects, getStatModifiers, formatActiveEffects } from '../src/engine/combat.js';
@@ -34,17 +46,184 @@ async function run() {
 
   await test('Handler STATUS (player)', async () => {
     const result = await playerService.handleStatus(pool, TEST_PLAYER);
-    if (!result || result.includes('❌')) throw new Error('Réponse invalide: ' + result);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text || text.includes('❌')) throw new Error('Réponse invalide: ' + text);
+    if (typeof result === 'object' && result.card?.template !== 'personnage') {
+      throw new Error('Carte personnage manquante ou mal typée: ' + JSON.stringify(result.card));
+    }
   });
 
   await test('Handler INVENTORY (player)', async () => {
     const result = await playerService.handleInventory(pool, TEST_PLAYER);
-    if (!result) throw new Error('Pas de réponse');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
   });
 
   await test('Handler QUESTS (player)', async () => {
     const result = await playerService.handleQuests(pool, TEST_PLAYER);
-    if (!result) throw new Error('Pas de réponse');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('Handler VAULT (bank) — consultation', async () => {
+    const result = await bank.handleVault(pool, TEST_PLAYER, {}, 'banque');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+    if (typeof result === 'object' && result.card?.template !== 'banque') {
+      throw new Error('Carte banque manquante ou mal typée: ' + JSON.stringify(result.card));
+    }
+  });
+
+  await test('Handler ENCYCLOPEDIA — vide ou liste', async () => {
+    const result = await encyclopedia.handleEncyclopedia(pool, TEST_PLAYER);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('Handler WIKI — terme absent', async () => {
+    const result = await encyclopedia.handleWiki(pool, TEST_PLAYER, 'wiki');
+    if (typeof result !== 'string') throw new Error('Devrait redemander un terme');
+  });
+
+  await test('ProcessMessage — encyclopedie', async () => {
+    const result = await processMessage(pool, 'encyclopedie', TEST_PLAYER);
+    if (result.routing.intent !== 'ENCYCLOPEDIA') throw new Error('Pas ENCYCLOPEDIA: ' + result.routing.intent);
+  });
+
+  await test('ProcessMessage — wiki', async () => {
+    const result = await processMessage(pool, 'wiki Loup Alpha', TEST_PLAYER);
+    if (result.routing.intent !== 'WIKI') throw new Error('Pas WIKI: ' + result.routing.intent);
+  });
+
+  await test('ProcessMessage — lore', async () => {
+    const result = await processMessage(pool, 'lore Jötunheimr', TEST_PLAYER);
+    if (result.routing.intent !== 'LORE_DOC') throw new Error('Pas LORE_DOC: ' + result.routing.intent);
+  });
+
+  await test('Handler ACHIEVEMENTS — vide ou liste', async () => {
+    const result = await achievements.handleAchievements(pool, TEST_PLAYER);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('Handler RANKINGS — top 10 Yrds', async () => {
+    const result = await achievements.handleRankings(pool, TEST_PLAYER, 'classement');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — achievements', async () => {
+    const result = await processMessage(pool, 'succès', TEST_PLAYER);
+    if (result.routing.intent !== 'ACHIEVEMENTS') throw new Error('Pas ACHIEVEMENTS: ' + result.routing.intent);
+  });
+
+  await test('ProcessMessage — rankings', async () => {
+    const result = await processMessage(pool, 'classement niveau', TEST_PLAYER);
+    if (result.routing.intent !== 'RANKINGS') throw new Error('Pas RANKINGS: ' + result.routing.intent);
+  });
+
+  await test('Handler SKILL_LIST — vide ou liste', async () => {
+    const result = await skillsHandler.handleSkillList(pool, TEST_PLAYER);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — skills (pas confondu avec USE_SKILL)', async () => {
+    const result = await processMessage(pool, 'compétences', TEST_PLAYER);
+    if (result.routing.intent !== 'SKILL_LIST') throw new Error('Pas SKILL_LIST: ' + result.routing.intent);
+  });
+
+  await test('Handler PET — aucun familier ou statut', async () => {
+    const result = await petsHandler.handlePet(pool, TEST_PLAYER, 'familier');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — familier', async () => {
+    const result = await processMessage(pool, 'familier', TEST_PLAYER);
+    if (result.routing.intent !== 'PET') throw new Error('Pas PET: ' + result.routing.intent);
+  });
+
+  await test('Handler CRAFT — domaines (table vide ou non)', async () => {
+    const result = await craftHandler.handleCraft(pool, TEST_PLAYER, 'craft');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — craft', async () => {
+    const result = await processMessage(pool, 'artisanat', TEST_PLAYER);
+    if (result.routing.intent !== 'CRAFT') throw new Error('Pas CRAFT: ' + result.routing.intent);
+  });
+
+  await test('Handler PARTY — aucun groupe ou statut', async () => {
+    const result = await partyHandler.handlePartyCommand(pool, TEST_PLAYER, 'groupe');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('Handler GUILD — aucune guilde ou statut', async () => {
+    const result = await guildHandler.handleGuildCommand(pool, TEST_PLAYER, 'guilde');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — groupe', async () => {
+    const result = await processMessage(pool, 'groupe', TEST_PLAYER);
+    if (result.routing.intent !== 'PARTY') throw new Error('Pas PARTY: ' + result.routing.intent);
+  });
+
+  await test('ProcessMessage — guilde', async () => {
+    const result = await processMessage(pool, 'guilde', TEST_PLAYER);
+    if (result.routing.intent !== 'GUILD') throw new Error('Pas GUILD: ' + result.routing.intent);
+  });
+
+  await test('Handler EQUIP — aucun équipement ou liste', async () => {
+    const result = await equipmentHandler.handleEquip(pool, TEST_PLAYER, 'equipement');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — equip', async () => {
+    const result = await processMessage(pool, 'equipement', TEST_PLAYER);
+    if (result.routing.intent !== 'EQUIP') throw new Error('Pas EQUIP: ' + result.routing.intent);
+  });
+
+  await test('Handler LINK_START — déjà inscrit (TEST_PLAYER existe)', async () => {
+    const result = await registrationHandler.handleLinkStart(pool, '00000000000', '!link_start Sylph Test');
+    if (typeof result !== 'string') throw new Error('Devrait renvoyer une chaîne (usage ou déjà inscrit)');
+  });
+
+  await test('ProcessMessage — link_start', async () => {
+    const result = await processMessage(pool, '!link_start', TEST_PLAYER);
+    if (result.routing.intent !== 'LINK_START') throw new Error('Pas LINK_START: ' + result.routing.intent);
+  });
+
+  await test('Handler DIPLOMACY — relations ou aucune', async () => {
+    const result = await diplomacyHandler.handleDiplomacy(pool, TEST_PLAYER);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — diplomatie', async () => {
+    const result = await processMessage(pool, 'diplomatie', TEST_PLAYER);
+    if (result.routing.intent !== 'DIPLOMACY') throw new Error('Pas DIPLOMACY: ' + result.routing.intent);
+  });
+
+  await test('Handler MAIL (mail) — boîte vide ou liste', async () => {
+    const result = await mailHandler.handleMail(pool, TEST_PLAYER, 'mail');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — mail', async () => {
+    const result = await processMessage(pool, 'courrier', TEST_PLAYER);
+    if (result.routing.intent !== 'MAIL') throw new Error('Pas MAIL: ' + result.routing.intent);
+  });
+
+  await test('Handler SHOP_LIST (economy)', async () => {
+    const result = await economy.handleShopList(pool, TEST_PLAYER);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
   });
 
   await test('Handler BUY (economy)', async () => {
@@ -91,6 +270,18 @@ async function run() {
   await test('ProcessMessage — aide', async () => {
     const result = await processMessage(pool, '!aide', TEST_PLAYER);
     if (result.routing.intent !== 'HELP') throw new Error('Pas HELP: ' + result.routing.intent);
+  });
+
+  await test('Router — entities résolues (régression : extractEntities non attendu)', async () => {
+    const result = await processMessage(pool, 'banque déposer 50', TEST_PLAYER);
+    if (result.routing.entities?.quantity !== 50) {
+      throw new Error('quantity non résolue — routing.entities: ' + JSON.stringify(result.routing.entities));
+    }
+  });
+
+  await test('ProcessMessage — boutique', async () => {
+    const result = await processMessage(pool, 'boutique', TEST_PLAYER);
+    if (result.routing.intent !== 'SHOP_LIST') throw new Error('Pas SHOP_LIST: ' + result.routing.intent);
   });
 
   await test('ProcessMessage — inventaire', async () => {

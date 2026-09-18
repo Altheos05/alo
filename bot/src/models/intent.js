@@ -3,6 +3,7 @@ import { getPipeline } from './loader.js';
 
 const INTENT_KEYWORDS = {
   MOVE: ['va', 'vais', 'allé', 'déplace', 'tp', 'teleporte', 'direction', 'move', 'go', 'vers'],
+  SHOP_LIST: ['boutique', 'shop', 'magasin', 'marchand'],
   BUY: ['achète', 'achete', 'achat', 'acheter', 'buy', 'prends', 'je veux', 'donne', 'combien', 'prix'],
   SELL: ['vends', 'revends', 'sell', 'vendre', 'brade'],
   ATTACK: ['attaque', 'attack', 'frappe', 'cogne', 'engage', 'combat', 'tue'],

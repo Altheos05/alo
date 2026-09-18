@@ -152,4 +152,18 @@ export async function sellItem(db, playerUuid, itemId, quantity = 1) {
   }
 }
 
-export default { calculateBuyPrice, calculateSellPrice, buyItem, sellItem };
+export async function getShopInventory(db, zoneId) {
+  const result = await db.query(
+    `SELECT si.item_id, id.name AS item_name, si.price, si.stock, n.display_name AS npc_name
+     FROM t_shops s
+     JOIN t_npc n ON n.npc_id = s.owner_npc_id
+     JOIN t_shop_items si ON si.shop_id = s.shop_id
+     JOIN t_items_dict id ON id.item_id = si.item_id
+     WHERE s.zone_id = $1 AND s.is_open = TRUE
+     ORDER BY n.display_name, id.name`,
+    [zoneId]
+  );
+  return result.rows;
+}
+
+export default { calculateBuyPrice, calculateSellPrice, buyItem, sellItem, getShopInventory };

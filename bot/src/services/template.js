@@ -11,6 +11,30 @@ Tu te trouves à {zoneName}. Tape *!aide* pour voir les commandes disponibles.`,
   move_arrived: `📍 Tu es arrivé à **{zoneName}**.
 {description}`,
 
+  bank_status: `🏦 **Banque de {playerName}**
+━━━━━━━━━━━━━━━━
+💰 En banque : {vaultBalance} Yrds
+👛 Sur toi : {walletBalance} Yrds
+📦 Objets stockés : {itemsStored}/{maxSlots}
+━━━━━━━━━━━━━━━━`,
+
+  bank_deposit: `🏦 Dépôt effectué : **{amount} Yrds**
+💰 Banque : {vaultBalance} Yrds | 👛 Sur toi : {walletBalance} Yrds`,
+
+  bank_withdraw: `🏦 Retrait effectué : **{amount} Yrds**
+💰 Banque : {vaultBalance} Yrds | 👛 Sur toi : {walletBalance} Yrds`,
+
+  bank_fail_insufficient: `❌ Fonds insuffisants sur toi.
+👛 Tu as {available} Yrds, tu veux déposer {required} Yrds.`,
+
+  bank_fail_vault_insufficient: `❌ Fonds insuffisants en banque.
+💰 Ta banque contient {available} Yrds.`,
+
+  shop_list: `🛒 **Boutiques de {zoneName}**
+{shopLines}`,
+
+  shop_list_empty: `🛒 Aucune boutique ouverte à {zoneName}.`,
+
   buy_success: `🛒 Achat effectué : **{quantity}× {itemName}**
 💸 Total : {total} Yrds (dont {tax} Yrds de taxe)
 💰 Nouveau solde : {balance} Yrds`,

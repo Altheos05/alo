@@ -4,6 +4,28 @@ import { enhanceDialogue } from '../services/llm.js';
 import { executePipelineCommands } from '../services/sys-pipeline.js';
 import logger from '../utils/logger.js';
 
+const AFFINITY_LABELS = {
+  hostile: 'Hostile',
+  stranger: 'Étrangère',
+  known: 'Connue',
+  trusted: 'Confiante',
+  confidant: 'Confidente',
+};
+
+async function getRelationLabel(db, playerId, npcId) {
+  try {
+    const result = await db.query(
+      'SELECT affinity_tier FROM t_npc_relations WHERE avatar_uuid = $1 AND npc_id = $2',
+      [playerId, npcId]
+    );
+    const tier = result.rows[0]?.affinity_tier || 'stranger';
+    return AFFINITY_LABELS[tier] || tier;
+  } catch (err) {
+    logger.debug('Relation PNJ indisponible pour la carte de dialogue', { npcId, error: err.message });
+    return AFFINITY_LABELS.stranger;
+  }
+}
+
 export async function handleTalk(db, playerId, entities) {
   const npcName = entities.npcId || entities.keyword || entities.target;
 
@@ -66,7 +88,16 @@ export async function handleTalk(db, playerId, entities) {
       : getDefaultDialogue(npc.role_type);
   }
 
-  return render('talk', { npcName: npc.display_name, dialogue });
+  const text = render('talk', { npcName: npc.display_name, dialogue });
+  const relationLabel = await getRelationLabel(db, playerId, npc.npc_id);
+
+  return {
+    text,
+    card: {
+      template: 'dialogue_talk',
+      variables: { npcName: npc.display_name, npcId: npc.npc_id, dialogue, relationLabel },
+    },
+  };
 }
 
 function getDefaultDialogue(roleType) {

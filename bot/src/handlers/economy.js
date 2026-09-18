@@ -1,7 +1,34 @@
-import { buyItem, sellItem } from '../engine/economy.js';
+import { buyItem, sellItem, getShopInventory } from '../engine/economy.js';
 import { getPlayer } from '../services/player.js';
 import { render } from '../services/template.js';
+import { menuRow, overflowLine, MAX_CARD_ROWS } from '../services/cardRenderer.js';
 import logger from '../utils/logger.js';
+
+export async function handleShopList(db, playerId) {
+  const player = await getPlayer(db, playerId);
+  if (!player) return render('error');
+
+  const items = await getShopInventory(db, player.current_zone_id);
+  if (items.length === 0) return render('shop_list_empty', { zoneName: player.zone_name });
+
+  const lines = items.map(i =>
+    `• **${i.item_name}** — ${i.price} Yrds${i.stock >= 0 ? ` (stock: ${i.stock})` : ''} — ${i.npc_name}`
+  );
+  const text = render('shop_list', { zoneName: player.zone_name, shopLines: lines.join('\n') });
+
+  const rows = items.slice(0, MAX_CARD_ROWS)
+    .map((i, idx) => menuRow(idx + 1, i.item_name, `${i.price} Y · ${i.npc_name}`))
+    .join('');
+  const overflow = overflowLine(items.length, 'autres articles');
+
+  return {
+    text,
+    card: {
+      template: 'boutique',
+      variables: { zoneName: player.zone_name, itemCount: items.length, itemsHtml: rows + overflow },
+    },
+  };
+}
 
 export async function handleBuy(db, playerId, entities) {
   const player = await getPlayer(db, playerId);
@@ -52,8 +79,4 @@ export async function handleSell(db, playerId, entities) {
   return render('sell_success', { quantity: qty, itemName: result.item.name, total: result.total });
 }
 
-export async function handleCraft(db, playerId, entities) {
-  return `🔨 L'artisanat n'est pas encore implémenté. Reviens dans une prochaine mise à jour.`;
-}
-
-export default { handleBuy, handleSell, handleCraft };
+export default { handleShopList, handleBuy, handleSell };

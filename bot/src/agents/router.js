@@ -4,30 +4,43 @@ import { extractEntities } from '../models/ner.js';
 
 const INTENT_PATTERNS = [
   { intent: 'MOVE', pattern: /^(?:je )?(?:vais?|va|vé|va à|vais à|me déplace|teleporte|tp)\s*(?::\s*)?(`?\w+`?)?/i },
+  { intent: 'SHOP_LIST', pattern: /^(?:boutique|shop|magasin|marchand|shop_list|!shop_list)$/i },
   { intent: 'BUY', pattern: /(?:achète|achete|achat|acheter|buy|prends?|je veux|donne moi|combien coûte|prix de)\s*(?::\s*)?(\d+)?\s*(.+)?/i },
   { intent: 'SELL', pattern: /(?:vends?|revends?|sell|vendre)\s*(?::\s*)?(\d+)?\s*(.+)?/i },
   { intent: 'ATTACK', pattern: /(?:attaqu?e?|attack|frappe?|cogne?|combat|engage)\s*(?::\s*)?(.+)?/i },
+  { intent: 'SKILL_LIST', pattern: /^(?:skills?|compétences?|competences?|!skills|!skill_list)$/i },
   { intent: 'USE_SKILL', pattern: /(?:utilise?|use|lance?|cast|sort|compétence|skill)\s*(?::\s*)?(`?\w+`?)?/i },
   { intent: 'TALK', pattern: /(?:parle?|talk|discute?|dialogue|qui es-tu|que fais-tu)\s*(?::\s*)?(.+)?/i },
-  { intent: 'INVENTORY', pattern: /^(?:inv|inventaire|sac|bag|items?|objets?|equipement|stuff)$/i },
+  { intent: 'INVENTORY', pattern: /^(?:inv|inventaire|sac|bag|items?|objets?|stuff)$/i },
   { intent: 'QUEST', pattern: /(?:quêt|quest|mission|contrat)\s*(?::\s*)?(.+)?/i },
   { intent: 'STATUS', pattern: /^(?:statut?|status|profil|profile|moi|perso|fiche|hp|mp)$/i },
   { intent: 'PARTY', pattern: /(?:groupe?|party|invite?|recrute?)\s*(?::\s*)?(.+)?/i },
   { intent: 'GUILD', pattern: /(?:guilde?|guild|clan)\s*(?::\s*)?(.+)?/i },
-  { intent: 'CRAFT', pattern: /(?:craft|fabrique?|forge?|artisanat|recette?)\s*(?::\s*)?(.+)?/i },
+  { intent: 'CRAFT', pattern: /(?:craft_list|craft|fabrique?|forge?|artisanat|recette?|repair|enchant|alchimie|cook|mine)\s*(?::\s*)?(.+)?/i },
+  { intent: 'ACHIEVEMENTS', pattern: /^(?:achievements|hauts?[- ]faits?|succes|succès|!achievements)$/i },
+  { intent: 'RANKINGS', pattern: /^(?:rankings|classements?|!rankings)\b.*/i },
+  { intent: 'ENCYCLOPEDIA', pattern: /^(?:encyclopedia|encyclopédie|!encyclopedia)$/i },
+  { intent: 'WIKI', pattern: /^(?:wiki|!wiki)\s+(.+)/i },
+  { intent: 'LORE_DOC', pattern: /^(?:lore|!lore)\s+(.+)/i },
   { intent: 'LORE_QUERY', pattern: /(?:légende?|lore|histoire|dieu|création|mythe|origine|pourquoi|comment)\s*(?::\s*)?(.+)?/i },
   { intent: 'VAULT', pattern: /(?:banque|coffre|dépôt|retrait|vault|banqu)\s*(?::\s*)?(.+)?/i },
   { intent: 'MAIL', pattern: /(?:mail|courrier|message|boîte)\s*(?::\s*)?(.+)?/i },
+  { intent: 'PET', pattern: /^(?:!pet_feed|pet|familier|!pet)\b.*/i },
+  { intent: 'DIPLOMACY', pattern: /^(?:diplomatie|alliances?|!diplomatie)$/i },
   { intent: 'EQUIP', pattern: /(?:équipe?|equip|arme?|armure?|accessoir)\s*(?::\s*)?(.+)?/i },
   { intent: 'HELP', pattern: /^(?:help|aide|commandes?|menu|\/help|\/aide|!aide|!help)$/i },
   { intent: 'EMOTE', pattern: /^(?:\/me|\/emote|\/do|\/it)(?:\s+(.+))?$/i },
   { intent: 'WHISPER', pattern: /^(?:\/w|\/whisper|\/tell)\s+(\w+)\s+(.+)/i },
+  { intent: 'LINK_START', pattern: /^!link_start\b.*/i },
   { intent: 'SYS', pattern: /^!sys_\w+/i },
 ];
 
 export function getAgentForIntent(intent) {
   const map = {
-    MOVE: 'movement', BUY: 'economy', SELL: 'economy',
+    MOVE: 'movement', SHOP_LIST: 'economy', BUY: 'economy', SELL: 'economy',
+    ENCYCLOPEDIA: 'lore', WIKI: 'lore', LORE_DOC: 'lore',
+    ACHIEVEMENTS: 'player', RANKINGS: 'player', SKILL_LIST: 'player', PET: 'player', LINK_START: 'player',
+    DIPLOMACY: 'lore',
     ATTACK: 'combat', USE_SKILL: 'combat',
     TALK: 'dialogue', INVENTORY: 'player', QUEST: 'player',
     STATUS: 'player', PARTY: 'social', GUILD: 'social',
@@ -93,7 +106,7 @@ export async function routeMessage(text) {
     }
   }
 
-  const entities = extractEntities(cleaned);
+  const entities = await extractEntities(cleaned);
 
   if (intent === 'BUY' || intent === 'SELL') {
     for (const kw of ['potion', 'arme', 'armure', 'épée', 'bouclier', 'anneau', 'bague', 'minerai', 'plante']) {

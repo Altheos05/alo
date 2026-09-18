@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap">
+<style>
+  body{margin:0;background:#050502;}
+  .hud{--accent:#c9a876;--glow:rgba(201,168,118,0.35);--text-strong:#f0e6d2;--text-muted:#b8a888;--text-faint:#6b5f4d;font-family:'Rajdhani',Arial,sans-serif;}
+  .hud *{box-sizing:border-box;font-family:inherit}
+  .hud-bg{background:radial-gradient(circle at 50% 22%, rgba(201,168,118,0.12), transparent 60%), linear-gradient(180deg,#0a0805,#060402);}
+  .hud-panel{background:rgba(24,19,12,0.92);border:1.5px solid var(--accent);box-shadow:0 0 0 1px rgba(255,255,255,0.03) inset, 0 0 46px var(--glow);position:relative}
+  .hud-corner{position:absolute;width:30px;height:30px}
+  .hud-dot{width:8px;height:8px;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="hud hud-bg" style="width:1080px;height:1440px;display:flex;align-items:center;justify-content:center;position:relative;">
+  <div class="hud-panel" style="width:984px;height:1344px;border-radius:6px;display:flex;flex-direction:column;overflow:hidden;">
+    <div class="hud-corner" style="top:-2px;left:-2px;border-top:3px solid var(--accent);border-left:3px solid var(--accent);border-radius:4px 0 0 0;"></div>
+    <div class="hud-corner" style="top:-2px;right:-2px;border-top:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:0 4px 0 0;"></div>
+    <div class="hud-corner" style="bottom:-2px;left:-2px;border-bottom:3px solid var(--accent);border-left:3px solid var(--accent);border-radius:0 0 0 4px;"></div>
+    <div class="hud-corner" style="bottom:-2px;right:-2px;border-bottom:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:0 0 4px 0;"></div>
+    <div style="height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(201,168,118,0.3);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="hud-dot" style="background:var(--accent);box-shadow:0 0 6px var(--accent);"></span>
+        <span class="hud-dot" style="background:rgba(255,255,255,0.15);"></span>
+        <span class="hud-dot" style="background:rgba(255,255,255,0.15);"></span>
+        <span style="margin-left:10px;font-weight:700;font-size:20px;letter-spacing:2px;color:var(--text-faint);text-transform:uppercase;">Lore</span>
+      </div>
+      <div style="font-weight:600;font-size:18px;color:var(--text-faint);">{{category}}</div>
+    </div>
+    <div style="padding:30px 44px 8px 44px;flex-shrink:0;">
+      <div style="font-weight:700;font-size:30px;color:var(--accent);">{{title}}</div>
+    </div>
+    <div style="height:1px;background:rgba(201,168,118,0.25);margin:16px 44px 0 44px;"></div>
+    <div style="flex-grow:1;padding:26px 44px 0 44px;overflow:hidden;">
+      <div style="font-size:21px;line-height:1.6;color:var(--text-strong);font-style:italic;">{{content}}</div>
+    </div>
+    <div style="height:70px;flex-shrink:0;border-top:1px solid rgba(201,168,118,0.3);display:flex;align-items:center;justify-content:center;">
+      <div style="font-weight:600;font-size:13px;letter-spacing:3px;color:var(--text-faint);text-transform:uppercase;">Système Cardinal · ALO</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -18,6 +18,12 @@ import * as guildHandler from '../src/handlers/guild.js';
 import * as equipmentHandler from '../src/handlers/equipment.js';
 import * as registrationHandler from '../src/handlers/registration.js';
 import * as diplomacyHandler from '../src/handlers/diplomacy.js';
+import * as housingHandler from '../src/handlers/housing.js';
+import * as flightHandler from '../src/handlers/flight.js';
+import * as questsHandler from '../src/handlers/quests.js';
+import * as itemsHandler from '../src/handlers/items.js';
+import * as itemsEngine from '../src/engine/items.js';
+import * as questsEngine from '../src/engine/quests.js';
 import * as playerService from '../src/handlers/player.js';
 import { loadGazetteer } from '../src/services/gazetteer.js';
 import { applyStatusEffect, tickStatusEffects, getStatModifiers, formatActiveEffects } from '../src/engine/combat.js';
@@ -59,10 +65,61 @@ async function run() {
     if (!text) throw new Error('Pas de réponse');
   });
 
-  await test('Handler QUESTS (player)', async () => {
-    const result = await playerService.handleQuests(pool, TEST_PLAYER);
+  await test('Handler QUESTS (quests) — liste active', async () => {
+    const result = await questsHandler.handleQuests(pool, TEST_PLAYER, 'quêtes');
     const text = typeof result === 'string' ? result : result?.text;
     if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('Handler QUEST_BOARD', async () => {
+    const result = await questsHandler.handleQuestBoard(pool, TEST_PLAYER);
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('acceptQuest — plafond 10 quêtes actives (régression Q1)', async () => {
+    await pool.query("DELETE FROM t_active_quests WHERE avatar_uuid = $1 AND quest_id LIKE 'TEST_CAP_%'", [TEST_PLAYER]);
+    try {
+      for (let i = 0; i < 10; i++) {
+        await pool.query(
+          `INSERT INTO t_active_quests (avatar_uuid, quest_id, current_step, progress_status)
+           VALUES ($1, $2, 1, 'in_progress') ON CONFLICT (avatar_uuid, quest_id) DO NOTHING`,
+          [TEST_PLAYER, `TEST_CAP_${i}`]
+        );
+      }
+      const questRow = await pool.query('SELECT quest_id FROM t_quests_dict LIMIT 1');
+      if (questRow.rows.length === 0) return; // pas de quête seedée, régression non vérifiable ici
+      const result = await questsEngine.acceptQuest(pool, TEST_PLAYER, questRow.rows[0].quest_id);
+      if (result.success || result.error !== 'QUEST_CAP_REACHED') {
+        throw new Error('Plafond 10 quêtes actives non appliqué : ' + JSON.stringify(result));
+      }
+    } finally {
+      await pool.query("DELETE FROM t_active_quests WHERE avatar_uuid = $1 AND quest_id LIKE 'TEST_CAP_%'", [TEST_PLAYER]);
+    }
+  });
+
+  await test('turnInQuest — écriture T_QUEST_HISTORY (régression Q2/Q4)', async () => {
+    const questRow = await pool.query('SELECT quest_id, total_steps FROM t_quests_dict LIMIT 1');
+    if (questRow.rows.length === 0) return; // pas de quête seedée, régression non vérifiable ici
+    const { quest_id, total_steps } = questRow.rows[0];
+    await pool.query(
+      `INSERT INTO t_active_quests (avatar_uuid, quest_id, current_step, progress_status)
+       VALUES ($1, $2, $3, 'in_progress')
+       ON CONFLICT (avatar_uuid, quest_id) DO UPDATE SET current_step = $3, progress_status = 'in_progress', completed_at = NULL`,
+      [TEST_PLAYER, quest_id, total_steps]
+    );
+    try {
+      const result = await questsEngine.turnInQuest(pool, TEST_PLAYER, quest_id);
+      if (!result.success) throw new Error('Rendu de quête échoué : ' + JSON.stringify(result));
+      const history = await pool.query(
+        'SELECT 1 FROM t_quest_history WHERE avatar_uuid = $1 AND quest_id = $2 ORDER BY completed_at DESC LIMIT 1',
+        [TEST_PLAYER, quest_id]
+      );
+      if (history.rows.length === 0) throw new Error('Aucune ligne T_QUEST_HISTORY après rendu');
+    } finally {
+      await pool.query('DELETE FROM t_active_quests WHERE avatar_uuid = $1 AND quest_id = $2', [TEST_PLAYER, quest_id]);
+      await pool.query('DELETE FROM t_quest_history WHERE avatar_uuid = $1 AND quest_id = $2', [TEST_PLAYER, quest_id]);
+    }
   });
 
   await test('Handler VAULT (bank) — consultation', async () => {
@@ -207,6 +264,89 @@ async function run() {
   await test('ProcessMessage — diplomatie', async () => {
     const result = await processMessage(pool, 'diplomatie', TEST_PLAYER);
     if (result.routing.intent !== 'DIPLOMACY') throw new Error('Pas DIPLOMACY: ' + result.routing.intent);
+  });
+
+  await test('Handler HOUSING — liste offre', async () => {
+    const result = await housingHandler.handleHousing(pool, TEST_PLAYER, 'housing_list');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('Handler HOUSING — statut ou aucun logement', async () => {
+    const result = await housingHandler.handleHousing(pool, TEST_PLAYER, 'logement');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — housing', async () => {
+    const result = await processMessage(pool, 'logement', TEST_PLAYER);
+    if (result.routing.intent !== 'HOUSING') throw new Error('Pas HOUSING: ' + result.routing.intent);
+  });
+
+  await test('Handler HOUSING — alias verbe libre non routé vers achat/location (régression scope-creep)', async () => {
+    const result = await housingHandler.handleHousing(pool, TEST_PLAYER, 'logement acheter petite maison');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+    if (/Précise un type|achetée|louée/i.test(text)) {
+      throw new Error('"acheter" a été traité comme housing_buy (alias non spécifié) : ' + text);
+    }
+  });
+
+  await test('Handler FLIGHT — bascule décollage/atterrissage', async () => {
+    const result = await flightHandler.handleFlight(pool, TEST_PLAYER, 'vol');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — vol', async () => {
+    const result = await processMessage(pool, 'vol', TEST_PLAYER);
+    if (result.routing.intent !== 'FLIGHT') throw new Error('Pas FLIGHT: ' + result.routing.intent);
+  });
+
+  await test('Handler FLIGHT — flight_gauge ne bascule pas is_flying (régression)', async () => {
+    const before = await pool.query('SELECT is_flying FROM t_avatars WHERE avatar_uuid = $1', [TEST_PLAYER]);
+    const result = await flightHandler.handleFlight(pool, TEST_PLAYER, 'flight_gauge');
+    const text = typeof result === 'string' ? result : result?.text;
+    const after = await pool.query('SELECT is_flying FROM t_avatars WHERE avatar_uuid = $1', [TEST_PLAYER]);
+    if (!text) throw new Error('Pas de réponse');
+    if (before.rows[0].is_flying !== after.rows[0].is_flying) {
+      throw new Error('flight_gauge a modifié is_flying — devrait être une commande de lecture seule');
+    }
+  });
+
+  await test('Handler INSPECT — objet introuvable ou trouvé', async () => {
+    const result = await itemsHandler.handleInspect(pool, TEST_PLAYER, 'inspect Potion de Soin');
+    const text = typeof result === 'string' ? result : result?.text;
+    if (!text) throw new Error('Pas de réponse');
+  });
+
+  await test('ProcessMessage — inspect', async () => {
+    const result = await processMessage(pool, 'inspect Potion', TEST_PLAYER);
+    if (result.routing.intent !== 'INSPECT') throw new Error('Pas INSPECT: ' + result.routing.intent);
+  });
+
+  await test('ProcessMessage — jeter', async () => {
+    const result = await processMessage(pool, 'jeter Potion', TEST_PLAYER);
+    if (result.routing.intent !== 'DROP_ITEM') throw new Error('Pas DROP_ITEM: ' + result.routing.intent);
+  });
+
+  await test('dropItem — objet lié à l\'âme refusé (régression I4)', async () => {
+    await pool.query(
+      `INSERT INTO t_inventory (instance_uuid, avatar_uuid, item_id, quantity, is_bound)
+       VALUES (gen_random_uuid(), $1, 'ITEM_POT_001', 1, TRUE)`,
+      [TEST_PLAYER]
+    );
+    try {
+      const result = await itemsEngine.dropItem(pool, TEST_PLAYER, 'ITEM_POT_001', 1);
+      if (result.success || result.error !== 'BOUND_ITEM') {
+        throw new Error('Objet lié jeté sans rejet : ' + JSON.stringify(result));
+      }
+    } finally {
+      await pool.query(
+        `DELETE FROM t_inventory WHERE avatar_uuid = $1 AND item_id = 'ITEM_POT_001' AND is_bound = TRUE`,
+        [TEST_PLAYER]
+      );
+    }
   });
 
   await test('Handler MAIL (mail) — boîte vide ou liste', async () => {

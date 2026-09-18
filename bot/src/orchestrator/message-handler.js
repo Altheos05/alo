@@ -18,6 +18,10 @@ import * as guildHandler from '../handlers/guild.js';
 import * as equipmentHandler from '../handlers/equipment.js';
 import * as registrationHandler from '../handlers/registration.js';
 import * as diplomacyHandler from '../handlers/diplomacy.js';
+import * as housingHandler from '../handlers/housing.js';
+import * as flightHandler from '../handlers/flight.js';
+import * as questsHandler from '../handlers/quests.js';
+import * as itemsHandler from '../handlers/items.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import config from '../config.js';
@@ -135,7 +139,7 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return playerService.handleStatus(db, playerId);
 
     case 'QUEST':
-      return playerService.handleQuests(db, playerId);
+      return questsHandler.handleQuests(db, playerId, routing.raw || '');
 
     case 'HELP':
       return render('help');
@@ -186,6 +190,18 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
 
     case 'WHISPER':
       return `📩 Message privé à **${routing.entities.target || 'inconnu'}** : ${routing.match?.[1] || ''}`;
+
+    case 'HOUSING':
+      return housingHandler.handleHousing(db, playerId, routing.raw || '');
+
+    case 'FLIGHT':
+      return flightHandler.handleFlight(db, playerId, routing.raw || '');
+
+    case 'INSPECT':
+      return itemsHandler.handleInspect(db, playerId, routing.raw || '');
+
+    case 'DROP_ITEM':
+      return itemsHandler.handleDrop(db, playerId, routing.raw || '');
 
     case 'LINK_START':
       return registrationHandler.handleLinkStart(db, phoneNumber, routing.raw || '');

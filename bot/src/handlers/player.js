@@ -1,4 +1,4 @@
-import { getPlayer, getPlayerInventory, getPlayerQuests } from '../services/player.js';
+import { getPlayer, getPlayerInventory } from '../services/player.js';
 import { render } from '../services/template.js';
 import { menuRow, pct, overflowLine, MAX_CARD_ROWS } from '../services/cardRenderer.js';
 
@@ -74,32 +74,4 @@ export async function handleInventory(db, playerId) {
   };
 }
 
-export async function handleQuests(db, playerId) {
-  const quests = await getPlayerQuests(db, playerId);
-  if (quests.length === 0) {
-    return `📜 Tu n'as aucune quête active. Rends-toi chez un PNJ pour en obtenir.`;
-  }
-
-  const text = quests.map(q =>
-    render('quest_progress', {
-      questTitle: q.title,
-      progress: q.current_step,
-      total: q.total_steps,
-      stepDescription: q.description?.slice(0, 100) || '',
-    })
-  ).join('\n━━━━━━━━━━━━━━━━\n');
-
-  const rows = quests.slice(0, MAX_CARD_ROWS)
-    .map((q, idx) => menuRow(idx + 1, q.title, `${q.current_step}/${q.total_steps}`))
-    .join('');
-
-  return {
-    text,
-    card: {
-      template: 'quetes',
-      variables: { questCount: quests.length, questsHtml: rows },
-    },
-  };
-}
-
-export default { handleStatus, handleInventory, handleQuests };
+export default { handleStatus, handleInventory };

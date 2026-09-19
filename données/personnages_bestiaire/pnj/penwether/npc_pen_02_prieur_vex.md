@@ -29,7 +29,7 @@
 | 4 | `QI_PEN_02_04` | K1 | ville, verite | Penwether n'est pas une ville : c'est une structure de données que les Spriggans habitent par erreur | `AFF>=65` |
 | 5 | `QI_PEN_02_05` | K1 | rues, changement | Les rues changent parce que l'index mémoire se réorganise la nuit — ce n'est pas magique | `AFF>=70` |
 | 6 | `QI_PEN_02_06` | K1 | vex, crainte | Il craint que le jour où les Spriggans verront tous la vérité, la ville s'effondre | — |
-| 7 | `QI_PEN_02_07` | K2 | illusion, profonde | Il peut enseigner `TRUE_SEEING` — une illusion qui dissipe les autres illusions | `AFF>=85` |
+| 7 | `QI_PEN_02_07` | K2 | illusion, profonde | Il sait percer les faux-semblants — une discipline de l'esprit, pas un sort (D89 : aucune école d'Illusion) | `AFF>=85` |
 | 8 | `QI_PEN_02_08` | K2 | apparition, fantome | Il a vu le Fantôme `NPC_PEN_00` dans une illusion — une silhouette en négatif | `AFF>=88` |
 | 9 | `QI_PEN_02_09` | K2 | chancelier, secret | Le Chancelier `NPC_PEN_07` porte un masque qui n'est pas un masque — c'est un écran de terminal | `AFF>=90` |
 | 10 | `QI_PEN_02_10` | K3 | seed, reset | Les illusions sont des « fenêtres sur les resets passés » — il peut montrer ce qui était là avant | JAMAIS — déflection : *(il ferme les yeux)* « Je ne montre pas ce qui était là avant. Je ne suis pas un guide. Je suis un prieur. Les morts du passé n'ont pas besoin de témoins. » |
@@ -38,12 +38,12 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Skill Master** : enseigne `ILLUSION_MASTERY` et `TRUE_SEEING` (perception des illusions). Quête d'apprentissage : `QST_PEN_ILLUSION_01`.
+- **Skill Master** : enseigne les sorts de l'école `TEN` (Ténèbres), école affine des Spriggan (D89 : l'Illusion n'est pas une école du lot I-4 ; elle reste la lecture narrative de ces sorts). Quête d'apprentissage : `QST_PEN_ILLUSION_01`.
 - **Fils rouges** : rouage central de **🎭 Les Illusions Qui Mentent** (les illusions sont des fuites mémoire de la compilation). Relais de **🔮 Fil méta — La Ville Fantôme** (il connaît la nature de Penwether).
 - Donneur de `QST_PEN_VRAIE_VILLE_01` (trouver trois « ancres d'illusion » dans Penwether).
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler vex`) : *« Un autre qui veut voir derrière le rideau. Tu es sûr ? Parce que derrière le rideau, il y a un autre rideau. Et au bout, il y a moi. Assieds-toi. »*
-- `!illusion_vex` (apprentissage) ; `!true_seeing` (sort de révélation, nécessite quête).
+- `!learn_skill MAG_TEN_*` (apprentissage auprès de lui) — les anciennes commandes `!illusion_vex` / `!true_seeing` sont retirées (D89).
 - `is_essential = VRAI` — `SYS_ASSASSINATE_NPC` interdit.

@@ -6,7 +6,8 @@ import { inTransaction } from './bank.js';
 
 // Slots qui s'usent au combat : armure (5) + mains. Ceinture et dos : non (§1).
 const WEARING_SLOTS = ['head', 'torso', 'arms', 'waist', 'legs', 'hand_main', 'hand_off'];
-export const COMBAT_WEAR = { pve: 1, pvp: 3 };
+// Le PvP (−3) n'existe pas encore : seule l'usure PvE est appliquée.
+export const COMBAT_WEAR_PVE = 1;
 // Barème étape 37 : Yrds par point restauré, selon le tier.
 const REPAIR_COST_PER_POINT = { 1: 2, 2: 5, 3: 12, 4: 30, 5: 75 };
 
@@ -147,6 +148,16 @@ export async function modifyDurability(db, instanceUuid, delta) {
   return result.rows[0]?.current_durability ?? null;
 }
 
+// SYS_BREAK_WEAPON (D88) : Cassé (0), réparable — plus de destruction.
+export async function breakItem(db, instanceUuid) {
+  const r = await db.query(
+    `UPDATE t_inventory i SET current_durability = 0
+     FROM t_items_dict d WHERE d.item_id = i.item_id AND i.instance_uuid = $1 AND d.durability_max > 0`,
+    [instanceUuid]
+  );
+  return r.rowCount === 1;
+}
+
 export async function setDurability(db, avatarUuid, itemId, value) {
   const result = await db.query(
     `UPDATE t_inventory i
@@ -161,5 +172,5 @@ export async function setDurability(db, avatarUuid, itemId, value) {
 
 export default {
   durabilityState, currentDurability, capAfterRepair, repairCost, wearEquipment, getGearStats,
-  zoneHasRepairer, repairItem, modifyDurability, setDurability, COMBAT_WEAR,
+  zoneHasRepairer, repairItem, modifyDurability, breakItem, setDurability, COMBAT_WEAR_PVE,
 };

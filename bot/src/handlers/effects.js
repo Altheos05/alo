@@ -3,7 +3,6 @@ import { castOutOfCombat, listActiveEffects } from '../engine/effects.js';
 const ERRORS = {
   CASTER_DEAD: '❌ Tu es mort — impossible d\'incanter.',
   SPELL_UNKNOWN: '❌ Tu ne connais pas ce sort.',
-  NO_MP: null,
   TARGET_NOT_FOUND: '❌ Aucun joueur inscrit avec ce numéro.',
   TARGET_NOT_IN_ZONE: '❌ Ta cible n\'est pas dans ta zone.',
 };

@@ -65,8 +65,13 @@ async function getActiveMenu(db, avatarUuid) {
   return row ? { context: row.context_type, ref: row.context_ref, options: row.options, waMessageId: row.wa_message_id } : null;
 }
 
-async function consumeMenu(db, avatarUuid) {
-  await db.query('DELETE FROM t_pending_menus WHERE avatar_uuid = $1', [avatarUuid]);
+// DELETE … RETURNING : de deux réponses simultanées, une seule consomme le menu (M2).
+async function consumeMenu(db, avatarUuid, waMessageId) {
+  const r = await db.query(
+    'DELETE FROM t_pending_menus WHERE avatar_uuid = $1 AND wa_message_id = $2 RETURNING 1',
+    [avatarUuid, waMessageId]
+  );
+  return r.rowCount === 1;
 }
 
 // §2.2 : résolution d'un message comme réponse de menu. Renvoie null si le
@@ -96,7 +101,7 @@ export async function resolveMenuReply(db, avatarUuid, text, quotedMessageId = n
   if (!option) return null;
 
   // M2 : consommation à usage unique, avant exécution (évite le double envoi).
-  await consumeMenu(db, avatarUuid);
+  if (!(await consumeMenu(db, avatarUuid, menu.waMessageId))) return null;
   if (!option.command) return { kind: 'text', text: '❎ Action annulée.' };
   return { kind: 'command', command: option.command, confirmed: option.confirmed === true, context: menu.context, ref: menu.ref };
 }

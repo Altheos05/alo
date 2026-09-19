@@ -8,7 +8,7 @@ import {
   getStatModifiers,
 } from '../engine/combat.js';
 import { getPlayer } from '../services/player.js';
-import { getGearStats, wearEquipment, COMBAT_WEAR } from '../engine/durability.js';
+import { getGearStats, wearEquipment, COMBAT_WEAR_PVE } from '../engine/durability.js';
 import { loadCombatEffects, persistCombatEffects } from '../engine/effects.js';
 import { render } from '../services/template.js';
 import logger from '../utils/logger.js';
@@ -354,10 +354,10 @@ export async function handleCombatAction(db, playerUuid, action) {
   return response.join('\n');
 }
 
-// D88 : chaque combat use les pièces portées (PvE −1 ; le PvP −3 n'existe pas encore).
+// D88 : chaque combat use les pièces portées.
 async function applyCombatWear(db, playerUuid, response) {
   try {
-    const broken = await wearEquipment(db, playerUuid, COMBAT_WEAR.pve);
+    const broken = await wearEquipment(db, playerUuid, COMBAT_WEAR_PVE);
     for (const name of broken) response.push(`💥 **${name}** est cassé : il ne confère plus aucune statistique. Fais-le réparer chez un forgeron ("!repair").`);
   } catch (err) {
     logger.error('Erreur usure d\'équipement', { error: err.message, playerUuid });

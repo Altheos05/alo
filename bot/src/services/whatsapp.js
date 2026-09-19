@@ -69,7 +69,10 @@ export async function initWhatsApp() {
 
     let quotedMessageId = null;
     if (msg.hasQuotedMsg) {
-      const quoted = await msg.getQuotedMessage().catch(() => null);
+      const quoted = await msg.getQuotedMessage().catch((err) => {
+        logger.warn('Message cité illisible — traité comme non cité', { error: err.message });
+        return null;
+      });
       quotedMessageId = quoted?.id?._serialized || null;
     }
 

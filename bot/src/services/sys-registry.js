@@ -1,7 +1,7 @@
 import logger from '../utils/logger.js';
 import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifications.js';
 import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/marriage.js';
-import { modifyDurability, setDurability } from '../engine/durability.js';
+import { modifyDurability, breakItem, setDurability } from '../engine/durability.js';
 import { setNodeEvent, restockFishingSpot, resetHarvest } from '../engine/gathering.js';
 import { applyEffect, clearEffects } from '../engine/effects.js';
 
@@ -242,6 +242,11 @@ define('SYS_DIVORCE_SETTLE', {
   async authorize(source) { return ['gm', 'system'].includes(source); },
   async execute(db, params) {
     const r = await settleDivorce(db, params.marriage_id);
+    if (r.success) {
+      for (const spouse of [r.male, r.female]) {
+        await queueDirect(db, spouse, '💔 Ton divorce a été prononcé par un maître du jeu ; tes apports t\'ont été rendus.', 'DIVORCE');
+      }
+    }
     return r.success ? { ok: true, message: `Divorce ${params.marriage_id} réglé` } : { ok: false, message: `Refusé : ${r.error}` };
   },
 });
@@ -307,8 +312,9 @@ define('SYS_BREAK_WEAPON', {
   async prereqs() { return null; },
   async authorize(source) { return ['gm', 'system'].includes(source); },
   async execute(db, params) {
-    const value = await modifyDurability(db, params.instance_id, -1000000);
-    return value === null ? { ok: false, message: 'Objet sans durabilité' } : { ok: true, message: 'Arme brisée (réparable)' };
+    return (await breakItem(db, params.instance_id))
+      ? { ok: true, message: 'Arme brisée (réparable)' }
+      : { ok: false, message: 'Objet sans durabilité' };
   },
 });
 
@@ -345,6 +351,8 @@ define('SYS_DEPLETE_RESOURCE', {
   async authorize(source) { return ['gm', 'system'].includes(source); },
   async execute(db, params) {
     const n = await setNodeEvent(db, { zoneId: params.zone_id, nodeType: params.resource_type.toUpperCase() }, 'deplete');
+    // D91 §3 : un événement du monde se vit dans le groupe du territoire.
+    await queueZone(db, params.zone_id, `🍂 Les ressources de la zone s'épuisent : plus rien à tirer d'ici pour un moment.`, 'RESOURCE_DEPLETED');
     return { ok: true, message: `${n} nœud(s) épuisé(s)` };
   },
 });
@@ -365,6 +373,7 @@ define('SYS_BONUS_HARVEST', {
     for (const nodeType of NODE_TYPES) {
       n += await setNodeEvent(db, { zoneId: params.zone_id, nodeType }, 'bonus', undefined, Number(params.multiplier));
     }
+    await queueZone(db, params.zone_id, `✨ Récolte abondante dans la zone : rendements ×${params.multiplier} pendant une heure !`, 'RESOURCE_BONUS');
     return { ok: true, message: `${n} nœud(s) à ×${params.multiplier}` };
   },
 });

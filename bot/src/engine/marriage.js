@@ -6,12 +6,11 @@
 import logger from '../utils/logger.js';
 import config from '../config.js';
 import { queueDirect } from '../services/notifications.js';
-import { inTransaction, depositItemTx, withdrawItemTx, addToInventory } from './bank.js';
+import { inTransaction, depositItemTx, withdrawItemTx, addToInventory, DEFAULT_MAX_SLOTS } from './bank.js';
 
 export const RING_ITEM_ID = 'MSC_ENG_001';
 export const MIN_LEVEL = 15;
-const DIVORCE_COOLDOWN_DAYS = 30;
-const PERSONAL_VAULT_SLOTS = 50;
+export const DIVORCE_COOLDOWN_DAYS = 30;
 
 async function lockAvatars(client, uuids) {
   // Ordre stable pour éviter l'interblocage entre deux acceptations croisées.
@@ -192,7 +191,7 @@ async function createMarriage(client, a, b, { zoneId = null, homeUuid = null } =
   const vault = await client.query(
     `INSERT INTO t_bank_vaults (owner_type, owner_id, max_slots, access_level)
      VALUES ('marriage', $1, $2, 'all_members') RETURNING vault_id`,
-    [marriageUuid, PERSONAL_VAULT_SLOTS * 2]
+    [marriageUuid, DEFAULT_MAX_SLOTS * 2]
   );
   await client.query('UPDATE t_marriages SET joint_vault_id = $1 WHERE marriage_uuid = $2', [vault.rows[0].vault_id, marriageUuid]);
   const giftItemId = await generateWeddingGift(client, marriageUuid, avgLevel);

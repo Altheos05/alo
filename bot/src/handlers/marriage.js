@@ -1,7 +1,8 @@
 import {
   propose, listIncomingProposals, acceptProposal, declineProposal, cancelProposal, getActiveMarriage,
-  jointDepositYrds, jointPay, jointDepositItem, jointWithdrawItem, getJointVault, divorce, MIN_LEVEL,
+  jointDepositYrds, jointPay, jointDepositItem, jointWithdrawItem, getJointVault, divorce, MIN_LEVEL, DIVORCE_COOLDOWN_DAYS,
 } from '../engine/marriage.js';
+import config from '../config.js';
 import { findItem } from '../engine/items.js';
 import { getCombatStatus } from './combat.js';
 import { confirmationMenu } from '../services/menus.js';
@@ -18,8 +19,8 @@ const ERRORS = {
   TARGET_LEVEL: `❌ Il faut être niveau ${MIN_LEVEL} pour se marier.`,
   PROPOSER_RING: '❌ Le demandeur doit posséder un Anneau d\'Engagement (MSC_ENG_001, chez un bijoutier).',
   TARGET_RING: '❌ Il te faut toi aussi un Anneau d\'Engagement (MSC_ENG_001, chez un bijoutier).',
-  PROPOSER_COOLDOWN: '❌ Un divorce de moins de 30 jours empêche une nouvelle union (demandeur).',
-  TARGET_COOLDOWN: '❌ Un divorce de moins de 30 jours empêche une nouvelle union.',
+  PROPOSER_COOLDOWN: `❌ Un divorce de moins de ${DIVORCE_COOLDOWN_DAYS} jours empêche une nouvelle union (demandeur).`,
+  TARGET_COOLDOWN: `❌ Un divorce de moins de ${DIVORCE_COOLDOWN_DAYS} jours empêche une nouvelle union.`,
   NO_PROPOSAL: '❌ Aucune demande en mariage correspondante en cours.',
   NOT_SAME_ZONE: '❌ Vous devez vous trouver tous les deux dans la même zone. La demande reste valable.',
   IN_COMBAT: '❌ Impossible pendant un combat. La demande reste valable.',
@@ -53,7 +54,7 @@ async function handleJointBank(db, playerId, raw) {
     if (!r.success) return fail(r);
     return `💞 ${qty}× **${item.name}** ${deposit ? 'déposé(s) au' : 'retiré(s) du'} coffre conjugal.`;
   }
-  const amount = parseInt(raw.match(/depot\s+(\d+)/i)?.[1] || '', 10);
+  const amount = parseInt(raw.match(/(?:depot|dépôt)\s+(\d+)/i)?.[1] || '', 10);
   if (/depot|dépôt/i.test(raw)) {
     const r = await jointDepositYrds(db, playerId, amount);
     return r.success ? `💞 ${r.amount} Yrds versés au solde commun.` : fail(r);
@@ -74,7 +75,7 @@ export async function handleMarriage(db, playerId, raw = '', { confirmed = false
     case 'propose': {
       if (!phone) return '💍 Utilisation : "!propose [Numéro WhatsApp]".';
       const r = await propose(db, playerId, phone);
-      return r.success ? `💍 Demande envoyée à **${r.targetName}**. Elle a 48 h pour l'accepter, en ta présence.` : fail(r);
+      return r.success ? `💍 Demande envoyée à **${r.targetName}**. Elle a ${config.game.proposalTtlHours} h pour l'accepter, en ta présence.` : fail(r);
     }
     case 'accept_proposal': {
       const r = await acceptProposal(db, playerId, phone, (uuid) => !!getCombatStatus(uuid));
@@ -104,7 +105,7 @@ export async function handleMarriage(db, playerId, raw = '', { confirmed = false
       // D92 : dissolution ⇒ confirmation citée ; divorce() revérifie sous verrou.
       if (!confirmed) {
         return {
-          text: `⚠️ Tu vas **divorcer** de **${marriage.partner_name}**. Chacun reprend ses apports, le commun est partagé, et aucune nouvelle union n'est possible pendant 30 jours.`,
+          text: `⚠️ Tu vas **divorcer** de **${marriage.partner_name}**. Chacun reprend ses apports, le commun est partagé, et aucune nouvelle union n'est possible pendant ${DIVORCE_COOLDOWN_DAYS} jours.`,
           menu: confirmationMenu('!divorce', marriage.marriage_uuid),
         };
       }

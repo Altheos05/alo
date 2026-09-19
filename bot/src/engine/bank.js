@@ -1,6 +1,6 @@
 import logger from '../utils/logger.js';
 
-const DEFAULT_MAX_SLOTS = 50;
+export const DEFAULT_MAX_SLOTS = 50;
 
 async function getOrCreateVault(client, ownerType, ownerId) {
   const existing = await client.query(

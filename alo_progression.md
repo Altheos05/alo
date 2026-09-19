@@ -2118,3 +2118,86 @@ Balayage `node --check` complet ré-exécuté après corrections — aucune rég
 ### État de sortie
 
 8 ADR inscrites et propagées dans toutes les couches (MLD, mécanique, commandes Joueur/GM/IA). Aucun fichier de `bot/` touché. Les 3 points ouverts ont été tranchés en fin d'étape. Prochaine étape au choix du PE : lancer le lot de contenu préalable, ou démarrer le premier `/implement` (D91 + D92).
+
+---
+
+## ÉTAPE 61 — `/implement` « tout ce qui a déjà été cadré » : D85-D92 en code ✅ (2026-09-19)
+
+**Objectif** : sur demande PE explicite (D-P3-1), implémenter dans `bot/` les 8 ADR de l'étape 60 et leurs tâches préalables (contenu, générateur), dans l'ordre suggéré, TDD à chaque lot, `/code-review` final.
+
+### Première : la suite d'intégration a enfin tourné sur une vraie base
+
+Base Postgres jetable (conteneur `alo-test-pg`, port 55432) reconstruite depuis `schema.sql` + inserts de `rebuild.sh` + `seed_data.sql`. Constats immédiats :
+- **La suite n'avait jamais pu passer** : aucun fixture ne créait l'avatar de test ; deux tests inséraient des ID inexistants (FK). Corrigés. Base de départ : 77/82, puis 82/82 après correction du routeur (voir plus bas).
+- **`schema.sql` ne contenait pas** `T_PROPERTIES`, `T_NPC_RELATIONS` (utilisées par le code depuis l'étape 59) ni aucune table de l'étape 60. Ajoutées dans une section « NIVEAU 5 » **idempotente** (`IF NOT EXISTS`), rejouable seule sur une base existante.
+- **Le générateur d'objets lisait mal le format réel des fiches** : les 1 052 objets avaient prix 0, ATQ/DEF 0, rareté `common`, durabilité 0. Les boutiques vendaient donc gratuitement. Deux lots de 50 objets étaient rejetés (tenues `T0`, hors CHECK). Et `MAT_HRB_014` portait le nom d'une fiche de flore.
+- **`T_NPC_KNOWLEDGE` restait à 0 ligne malgré le correctif de l'étape 56** : `topic_tags` (`TEXT[]`) recevait une chaîne. On passe à 8 681 lignes chargées. Les ~2 200 fiches K3/KX restent rejetées par le CHECK du schéma (K0-K2 seulement) : c'est un conflit schéma/doc hérité, non tranché.
+- **Une seule ligne invalide faisait perdre ses 49 voisines** (inserts par lots de 50). PNJ, fiches QI et boutiques sont désormais insérés ligne à ligne.
+
+### Lots livrés (6 commits)
+
+| Lot | ADR | Contenu |
+|---|---|---|
+| `0429e49` | D91, D83, D92 | **Notifications :**<br>• file `T_NOTIFICATIONS` ;<br>• boucle d'envoi bridée (débit en configuration) ;<br>• réessais puis abandon explicite ;<br>• commandes `SYS_NOTIFY_PLAYER`, `SYS_ANNOUNCE(_GLOBAL)`, `SYS_NOTIF_QUEUE`.<br>**Menu et confirmation :**<br>• socle du menu `T_PENDING_MENUS` (citation / chiffre nu, aide 9, `!menu`) ;<br>• `CONFIRM` **par citation seule** pour : objet lié, `housing_sell`/`leave`, `!guild_disband`, `!divorce`. |
+| `89a96cf` | D86, prérequis | • `!link_start [Race] [Nom] [Genre]`, genre obligatoire ;<br>• `SYS_SET_GENDER` : GM seul, refusé si l'avatar est marié ;<br>• **objets en coffre** (`items_stored`), piles distinguées par état de durabilité, objets liés refusés ;<br>• `!bank_depot` / `!bank_retrait` pour les Yrds comme pour les objets. |
+| `73cf809` | D85 | **Mariage complet :**<br>• demande persistante, notifiée en privé ;<br>• acceptation en personne, revérifiée sous verrou ;<br>• cérémonie : anneaux consommés, coffre ×2, cadeau commun ;<br>• `!joint_bank`, `!joint_pay`, `!partner_*` ;<br>• `!divorce` confirmé, règlement par provenance, cooldown 30 j ;<br>• commandes `SYS_MARRY`, `SYS_DIVORCE_SETTLE`, `SYS_CANCEL_PROPOSAL`, `SYS_GENERATE_WEDDING_GIFT`.<br>**Prérequis :**<br>• anneau `MSC_ENG_001` en vente chez 10 bijoutiers ;<br>• générateur d'objets réparé. |
+| `52a54b0` | D88 | • usure −1 par pièce portée en fin de combat ;<br>• **l'équipement non cassé fournit désormais ATQ/DEF au combat** : avant, le joueur frappait toujours pour 1 ;<br>• `!repair` dégressif, T5 liés exemptés ;<br>• rachat PNJ selon l'état ; objets liés et équipés invendables ;<br>• commandes `SYS_MODIFY_DURABILITY`, `SYS_BREAK_WEAPON` (casse réparable), `SYS_DURABILITY_SET` ;<br>• parchemins `CSM_PAR_007/008` archivés, retirés de 13 boutiques et de la recette `MAT_HRB_024`. |
+| `61b24ca` | D87 | **Contenu :**<br>• 12 `MAT_POI` et 12 `FSH` ;<br>• 35 `ORE` dérivés des sources `MAT_MIN`/`MAT_GEM` ;<br>• outils `OUT_PIO`/`OUT_CAN` T1-T5 en boutique ;<br>• 100 `FLO` remappés sur l'atlas.<br>**Code :**<br>• `parseNodes()` ;<br>• `!recolter` / `!mine` / `!fish` (mini-jeu `FISHING`, bonne réponse connue du seul serveur) ;<br>• repousse par joueur, usure d'outil ;<br>• commandes `SYS_DEPLETE_RESOURCE`, `SYS_BONUS_HARVEST`, `SYS_STOCK_FISHING_SPOT`, `SYS_NODE_EVENT`, `SYS_NODE_RESET` ;<br>• lieu de cuisine. |
+| `e9cfc22` | D90, D89 | • effets du joueur relus et réécrits autour du combat ; l'écriture d'un `MOB_*` dans une colonne UUID disparaît ;<br>• `!cast` hors combat : soin, soutien, résurrection, purge ; T1-T2 cible unique, T3+ le groupe présent ;<br>• `!music` = école Support ; `!effets` ;<br>• bloc « Effet persistant (D90) » ajouté à 10 sorts de soutien ;<br>• commandes `SYS_EFFECT_APPLY`, `SYS_BLESS_PLAYER`, `SYS_DEBUFF_PLAYER`, `SYS_CLEAR_EFFECTS` ;<br>• relecture de `npc_pen_02` / `npc_pen_23` (commandes d'illusion retirées). |
+
+### Corrections transverses trouvées en route
+
+- **WhatsApp : en groupe, `msg.from` est l'identifiant du groupe.** Tous les joueurs d'un groupe étaient donc identifiés par le groupe lui-même, alors qu'ALO se joue exclusivement en groupe. L'expéditeur réel est désormais `msg.author`.
+- **Routeur :**
+  - une commande `!mot` est aussi essayée sans son `!` : `!guild_disband` et `!repair` tombaient sinon dans le classifieur ;
+  - un mot-clé exact (motif ancré `^…$`) passe avant le classifieur : « compétences » était routé en WHISPER.
+- **Durées :** les durées restantes sont calculées en SQL. Le bot relisait les TIMESTAMP sans fuseau dans son propre fuseau, faussant tout calcul d'échéance dès que base et bot diffèrent.
+
+### `/code-review` (Standards + Spec, 2 sous-agents) — corrigé
+
+- Rejet non intercepté dans la boucle de notifications, qui pouvait tuer le process.
+- Consommation de menu non atomique : double exécution possible. Corrigée par `DELETE … RETURNING`.
+- `!joint_bank dépôt` (avec accents) non reconnu.
+- Constantes dupliquées (48 h, 30 j, emplacements de coffre).
+- `-1000000` remplacé par `breakItem`.
+- Code mort retiré ; erreur de citation désormais journalisée.
+- **D91 §3** : les événements de ressources IA sont annoncés au groupe de territoire, et un divorce prononcé par le GM notifie les deux conjoints.
+
+### Interprétations prises en cours de route — à valider par le PE
+
+1. **Réparation (D88 §4).** L'objet repart au **nouveau** plafond (I8 : courante ≤ plafond), et une réparation qui ramènerait le plafond à 0 est refusée. La lettre de §4 (« remet au plafond courant **puis** ampute ») contredit I8 ; j'ai tranché pour l'invariant. Conséquence : une réparation de moins que la lecture littérale.
+2. **Forgeron de service** = PNJ de la zone portant un sujet de connaissance `réparation`. **Freelia n'en a aucun.**
+3. **Feu de camp** = zones `HUNT`/`FLD`. **Cuisine de logement** = être dans la zone de son logement actif ou du foyer conjugal.
+4. **`!joint_pay`** verse au portefeuille du payeur et consomme d'abord ses propres apports, puis le commun, puis ceux du conjoint. Lecture de « dépensable par les deux » ; un conjoint peut donc dépenser les apports de l'autre.
+5. **Objet commun indivisible au divorce** (le cadeau) : il va au conjoint qui n'a pas demandé la séparation, comme le Yrd impair.
+6. **Notifications (N1)** : les moteurs insèrent dans la file **dans leur transaction**, au lieu de renvoyer une liste. Le contrat « les handlers ne parlent jamais à WhatsApp » est tenu, et la notification devient atomique avec la mutation.
+7. **Cadeau de noces** : arme ou armure du tier `ceil(moyenne/20)`. Pas de sort : un sort ne se dépose pas dans un coffre.
+8. **Pêche** : 3 situations fixes ; réussite 70 % + 1 %/DEX (plafond 95 %).
+9. **Durées des buffs de soutien** : 5 à 30 min selon le tier.
+
+### Non fait, avec la raison
+
+- **D90 E6** (buff des plats) : `T_RECIPES` est vide, il n'y a aucune recette de cuisine à câbler.
+- **D90 E3** (dégâts périodiques hors combat) : aucun effet des données n'a de dégât périodique ; la règle « jamais sous 1 PV » tient par construction.
+- **D85** :
+  - repli vers `T_MAIL` si l'inventaire est plein : la capacité d'inventaire n'est tenue nulle part ;
+  - combo conjugal +10 % : absent, le combat n'a pas de groupe ;
+  - `SYS_GENERATE_CEREMONY` : c'est une narration LLM.
+- **D88 PvP −3** : le PvP n'existe pas.
+- **Nœuds sans ID** : liste en texte et non menu, car aucun contexte D83 de ce type n'est défini.
+- **Anneau acheté non lié à l'âme** : l'achat ne pose pas `is_bound`.
+- **Cadrages antérieurs non inclus** (hors du lot de l'étape 60) : menus D83 `COMBAT` / `DIALOGUE` / `SHOP` / `MOVEMENT` / `QUEST_BOARD`, sujets de service D84 (`!demander`), sorts en combat (`USE_SKILL` n'utilise pas le sort), `!fuite` (non routé), dégâts des sorts non ingérés.
+
+### Vérification
+
+155 tests sur base réelle, tous verts :
+- `integration` : 82 ;
+- `notifications-menus` : 16 ;
+- `social` : 25 ;
+- `durability` : 11 ;
+- `gathering` : 12 ;
+- `effects` : 9.
+
+`seed_data.sql` régénéré. **Au PE :**
+- rejouer la section « NIVEAU 5 » de `schema.sql` sur la base réelle, ou lancer `rebuild.sh` (destructif) ;
+- recharger `seed_data.sql`.

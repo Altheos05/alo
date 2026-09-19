@@ -36,11 +36,11 @@
 
 ## 4. Chaînage économique & quêtes
 
-- **Service** : `!illusion_tailleur [type]` (création d'illusion sur mesure), `!nettoyage_illusion [lieu]` (nettoyage de résidus).
+- **Service** : sujets de service D84 — `!demander tailleur_illusions illusions` / `!demander tailleur_illusions nettoyage` (narratifs, sans effet mécanique : D89, aucune magie d'illusion jouable).
 - **Fils rouges** : rouage de **🎭 Les Illusions Qui Mentent** (les illusions sont des trames de code). Relais de **🪞 La Statue de Kirito** (l'illusion piégée montrant Kirito).
 - Donneur de `QST_PEN_ILLUSION_TRAME_01` (enquêter sur une illusion anormale dans les rues).
 
 ## 5. Intégration Bot
 
 - **Accueil** (`!parler tailleur_illusions`) : *« Entre, entre. J'allais justement tailler une illusion pour un client. Tu vois ça ? La trame est irrégulière. Un travail d'amateur. Moi, je peux faire mieux. Beaucoup mieux. Pour toi, un prix d'ami. »*
-- `!taille_illusion` (création d'illusion) ; `!nettoyage` (service de nettoyage d'illusions usées).
+- `!demander tailleur_illusions [sujet]` — les anciennes commandes `!taille_illusion` / `!nettoyage` sont retirées (D89).

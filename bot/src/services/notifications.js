@@ -109,6 +109,9 @@ export function startNotificationSender(db, sendFn) {
     running = true;
     try {
       await sendPendingNotifications(db, sendFn);
+    } catch (err) {
+      // Pool indisponible : la passe suivante réessaiera ; ne jamais laisser le rejet tuer le process.
+      logger.error('Passe de notifications impossible', { error: err.message });
     } finally {
       running = false;
     }

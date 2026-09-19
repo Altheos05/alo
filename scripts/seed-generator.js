@@ -142,6 +142,33 @@ function parseUseEffect(itemId, name, content) {
   return Object.keys(out).length ? out : null;
 }
 
+// D93 : profil culinaire des ingrédients (cuisine_libre.md §2) et effets de marmite (§4).
+const NUTRITION = { VIANDE: 60, POISSON: 50, CEREALE: 30, LAITIER: 30, LEGUME: 25, FRUIT: 25, ASSAISONNEMENT: 10 };
+const VITALITY_BONUS = 40;
+const CUISINE_SPEC = path.join(BASE, 'the_seed_engine', 'system_mechanics', 'cuisine_libre.md');
+
+function parseCookProfiles() {
+  const profiles = new Map();
+  const content = fs.existsSync(CUISINE_SPEC) ? fs.readFileSync(CUISINE_SPEC, 'utf-8') : '';
+  for (const m of content.matchAll(/^\| `([A-Z0-9_]+)` \| [^|]+ \| T(\d) \| ([A-Z]+) \| ([A-Z]+|—) \|$/gm)) {
+    const [, itemId, tier, category, essence] = m;
+    const t = Number(tier);
+    profiles.set(itemId, {
+      category,
+      essence: essence === '—' ? null : essence,
+      nutrition: NUTRITION[category] * t + (essence === 'VITALITE' ? VITALITY_BONUS * t : 0),
+    });
+  }
+  return profiles;
+}
+
+function parseCookingEffects() {
+  const content = fs.existsSync(CUISINE_SPEC) ? fs.readFileSync(CUISINE_SPEC, 'utf-8') : '';
+  return [...content.matchAll(/^\| `(EFF_CUI_[A-Z]+_\d)` \| ([^|]+) \| `(\w+)` \| \+(\d+) % \|$/gm)]
+    .map(([, id, name, stat, value]) => [id, name.trim(), 'buff', stat, Number(value), 'percent', 600, 0, 0, 'TRUE', 1, null]);
+}
+const COOK_PROFILES = parseCookProfiles();
+
 function parseItems() {
   const rows = [];
   const seen = new Set();
@@ -200,7 +227,8 @@ function parseItems() {
     rows.push([itemId, name, type, subtype, rarity, tier, atk, def, 0.5, 0, 0, 0,
                buyPrice, resaleValue, maxStack, isConsumable, isCraftable, durability,
                desc, '', null, /\*\*Lié\*\*\s*:\s*OUI/i.test(content) ? 'TRUE' : 'FALSE',
-               useEffect ? JSON.stringify(useEffect) : null]);
+               useEffect ? JSON.stringify(useEffect) : null,
+               COOK_PROFILES.has(itemId) ? JSON.stringify(COOK_PROFILES.get(itemId)) : null]);
   }
   return rows;
 }
@@ -819,7 +847,7 @@ try {
   console.log(batchInsert('T_ITEMS_DICT', [
     'item_id','name','item_type','subtype','rarity','tier','base_atk','base_def','weight',
     'str_req','agi_req','int_req','buy_price','resale_value','max_stack','is_consumable',
-    'is_craftable','durability_max','description','lore_text','icon','binds_on_acquire','use_effect'
+    'is_craftable','durability_max','description','lore_text','icon','binds_on_acquire','use_effect','cook_profile'
   ], items, 50, '(item_id)'));
   console.log(`-- Items : ${items.length} lignes`);
 
@@ -843,7 +871,7 @@ try {
   console.log(batchInsert('T_STATUS_EFFECTS_DICT', [
     'effect_id','name','type','stat_modified','modifier_value','modifier_type','duration_sec',
     'tick_damage','tick_interval','is_dispellable','max_stacks','icon_emoji'
-  ], [...spellEffects, ...CONSUMABLE_EFFECTS], 50, '(effect_id)'));
+  ], [...spellEffects, ...CONSUMABLE_EFFECTS, ...parseCookingEffects()], 50, '(effect_id)'));
   console.log(`-- Effets de sorts : ${spellEffects.length} lignes`);
 
   const nodes = parseNodes();

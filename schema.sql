@@ -1082,6 +1082,11 @@ ALTER TABLE T_ITEMS_DICT ADD COLUMN IF NOT EXISTS binds_on_acquire BOOLEAN NOT N
 -- Effet à l'usage d'un consommable (!use) : { heal_hp, heal_mp, regen_hp, regen_mp, effect_id }.
 ALTER TABLE T_ITEMS_DICT ADD COLUMN IF NOT EXISTS use_effect JSONB;
 
+-- D93 : profil culinaire (marmite) ; D93 : données propres à un exemplaire ; D94 : XP de cuisine.
+ALTER TABLE T_ITEMS_DICT ADD COLUMN IF NOT EXISTS cook_profile JSONB;
+ALTER TABLE T_INVENTORY ADD COLUMN IF NOT EXISTS instance_data JSONB;
+ALTER TABLE T_AVATARS ADD COLUMN IF NOT EXISTS cooking_xp INT NOT NULL DEFAULT 0;
+
 -- Point d'application unique : quel que soit le canal (achat, don GM, butin, coffre), l'instance naît liée.
 CREATE OR REPLACE FUNCTION bind_on_acquire() RETURNS TRIGGER AS $$
 BEGIN

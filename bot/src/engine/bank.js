@@ -130,7 +130,8 @@ function sameState(entry, row) {
   return entry.item_id === row.item_id
     && (entry.current_durability ?? null) === (row.current_durability ?? null)
     && (entry.durability_cap ?? null) === (row.durability_cap ?? null)
-    && (entry.repair_count ?? 0) === (row.repair_count ?? 0);
+    && (entry.repair_count ?? 0) === (row.repair_count ?? 0)
+    && JSON.stringify(entry.instance_data ?? null) === JSON.stringify(row.instance_data ?? null);
 }
 
 // Retire qty exemplaires de l'inventaire (verrou ligne) ; renvoie les états retirés.
@@ -138,7 +139,7 @@ function sameState(entry, row) {
 export async function takeFromInventory(client, avatarUuid, itemId, qty, { allowBound = false } = {}) {
   const rows = await client.query(
     `SELECT instance_uuid, item_id, quantity, is_equipped, is_bound,
-            current_durability, durability_cap, repair_count
+            current_durability, durability_cap, repair_count, instance_data
      FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2
      ORDER BY acquired_at FOR UPDATE`,
     [avatarUuid, itemId]
@@ -187,10 +188,11 @@ export async function addToInventory(client, avatarUuid, entry, acquiredFrom = n
   const dict = await client.query('SELECT max_stack FROM t_items_dict WHERE item_id = $1', [entry.item_id]);
   const maxStack = dict.rows[0]?.max_stack || 1;
   let remaining = entry.qty;
-  if (maxStack > 1 && entry.current_durability == null) {
+  // Un exemplaire porteur d'état (durabilité, données de plat D93) ne s'empile jamais.
+  if (maxStack > 1 && entry.current_durability == null && entry.instance_data == null) {
     const stack = await client.query(
       `SELECT instance_uuid, quantity FROM t_inventory
-       WHERE avatar_uuid = $1 AND item_id = $2 AND NOT is_bound AND quantity < $3
+       WHERE avatar_uuid = $1 AND item_id = $2 AND NOT is_bound AND instance_data IS NULL AND quantity < $3
        ORDER BY acquired_at LIMIT 1 FOR UPDATE`,
       [avatarUuid, entry.item_id, maxStack]
     );
@@ -205,9 +207,10 @@ export async function addToInventory(client, avatarUuid, entry, acquiredFrom = n
     const n = Math.min(remaining, maxStack);
     free--;
     await client.query(
-      `INSERT INTO t_inventory (avatar_uuid, item_id, quantity, current_durability, durability_cap, repair_count, acquired_from)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [avatarUuid, entry.item_id, n, entry.current_durability ?? null, entry.durability_cap ?? null, entry.repair_count ?? 0, acquiredFrom]
+      `INSERT INTO t_inventory (avatar_uuid, item_id, quantity, current_durability, durability_cap, repair_count, acquired_from, instance_data)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [avatarUuid, entry.item_id, n, entry.current_durability ?? null, entry.durability_cap ?? null, entry.repair_count ?? 0, acquiredFrom,
+       entry.instance_data ? JSON.stringify(entry.instance_data) : null]
     );
     remaining -= n;
   }
@@ -228,6 +231,7 @@ export function mergeIntoVault(items, additions, maxSlots) {
         current_durability: add.current_durability ?? null,
         durability_cap: add.durability_cap ?? null,
         repair_count: add.repair_count ?? 0,
+        instance_data: add.instance_data ?? null,
       });
     }
   }

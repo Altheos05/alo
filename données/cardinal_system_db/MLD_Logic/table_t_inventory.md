@@ -46,6 +46,7 @@ CREATE INDEX idx_inventory_item ON T_INVENTORY(item_id);
 | I6 | **Armes hors sac/virtuel (D45)** | `item_id LIKE 'WPN_%'` non équipé ⇒ forcé en `storage_zone = 'BANK'`. INSERT/UPDATE en VIRTUAL ou BAG refusé |
 | I7 | **Mort / Remain Light** | À la mort hors zone sûre : drop selon `pk_karma`. Instances `is_bound` ne droppent JAMAIS. Banque protégée |
 | I8 | **Durabilité (D88)** | `current_durability` ∈ [0, plafond] où plafond = `durability_cap` (nouvelle colonne `INT`, `NULL` = `T_ITEMS_DICT.durability_max`) ; `repair_count INT NOT NULL DEFAULT 0` (nouvelle colonne). Usure : −1/pièce équipée par combat PvE, −3 PvP, par tentative pour les outils. À 0 : **Cassé**, aucune statistique. `!repair` (forgeron PNJ seul) remet au plafond puis ampute `durability_cap` de 10 % de l'origine ; plafond 0 = irréparable. Détail : `system_mechanics/durability_repair_system.md` |
+| I9 | **Données d'exemplaire (D93)** | `instance_data JSONB` (nullable) : propriétés propres à cet exemplaire, qui priment sur `T_ITEMS_DICT`. Plat de marmite : `{ use_effect: { heal_hp, effect_id, duration_sec } }`. Deux exemplaires aux données différentes ne s'empilent jamais |
 
 ## 4. Équivalents Commandes
 

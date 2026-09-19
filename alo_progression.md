@@ -2270,3 +2270,54 @@ Base Postgres jetable (conteneur `alo-test-pg`, port 55432) reconstruite depuis 
 ### Vérification
 
 183 tests sur base réelle jetable, tous verts. Répartition : `integration` 82 · `notifications-menus` 16 · `social` 25 · `durability` 11 · `gathering` 12 · `effects` 9 · `combat` 7 · `dialogue-menus` 11 · `cooking` 6 · `inventory` 4.
+
+---
+
+## ÉTAPE 63 — Cuisine libre « marmite » (D93) et niveau de cuisine (D94) ✅ (2026-09-19)
+
+**Demande PE** : s'inspirer de la cuisine de *Zelda BotW/TotK* et de *Monster Hunter Wilds*. On jette jusqu'à 4 ingrédients à la fois pour obtenir des plats simples (viande grillée, poisson grillé, légumes grillés…), en plus des recettes. On ajoute une XP de cuisine selon la complexité et la réussite, et le niveau fixe la réussite des plats compliqués.
+
+**Recherche** : mécaniques des deux jeux vérifiées en ligne, sans s'appuyer sur la mémoire du modèle.
+- BotW : jusqu'à 5 ingrédients, effets renforcés par répétition, effets contraires qui s'annulent, *Dubious Food* / *Rock-Hard Food*.
+- MH Wilds : base viande / poisson / légumes + ingrédients.
+
+### Décisions
+
+- **D93 — marmite :**
+  - 4 ingrédients ;
+  - profil culinaire de 65 ingrédients (catégorie + essence) ;
+  - 10 plats génériques ;
+  - même essence ⇒ palier 1 à 3 (+5/10/15 %) ; essences contraires ⇒ aucun effet ;
+  - durée 10 min par ingrédient ;
+  - parties de monstre ⇒ tambouille douteuse, autres non-comestibles ⇒ immangeable ;
+  - ingrédients identiques à une recette ⇒ le plat de la recette (« découverte »).
+- **D94 — niveau :**
+  - complexité : recette = ingrédients + 2 × (tier − 1) ; marmite = ingrédients + palier ;
+  - réussite : 90 % + 4 % par niveau d'écart au niveau conseillé 5 × (c − 2), entre 30 et 98 % ;
+  - XP : 10 × c² en cas de réussite, 3 × c² en cas d'échec ;
+  - niveau : √(XP/25) + 1, maximum 50 ;
+  - remplace `success_rate` pour la cuisine seulement.
+
+Spécification et tableaux d'ingestion : `system_mechanics/cuisine_libre.md`. Prochain numéro libre : **D95**.
+
+### Modifications
+
+| Fichier | Changement |
+|---|---|
+| Documentation | `cuisine_libre.md` (nouveau) ; `registre_decisions.md` (D93, D94) ; `gathering_cooking_system.md` §4 ; fiches MLD (A9 `cooking_xp`, I9 `instance_data`, I10 `cook_profile`, I11) ; commandes Joueur, GM et IA |
+| Contenu | 10 plats génériques `CSM_CUI_001-010` (`consommables/cuisine_libre/`) |
+| `schema.sql` (NIVEAU 6) | `T_ITEMS_DICT.cook_profile`, `T_INVENTORY.instance_data`, `T_AVATARS.cooking_xp` |
+| Générateur | Profils culinaires et 12 effets `EFF_CUI_*` lus depuis `cuisine_libre.md` |
+| Moteur | `engine/cooking.js` : composition pure, formules, `cookInPot`, `cookRecipe` |
+| Commandes | `!marmite A + B (+ …)` (noms, ID, ou « 2x Nom ») ; `!cook [Recette]` soumis au niveau ; `!cook niveau` ; GM `!sys_cooking_xp` / IA `SYS_GRANT_COOKING_XP` |
+| Données d'exemplaire | Un plat de marmite garde ses PV, son effet et sa durée sur son exemplaire : il ne s'empile pas, et ces données sont conservées au coffre |
+
+### Vérification
+
+195 tests verts sur base jetable. La nouvelle suite `marmite` en compte 12 ; le test de recette de la suite `cooking` a été stabilisé : le cuisinier y a le niveau conseillé, sinon une recette complexe réussit à 34 % au niveau 1.
+
+### Points laissés au PE
+
+- **Réussite au niveau 1** : une recette T2 à 3 ingrédients (complexité 5) réussit à **34 %** — c'est voulu (D94), mais sévère. Les recettes de l'étape 62 réussissaient à 90 % d'emblée.
+- **Plats simples** : 1 ou 2 ingrédients sans effet réussissent à 94-98 %.
+- **Essences** : attribuées par l'ACP d'après le nom et le lore des ingrédients (tableau §2), donc ajustables dans `cuisine_libre.md` sans toucher au code.

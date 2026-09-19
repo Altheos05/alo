@@ -25,6 +25,7 @@ import * as itemsHandler from '../handlers/items.js';
 import * as marriageHandler from '../handlers/marriage.js';
 import * as gatheringHandler from '../handlers/gathering.js';
 import * as effectsHandler from '../handlers/effects.js';
+import * as cookingHandler from '../handlers/cooking.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import * as menus from '../services/menus.js';
@@ -149,6 +150,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       }
       return combat.handleAttack(db, playerId, routing.entities);
     }
+
+    case 'MARMITE':
+      return cookingHandler.handleMarmite(db, playerId, routing.raw || '');
 
     case 'USE_ITEM':
       return itemsHandler.handleUse(db, playerId, routing.raw || '');
@@ -298,6 +302,7 @@ const GM_ALIASES = {
   SYS_DIVORCE: 'SYS_DIVORCE_SETTLE',
   SYS_PROPOSAL_CANCEL: 'SYS_CANCEL_PROPOSAL',
   SYS_EFFECT_CLEAR: 'SYS_CLEAR_EFFECTS',
+  SYS_COOKING_XP: 'SYS_GRANT_COOKING_XP',
 };
 
 async function isGm(_db, _playerId, phoneNumber) {

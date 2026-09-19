@@ -48,6 +48,8 @@ CREATE INDEX idx_items_material ON T_ITEMS_DICT(item_type, tier) WHERE item_type
 | I1 | **Prix cohérents** | `buy_price` = `resale_value` × 4 minimum (marge PNJ 25%). `resale_value` jamais > `buy_price` |
 | I2 | **Empilable** | `max_stack > 1` ⇒ `is_consumable = TRUE` et `item_type IN ('CSM','MAT')` |
 | I3 | **Armure/Arme/Outil** | `item_type IN ('ARM','WPN')` et outils `OUT_*` (D88) ⇒ `durability_max > 0`. ⚠️ Étape 60 : la ligne de durabilité existe sur 100 % des fiches d'armes et d'armures, mais `seed-generator.js` ne l'ingère pas (valeurs à `0` en base) — contrat violé en base tant que le générateur n'est pas corrigé |
+| I10 | **Profil culinaire (D93)** | `cook_profile JSONB` (nullable) : `{ category, essence, nutrition }`, ingéré depuis `system_mechanics/cuisine_libre.md` §2 ; `NULL` = non comestible en marmite |
+| I11 | **Effet d'usage (étape 62)** | `use_effect JSONB` : `{ heal_hp, heal_mp, regen_hp, regen_mp, effect_id }` lu par `!use` ; `binds_on_acquire BOOLEAN` : l'exemplaire naît lié (trigger) |
 | I4 | **Décoration (D-SOC-3)** | `item_type = 'DEC'` (`DEC_*`) : non équipable, `base_atk = base_def = 0` ; `deco_buffs` plafonné ≤ +5 %, actif **uniquement** placé dans un logement (`T_PROPERTIES.deco_buffs`, `!decorate`) |
 
 ## 4. Équivalents Commandes

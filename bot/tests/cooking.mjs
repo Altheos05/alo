@@ -24,6 +24,8 @@ async function run() {
 
   await test('!cook au feu de camp transforme les ingrédients en plat', async () => {
     const a = await createAvatar({ current_zone_id: 'ZONE_SYL_HUNT_001' });
+    // D94 : cuisinier confirmé (niveau 21), pour que la réussite ne dépende pas d'un tirage bas.
+    await pool.query('UPDATE t_avatars SET cooking_xp = 10000 WHERE avatar_uuid = $1', [a.avatar_uuid]);
     for (const ing of recipe.ingredients) await give(a.avatar_uuid, ing.item_id, ing.quantity);
     let made = 0;
     for (let i = 0; i < 5 && !made; i++) {

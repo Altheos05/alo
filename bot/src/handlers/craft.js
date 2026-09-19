@@ -1,6 +1,6 @@
 import { CRAFT_TYPES, getTypeCounts, getRecipesByType, getRecipeByName, craftItem } from '../engine/craft.js';
 import { menuRow, MAX_CARD_ROWS } from '../services/cardRenderer.js';
-import { cookingPlace } from '../engine/gathering.js';
+import { handleCookRecipe, handleCookLevel } from './cooking.js';
 
 const TYPE_LABELS = { forge: 'Forge', alchemy: 'Alchimie', sewing: 'Couture', cooking: 'Cuisine', enchanting: 'Enchantement' };
 const TYPE_KEYWORDS = {
@@ -23,15 +23,15 @@ export async function handleCraft(db, playerId, raw = '') {
   const commandMatch = raw.match(/(?:craft_list|craft|fabrique?|forge?|artisanat|recette?|enchant|alchimie|cook)\s+(.+)/i);
   const arg = commandMatch?.[1]?.trim();
 
+  if (arg && /^niveau$/i.test(arg)) return handleCookLevel(db, playerId);
+
   if (arg) {
     const type = detectType(arg);
     if (!type) {
       const recipe = await getRecipeByName(db, arg);
       if (recipe) {
-        // Clause cuisine (gathering_cooking_system.md §4) : feu de camp ou cuisine de logement.
-        if (recipe.craft_type === 'cooking' && !(await cookingPlace(db, playerId))) {
-          return `🍳 Il faut un feu de camp (en extérieur sauvage : zone de chasse ou plaine) ou la cuisine de ton logement pour cuisiner.`;
-        }
+        // Cuisine : lieu (§4), réussite par niveau et XP (D94) — moteur dédié.
+        if (recipe.craft_type === 'cooking') return handleCookRecipe(db, playerId, recipe);
         const result = await craftItem(db, playerId, recipe.recipe_id);
         if (!result.success) {
           if (result.error === 'MISSING_INGREDIENT') {

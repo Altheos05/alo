@@ -457,6 +457,24 @@ define('SYS_CLEAR_EFFECTS', {
   },
 });
 
+// ─── D94 : XP de cuisine ───
+
+define('SYS_GRANT_COOKING_XP', {
+  description: 'Accorde de l\'XP de cuisine (récompense de quête culinaire, support)',
+  schema: { player_id: 'uuid', xp: 'integer' },
+  async d71(db, params) {
+    if (!(await avatarExists(db, params.player_id))) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system', 'quest_reward'].includes(source); },
+  async execute(db, params) {
+    const r = await db.query('UPDATE t_avatars SET cooking_xp = cooking_xp + $1 WHERE avatar_uuid = $2 RETURNING cooking_xp',
+      [parseInt(params.xp, 10), params.player_id]);
+    return { ok: true, message: `XP de cuisine : ${r.rows[0].cooking_xp}` };
+  },
+});
+
 // ─── D91 : notifications sortantes (file T_NOTIFICATIONS, services/notifications.js) ───
 
 define('SYS_NOTIFY_PLAYER', {

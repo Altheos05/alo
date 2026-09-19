@@ -41,6 +41,7 @@
 ## 4. 🧬 Manipulation Directe des Joueurs (Droit Divin)
 - `SYS_DEBUFF_PLAYER(Avatar_ID, Status_Effect)` : Applique une altération d'état (Cécité, Poison, Silence) suite à une erreur critique du joueur. *(D90 : persistée dans `T_ACTIVE_EFFECTS`, jamais mortelle hors combat.)*
 - `SYS_BLESS_PLAYER(Avatar_ID, Buff_Type)` : Accorde une bénédiction (ex: +50% EXP pendant 1h) pour récompenser un Roleplay héroïque. *(D90 : persistée dans `T_ACTIVE_EFFECTS`.)*
+- `SYS_GRANT_COOKING_XP(Avatar_ID, XP)` : Accorde de l'XP de cuisine (D94, récompense de quête culinaire). Équivalent GM : `!sys_cooking_xp`.
 - `SYS_CLEAR_EFFECTS(Avatar_ID)` : Dissipe les effets actifs dissipables d'un joueur (D90). Équivalent GM : `!sys_effect_clear`.
 - `SYS_SET_GENDER(Avatar_ID, Genre)` : Corrige le genre d'un avatar — seule voie, le genre étant immuable côté joueur (D86). Équivalent GM : `!sys_set_gender`.
 - `SYS_NOTIFY_PLAYER(Avatar_ID, Texte)` : Message privé système à un joueur, via la file bridée `T_NOTIFICATIONS` (D91). Équivalent GM : `!sys_notify`.

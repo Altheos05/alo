@@ -163,6 +163,7 @@ Les armes sont **encombrantes** : elles ne tiennent ni dans le sac (`BAG_*` = it
 | A6 | **Tenu/porté = possédé** | toute valeur `equip_*`/`hand_*`/`belt_*`/`gear_*` doit exister dans `T_INVENTORY` avec `is_equipped = VRAI` pour ce même avatar (anti-duplication) |
 | A7 | **Miroirs sociaux (D-SOC-13)** | `marriage_uuid`/`home_property_uuid`/`job_id` sont des **caches dénormalisés** (accès rapide `!profil`) ; la **source de vérité** reste `T_MARRIAGES`/`T_PROPERTIES`/`T_AVATAR_JOB`. Tenus à jour par trigger à chaque mariage/divorce, acquisition/expulsion de logement, embauche/démission |
 | A8 | **Genre choisi à l'inscription, immuable (D86)** | `gender` est fourni par le joueur à `!link_start [Race] [Nom] [Genre]` (`homme`/`femme`/`neutre` → `male`/`female`/`neutral`) et **jamais modifiable par le joueur** ensuite (UPDATE rejeté hors source GM). Correction uniquement via `!sys_set_gender` / `SYS_SET_GENDER`. Justification : le genre conditionne le mariage (D-SOC-10, trigger M1 de `T_MARRIAGES`) et la tenue par défaut (D46) — un genre libre permettrait de contourner D-SOC-10. Les avatars créés avant D86 (tous `male` par défaut, valeur codée en dur dans l'ancienne inscription) sont conservés tels quels, correction GM au cas par cas |
+| A9 | **XP de cuisine (D94)** | `cooking_xp INT NOT NULL DEFAULT 0` ; niveau dérivé `floor(√(XP/25)) + 1` (max 50), jamais stocké. Gagnée à chaque plat cuisiné (recette ou marmite), selon la complexité et la réussite — `system_mechanics/cuisine_libre.md` §5 |
 
 ### Équivalents commandes
 

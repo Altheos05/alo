@@ -30,7 +30,8 @@ Chaque tentative avec outil consomme de la durabilité ; la réparation est dég
 
 ## 4. Cuisine
 
-- `!cook [Recette]` passe par le moteur d'artisanat existant (`T_RECIPES`, `craft_type = 'cooking'`, étape 58) — il ne manque que le contenu des recettes.
+- `!cook [Recette]` passe par le moteur d'artisanat existant (`T_RECIPES`, `craft_type = 'cooking'`) ; 32 recettes ingérées (étape 62).
+- **Cuisine libre (D93)** : `!marmite` jusqu'à 4 ingrédients sans recette, et **niveau de cuisine (D94)** qui fixe la réussite des plats complexes — détail : `cuisine_libre.md`.
 - Les buffs de repas sont des **effets actifs persistants** (`T_ACTIVE_EFFECTS`, D90) : un plat mangé en ville reste actif pendant les déplacements et les combats, jusqu'à son échéance.
 - **Lieu de cuisine (clause v1.0 conservée, arbitrage PE étape 60)** : `!cook` nécessite un **feu de camp** ou une **cuisine de logement** (propriété possédée ou louée par le joueur, ou foyer conjugal). Hors de ces lieux, la commande est refusée avec l'indication du lieu requis.
   - *Implémentation (étape 61)* : la **cuisine de logement** = être dans la zone d'un logement actif à soi (possédé, ou loué et à jour) ou du foyer conjugal ; le **feu de camp** = toute zone d'extérieur sauvage (`HUNT`, `FLD`) — aucun objet « feu de camp » n'existant, c'est une règle de lieu, sans état.

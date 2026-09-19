@@ -4,11 +4,11 @@
 import { inTransaction } from './bank.js';
 import { applyEffect } from './effects.js';
 
-const FOOD_PREFIX = 'CSM_NOU_';
+const FOOD_PREFIXES = ['CSM_NOU_', 'CSM_CUI_'];
 
 async function takeOne(client, avatarUuid, itemId) {
   const r = await client.query(
-    `SELECT i.instance_uuid, i.quantity, d.name, d.use_effect
+    `SELECT i.instance_uuid, i.quantity, d.name, COALESCE(i.instance_data->'use_effect', d.use_effect) AS use_effect
      FROM t_inventory i JOIN t_items_dict d ON d.item_id = i.item_id
      WHERE i.avatar_uuid = $1 AND i.item_id = $2 AND NOT i.is_equipped
      ORDER BY i.acquired_at LIMIT 1 FOR UPDATE OF i`,
@@ -39,11 +39,15 @@ export async function useItem(db, avatarUuid, itemId) {
        WHERE avatar_uuid = $3 RETURNING hp_current, mp_current`,
       [hp, mp, avatarUuid]
     )).rows[0];
+    const isFood = FOOD_PREFIXES.some(p => itemId.startsWith(p));
     if (e.effect_id) {
-      if (itemId.startsWith(FOOD_PREFIX)) {
+      if (isFood) {
         await client.query("DELETE FROM t_active_effects WHERE target_type = 'avatar' AND target_id = $1 AND source_kind = 'food'", [avatarUuid]);
       }
-      await applyEffect(client, avatarUuid, e.effect_id, { sourceKind: itemId.startsWith(FOOD_PREFIX) ? 'food' : 'system', sourceRef: itemId });
+      // Plat de marmite (D93) : la durée vient de l'exemplaire, pas du dictionnaire.
+      await applyEffect(client, avatarUuid, e.effect_id, {
+        durationSec: e.duration_sec || null, sourceKind: isFood ? 'food' : 'system', sourceRef: itemId,
+      });
     }
     return {
       success: true, name: taken.name,

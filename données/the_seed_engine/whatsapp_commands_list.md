@@ -33,6 +33,7 @@
 - `!sys_node_reset [Num_WhatsApp] [Node_ID]` : Remet à zéro la repousse d'un nœud de ressource pour un joueur (D87, `T_AVATAR_HARVESTS`).
 - `!sys_node_event [Node_ID] [deplete|bonus] [Durée]` : Épuise ou fait abonder un nœud pour tous (état global, D87). Équivalents IA : `SYS_DEPLETE_RESOURCE`, `SYS_BONUS_HARVEST`.
 - `!sys_durability_set [Num_WhatsApp] [Item_ID] [Valeur]` : Fixe la durabilité d'une instance (support, D88). Équivalent IA : `SYS_MODIFY_DURABILITY` *(existant)*.
+- `!sys_cooking_xp [Num_WhatsApp] [XP]` : Accorde de l'XP de cuisine (D94). Équivalent IA : `SYS_GRANT_COOKING_XP`.
 - `!sys_effect_apply [Num_WhatsApp] [Effect_ID] [Durée]` / `!sys_effect_clear [Num_WhatsApp]` : Pose ou retire des effets actifs persistants (D90, `T_ACTIVE_EFFECTS`). Équivalents IA : `SYS_BLESS_PLAYER` / `SYS_DEBUFF_PLAYER` *(existants)*, `SYS_CLEAR_EFFECTS`.
 - `!sys_notify [Num_WhatsApp] [Texte]` : Message privé système à un joueur, via la file bridée (D91, `T_NOTIFICATIONS`). Équivalent IA : `SYS_NOTIFY_PLAYER`.
 - `!sys_notif_queue` : Affiche l'état de la file de notifications sortantes (en attente, échecs) (D91).
@@ -155,7 +156,8 @@
 *Commandes liées aux métiers secondaires (cf. `gathering_cooking_system.md` **v2.0**, D87 — modèle unique `T_RESOURCE_NODES`, repousse propre à chaque joueur).*
 - `!fish [FSH_ID?]` : Lance une session de pêche (canne `OUT_CAN_*` de tier ≥ nœud, possédée). **Mini-jeu asynchrone** : 3 options numérotées (menu D83, contexte `FISHING`), une seule juste selon l'indice narratif, réussite modulée par la DEX — **sans chronomètre**. Sans ID : menu des nœuds de pêche de la zone.
 - ~~`!reel`~~ — retirée (la fenêtre chronométrée de 10 s est remplacée par le mini-jeu à options).
-- `!cook [Recette]` : Prépare un repas avec des ingrédients (buffs temporaires).
+- `!cook [Recette]` : Prépare un repas avec des ingrédients (buffs temporaires) ; réussite selon le niveau de cuisine (D94). `!cook niveau` : niveau et XP de cuisine.
+- `!marmite [Ingrédient] + [Ingrédient] (+ …, 4 max)` : cuisine libre sans recette (D93, `system_mechanics/cuisine_libre.md`) — grillés, brochettes, ragoûts…
 - `!sew [Matériau]` : Couture d'armure textile ou de sacs d'inventaire.
 - `!gather` : alias de `!recolter` sans ID — menu des nœuds de flore de la zone.
 - `!recolter <FLO_ID>` : Récolte un nœud de flore (`FLO_*`) — **résolution immédiate**, aucun outil requis ; crédite le matériau (`MAT_HRB_*`). L'ID du nœud est visible via `!inspect` ou les panneaux de zone.

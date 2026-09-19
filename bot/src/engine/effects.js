@@ -110,7 +110,7 @@ export async function clearEffects(db, avatarUuid, { dispellableOnly = true, eff
 async function findKnownSpell(client, casterUuid, query) {
   const r = await client.query(
     `SELECT s.skill_id, s.name, s.tier, s.mp_cost, s.base_damage, s.base_healing, s.stat_scaling,
-            (SELECT 1 FROM t_status_effects_dict d WHERE d.effect_id = 'EFF_' || s.skill_id) IS NOT NULL AS has_effect
+            (SELECT 1 FROM t_status_effects_dict d WHERE d.effect_id = 'EFF_' || s.skill_id AND d.type = 'buff') IS NOT NULL AS has_effect
      FROM t_avatar_skills a JOIN t_skills_dict s ON s.skill_id = a.skill_id
      WHERE a.avatar_uuid = $1 AND s.skill_type = 'MAG' AND (s.skill_id = UPPER($2) OR s.name ILIKE $2)
      LIMIT 1`,

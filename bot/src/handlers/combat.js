@@ -183,8 +183,11 @@ async function castInCombat(db, combat, skillQuery, effectsDict) {
   }
   const effect = effectsDict[`EFF_${skill.skill_id}`];
   if (effect) {
-    applyStatusEffect(combat.player, { ...effect });
-    return { line: `✨ ${combat.player.avatar_name} lance **${skill.name}** : ${effect.name}.` };
+    // Soutien : sur soi ; contrôle / affaiblissement : sur l'ennemi.
+    const target = effect.type === 'debuff' ? combat.monster : combat.player;
+    applyStatusEffect(target, { ...effect });
+    const targetName = target === combat.monster ? combat.monster.name : combat.player.avatar_name;
+    return { line: `✨ ${combat.player.avatar_name} lance **${skill.name}** sur ${targetName} : ${effect.name}.` };
   }
   const playerMods = getStatModifiers(combat.player.activeEffects, combat.player);
   const dmg = calculateDamage({ ...combat.player, ...playerMods }, combat.monster, skill, combat.monster.activeEffects);

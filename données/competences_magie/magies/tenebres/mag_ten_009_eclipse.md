@@ -18,6 +18,11 @@
 ## Effet
 Effet d’affaiblissement : réduit une statistique de la ou des cible(s) ennemie(s) sur la durée. Zone d’effet à partir du T3.
 
+## Effet sur la cible (combat)
+- **Effet_ID** : `EFF_MAG_TEN_009` · **Nom** : Eclipse
+- **Stat** : `stat_str` · **Valeur** : -30 % · **Durée** : 120 s
+- Combat uniquement : altération posée sur l'ennemi (D90 E5 : aucun sort offensif hors combat).
+
 ## Formule de Dégâts / Effet
 Sort d’affaiblissement — aucun dégât direct. Intensité indexée sur INT et la résistance de la cible.
 

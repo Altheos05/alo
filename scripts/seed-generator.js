@@ -211,10 +211,12 @@ function parseSpellEffects() {
   const rows = [];
   for (const f of walk(path.join(BASE, 'competences_magie'))) {
     const content = fs.readFileSync(f, 'utf-8');
-    const m = content.match(/\*\*Effet_ID\*\*\s*:\s*`(EFF_[A-Z0-9_]+)`\s*·\s*\*\*Nom\*\*\s*:\s*(.+)\n- \*\*Stat\*\*\s*:\s*`(\w+)`\s*·\s*\*\*Valeur\*\*\s*:\s*\+(\d+)\s*%\s*·\s*\*\*Durée\*\*\s*:\s*(\d+)\s*s/);
+    // Buff (« +5 % », allié) ou altération de combat (« -30 % », ennemi).
+    const m = content.match(/\*\*Effet_ID\*\*\s*:\s*`(EFF_[A-Z0-9_]+)`\s*·\s*\*\*Nom\*\*\s*:\s*(.+)\n- \*\*Stat\*\*\s*:\s*`(\w+)`\s*·\s*\*\*Valeur\*\*\s*:\s*([+-])(\d+)\s*%\s*·\s*\*\*Durée\*\*\s*:\s*(\d+)\s*s/);
     if (!m) continue;
-    const [, effectId, name, stat, value, duration] = m;
-    rows.push([effectId, name.trim().slice(0, 50), 'buff', stat, Number(value), 'percent', Number(duration), 0, 0, 'TRUE', 1, null]);
+    const [, effectId, name, stat, sign, value, duration] = m;
+    const type = sign === '-' ? 'debuff' : 'buff';
+    rows.push([effectId, name.trim().slice(0, 50), type, stat, Number(value), 'percent', Number(duration), 0, 0, 'TRUE', 1, null]);
   }
   return rows;
 }
@@ -621,13 +623,20 @@ function parseSkills() {
     const tier = parseInt(bulletField(content, 'Tier')?.match(/(\d)/)?.[1] || content.match(/Tier\s*:\s*T?(\d)/i)?.[1] || 1);
     const mpCost = parseInt(content.match(/Coût MP\s*[|]\s*(\d+)/i)?.[1] || 0);
     const castFrames = parseFloat(content.match(/Temps d'Incantation\s*[|]\s*([\d.]+)s/i)?.[1] || 0) * 20;
-    const cooldown = parseInt(content.match(/Cooldown\s*[|]\s*(\d+)/i)?.[1] || 0);
-    const hitCount = parseInt(content.match(/hit_count\s*[:]\s*(\d+)/i)?.[1] || 1);
-    const baseDmg = parseInt(content.match(/base_damage\s*[:]\s*(\d+)/i)?.[1] || 0);
-    // Sorts de soin : « Restaure **130 + (INT × 0.4)** HP » (D90, lancer hors combat).
+    // « Cooldown | 3 min » / « 40 s » / « Aucun » → secondes.
+    const cd = content.match(/Cooldown\s*[|]\s*(\d+(?:[.,]\d+)?)\s*(min|s)?/i);
+    const cooldown = cd ? Math.round(parseFloat(cd[1].replace(',', '.')) * (/min/i.test(cd[2] || '') ? 60 : 1)) : 0;
+    const hitCount = parseInt(content.match(/Nombre de Hits\s*[|]\s*(\d+)/i)?.[1] || content.match(/hit_count\s*[:]\s*(\d+)/i)?.[1] || 1);
+    // Sorts : « Inflige / Restaure **130 + (INT × 0.4)** » ; OSS : « Multiplicateur Total | x2.1 » sur l'ATQ.
+    const dmg = content.match(/Inflige \*\*(\d+)\s*\+\s*\(INT\s*×\s*([\d.]+)\)\*\*/);
     const heal = content.match(/Restaure \*\*(\d+)\s*\+\s*\(INT\s*×\s*([\d.]+)\)\*\*/);
+    const ossMult = content.match(/Multiplicateur Total\s*[|]\s*x?([\d.]+)/i);
+    const baseDmg = dmg ? parseInt(dmg[1], 10) : 0;
     const baseHealing = heal ? parseInt(heal[1], 10) : 0;
-    const statScaling = heal ? JSON.stringify({ stat_int: parseFloat(heal[2]) }) : null;
+    const statScaling = dmg ? JSON.stringify({ stat_int: parseFloat(dmg[2]) })
+      : heal ? JSON.stringify({ stat_int: parseFloat(heal[2]) })
+      : ossMult ? JSON.stringify({ base_atk: parseFloat(ossMult[1]) })
+      : null;
     const desc = (content.match(/Effet\s*(.+?)(?:\n\n|\n#|$)/s)?.[1] || '').trim().slice(0, 300);
     const unlock = (content.match(/Acquisition.*?\n(?:.*\n)*?.*?`NPC_\w+_\d+`/i)?.[0] ||
                     content.match(/Enseignant\s*[:]\s*(.+)/i)?.[1]?.trim() || null)?.slice(0, 200);

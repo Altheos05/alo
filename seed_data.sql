@@ -1083,18 +1083,50 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 -- T_STATUS_EFFECTS_DICT (effets persistants des sorts, D90)
 -- ============================================================
 INSERT INTO T_STATUS_EFFECTS_DICT (effect_id, name, type, stat_modified, modifier_value, modifier_type, duration_sec, tick_damage, tick_interval, is_dispellable, max_stacks, icon_emoji) VALUES
+('EFF_MAG_EAU_001', 'Aqua Bind', 'debuff', 'stat_agi', 30, 'percent', 30, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_EAU_003', 'Bubble Veil', 'buff', 'stat_vit', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_EAU_004', 'Water Shield', 'buff', 'stat_vit', 5, 'percent', 600, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_EAU_007', 'Whirlpool', 'debuff', 'stat_agi', 50, 'percent', 90, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_EAU_009', 'Abyssal Grasp', 'debuff', 'stat_agi', 50, 'percent', 120, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_FEU_003', 'Ember Snare', 'debuff', 'stat_agi', 30, 'percent', 30, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_FEU_004', 'Inferno Wall', 'debuff', 'stat_agi', 30, 'percent', 60, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_FOU_003', 'Static Field', 'debuff', 'stat_agi', 30, 'percent', 30, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_FOU_007', 'Ball Lightning', 'debuff', 'stat_agi', 50, 'percent', 90, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_GLA_003', 'Chill Touch', 'debuff', 'stat_agi', 30, 'percent', 30, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_GLA_004', 'Frost Armor', 'buff', 'stat_vit', 5, 'percent', 600, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_GLA_007', 'Glacier Spike', 'debuff', 'stat_agi', 50, 'percent', 90, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_GLA_008', 'Absolute Zero', 'debuff', 'stat_agi', 50, 'percent', 120, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_GUE_007', 'Sanctuaire', 'buff', 'stat_vit', 10, 'percent', 900, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_LUM_002', 'Flash', 'debuff', 'stat_agi', 20, 'percent', 30, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_LUM_003', 'Bless', 'buff', 'stat_str', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_LUM_005', 'Light Shield', 'buff', 'stat_vit', 5, 'percent', 600, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_LUM_008', 'Sanctuary Nova', 'buff', 'stat_vit', 10, 'percent', 1200, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_001', 'Barrière sonore', 'buff', 'stat_vit', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_002', 'Célérité du tempo', 'buff', 'stat_agi', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_003', 'Encouragement', 'buff', 'stat_str', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_004', 'Hymne de bataille', 'buff', 'stat_str', 5, 'percent', 600, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_SUP_005', 'Dissonance', 'debuff', 'stat_int', 20, 'percent', 60, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_006', 'Garde de résonance', 'buff', 'stat_int', 10, 'percent', 900, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_007', 'Marche de guerre', 'buff', 'stat_agi', 10, 'percent', 900, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_008', 'Requiem', 'buff', 'stat_vit', 10, 'percent', 1200, 0, 0, TRUE, 1, NULL),
 ('EFF_MAG_SUP_009', 'Harmonie de bravoure', 'buff', 'stat_str', 10, 'percent', 1200, 0, 0, TRUE, 1, NULL),
-('EFF_MAG_SUP_010', 'Ouverture de la Genèse', 'buff', 'stat_int', 10, 'percent', 1800, 0, 0, TRUE, 1, NULL) ON CONFLICT (effect_id) DO NOTHING;
+('EFF_MAG_SUP_010', 'Ouverture de la Genèse', 'buff', 'stat_int', 10, 'percent', 1800, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TEN_002', 'Dark Veil', 'buff', 'stat_agi', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TEN_005', 'Curse', 'debuff', 'stat_str', 20, 'percent', 60, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TEN_006', 'Shadow Bind', 'debuff', 'stat_agi', 50, 'percent', 90, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TEN_009', 'Eclipse', 'debuff', 'stat_str', 30, 'percent', 120, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TER_001', 'Stone Wall', 'buff', 'stat_vit', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TER_003', 'Harden', 'buff', 'stat_vit', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TER_004', 'Iron Skin', 'buff', 'stat_vit', 5, 'percent', 600, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TER_005', 'Mud Trap', 'debuff', 'stat_agi', 30, 'percent', 60, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TER_007', 'Spike Field', 'debuff', 'stat_agi', 50, 'percent', 90, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_TER_009', 'Gaia Fortress', 'buff', 'stat_vit', 10, 'percent', 1200, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_VEN_003', 'Breeze Step', 'buff', 'stat_agi', 5, 'percent', 300, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_VEN_005', 'Wind Barrier', 'buff', 'stat_vit', 5, 'percent', 600, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_VEN_006', 'Cyclone', 'debuff', 'stat_agi', 50, 'percent', 90, 0, 0, TRUE, 1, NULL),
+('EFF_MAG_VEN_009', 'Sky Sovereign', 'buff', 'stat_agi', 10, 'percent', 1200, 0, 0, TRUE, 1, NULL) ON CONFLICT (effect_id) DO NOTHING;
 
--- Effets de sorts : 10 lignes
+-- Effets de sorts : 42 lignes
 -- ============================================================
 -- T_RESOURCE_NODES
 -- ============================================================
@@ -30622,80 +30654,80 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
 ('MAG_EAU_001', 'Aqua Bind', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_EAU_002', 'Water Jet', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_EAU_002', 'Water Jet', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
 ('MAG_EAU_003', 'Bubble Veil', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
 ('MAG_EAU_004', 'Water Shield', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_EAU_005', 'Torrent', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_EAU_005', 'Torrent', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_EAU_006', 'Tsunami', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_EAU_006', 'Tsunami', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
 ('MAG_EAU_007', 'Whirlpool', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_EAU_008', 'Maelstrom', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_EAU_008', 'Maelstrom', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Eau à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_EAU_009', 'Abyssal Grasp', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_EAU_009', 'Abyssal Grasp', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Guilde des Ondins d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_EAU_010', 'Leviathan’s Wrath', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Eau à la ou les cible(s) visée(s).', NULL, 3, TRUE),
-('MAG_FEU_001', 'Fire Lance', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_EAU_010', 'Leviathan’s Wrath', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Eau à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_FEU_001', 'Fire Lance', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_002', 'Flame Arrow', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_002', 'Flame Arrow', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
 ('MAG_FEU_003', 'Ember Snare', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
 ('MAG_FEU_004', 'Inferno Wall', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_005', 'Flame Whip', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_005', 'Flame Whip', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_006', 'Magma Burst', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_006', 'Magma Burst', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_007', 'Fire Storm', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_007', 'Fire Storm', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_008', 'Meteor Storm', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_008', 'Meteor Storm', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_009', 'Phoenix Dive', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_009', 'Phoenix Dive', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Feu à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Feu de Gattan, maître Ferra `NPC_GAT_31`', 3, TRUE),
-('MAG_FEU_010', 'Ragnarök Flame', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Feu à la ou les cible(s) visée(s).', NULL, 3, TRUE),
-('MAG_FOU_001', 'Lightning Strike', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FEU_010', 'Ragnarök Flame', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Feu à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_FOU_001', 'Lightning Strike', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_002', 'Spark', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_002', 'Spark', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
 ('MAG_FOU_003', 'Static Field', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_004', 'Chain Lightning', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_004', 'Chain Lightning', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_005', 'Volt Whip', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_005', 'Volt Whip', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_006', 'Thunderstorm', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_006', 'Thunderstorm', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
 ('MAG_FOU_007', 'Ball Lightning', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_008', 'Thunder God’s Wrath', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_008', 'Thunder God’s Wrath', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_009', 'Plasma Nova', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_009', 'Plasma Nova', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Foudre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Foudre de Voulg, maître Vork `NPC_VOU_29`', 3, TRUE),
-('MAG_FOU_010', 'Mjölnir Descent', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Foudre à la ou les cible(s) visée(s).', NULL, 3, TRUE),
-('MAG_GLA_001', 'Frost Nova', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_FOU_010', 'Mjölnir Descent', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Foudre à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_GLA_001', 'Frost Nova', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
-('MAG_GLA_002', 'Ice Shard', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_GLA_002', 'Ice Shard', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
 ('MAG_GLA_003', 'Chill Touch', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
 ('MAG_GLA_004', 'Frost Armor', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
-('MAG_GLA_005', 'Ice Lance', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_GLA_005', 'Ice Lance', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
-('MAG_GLA_006', 'Blizzard', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_GLA_006', 'Blizzard', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
 ('MAG_GLA_007', 'Glacier Spike', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
-('MAG_GLA_008', 'Absolute Zero', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_GLA_008', 'Absolute Zero', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
-('MAG_GLA_009', 'Permafrost Prison', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_GLA_009', 'Permafrost Prison', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Glace à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de Glace de Swilvane, maître Sora `NPC_SWI_79`', 3, TRUE),
-('MAG_GLA_010', 'Fimbulwinter', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Glace à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_GLA_010', 'Fimbulwinter', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Glace à la ou les cible(s) visée(s).', NULL, 3, TRUE),
 ('MAG_GUE_001', 'Heal', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 130, '{"stat_int":0.4}', 'Restaure **130 + (INT × 0.4)** HP à la ou aux cible(s) alliée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Sanctuaire de Guérison d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
 ('MAG_GUE_002', 'Cure Poison', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet utilitaire : purge / déplacement / dissipation selon la description ci-dessus.', 'Acquisition (Enseignement)
@@ -30710,13 +30742,13 @@ INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, 
 - **Enseignant** : Sanctuaire de Guérison d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
 ('MAG_GUE_007', 'Sanctuary', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Sanctuaire de Guérison d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_GUE_008', 'Mass Regeneration', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 1250, '{"stat_int":1}', 'Restaure **1250 + (INT × 1.0)** HP à la ou aux cible(s) alliée(s).', 'Acquisition (Enseignement)
+('MAG_GUE_008', 'Mass Regeneration', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 1250, '{"stat_int":1}', 'Restaure **1250 + (INT × 1.0)** HP à la ou aux cible(s) alliée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Sanctuaire de Guérison d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_GUE_009', 'Full Restore', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 1250, '{"stat_int":1}', 'Restaure **1250 + (INT × 1.0)** HP à la ou aux cible(s) alliée(s).', 'Acquisition (Enseignement)
+('MAG_GUE_009', 'Full Restore', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 1250, '{"stat_int":1}', 'Restaure **1250 + (INT × 1.0)** HP à la ou aux cible(s) alliée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Sanctuaire de Guérison d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
 ('MAG_GUE_010', 'Genesis Bloom', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 2100, '{"stat_int":1.2}', 'Restaure **2100 + (INT × 1.2)** HP à la ou aux cible(s) alliée(s).', NULL, 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
-('MAG_LUM_001', 'Holy Light', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_LUM_001', 'Holy Light', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
 ('MAG_LUM_002', 'Flash', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
@@ -30726,15 +30758,15 @@ INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, 
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
 ('MAG_LUM_005', 'Light Shield', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_LUM_006', 'Divine Judgment', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_LUM_006', 'Divine Judgment', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_LUM_007', 'Radiant Beam', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_LUM_007', 'Radiant Beam', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_LUM_008', 'Sanctuary Nova', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_LUM_008', 'Sanctuary Nova', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_LUM_009', 'Solar Flare', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_LUM_009', 'Solar Flare', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Lumière à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Ordre de Lumière d’Alne, maître Selene `NPC_ALN_70`', 3, TRUE),
-('MAG_LUM_010', 'Empyrean Dawn', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Lumière à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_LUM_010', 'Empyrean Dawn', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Lumière à la ou les cible(s) visée(s).', NULL, 3, TRUE),
 ('MAG_SUP_001', 'Barrier', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Conservatoire Puca d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
 ('MAG_SUP_002', 'Haste', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
@@ -30749,33 +30781,33 @@ INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, 
 - **Enseignant** : Conservatoire Puca d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
 ('MAG_SUP_007', 'War March', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Conservatoire Puca d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_SUP_008', 'Requiem', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_SUP_008', 'Requiem', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Conservatoire Puca d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
-('MAG_SUP_009', 'Harmony of Valor', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_SUP_009', 'Harmony of Valor', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Conservatoire Puca d’Alne, maître Zephyrine `NPC_ALN_68`', 3, TRUE),
 ('MAG_SUP_010', 'Overture of Genesis', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', NULL, 3, TRUE),
-('MAG_TEN_001', 'Shadow Bolt', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TEN_001', 'Shadow Bolt', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TEN_002', 'Dark Veil', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TEN_003', 'Shadow Step', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet utilitaire : purge / déplacement / dissipation selon la description ci-dessus.', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TEN_004', 'Dark Detonation', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TEN_004', 'Dark Detonation', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TEN_005', 'Curse', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet d’affaiblissement : réduit une statistique de la ou des cible(s) ennemie(s) sur la durée. Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TEN_006', 'Shadow Bind', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TEN_007', 'Void Lance', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TEN_007', 'Void Lance', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TEN_008', 'Abyssal Collapse', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TEN_008', 'Abyssal Collapse', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Ténèbres à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TEN_009', 'Eclipse', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet d’affaiblissement : réduit une statistique de la ou des cible(s) ennemie(s) sur la durée. Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_TEN_009', 'Eclipse', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet d’affaiblissement : réduit une statistique de la ou des cible(s) ennemie(s) sur la durée. Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : Cercle des Ombres d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TEN_010', 'Ragnarök Umbra', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Ténèbres à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_TEN_010', 'Ragnarök Umbra', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Ténèbres à la ou les cible(s) visée(s).', NULL, 3, TRUE),
 ('MAG_TER_001', 'Stone Wall', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TER_002', 'Rock Throw', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Terre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TER_002', 'Rock Throw', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Terre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TER_003', 'Harden', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
@@ -30783,263 +30815,263 @@ INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, 
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TER_005', 'Mud Trap', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TER_006', 'Earthquake', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Terre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TER_006', 'Earthquake', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Terre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
 ('MAG_TER_007', 'Spike Field', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TER_008', 'Tectonic Shift', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Terre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TER_008', 'Tectonic Shift', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Terre à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TER_009', 'Gaia Fortress', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_TER_009', 'Gaia Fortress', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École de la Terre d’Alne, maître Roan `NPC_ALN_69`', 3, TRUE),
-('MAG_TER_010', 'World Pillar', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Terre à la ou les cible(s) visée(s).', NULL, 3, TRUE),
-('MAG_VEN_001', 'Wind Blade', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_TER_010', 'World Pillar', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Terre à la ou les cible(s) visée(s).', NULL, 3, TRUE),
+('MAG_VEN_001', 'Wind Blade', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
-('MAG_VEN_002', 'Air Cutter', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Inflige **130 + (INT × 0.4)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_VEN_002', 'Air Cutter', 'MAG', 'CBT', 1, 1, 40, 30, 0, 130, 0, '{"stat_int":0.4}', 'Inflige **130 + (INT × 0.4)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
 ('MAG_VEN_003', 'Breeze Step', 'MAG', 'CBT', 1, 1, 40, 30, 0, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
-('MAG_VEN_004', 'Gale Burst', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Inflige **300 + (INT × 0.6)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_VEN_004', 'Gale Burst', 'MAG', 'CBT', 2, 1, 110, 40, 10, 300, 0, '{"stat_int":0.6}', 'Inflige **300 + (INT × 0.6)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
 ('MAG_VEN_005', 'Wind Barrier', 'MAG', 'CBT', 2, 1, 110, 40, 10, 0, 0, NULL, 'Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
 ('MAG_VEN_006', 'Cyclone', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Effet de contrôle : entrave, immobilise ou repousse la ou les cible(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
-('MAG_VEN_007', 'Tempest Lance', 'MAG', 'CBT', 3, 1, 240, 60, 40, 0, 0, NULL, 'Inflige **620 + (INT × 0.8)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_VEN_007', 'Tempest Lance', 'MAG', 'CBT', 3, 1, 240, 60, 40, 620, 0, '{"stat_int":0.8}', 'Inflige **620 + (INT × 0.8)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
-('MAG_VEN_008', 'Tornado', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Inflige **1250 + (INT × 1.0)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
+('MAG_VEN_008', 'Tornado', 'MAG', 'CBT', 4, 1, 430, 80, 180, 1250, 0, '{"stat_int":1}', 'Inflige **1250 + (INT × 1.0)** dégâts de Vent à la ou les cible(s) visée(s).', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
-('MAG_VEN_009', 'Sky Sovereign', 'MAG', 'CBT', 4, 1, 430, 80, 3, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
+('MAG_VEN_009', 'Sky Sovereign', 'MAG', 'CBT', 4, 1, 430, 80, 180, 0, 0, NULL, 'Effet de soutien : applique un bonus (+10%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.', 'Acquisition (Enseignement)
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
-('MAG_VEN_010', 'Aerial Cataclysm', 'MAG', 'CBT', 5, 1, 680, 100, 1, 0, 0, NULL, 'Inflige **2100 + (INT × 1.2)** dégâts de Vent à la ou les cible(s) visée(s).', NULL, 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
+('MAG_VEN_010', 'Aerial Cataclysm', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Vent à la ou les cible(s) visée(s).', NULL, 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
-('OSS_ARC_001', 'Phantom Arrow', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_001', 'Phantom Arrow', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Zephyrine `NPC_ALN_68`', 3, TRUE),
-('OSS_ARC_002', 'Quick Shot', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_002', 'Quick Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_003', 'Aimed Shot', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_003', 'Aimed Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_004', 'Double Shot', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_004', 'Double Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_005', 'Piercing Arrow', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_005', 'Piercing Arrow', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_006', 'Arrow Rain', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_006', 'Arrow Rain', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_007', 'Explosive Shot', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_007', 'Explosive Shot', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_008', 'Splinter Shot', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_008', 'Splinter Shot', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Zephyrine `NPC_ALN_68`', 3, TRUE),
-('OSS_ARC_009', 'Hawk Eye', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_009', 'Hawk Eye', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Zephyrine `NPC_ALN_68`', 3, TRUE),
-('OSS_ARC_010', 'Meteor Volley', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_010', 'Meteor Volley', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_011', 'Star Fall', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_011', 'Star Fall', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_012', 'Sköll’s Hunt', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_ARC_012', 'Sköll’s Hunt', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_001', 'Rapid Bite', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_001', 'Rapid Bite', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_002', 'Fell Crescent', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_002', 'Fell Crescent', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_003', 'Pommel Bash', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_003', 'Pommel Bash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_004', 'Backstab', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_004', 'Backstab', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_005', 'Venom Fang', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_005', 'Venom Fang', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_006', 'Shadow Stitch', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_006', 'Shadow Stitch', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_DAG_007', 'Fatal Twin', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_007', 'Fatal Twin', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_DAG_008', 'Serpent Coil', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_008', 'Serpent Coil', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_DAG_009', 'Assassinate', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_009', 'Assassinate', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_010', 'Thousand Cuts', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_DAG_010', 'Thousand Cuts', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_001', 'Starburst Stream', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_001', 'Starburst Stream', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_002', 'Vorpal Strike', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_002', 'Vorpal Strike', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_EPE_003', 'Savage Fulcrum', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_003', 'Savage Fulcrum', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_004', 'Horizontal', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_004', 'Horizontal', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_005', 'Slant', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_005', 'Slant', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_006', 'Vertical', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_006', 'Vertical', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_007', 'Sonic Leap', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_007', 'Sonic Leap', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_008', 'Sharp Nail', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_008', 'Sharp Nail', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_009', 'Rage Spike', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_009', 'Rage Spike', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_EPE_010', 'Deadly Sins', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_010', 'Deadly Sins', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_EPE_011', 'The Eclipse', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_011', 'The Eclipse', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_012', 'Nova Ascension', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EPE_012', 'Nova Ascension', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_001', 'Avalanche', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_001', 'Avalanche', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_002', 'Cleave', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_002', 'Cleave', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_003', 'Crescent Moon', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_003', 'Crescent Moon', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_004', 'Whirlwind', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_004', 'Whirlwind', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_005', 'Cascade', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_005', 'Cascade', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_006', 'Mountain Splitter', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_006', 'Mountain Splitter', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_EP2_007', 'Guillotine', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_007', 'Guillotine', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_EP2_008', 'Titan’s Descent', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_008', 'Titan’s Descent', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_EP2_009', 'World’s End', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_009', 'World’s End', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_010', 'Gram’s Judgment', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_EP2_010', 'Gram’s Judgment', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_001', 'Whirlwind Axe', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_001', 'Whirlwind Axe', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_002', 'Overhead Chop', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_002', 'Overhead Chop', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_003', 'Rending Cleave', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_003', 'Rending Cleave', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_004', 'Berserk Slash', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_004', 'Berserk Slash', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_005', 'Crescent Reap', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_005', 'Crescent Reap', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_006', 'Skull Splitter', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_006', 'Skull Splitter', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
-('OSS_HAC_007', 'Earthshaker', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_007', 'Earthshaker', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_HAC_008', 'Executioner', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_008', 'Executioner', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_HAC_009', 'Ragnar’s Fury', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_009', 'Ragnar’s Fury', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_010', 'World Ender', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_HAC_010', 'World Ender', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_001', 'Throwing Spike', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_001', 'Throwing Spike', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_002', 'Fan of Knives', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_002', 'Fan of Knives', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_003', 'Ricochet', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_003', 'Ricochet', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_004', 'Chakram Slice', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_004', 'Chakram Slice', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_005', 'Homing Blade', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_005', 'Homing Blade', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_JET_006', 'Spectral Storm', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_006', 'Spectral Storm', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_JET_007', 'Death Blossom', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_007', 'Death Blossom', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_008', 'Zephyr’s Volley', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_JET_008', 'Zephyr’s Volley', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_001', 'Tsujikaze', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_001', 'Tsujikaze', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_KAT_002', 'Crimson Lotus', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_002', 'Crimson Lotus', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_003', 'Iai Slash', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_003', 'Iai Slash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_004', 'Kesa Giri', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_004', 'Kesa Giri', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_005', 'Tsubame Gaeshi', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_005', 'Tsubame Gaeshi', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_006', 'Zangetsu', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_006', 'Zangetsu', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_007', 'Mikazuki', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_007', 'Mikazuki', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_008', 'Hien', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_008', 'Hien', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_KAT_009', 'Setsugekka', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_009', 'Setsugekka', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_KAT_010', 'Amakakeru', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_KAT_010', 'Amakakeru', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_001', 'Spiral Thrust', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_001', 'Spiral Thrust', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_002', 'Lunge', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_002', 'Lunge', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_003', 'Skewer', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_003', 'Skewer', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_004', 'Piercing Wind', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_004', 'Piercing Wind', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_005', 'Dragon Fang', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_005', 'Dragon Fang', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_006', 'Impale', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_006', 'Impale', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_LAN_007', 'Comet Thrust', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_007', 'Comet Thrust', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_LAN_008', 'Storm Halberd', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_008', 'Storm Halberd', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_LAN_009', 'Wyvern Fall', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_009', 'Wyvern Fall', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_010', 'Gungnir', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_LAN_010', 'Gungnir', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_001', 'Crushing Blow', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_001', 'Crushing Blow', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_002', 'Ground Smash', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_002', 'Ground Smash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_003', 'Pulverize', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_003', 'Pulverize', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_004', 'Concussion', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_004', 'Concussion', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_005', 'Meteor Hammer', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_005', 'Meteor Hammer', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_MAS_006', 'Seismic Slam', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_006', 'Seismic Slam', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_MAS_007', 'Titan Crush', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_007', 'Titan Crush', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_008', 'Mjölnir Strike', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_MAS_008', 'Mjölnir Strike', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_001', 'Mother’s Rosario', 'OSS', 'CBT', 5, 1, 300, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_001', 'Mother’s Rosario', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_002', 'Linear', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_002', 'Linear', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_003', 'Star Splash', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_003', 'Star Splash', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_004', 'Flèche', 'OSS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_004', 'Flèche', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_005', 'Parry Thrust', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_005', 'Parry Thrust', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_006', 'Quadruple Pain', 'OSS', 'CBT', 2, 1, 20, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_006', 'Quadruple Pain', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_007', 'Neige', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_007', 'Neige', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_RAP_008', 'Crescendo', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_008', 'Crescendo', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_RAP_009', 'Rosier’s Thorn', 'OSS', 'CBT', 3, 1, 60, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_009', 'Rosier’s Thorn', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_RAP_010', 'Absolute Point', 'OSS', 'CBT', 4, 1, 150, 0, 0, 0, 0, NULL, 'Spécial
+('OSS_RAP_010', 'Absolute Point', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
 ('PAS_CBT_001', 'Parry (Parry Mastery)', 'PAS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Améliore passivement : **efficacité de parade**. Le bonus s''applique en permanence tant que la passive est équipée, sans coût de MP ni de stamina.', NULL, 3, TRUE),

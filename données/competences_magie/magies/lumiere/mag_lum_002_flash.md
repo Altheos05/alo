@@ -18,6 +18,11 @@
 ## Effet
 Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.
 
+## Effet sur la cible (combat)
+- **Effet_ID** : `EFF_MAG_LUM_002` · **Nom** : Flash
+- **Stat** : `stat_agi` · **Valeur** : -20 % · **Durée** : 30 s
+- Combat uniquement : altération posée sur l'ennemi (D90 E5 : aucun sort offensif hors combat).
+
 ## Formule de Dégâts / Effet
 Sort de soutien — aucun dégât direct. Intensité indexée sur INT et la maîtrise d’école.
 

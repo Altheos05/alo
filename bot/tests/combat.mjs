@@ -2,6 +2,7 @@
 import { test, assert, createAvatar, finish, pool } from './helpers.mjs';
 import { processMessage } from '../src/orchestrator/message-handler.js';
 import { getCombatStatus } from '../src/handlers/combat.js';
+import { getStatModifiers } from '../src/engine/combat.js';
 import { zoneHasRepairer } from '../src/engine/durability.js';
 
 async function spawnIn(zoneId) {
@@ -38,6 +39,21 @@ async function run() {
     const turn = getCombatStatus(a.avatar_uuid).turn;
     const r = await processMessage(pool, '!cast Météore', a.avatar_uuid);
     assert(r.response.includes('ne connais pas') && getCombatStatus(a.avatar_uuid).turn === turn, r.response);
+  });
+
+  await test('Un sort de contrôle en combat pose l\'altération sur l\'ennemi', async () => {
+    const a = await createAvatar({ current_zone_id: zone, level: 99 });
+    await pool.query('UPDATE t_avatars SET hp_current = 5000, hp_max = 10000, mp_current = 500, mp_max = 500 WHERE avatar_uuid = $1', [a.avatar_uuid]);
+    await learn(a.avatar_uuid, 'MAG_EAU_001');
+    await processMessage(pool, `!attaque ${mob.monster_id}`, a.avatar_uuid);
+    await processMessage(pool, '!cast MAG_EAU_001', a.avatar_uuid);
+    const status = getCombatStatus(a.avatar_uuid);
+    assert(status && status.monster.activeEffects.some(e => e.effectId === 'EFF_MAG_EAU_001'), 'altération absente du monstre');
+  });
+
+  await test('Une altération réduit la statistique (elle l\'augmentait)', async () => {
+    const mods = getStatModifiers([{ statModified: 'stat_agi', modifierType: 'percent', modifierValue: 30, currentStacks: 1, type: 'debuff' }], { base_agi: 100 });
+    assert(mods.base_agi === 70, 'AGI : ' + mods.base_agi);
   });
 
   await test('!fuite termine le combat', async () => {

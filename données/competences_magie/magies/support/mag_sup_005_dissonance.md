@@ -18,6 +18,11 @@
 ## Effet
 Effet d’affaiblissement : réduit une statistique de la ou des cible(s) ennemie(s) sur la durée. Zone d’effet à partir du T3.
 
+## Effet sur la cible (combat)
+- **Effet_ID** : `EFF_MAG_SUP_005` · **Nom** : Dissonance
+- **Stat** : `stat_int` · **Valeur** : -20 % · **Durée** : 60 s
+- Combat uniquement : altération posée sur l'ennemi (D90 E5 : aucun sort offensif hors combat).
+
 ## Formule de Dégâts / Effet
 Sort d’affaiblissement — aucun dégât direct. Intensité indexée sur INT et la résistance de la cible.
 

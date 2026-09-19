@@ -18,6 +18,11 @@
 ## Effet
 Effet de soutien : applique un bonus (+5%) à la ou aux cible(s) alliée(s). Zone d’effet à partir du T3.
 
+## Effet persistant (D90)
+- **Effet_ID** : `EFF_MAG_TER_004` · **Nom** : Iron Skin
+- **Stat** : `stat_vit` · **Valeur** : +5 % · **Durée** : 600 s
+- Lançable hors combat (`!cast`) : T1-T2 soi ou un allié désigné, T3+ tout le groupe présent dans la zone.
+
 ## Formule de Dégâts / Effet
 Sort de soutien — aucun dégât direct. Intensité indexée sur INT et la maîtrise d’école.
 

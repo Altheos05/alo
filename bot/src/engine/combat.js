@@ -1,14 +1,13 @@
 import logger from '../utils/logger.js';
 
 export function calculateDamage(attacker, defender, skill = null, activeEffects = null) {
-  let atk = attacker.base_atk || 0;
+  const atk = attacker.base_atk || 0;
   let def = defender.base_def || 0;
 
+  // activeEffects = effets du DÉFENSEUR : ils ne modifient que sa DEF. L'ATQ de
+  // l'attaquant arrive déjà modifiée par ses propres effets (getStatModifiers).
   if (activeEffects) {
-    const atkMod = computeStatMod(activeEffects, 'stat_str', atk);
-    const defMod = computeStatMod(activeEffects, 'stat_vit', def);
-    atk = atkMod ?? atk;
-    def = defMod ?? def;
+    def = computeStatMod(activeEffects, 'stat_vit', def) ?? def;
   }
 
   const levelRatio = Math.min(3.0, attacker.level / Math.max(defender.level, 1));
@@ -131,11 +130,14 @@ function computeStatMod(activeEffects, statField, baseValue) {
   let changed = false;
   for (const ef of activeEffects) {
     if (ef.statModified !== statField) continue;
+    // Les valeurs du dictionnaire sont positives : c'est le type qui donne le sens
+    // (un « Lenteur 30 % » accélérait la cible avant ce correctif).
+    const sign = ef.type === 'debuff' ? -1 : 1;
     if (ef.modifierType === 'percent') {
-      modified += baseValue * (ef.modifierValue / 100) * ef.currentStacks;
+      modified += sign * baseValue * (ef.modifierValue / 100) * ef.currentStacks;
       changed = true;
     } else if (ef.modifierType === 'flat') {
-      modified += ef.modifierValue * ef.currentStacks;
+      modified += sign * ef.modifierValue * ef.currentStacks;
       changed = true;
     } else if (ef.modifierType === 'multiplier') {
       modified *= ef.modifierValue * ef.currentStacks;

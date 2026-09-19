@@ -1,6 +1,16 @@
 import { createPlayer } from '../services/player.js';
 
-const LINK_RE = /link_start\s+(\S+)\s+(.+)/i;
+// D86 : le genre, choisi à l'inscription, conditionne le mariage (D-SOC-10).
+const GENDERS = { homme: 'male', femme: 'female', neutre: 'neutral' };
+const USAGE = `📋 Utilisation : "!link_start [Race] [Nom] [Genre]" — Genre : homme, femme ou neutre (définitif). Ex. "!link_start Sylph Aelwen femme"`;
+
+async function findRace(db, query) {
+  const result = await db.query(
+    'SELECT race_id, name, capital_zone_id FROM t_races WHERE name ILIKE $1 OR race_id ILIKE $1 LIMIT 1',
+    [`%${query}%`]
+  );
+  return result.rows[0] || null;
+}
 
 export async function handleLinkStart(db, phoneNumber, raw = '') {
   if (!phoneNumber) {
@@ -15,27 +25,28 @@ export async function handleLinkStart(db, phoneNumber, raw = '') {
     return `❌ Tu as déjà un personnage : **${existing.rows[0].avatar_name}**.`;
   }
 
-  const match = raw.match(LINK_RE);
-  if (!match) {
-    return `📋 Utilisation : "!link_start [Race] [Nom]" — ex. "!link_start Sylph Aelwen"`;
-  }
-  const [, raceQuery, avatarNameRaw] = match;
-  const avatarName = avatarNameRaw.trim();
+  const tokens = raw.trim().split(/\s+/).slice(1);
+  const gender = GENDERS[tokens.at(-1)?.toLowerCase()];
+  if (tokens.length < 3 || !gender) return USAGE;
+  const args = tokens.slice(0, -1);
 
-  const raceResult = await db.query(
-    'SELECT race_id, name, capital_zone_id FROM t_races WHERE name ILIKE $1 OR race_id ILIKE $1 LIMIT 1',
-    [`%${raceQuery}%`]
-  );
-  if (raceResult.rows.length === 0) {
-    return `❌ Race "${raceQuery}" inconnue. Races disponibles : Sylph, Salamander, Undine, Cait Sith, Puca, Spriggan, Leprechaun, Imp, Gnome.`;
+  // Race en deux mots (« Cait Sith ») essayée avant la race en un mot.
+  let race = args.length >= 3 ? await findRace(db, `${args[0]} ${args[1]}`) : null;
+  let nameTokens = args.slice(2);
+  if (!race) {
+    race = await findRace(db, args[0]);
+    nameTokens = args.slice(1);
   }
-  const race = raceResult.rows[0];
+  if (!race) {
+    return `❌ Race "${args[0]}" inconnue. Races disponibles : Sylph, Salamander, Undine, Cait Sith, Puca, Spriggan, Leprechaun, Imp, Gnome.`;
+  }
+  const avatarName = nameTokens.join(' ');
   if (!race.capital_zone_id) {
     return `❌ La capitale de ${race.name} n'est pas configurée. Contacte un GM.`;
   }
 
   try {
-    const player = await createPlayer(db, phoneNumber, avatarName, race.race_id, race.capital_zone_id);
+    const player = await createPlayer(db, phoneNumber, avatarName, race.race_id, race.capital_zone_id, gender);
     return `🎉 Bienvenue, **${player.avatar_name}** ! Tu es un(e) ${race.name}, niveau ${player.level}, ${player.yrd_balance} Yrds.\nTape "statut" pour voir ta fiche.`;
   } catch (err) {
     if (err.code === '23505') return `❌ Ce nom de personnage est déjà pris.`;

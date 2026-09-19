@@ -184,7 +184,7 @@ async function run() {
     const a = await createAvatar();
     const created = await createGuild(pool, a.avatar_uuid, `G${a.avatar_name}`.slice(0, 32));
     assert(created.success, 'création de guilde échouée');
-    const ask = await processMessage(pool, '!guild disband', a.avatar_uuid);
+    const ask = await processMessage(pool, '!guild_disband', a.avatar_uuid);
     assert(ask.menuShown, 'pas de confirmation : ' + ask.response);
     await bindMenuMessage(pool, a.avatar_uuid, 'WAMSG_6');
     await processMessage(pool, '1', a.avatar_uuid, null, null, { quotedMessageId: 'WAMSG_6' });

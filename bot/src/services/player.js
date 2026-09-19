@@ -27,16 +27,16 @@ export async function getPlayerInventory(db, playerUuid) {
   return result.rows;
 }
 
-export async function createPlayer(db, whatsappPhone, avatarName, raceId, startingZone) {
+export async function createPlayer(db, whatsappPhone, avatarName, raceId, startingZone, gender) {
   const result = await db.query(`
     INSERT INTO t_avatars (avatar_uuid, whatsapp_phone, avatar_name, race_id, gender,
                           hp_current, hp_max, mp_current, mp_max, yrd_balance,
                           current_zone_id, is_alive, level)
-    VALUES (gen_random_uuid(), $1, $2, $3, 'male',
+    VALUES (gen_random_uuid(), $1, $2, $3, $5,
             100, 100, 50, 50, 500,
             $4, TRUE, 1)
     RETURNING avatar_uuid, avatar_name, level, yrd_balance, current_zone_id
-  `, [whatsappPhone, avatarName, raceId, startingZone]);
+  `, [whatsappPhone, avatarName, raceId, startingZone, gender]);
   return result.rows[0];
 }
 

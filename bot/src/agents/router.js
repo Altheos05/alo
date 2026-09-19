@@ -24,7 +24,7 @@ const INTENT_PATTERNS = [
   { intent: 'WIKI', pattern: /^(?:wiki|!wiki)\s+(.+)/i },
   { intent: 'LORE_DOC', pattern: /^(?:lore|!lore)\s+(.+)/i },
   { intent: 'LORE_QUERY', pattern: /(?:légende?|lore|histoire|dieu|création|mythe|origine|pourquoi|comment)\s*(?::\s*)?(.+)?/i },
-  { intent: 'VAULT', pattern: /(?:banque|coffre|dépôt|retrait|vault|banqu)\s*(?::\s*)?(.+)?/i },
+  { intent: 'VAULT', pattern: /(?:bank_depot|bank_retrait|banque|coffre|dépôt|retrait|vault|banqu)\s*(?::\s*)?(.+)?/i },
   { intent: 'MAIL', pattern: /(?:mail|courrier|message|boîte)\s*(?::\s*)?(.+)?/i },
   { intent: 'PET', pattern: /^(?:!pet_feed|pet|familier|!pet)\b.*/i },
   { intent: 'DIPLOMACY', pattern: /^(?:diplomatie|alliances?|!diplomatie)$/i },

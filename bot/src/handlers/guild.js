@@ -29,7 +29,7 @@ export async function handleGuildCommand(db, playerId, raw = '', { confirmed = f
       if (!guild.is_leader) return `❌ Seul le chef peut dissoudre la guilde.`;
       return {
         text: `⚠️ Tu vas **dissoudre** la guilde **${guild.guild_name}** : tous les membres la perdent, définitivement.`,
-        menu: confirmationMenu('!guild disband', guild.guild_uuid),
+        menu: confirmationMenu('!guild_disband', guild.guild_uuid),
       };
     }
     const result = await disbandGuild(db, playerId);

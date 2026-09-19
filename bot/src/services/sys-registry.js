@@ -176,6 +176,34 @@ define('SYS_SHOP_RESTOCK', {
   },
 });
 
+// ─── D86 : genre immuable côté joueur, correction GM uniquement (A8) ───
+
+define('SYS_SET_GENDER', {
+  description: 'Corrige le genre d\'un avatar (GM uniquement, D86)',
+  schema: { player_id: 'uuid', gender: 'string' },
+  async d71(db, params) {
+    if (!['male', 'female', 'neutral'].includes(params.gender)) return `Genre ${params.gender} invalide (male/female/neutral)`;
+    const pr = await db.query('SELECT 1 FROM t_avatars WHERE avatar_uuid = $1', [params.player_id]);
+    if (!pr.rows.length) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs(db, params) {
+    // Changer le genre d'un conjoint violerait M1 (homme + femme) a posteriori.
+    const m = await db.query(
+      "SELECT 1 FROM t_marriages WHERE status = 'active' AND (spouse_male_uuid = $1 OR spouse_female_uuid = $1)",
+      [params.player_id]
+    );
+    if (m.rows.length) return 'Avatar marié : divorce requis avant correction du genre';
+    return null;
+  },
+  async authorize(source) { return source === 'gm'; },
+  async execute(db, params) {
+    await db.query('UPDATE t_avatars SET gender = $1 WHERE avatar_uuid = $2', [params.gender, params.player_id]);
+    logger.info('SYS_SET_GENDER ok', { player: params.player_id, gender: params.gender });
+    return { ok: true, message: `Genre de ${params.player_id} corrigé : ${params.gender}` };
+  },
+});
+
 // ─── D91 : notifications sortantes (file T_NOTIFICATIONS, services/notifications.js) ───
 
 define('SYS_NOTIFY_PLAYER', {

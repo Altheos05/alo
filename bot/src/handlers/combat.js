@@ -9,6 +9,7 @@ import {
 } from '../engine/combat.js';
 import { getPlayer } from '../services/player.js';
 import { getGearStats, wearEquipment, COMBAT_WEAR } from '../engine/durability.js';
+import { loadCombatEffects, persistCombatEffects } from '../engine/effects.js';
 import { render } from '../services/template.js';
 import logger from '../utils/logger.js';
 
@@ -114,7 +115,8 @@ export async function handleAttack(db, playerUuid, entities) {
     combatId,
     playerUuid,
     monster: { ...monster, hp_current: monster.base_hp, hp_max: monster.base_hp, activeEffects: [] },
-    player: { ...player, base_atk: gear.atk, base_def: gear.def, hp_current: player.hp_current, hp_max: player.hp_max, activeEffects: [] },
+    // D90 E1 : les effets persistants (sorts, plats) entrent dans le combat.
+    player: { ...player, base_atk: gear.atk, base_def: gear.def, hp_current: player.hp_current, hp_max: player.hp_max, activeEffects: await loadCombatEffects(db, playerUuid) },
     turn: 0,
     startedAt: Date.now(),
   };
@@ -214,7 +216,7 @@ export async function handleCombatAction(db, playerUuid, action) {
     } catch (err) {
       logger.error('Erreur récompense combat', { error: err.message });
     }
-    await persistActiveEffects(db, combat, 'monster');
+    await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
     try {
       await db.query(
         'UPDATE t_combat_sessions SET status = $1, ended_at = NOW(), turn_count = $2 WHERE session_id = $3',
@@ -228,7 +230,7 @@ export async function handleCombatAction(db, playerUuid, action) {
   }
 
   if (combat.player.hp_current <= 0) {
-    await persistActiveEffects(db, combat, 'player');
+    await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
     try {
       await db.query('UPDATE t_avatars SET hp_current = $1, is_alive = FALSE WHERE avatar_uuid = $2',
         [0, playerUuid]);
@@ -273,7 +275,7 @@ export async function handleCombatAction(db, playerUuid, action) {
     } catch (err) {
       logger.error('Erreur récompense combat', { error: err.message });
     }
-    await persistActiveEffects(db, combat, 'monster');
+    await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
     try {
       await db.query(
         'UPDATE t_combat_sessions SET status = $1, ended_at = NOW(), turn_count = $2 WHERE session_id = $3',
@@ -317,7 +319,7 @@ export async function handleCombatAction(db, playerUuid, action) {
   }
 
   if (combat.player.hp_current <= 0) {
-    await persistActiveEffects(db, combat, 'player');
+    await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
     try {
       await db.query('UPDATE t_avatars SET hp_current = $1, is_alive = FALSE WHERE avatar_uuid = $2',
         [0, playerUuid]);
@@ -362,32 +364,10 @@ async function applyCombatWear(db, playerUuid, response) {
   }
 }
 
-async function persistActiveEffects(db, combat, defeated) {
-  const target = defeated === 'monster' ? combat.monster : combat.player;
-  const targetType = defeated === 'monster' ? 'monster' : 'avatar';
-  const targetId = defeated === 'monster' ? combat.monster.monster_id : combat.playerUuid;
-
-  if (!target.activeEffects?.length) return;
-
-  try {
-    await db.query('DELETE FROM t_active_effects WHERE target_type = $1 AND target_id = $2',
-      [targetType, targetId]);
-    for (const ef of target.activeEffects) {
-      await db.query(
-        `INSERT INTO t_active_effects (target_type, target_id, effect_id, stacks, expires_at)
-         VALUES ($1, $2, $3, $4, NOW() + INTERVAL '1 millisecond' * $5)`,
-        [targetType, targetId, ef.effectId, ef.currentStacks, Math.max(0, ef.endTime - Date.now())]
-      );
-    }
-  } catch (err) {
-    logger.warn('Impossible de persister les effets', { error: err.message });
-  }
-}
-
 export async function handleFlee(db, playerUuid) {
   const combat = activeCombats.get(playerUuid);
   if (!combat) return `⚔️ Tu n'es pas en combat.`;
-  await persistActiveEffects(db, combat, null);
+  await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
   const response = [`🏃 Tu as fui le combat contre **${combat.monster.name}**.`];
   await applyCombatWear(db, playerUuid, response);
   activeCombats.delete(playerUuid);

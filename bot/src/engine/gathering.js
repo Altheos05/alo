@@ -76,11 +76,11 @@ async function checkAccess(client, avatarUuid, nodeId, expectedType) {
   if (n.depleted) return { error: 'DEPLETED' };
 
   const cooldown = await client.query(
-    `SELECT next_available_at FROM t_avatar_harvests
+    `SELECT EXTRACT(EPOCH FROM (next_available_at - NOW()))::float AS remaining_sec FROM t_avatar_harvests
      WHERE avatar_uuid = $1 AND node_id = $2 AND next_available_at > NOW() FOR UPDATE`,
     [avatarUuid, nodeId]
   );
-  if (cooldown.rows.length) return { error: 'RESPAWN', nextAt: cooldown.rows[0].next_available_at };
+  if (cooldown.rows.length) return { error: 'RESPAWN', remainingSec: cooldown.rows[0].remaining_sec };
 
   let tool = null;
   if (n.required_tool_prefix) {
@@ -145,7 +145,7 @@ export async function inspectNode(db, avatarUuid, nodeId) {
   const r = await db.query(
     `SELECT n.*, d.name AS item_name, z.zone_name,
             (n.depleted_until > NOW()) AS depleted, (n.multiplier_until > NOW()) AS boosted,
-            h.next_available_at
+            EXTRACT(EPOCH FROM (h.next_available_at - NOW()))::float AS remaining_sec
      FROM t_resource_nodes n
      JOIN t_items_dict d ON d.item_id = n.yield_item_id
      JOIN t_zones z ON z.zone_id = n.zone_id

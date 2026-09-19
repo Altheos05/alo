@@ -203,6 +203,23 @@ function parseNodes() {
 }
 
 // ---------------------------------------------------------------------------
+// 1-ter. EFFETS PERSISTANTS DES SORTS → T_STATUS_EFFECTS_DICT (D90)
+// ---------------------------------------------------------------------------
+// Bloc « ## Effet persistant (D90) » des fiches de sorts ; l'effet porte l'ID
+// EFF_<Skill_ID>, ce qui relie sort et effet sans colonne supplémentaire.
+function parseSpellEffects() {
+  const rows = [];
+  for (const f of walk(path.join(BASE, 'competences_magie'))) {
+    const content = fs.readFileSync(f, 'utf-8');
+    const m = content.match(/\*\*Effet_ID\*\*\s*:\s*`(EFF_[A-Z0-9_]+)`\s*·\s*\*\*Nom\*\*\s*:\s*(.+)\n- \*\*Stat\*\*\s*:\s*`(\w+)`\s*·\s*\*\*Valeur\*\*\s*:\s*\+(\d+)\s*%\s*·\s*\*\*Durée\*\*\s*:\s*(\d+)\s*s/);
+    if (!m) continue;
+    const [, effectId, name, stat, value, duration] = m;
+    rows.push([effectId, name.trim().slice(0, 50), 'buff', stat, Number(value), 'percent', Number(duration), 0, 0, 'TRUE', 1, null]);
+  }
+  return rows;
+}
+
+// ---------------------------------------------------------------------------
 // 2. MONSTRES → T_MONSTERS_DICT
 // ---------------------------------------------------------------------------
 function parsePipeTableStats(content) {
@@ -601,19 +618,23 @@ function parseSkills() {
     const domain = skillType === 'PAS' ?
                    (content.includes('CBT') ? 'CBT' : content.includes('CRA') ? 'CRA' : content.includes('EXP') ? 'EXP' : 'SOC') :
                    (content.includes('CBT') || content.includes('Combat') ? 'CBT' : 'SOC');
-    const tier = parseInt(content.match(/Tier\s*:\s*T?(\d)/i)?.[1] || 1);
+    const tier = parseInt(bulletField(content, 'Tier')?.match(/(\d)/)?.[1] || content.match(/Tier\s*:\s*T?(\d)/i)?.[1] || 1);
     const mpCost = parseInt(content.match(/Coût MP\s*[|]\s*(\d+)/i)?.[1] || 0);
     const castFrames = parseFloat(content.match(/Temps d'Incantation\s*[|]\s*([\d.]+)s/i)?.[1] || 0) * 20;
     const cooldown = parseInt(content.match(/Cooldown\s*[|]\s*(\d+)/i)?.[1] || 0);
     const hitCount = parseInt(content.match(/hit_count\s*[:]\s*(\d+)/i)?.[1] || 1);
     const baseDmg = parseInt(content.match(/base_damage\s*[:]\s*(\d+)/i)?.[1] || 0);
+    // Sorts de soin : « Restaure **130 + (INT × 0.4)** HP » (D90, lancer hors combat).
+    const heal = content.match(/Restaure \*\*(\d+)\s*\+\s*\(INT\s*×\s*([\d.]+)\)\*\*/);
+    const baseHealing = heal ? parseInt(heal[1], 10) : 0;
+    const statScaling = heal ? JSON.stringify({ stat_int: parseFloat(heal[2]) }) : null;
     const desc = (content.match(/Effet\s*(.+?)(?:\n\n|\n#|$)/s)?.[1] || '').trim().slice(0, 300);
     const unlock = (content.match(/Acquisition.*?\n(?:.*\n)*?.*?`NPC_\w+_\d+`/i)?.[0] ||
                     content.match(/Enseignant\s*[:]\s*(.+)/i)?.[1]?.trim() || null)?.slice(0, 200);
     const maxMastery = 3;
 
     rows.push([skillId, name, skillType, domain, tier, hitCount, mpCost, Math.round(castFrames),
-               cooldown, baseDmg, 0, null, desc, unlock, maxMastery, 'TRUE']);
+               cooldown, baseDmg, baseHealing, statScaling, desc, unlock, maxMastery, 'TRUE']);
   }
   return rows;
 }
@@ -674,6 +695,16 @@ try {
   // Monsters
   console.log('-- ============================================================');
   console.log('-- T_MONSTERS_DICT');
+  const spellEffects = parseSpellEffects();
+  console.log('-- ============================================================');
+  console.log('-- T_STATUS_EFFECTS_DICT (effets persistants des sorts, D90)');
+  console.log('-- ============================================================');
+  console.log(batchInsert('T_STATUS_EFFECTS_DICT', [
+    'effect_id','name','type','stat_modified','modifier_value','modifier_type','duration_sec',
+    'tick_damage','tick_interval','is_dispellable','max_stacks','icon_emoji'
+  ], spellEffects, 50, '(effect_id)'));
+  console.log(`-- Effets de sorts : ${spellEffects.length} lignes`);
+
   const nodes = parseNodes();
   console.log('-- ============================================================');
   console.log('-- T_RESOURCE_NODES');

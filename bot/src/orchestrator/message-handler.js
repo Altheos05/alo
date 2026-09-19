@@ -24,6 +24,7 @@ import * as questsHandler from '../handlers/quests.js';
 import * as itemsHandler from '../handlers/items.js';
 import * as marriageHandler from '../handlers/marriage.js';
 import * as gatheringHandler from '../handlers/gathering.js';
+import * as effectsHandler from '../handlers/effects.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import * as menus from '../services/menus.js';
@@ -158,8 +159,12 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       if (existingCombat) {
         return combat.handleCombatAction(db, playerId, routing.entities);
       }
-      return `⚔️ Tu n'es pas en combat. Tape "attaque [monstre]" pour en engager un.`;
+      // D90 : hors combat, !cast / !music lancent soins et soutien.
+      return effectsHandler.handleCast(db, playerId, routing.raw || '');
     }
+
+    case 'EFFECTS':
+      return effectsHandler.handleEffects(db, playerId);
 
     case 'TALK':
       return dialogue.handleTalk(db, playerId, routing.entities);
@@ -270,6 +275,7 @@ const GM_ALIASES = {
   SYS_ANNOUNCE: 'SYS_ANNOUNCE_GLOBAL',
   SYS_DIVORCE: 'SYS_DIVORCE_SETTLE',
   SYS_PROPOSAL_CANCEL: 'SYS_CANCEL_PROPOSAL',
+  SYS_EFFECT_CLEAR: 'SYS_CLEAR_EFFECTS',
 };
 
 async function isGm(_db, _playerId, phoneNumber) {

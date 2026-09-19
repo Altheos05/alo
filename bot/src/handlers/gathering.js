@@ -17,7 +17,7 @@ function formatError(r) {
     case 'LEVEL': return `❌ Niveau ${r.required} requis.`;
     case 'DEPLETED': return '❌ Ce nœud est épuisé pour l\'instant, pour tout le monde.';
     case 'RESPAWN': {
-      const min = Math.max(1, Math.ceil((new Date(r.nextAt) - Date.now()) / 60000));
+      const min = Math.max(1, Math.ceil(r.remainingSec / 60));
       return `⏳ Tu as déjà exploité ce nœud : de retour dans ${min} min.`;
     }
     case 'NO_TOOL': return `❌ Il te faut ${TOOL_LABEL[r.prefix]} de tier T${r.tier} ou plus, non cassée.`;

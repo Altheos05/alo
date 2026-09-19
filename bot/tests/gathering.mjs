@@ -132,7 +132,7 @@ async function run() {
     const a = await createAvatar({ current_zone_id: flo.zone_id });
     await processMessage(pool, `!recolter ${flo.node_id}`, a.avatar_uuid);
     const r = await processMessage(pool, `!inspect ${flo.node_id}`, a.avatar_uuid);
-    assert(r.response.includes('de retour le'), r.response);
+    assert(r.response.includes('de retour dans'), r.response);
   });
 
   await test('Cuisine : ville sans logement non, zone de chasse = feu de camp, logement = cuisine', async () => {

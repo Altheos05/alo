@@ -15,7 +15,7 @@ export async function handleInspect(db, playerId, raw = '') {
     const lines = [
       `🔍 **${node.name}** (${node.node_id}) — ${node.zone_name}`,
       `Produit : ${node.item_name} (${node.yield_min}-${node.yield_max}) · T${node.node_tier} · niv. ${node.level_required}`,
-      node.next_available_at ? `Pour toi : de retour le ${new Date(node.next_available_at).toLocaleTimeString('fr-FR')}` : 'Pour toi : disponible',
+      node.remaining_sec ? `Pour toi : de retour dans ${Math.max(1, Math.ceil(node.remaining_sec / 60))} min` : 'Pour toi : disponible',
     ];
     if (node.depleted) lines.push('⚠️ Épuisé pour tous en ce moment.');
     if (node.boosted) lines.push(`✨ Récolte abondante : ×${node.yield_multiplier}.`);

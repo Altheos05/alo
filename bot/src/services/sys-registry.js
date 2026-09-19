@@ -3,6 +3,7 @@ import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifica
 import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/marriage.js';
 import { modifyDurability, setDurability } from '../engine/durability.js';
 import { setNodeEvent, restockFishingSpot, resetHarvest } from '../engine/gathering.js';
+import { applyEffect, clearEffects } from '../engine/effects.js';
 
 const COMMANDS = {};
 
@@ -412,6 +413,50 @@ define('SYS_NODE_RESET', {
   async execute(db, params) {
     const n = await resetHarvest(db, params.player_id, params.node_id);
     return { ok: true, message: n ? 'Repousse remise à zéro' : 'Aucune repousse en cours' };
+  },
+});
+
+// ─── D90 : effets actifs persistants ───
+
+const effectOfType = async (db, effectId, type) =>
+  (await db.query('SELECT 1 FROM t_status_effects_dict WHERE effect_id = $1 AND ($2::text IS NULL OR type = $2)', [effectId, type])).rows.length > 0;
+
+function effectCommand(description, schemaKey, type, fixedDuration) {
+  return {
+    description,
+    schema: fixedDuration ? { player_id: 'uuid', [schemaKey]: 'string' } : { player_id: 'uuid', [schemaKey]: 'string', duration_sec: 'integer' },
+    async d71(db, params) {
+      if (!(await avatarExists(db, params.player_id))) return `Joueur ${params.player_id} introuvable`;
+      if (!(await effectOfType(db, params[schemaKey], type))) return `Effet ${params[schemaKey]} introuvable${type ? ` (type ${type})` : ''}`;
+      return null;
+    },
+    async prereqs() { return null; },
+    async authorize(source) { return ['gm', 'system'].includes(source); },
+    async execute(db, params) {
+      const r = await applyEffect(db, params.player_id, params[schemaKey], {
+        durationSec: fixedDuration ? null : parseInt(params.duration_sec, 10), sourceKind: 'system',
+      });
+      return r.success ? { ok: true, message: `${params[schemaKey]} posé pour ${r.durationSec} s` } : { ok: false, message: r.error };
+    },
+  };
+}
+
+define('SYS_EFFECT_APPLY', effectCommand('Pose un effet actif persistant (GM)', 'effect_id', null, false));
+define('SYS_BLESS_PLAYER', effectCommand('Accorde une bénédiction (buff persistant)', 'buff_type', 'buff', true));
+define('SYS_DEBUFF_PLAYER', effectCommand('Applique une altération persistante (jamais mortelle hors combat)', 'status_effect', 'debuff', true));
+
+define('SYS_CLEAR_EFFECTS', {
+  description: 'Dissipe les effets actifs dissipables d\'un joueur',
+  schema: { player_id: 'uuid' },
+  async d71(db, params) {
+    if (!(await avatarExists(db, params.player_id))) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const n = await clearEffects(db, params.player_id);
+    return { ok: true, message: `${n} effet(s) dissipé(s)` };
   },
 });
 

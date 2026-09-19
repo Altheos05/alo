@@ -20,6 +20,7 @@ function formatError(r) {
       const min = Math.max(1, Math.ceil(r.remainingSec / 60));
       return `⏳ Tu as déjà exploité ce nœud : de retour dans ${min} min.`;
     }
+    case 'INVENTORY_FULL': return '❌ Inventaire plein : fais de la place avant de récolter.';
     case 'NO_TOOL': return `❌ Il te faut ${TOOL_LABEL[r.prefix]} de tier T${r.tier} ou plus, non cassée.`;
     default: return '❌ Action impossible.';
   }

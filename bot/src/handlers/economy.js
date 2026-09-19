@@ -57,6 +57,9 @@ export async function handleBuy(db, playerId, entities) {
     if (result.error === 'ITEM_NOT_FOUND') {
       return render('buy_fail_notfound', { itemName: entities.itemId });
     }
+    if (result.error === 'INVENTORY_FULL') {
+      return `❌ Inventaire plein : fais de la place (coffre, vente) avant d'acheter.`;
+    }
     if (result.error === 'NOT_SOLD_HERE') {
       return `❌ Aucune boutique ne vend **${result.item.name}** ici (ou stock épuisé). "!shop_list" pour l'offre de la zone.`;
     }

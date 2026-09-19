@@ -94,7 +94,8 @@ async function checkAccess(client, avatarUuid, nodeId, expectedType) {
 async function collect(client, avatarUuid, node, random) {
   const base = node.yield_min + Math.floor(random() * (node.yield_max - node.yield_min + 1));
   const qty = Math.max(1, Math.floor(base * (node.boosted ? Number(node.yield_multiplier) : 1)));
-  await addToInventory(client, avatarUuid, { item_id: node.yield_item_id, qty }, node.node_id);
+  const placed = await addToInventory(client, avatarUuid, { item_id: node.yield_item_id, qty }, node.node_id);
+  if (placed.overflow > 0) return { full: true };
   await client.query(
     `INSERT INTO t_avatar_harvests (avatar_uuid, node_id, next_available_at, harvest_count)
      VALUES ($1, $2, NOW() + make_interval(secs => $3), 1)
@@ -113,6 +114,7 @@ export async function harvestNode(db, avatarUuid, nodeId, nodeType, random = Mat
     if (access.error) return { success: false, ...access };
     const toolBroke = access.tool ? await wearTool(client, access.tool.instance_uuid) : false;
     const loot = await collect(client, avatarUuid, access.node, random);
+    if (loot.full) return { success: false, error: 'INVENTORY_FULL' };
     return { success: true, ...loot, toolBroke, toolName: access.tool?.name };
   });
 }
@@ -137,6 +139,7 @@ export async function reelLine(db, avatarUuid, nodeId, chosen, correct, random =
     const caught = chosen === correct && random() < fishingSuccessChance(access.dex);
     if (!caught) return { success: true, caught: false, rightMove: chosen === correct, toolBroke, toolName: access.tool.name };
     const loot = await collect(client, avatarUuid, access.node, random);
+    if (loot.full) return { success: false, error: 'INVENTORY_FULL' };
     return { success: true, caught: true, ...loot, toolBroke, toolName: access.tool.name };
   });
 }

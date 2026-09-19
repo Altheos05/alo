@@ -65,7 +65,11 @@ export async function buyItem(db, playerUuid, itemId, quantity = 1) {
       await client.query('UPDATE t_shop_items SET stock = stock - $1 WHERE shop_id = $2 AND item_id = $3',
         [quantity, offer.rows[0].shop_id, itemId]);
     }
-    await addToInventory(client, playerUuid, { item_id: itemId, qty: quantity }, offer.rows[0].shop_id);
+    const placed = await addToInventory(client, playerUuid, { item_id: itemId, qty: quantity }, offer.rows[0].shop_id);
+    if (placed.overflow > 0) {
+      await client.query('ROLLBACK');
+      return { success: false, error: 'INVENTORY_FULL', item };
+    }
 
     await client.query('COMMIT');
     logger.info('Achat effectué', { playerUuid, itemId, quantity, total, shop: offer.rows[0].shop_id });

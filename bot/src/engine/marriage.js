@@ -426,9 +426,18 @@ export async function settleDivorce(client, marriageUuid, initiatorUuid = null) 
     e.qty -= 1;
     return e;
   };
-  const giveItem = (to, itemId) => {
+  // Inventaire plein ⇒ l'objet part au courrier (T_MAIL, table_t_marriages.md §3),
+  // expédié au nom de l'ex-conjoint.
+  const giveItem = async (to, itemId) => {
     const s = takeState(itemId);
-    return addToInventory(client, to, { item_id: itemId, qty: 1, current_durability: s.current_durability, durability_cap: s.durability_cap, repair_count: s.repair_count }, 'divorce');
+    const placed = await addToInventory(client, to, { item_id: itemId, qty: 1, current_durability: s.current_durability, durability_cap: s.durability_cap, repair_count: s.repair_count }, 'divorce');
+    if (placed.overflow > 0) {
+      await client.query(
+        `INSERT INTO t_mail (sender_id, recipient_id, subject, body, attached_item, attached_qty)
+         VALUES ($1, $2, 'Séparation — objet rendu', 'Ton inventaire était plein : voici ta part.', $3, 1)`,
+        [to === male ? female : male, to, itemId]
+      );
+    }
   };
   const giveYrds = (to, n) => n > 0 && client.query('UPDATE t_avatars SET yrd_balance = yrd_balance + $1 WHERE avatar_uuid = $2', [n, to]);
 

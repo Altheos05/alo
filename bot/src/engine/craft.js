@@ -77,7 +77,11 @@ export async function craftItem(db, avatarUuid, recipeId) {
 
     const crafted = Math.random() < recipe.success_rate;
     if (crafted) {
-      await addToInventory(client, avatarUuid, { item_id: recipe.result_item_id, qty: recipe.result_quantity }, recipe.recipe_id);
+      const placed = await addToInventory(client, avatarUuid, { item_id: recipe.result_item_id, qty: recipe.result_quantity }, recipe.recipe_id);
+      if (placed.overflow > 0) {
+        await client.query('ROLLBACK');
+        return { success: false, error: 'INVENTORY_FULL' };
+      }
     }
 
     await client.query('COMMIT');

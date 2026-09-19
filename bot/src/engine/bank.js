@@ -164,7 +164,23 @@ export async function takeFromInventory(client, avatarUuid, itemId, qty) {
   return { taken };
 }
 
-// Ajoute des exemplaires à l'inventaire en respectant max_stack (CHECK quantity 1..99).
+// Capacité : un emplacement par ligne d'inventaire non équipée ; un sac porté
+// au dos en ajoute 30 (toutes les fiches BAG_* : « Stockage +30 emplacements »).
+const BAG_BONUS_SLOTS = 30;
+
+async function freeSlots(client, avatarUuid) {
+  const r = await client.query(
+    `SELECT a.inventory_capacity + CASE WHEN a.back_type = 'BAG' THEN $2 ELSE 0 END
+            - (SELECT COUNT(*) FROM t_inventory i WHERE i.avatar_uuid = a.avatar_uuid AND NOT i.is_equipped) AS free
+     FROM t_avatars a WHERE a.avatar_uuid = $1`,
+    [avatarUuid, BAG_BONUS_SLOTS]
+  );
+  return Number(r.rows[0]?.free ?? 0);
+}
+
+// Ajoute des exemplaires à l'inventaire en respectant max_stack (CHECK quantity 1..99)
+// et la capacité. Renvoie { overflow } : les exemplaires qui n'ont pas trouvé de place
+// (l'appelant annule, ou les envoie par courrier).
 export async function addToInventory(client, avatarUuid, entry, acquiredFrom = null) {
   const dict = await client.query('SELECT max_stack FROM t_items_dict WHERE item_id = $1', [entry.item_id]);
   const maxStack = dict.rows[0]?.max_stack || 1;
@@ -182,8 +198,10 @@ export async function addToInventory(client, avatarUuid, entry, acquiredFrom = n
       remaining -= n;
     }
   }
-  while (remaining > 0) {
+  let free = remaining > 0 ? await freeSlots(client, avatarUuid) : 0;
+  while (remaining > 0 && free > 0) {
     const n = Math.min(remaining, maxStack);
+    free--;
     await client.query(
       `INSERT INTO t_inventory (avatar_uuid, item_id, quantity, current_durability, durability_cap, repair_count, acquired_from)
        VALUES ($1, $2, $3, $4, $5, $6, $7)`,
@@ -191,6 +209,7 @@ export async function addToInventory(client, avatarUuid, entry, acquiredFrom = n
     );
     remaining -= n;
   }
+  return { overflow: remaining };
 }
 
 // Ajoute des états d'objets à un tableau d'entrées de coffre ; null si plein.
@@ -277,7 +296,10 @@ export async function withdrawItemTx(client, avatarUuid, itemId, qty, vaultRef =
     'UPDATE t_bank_vaults SET items_stored = $1, last_accessed = NOW() WHERE vault_id = $2',
     [JSON.stringify(took.next), vault.vault_id]
   );
-  for (const entry of took.taken) await addToInventory(client, avatarUuid, entry, 'vault');
+  for (const entry of took.taken) {
+    const placed = await addToInventory(client, avatarUuid, entry, 'vault');
+    if (placed.overflow > 0) return { success: false, error: 'INVENTORY_FULL' };
+  }
   return { success: true, qty, taken: took.taken };
 }
 

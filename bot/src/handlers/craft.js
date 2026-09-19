@@ -37,6 +37,7 @@ export async function handleCraft(db, playerId, raw = '') {
           if (result.error === 'MISSING_INGREDIENT') {
             return `❌ Il te manque **${result.required - result.available}× ${result.itemId}** pour "${arg}".`;
           }
+          if (result.error === 'INVENTORY_FULL') return `❌ Inventaire plein : fais de la place avant de fabriquer.`;
           if (result.error === 'INSUFFICIENT_FUNDS') {
             return `❌ Fonds insuffisants (${result.required} Yrds requis, tu as ${result.available}).`;
           }

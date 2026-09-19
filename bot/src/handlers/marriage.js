@@ -35,6 +35,7 @@ const ERRORS = {
   VAULT_FULL: '❌ Le coffre conjugal est plein.',
   NOT_IN_VAULT: '❌ Cet objet n\'est pas (ou pas en quantité suffisante) dans le coffre conjugal.',
   INSUFFICIENT_QUANTITY: '❌ Quantité insuffisante.',
+  INVENTORY_FULL: '❌ Inventaire plein : fais de la place avant de retirer.',
 };
 const fail = (result) => ERRORS[result.error] || '❌ Action impossible.';
 

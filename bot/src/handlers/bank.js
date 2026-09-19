@@ -13,6 +13,7 @@ const ITEM_ERRORS = {
   EQUIPPED: '❌ Cet objet est équipé — retire-le d\'abord.',
   BOUND_ITEM: '❌ Un objet lié à ton âme ne quitte pas ton inventaire.',
   VAULT_FULL: '❌ Ton coffre est plein.',
+  INVENTORY_FULL: '❌ Inventaire plein : fais de la place avant de retirer.',
   NOT_IN_VAULT: '❌ Cet objet n\'est pas (ou pas en quantité suffisante) dans ton coffre.',
 };
 

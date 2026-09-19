@@ -69,7 +69,9 @@ CREATE TABLE T_AVATAR_HARVESTS (
 | Inspecter un nœud | `!inspect <Node_ID>` (repousse restante pour soi, état global) | — | — |
 | Épuiser / abonder / peupler | — | `!sys_node_event [Node_ID] [deplete\|bonus] [Durée]` | `SYS_DEPLETE_RESOURCE`, `SYS_BONUS_HARVEST`, `SYS_STOCK_FISHING_SPOT` *(existants, réinterprétés sur l'état global du nœud)* |
 
-## 5. Contenu à produire (tâches préalables, ACP)
+## 5. Contenu à produire (tâches préalables, ACP) — ✅ produit à l'étape 61
+
+> 100 `FLO_*` remappés sur l'atlas (repousse calibrée par tier : 600/1200/1800/3600/7200 s), 35 `ORE_*` (`materiaux/filons/`, repousse 900→10 800 s), 12 `FSH_*` (`materiaux/peche/`) et 12 `MAT_POI_*` (`materiaux/poissons/`), outils `OUT_PIO_001-005` / `OUT_CAN_001-005` (`items_equipements/outils/`, en vente chez `SHOP_GRA_32`, `SHOP_BRO_33`, `SHOP_UND_14`). Ingestion : `parseNodes()` de `scripts/seed-generator.js`.
 
 1. **100 `FLO_*` existants** (`items_equipements/materiaux/flore/`) : à ingérer (0 en base à l'étape 60) et à **remapper** — leurs zones sont dans une convention hors atlas (`ZONE_GAT_HUNT_01` au lieu de `ZONE_SAL_HUNT_001`, 0 correspondance en base). Leur colonne « Temps » (ex. 8 s) est abandonnée ; `respawn_sec` est à calibrer.
 2. **Nœuds `ORE_*`** : dérivés de la colonne « Source » des 25 `MAT_MIN_*` et des `MAT_GEM_*` (zones déjà conformes à l'atlas).

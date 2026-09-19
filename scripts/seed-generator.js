@@ -114,6 +114,9 @@ function parseItems() {
   const files = walk(path.join(BASE, 'items_equipements'));
   for (const f of files) {
     if (path.basename(f).startsWith('_')) continue; // skip index files
+    // Les fiches de nœuds (FLO/ORE/FSH) ne sont pas des objets : elles citent
+    // l'objet produit, que le repli d'ID attribuait à tort au nœud (parseNodes).
+    if (NODE_DIRS.some(d => f.includes(`${path.sep}${d}${path.sep}`))) continue;
     const content = fs.readFileSync(f, 'utf-8');
     // Le bloc d'identification prime : le repli « premier ID du fichier »
     // attrapait un ID cité en préambule (ex. ACC_ANN_003 dans la fiche de MSC_ENG_001).
@@ -124,7 +127,11 @@ function parseItems() {
     if (!itemId || seen.has(itemId)) continue;
     seen.add(itemId);
 
-    const name = content.match(/^#\s+(.+)/m)?.[1]?.replace(/`.+`$/, '').trim() || itemId;
+    // « Bois d'If — `MAT_WOD_001` » / « ARM_TAI_001 — Ceinture… » → nom seul.
+    const name = content.match(/^#\s+(.+)/m)?.[1]
+      ?.replace(/\s*[—-]?\s*\(?`[^`]+`\)?\s*$/, '')
+      .replace(new RegExp(`^${itemId}\\s*[—-]\\s*`), '')
+      .trim() || itemId;
     const type = (itemId.startsWith('ARM_') ? 'ARM' :
                   itemId.startsWith('WPN_') ? 'WPN' :
                   itemId.startsWith('CSM_') ? 'CSM' :
@@ -158,6 +165,39 @@ function parseItems() {
     rows.push([itemId, name, type, subtype, rarity, tier, atk, def, 0.5, 0, 0, 0,
                buyPrice, resaleValue, maxStack, isConsumable, isCraftable, durability,
                desc, '', null]);
+  }
+  return rows;
+}
+
+// ---------------------------------------------------------------------------
+// 1-bis. NŒUDS DE RESSOURCE → T_RESOURCE_NODES (D87)
+// ---------------------------------------------------------------------------
+const NODE_DIRS = ['flore', 'filons', 'peche'];
+const NODE_TYPES = { FLO: 'FLORA', ORE: 'ORE', FSH: 'FISH' };
+const NODE_TOOLS = { FLORA: null, ORE: 'OUT_PIO', FISH: 'OUT_CAN' };
+
+function parseNodes() {
+  const rows = [];
+  for (const dir of NODE_DIRS) {
+    for (const f of walk(path.join(BASE, 'items_equipements', 'materiaux', dir))) {
+      if (path.basename(f).startsWith('_')) continue;
+      const content = fs.readFileSync(f, 'utf-8');
+      const nodeId = path.basename(f, '.md');
+      const nodeType = NODE_TYPES[nodeId.slice(0, 3)];
+      if (!nodeType) continue;
+      const name = (content.match(/^#\s+(.+?)\s+—\s+`/m)?.[1] || nodeId).trim();
+      const zoneId = content.match(/\*\*Zone\*\*\s*:\s*`(ZONE_[A-Z0-9_]+)`/)?.[1];
+      const itemId = content.match(/\*\*Item\*\*\s*:\s*`([A-Z0-9_]+)`/)?.[1];
+      const [yMin, yMax] = (content.match(/\*\*Quantite\*\*\s*:\s*(\d+)-(\d+)/) || [null, 1, 1]).slice(1).map(Number);
+      const tier = parseInt(bulletField(content, 'Tier')?.match(/(\d)/)?.[1] || '1', 10);
+      const level = parseInt(bulletField(content, 'Niveau requis')?.match(/(\d+)/)?.[1] || '1', 10);
+      const respawn = parseInt(bulletField(content, 'Repousse')?.match(/(\d+)/)?.[1] || '0', 10);
+      if (!zoneId || !itemId || !respawn) {
+        console.warn(`  [SKIP] ${nodeId} — zone, objet ou repousse manquant`);
+        continue;
+      }
+      rows.push([nodeId, nodeType, name, zoneId, itemId, yMin, yMax, tier, level, NODE_TOOLS[nodeType], respawn]);
+    }
   }
   return rows;
 }
@@ -634,6 +674,16 @@ try {
   // Monsters
   console.log('-- ============================================================');
   console.log('-- T_MONSTERS_DICT');
+  const nodes = parseNodes();
+  console.log('-- ============================================================');
+  console.log('-- T_RESOURCE_NODES');
+  console.log('-- ============================================================');
+  console.log(batchInsert('T_RESOURCE_NODES', [
+    'node_id','node_type','name','zone_id','yield_item_id','yield_min','yield_max',
+    'node_tier','level_required','required_tool_prefix','respawn_sec'
+  ], nodes, 1, '(node_id)'));
+  console.log(`-- Nœuds de ressource : ${nodes.length} lignes`);
+
   console.log('-- ============================================================');
   const monsters = parseMonsters();
   console.log(batchInsert('T_MONSTERS_DICT', [

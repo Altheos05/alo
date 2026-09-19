@@ -18,7 +18,9 @@ Récolte, minage et pêche partagent un seul modèle : le **nœud de ressource**
 
 ## 2. Pêche — mini-jeu asynchrone (D87)
 
-`!fish` lance la pêche ; le bot décrit la ligne (tension, remous, poids) et propose **3 options numérotées** (ex. « tirer fort », « laisser filer », « ferrer doucement ») via le menu contextuel D83 (contexte `FISHING`). Une seule est juste selon l'indice narratif ; la DEX module la réussite. **Aucun chronomètre** : la fenêtre de 10 s de la v1.0 est abandonnée, la latence de livraison WhatsApp la rendait injuste. Réponse fausse : aucune prise, l'usure de la canne s'applique, la repousse n'est pas consommée.
+`!fish [FSH_ID]` lance la pêche ; le bot décrit la ligne (tension, remous, poids) et propose **3 options numérotées** (ex. « tirer fort », « laisser filer », « ferrer doucement ») via le menu contextuel D83 (contexte `FISHING`). Une seule est juste selon l'indice narratif ; la DEX module la réussite. **Aucun chronomètre** : la fenêtre de 10 s de la v1.0 est abandonnée, la latence de livraison WhatsApp la rendait injuste. Réponse fausse : aucune prise, l'usure de la canne s'applique, la repousse n'est pas consommée.
+
+*Implémentation (étape 61)* : 3 situations fixes (poids immobile → tirer fort ; ligne qui file → laisser filer ; petites touches → ferrer doucement) ; une bonne réaction réussit avec une probabilité de 70 % + 1 % par point de DEX (plafond 95 %). La bonne option n'est connue que du serveur (référence du menu) ; `!fish_reel` tapé à la main ne pêche rien.
 
 **V2** : appâts.
 
@@ -31,6 +33,7 @@ Chaque tentative avec outil consomme de la durabilité ; la réparation est dég
 - `!cook [Recette]` passe par le moteur d'artisanat existant (`T_RECIPES`, `craft_type = 'cooking'`, étape 58) — il ne manque que le contenu des recettes.
 - Les buffs de repas sont des **effets actifs persistants** (`T_ACTIVE_EFFECTS`, D90) : un plat mangé en ville reste actif pendant les déplacements et les combats, jusqu'à son échéance.
 - **Lieu de cuisine (clause v1.0 conservée, arbitrage PE étape 60)** : `!cook` nécessite un **feu de camp** ou une **cuisine de logement** (propriété possédée ou louée par le joueur, ou foyer conjugal). Hors de ces lieux, la commande est refusée avec l'indication du lieu requis.
+  - *Implémentation (étape 61)* : la **cuisine de logement** = être dans la zone d'un logement actif à soi (possédé, ou loué et à jour) ou du foyer conjugal ; le **feu de camp** = toute zone d'extérieur sauvage (`HUNT`, `FLD`) — aucun objet « feu de camp » n'existant, c'est une règle de lieu, sans état.
 
 ## 5. Commandes IA
 

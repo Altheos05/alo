@@ -1,11 +1,26 @@
 import { findItem, dropItem } from '../engine/items.js';
 import { confirmationMenu } from '../services/menus.js';
 import { repairItem, durabilityState, currentDurability } from '../engine/durability.js';
+import { inspectNode } from '../engine/gathering.js';
 
 export async function handleInspect(db, playerId, raw = '') {
   const match = raw.match(/inspect\s+(.+)/i);
   const query = match?.[1]?.trim();
   if (!query) return `🔍 Inspecte quoi ? Ex. : "inspect Potion de Soin".`;
+
+  // Nœud de ressource (D87) : repousse restante pour soi et état global.
+  if (/^(?:FLO|ORE|FSH)_\d{3}$/i.test(query)) {
+    const node = await inspectNode(db, playerId, query.toUpperCase());
+    if (!node) return `❌ Nœud "${query}" inconnu.`;
+    const lines = [
+      `🔍 **${node.name}** (${node.node_id}) — ${node.zone_name}`,
+      `Produit : ${node.item_name} (${node.yield_min}-${node.yield_max}) · T${node.node_tier} · niv. ${node.level_required}`,
+      node.next_available_at ? `Pour toi : de retour le ${new Date(node.next_available_at).toLocaleTimeString('fr-FR')}` : 'Pour toi : disponible',
+    ];
+    if (node.depleted) lines.push('⚠️ Épuisé pour tous en ce moment.');
+    if (node.boosted) lines.push(`✨ Récolte abondante : ×${node.yield_multiplier}.`);
+    return lines.join('\n');
+  }
 
   const item = await findItem(db, query);
   if (!item) return `❌ Aucun objet ne correspond à "${query}".`;

@@ -23,6 +23,7 @@ import * as flightHandler from '../handlers/flight.js';
 import * as questsHandler from '../handlers/quests.js';
 import * as itemsHandler from '../handlers/items.js';
 import * as marriageHandler from '../handlers/marriage.js';
+import * as gatheringHandler from '../handlers/gathering.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import * as menus from '../services/menus.js';
@@ -230,6 +231,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
 
     case 'INSPECT':
       return itemsHandler.handleInspect(db, playerId, routing.raw || '');
+
+    case 'GATHER':
+      return gatheringHandler.handleGathering(db, playerId, routing.raw || '', { menuRef: routing.menuRef });
 
     case 'REPAIR':
       return itemsHandler.handleRepair(db, playerId, routing.raw || '');

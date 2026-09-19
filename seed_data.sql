@@ -104,311 +104,311 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('WPN_RAP_007', 'Rapière Faucon-du-Ciel', 'WPN', NULL, 'epic', 4, 90, 0, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 780, '', '', NULL),
 ('WPN_RAP_008', 'Rapière de l''Opéra Silencieux', 'WPN', NULL, 'epic', 4, 92, 0, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 800, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_BRA_001', 'ARM_BRA_001 — Manches en Lin du Novice', 'ARM', NULL, 'common', 1, 0, 2, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 40, '', '', NULL),
-('ARM_BRA_002', 'ARM_BRA_002 — Brassards de Coton Renforcé', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 45, '', '', NULL),
-('ARM_BRA_003', 'ARM_BRA_003 — Brassards de Soie Écrue', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 220, 55, 1, FALSE, FALSE, 50, '', '', NULL),
-('ARM_BRA_004', 'ARM_BRA_004 — Manches d''Apprenti Mage', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 45, '', '', NULL),
-('ARM_BRA_005', 'ARM_BRA_005 — Protège-Bras Tissés de Campagne', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_BRA_006', 'ARM_BRA_006 — Manches de Laine Boréale', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 50, '', '', NULL),
-('ARM_BRA_007', 'ARM_BRA_007 — Brassards d''Étoffe Céleste', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_BRA_008', 'ARM_BRA_008 — Manches du Copiste', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 380, 95, 1, FALSE, FALSE, 50, '', '', NULL),
-('ARM_BRA_009', 'ARM_BRA_009 — Brassards du Colporteur', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 420, 105, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_BRA_010', 'ARM_BRA_010 — Manches de Tisserand', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_BRA_011', 'ARM_BRA_011 — Brassards de Lin Brûlé', 'ARM', NULL, 'common', 2, 0, 7, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 60, '', '', NULL),
-('ARM_BRA_012', 'ARM_BRA_012 — Manches du Héraut', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 480, 120, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_BRA_013', 'ARM_BRA_013 — Brassards d''Écolier', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 70, '', '', NULL),
-('ARM_BRA_014', 'ARM_BRA_014 — Manches Tressées du Voyageur', 'ARM', NULL, 'common', 2, 0, 10, 0.5, 0, 0, 0, 620, 155, 1, FALSE, FALSE, 75, '', '', NULL),
-('ARM_BRA_015', 'ARM_BRA_015 — Brassards de l''Érudit', 'ARM', NULL, 'common', 2, 0, 11, 0.5, 0, 0, 0, 700, 175, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_BRA_016', 'ARM_BRA_016 — Manches du Vent du Nord', 'ARM', NULL, 'common', 2, 0, 12, 0.5, 0, 0, 0, 780, 195, 1, FALSE, FALSE, 80, '', '', NULL),
-('ARM_BRA_017', 'ARM_BRA_017 — Brassards de la Tisseuse', 'ARM', NULL, 'common', 2, 0, 13, 0.5, 0, 0, 0, 830, 207, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_BRA_018', 'ARM_BRA_018 — Bracelets de Lin Sacré', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_BRA_019', 'ARM_BRA_019 — Manches du Lagon', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_BRA_020', 'ARM_BRA_020 — Brassards du Grand Archiviste', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 110, '', '', NULL),
-('ARM_BRA_021', 'ARM_BRA_021 — Brassards de Jeune Ranger', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 60, '', '', NULL),
-('ARM_BRA_022', 'ARM_BRA_022 — Manches en Cuir Souple', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_BRA_023', 'ARM_BRA_023 — Gantelets de Cuir Bruni', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 70, '', '', NULL),
-('ARM_BRA_024', 'ARM_BRA_024 — Brassards du Pisteurbour', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 75, '', '', NULL),
-('ARM_BRA_025', 'ARM_BRA_025 — Manches du Chasseur', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 80, '', '', NULL),
-('ARM_BRA_026', 'ARM_BRA_026 — Gantelets en Cuir d''Élan', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_BRA_027', 'ARM_BRA_027 — Brassards du Nomade', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_BRA_028', 'ARM_BRA_028 — Manches de Cuir Clouté', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_BRA_029', 'ARM_BRA_029 — Protège-Bras du Trappeur', 'ARM', NULL, 'common', 1, 0, 14, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_BRA_030', 'ARM_BRA_030 — Gantelets du Fauconnier', 'ARM', NULL, 'common', 1, 0, 15, 0.5, 0, 0, 0, 650, 162, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_BRA_031', 'ARM_BRA_031 — Brassards en Cuir Bouilli', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 700, 175, 1, FALSE, FALSE, 105, '', '', NULL),
-('ARM_BRA_032', 'ARM_BRA_032 — Manches du Coureur des Bois', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 750, 187, 1, FALSE, FALSE, 110, '', '', NULL),
-('ARM_BRA_033', 'ARM_BRA_033 — Gantelets du Dresseur', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 115, '', '', NULL),
-('ARM_BRA_034', 'ARM_BRA_034 — Brassards du Marcheur Solitaire', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 120, '', '', NULL),
-('ARM_BRA_035', 'ARM_BRA_035 — Manches du Chasseur de Prime', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 125, '', '', NULL),
-('ARM_BRA_036', 'ARM_BRA_036 — Gantelets de l''Ombre', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 130, '', '', NULL),
-('ARM_BRA_037', 'ARM_BRA_037 — Brassards du Cavalier', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 135, '', '', NULL),
-('ARM_BRA_038', 'ARM_BRA_038 — Manches du Traqueur Vampirique', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 140, '', '', NULL),
-('ARM_BRA_039', 'ARM_BRA_039 — Gantelets du Voleur', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1050, 262, 1, FALSE, FALSE, 145, '', '', NULL),
-('ARM_BRA_040', 'ARM_BRA_040 — Brassards du Protecteur Sylphe', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 150, '', '', NULL),
-('ARM_BRA_041', 'ARM_BRA_041 — Brassards en Mailles de Fer', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 140, '', '', NULL),
-('ARM_BRA_042', 'ARM_BRA_042 — Gantelets de Mailles Sertis', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 145, '', '', NULL),
-('ARM_BRA_043', 'ARM_BRA_043 — Manches de Mailles Doublées', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 150, '', '', NULL),
-('ARM_BRA_044', 'ARM_BRA_044 — Brassards à Anneaux Larges', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 155, '', '', NULL),
-('ARM_BRA_045', 'ARM_BRA_045 — Gantelets de Mailles Étamés', 'ARM', NULL, 'common', 2, 0, 26, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 160, '', '', NULL),
-('ARM_BRA_046', 'ARM_BRA_046 — Manches du Soldat', 'ARM', NULL, 'common', 2, 0, 28, 0.5, 0, 0, 0, 1050, 262, 1, FALSE, FALSE, 165, '', '', NULL),
-('ARM_BRA_047', 'ARM_BRA_047 — Brassards Tressés Serrés', 'ARM', NULL, 'common', 2, 0, 30, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 170, '', '', NULL),
-('ARM_BRA_048', 'ARM_BRA_048 — Gantelets du Garde', 'ARM', NULL, 'common', 2, 0, 32, 0.5, 0, 0, 0, 1150, 287, 1, FALSE, FALSE, 175, '', '', NULL),
-('ARM_BRA_049', 'ARM_BRA_049 — Manches du Veilleur', 'ARM', NULL, 'common', 2, 0, 34, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 180, '', '', NULL),
-('ARM_BRA_050', 'ARM_BRA_050 — Brassards du Mercenaire', 'ARM', NULL, 'common', 2, 0, 36, 0.5, 0, 0, 0, 1250, 312, 1, FALSE, FALSE, 185, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_BRA_001', 'Manches en Lin du Novice', 'ARM', NULL, 'common', 1, 0, 2, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 40, '', '', NULL),
+('ARM_BRA_002', 'Brassards de Coton Renforcé', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 45, '', '', NULL),
+('ARM_BRA_003', 'Brassards de Soie Écrue', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 220, 55, 1, FALSE, FALSE, 50, '', '', NULL),
+('ARM_BRA_004', 'Manches d''Apprenti Mage', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 45, '', '', NULL),
+('ARM_BRA_005', 'Protège-Bras Tissés de Campagne', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_BRA_006', 'Manches de Laine Boréale', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 50, '', '', NULL),
+('ARM_BRA_007', 'Brassards d''Étoffe Céleste', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_BRA_008', 'Manches du Copiste', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 380, 95, 1, FALSE, FALSE, 50, '', '', NULL),
+('ARM_BRA_009', 'Brassards du Colporteur', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 420, 105, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_BRA_010', 'Manches de Tisserand', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_BRA_011', 'Brassards de Lin Brûlé', 'ARM', NULL, 'common', 2, 0, 7, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 60, '', '', NULL),
+('ARM_BRA_012', 'Manches du Héraut', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 480, 120, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_BRA_013', 'Brassards d''Écolier', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 70, '', '', NULL),
+('ARM_BRA_014', 'Manches Tressées du Voyageur', 'ARM', NULL, 'common', 2, 0, 10, 0.5, 0, 0, 0, 620, 155, 1, FALSE, FALSE, 75, '', '', NULL),
+('ARM_BRA_015', 'Brassards de l''Érudit', 'ARM', NULL, 'common', 2, 0, 11, 0.5, 0, 0, 0, 700, 175, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_BRA_016', 'Manches du Vent du Nord', 'ARM', NULL, 'common', 2, 0, 12, 0.5, 0, 0, 0, 780, 195, 1, FALSE, FALSE, 80, '', '', NULL),
+('ARM_BRA_017', 'Brassards de la Tisseuse', 'ARM', NULL, 'common', 2, 0, 13, 0.5, 0, 0, 0, 830, 207, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_BRA_018', 'Bracelets de Lin Sacré', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_BRA_019', 'Manches du Lagon', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_BRA_020', 'Brassards du Grand Archiviste', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 110, '', '', NULL),
+('ARM_BRA_021', 'Brassards de Jeune Ranger', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 60, '', '', NULL),
+('ARM_BRA_022', 'Manches en Cuir Souple', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_BRA_023', 'Gantelets de Cuir Bruni', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 70, '', '', NULL),
+('ARM_BRA_024', 'Brassards du Pisteurbour', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 75, '', '', NULL),
+('ARM_BRA_025', 'Manches du Chasseur', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 80, '', '', NULL),
+('ARM_BRA_026', 'Gantelets en Cuir d''Élan', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_BRA_027', 'Brassards du Nomade', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_BRA_028', 'Manches de Cuir Clouté', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_BRA_029', 'Protège-Bras du Trappeur', 'ARM', NULL, 'common', 1, 0, 14, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_BRA_030', 'Gantelets du Fauconnier', 'ARM', NULL, 'common', 1, 0, 15, 0.5, 0, 0, 0, 650, 162, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_BRA_031', 'Brassards en Cuir Bouilli', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 700, 175, 1, FALSE, FALSE, 105, '', '', NULL),
+('ARM_BRA_032', 'Manches du Coureur des Bois', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 750, 187, 1, FALSE, FALSE, 110, '', '', NULL),
+('ARM_BRA_033', 'Gantelets du Dresseur', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 115, '', '', NULL),
+('ARM_BRA_034', 'Brassards du Marcheur Solitaire', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 120, '', '', NULL),
+('ARM_BRA_035', 'Manches du Chasseur de Prime', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 125, '', '', NULL),
+('ARM_BRA_036', 'Gantelets de l''Ombre', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 130, '', '', NULL),
+('ARM_BRA_037', 'Brassards du Cavalier', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 135, '', '', NULL),
+('ARM_BRA_038', 'Manches du Traqueur Vampirique', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 140, '', '', NULL),
+('ARM_BRA_039', 'Gantelets du Voleur', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1050, 262, 1, FALSE, FALSE, 145, '', '', NULL),
+('ARM_BRA_040', 'Brassards du Protecteur Sylphe', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 150, '', '', NULL),
+('ARM_BRA_041', 'Brassards en Mailles de Fer', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 140, '', '', NULL),
+('ARM_BRA_042', 'Gantelets de Mailles Sertis', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 145, '', '', NULL),
+('ARM_BRA_043', 'Manches de Mailles Doublées', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 150, '', '', NULL),
+('ARM_BRA_044', 'Brassards à Anneaux Larges', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 155, '', '', NULL),
+('ARM_BRA_045', 'Gantelets de Mailles Étamés', 'ARM', NULL, 'common', 2, 0, 26, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 160, '', '', NULL),
+('ARM_BRA_046', 'Manches du Soldat', 'ARM', NULL, 'common', 2, 0, 28, 0.5, 0, 0, 0, 1050, 262, 1, FALSE, FALSE, 165, '', '', NULL),
+('ARM_BRA_047', 'Brassards Tressés Serrés', 'ARM', NULL, 'common', 2, 0, 30, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 170, '', '', NULL),
+('ARM_BRA_048', 'Gantelets du Garde', 'ARM', NULL, 'common', 2, 0, 32, 0.5, 0, 0, 0, 1150, 287, 1, FALSE, FALSE, 175, '', '', NULL),
+('ARM_BRA_049', 'Manches du Veilleur', 'ARM', NULL, 'common', 2, 0, 34, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 180, '', '', NULL),
+('ARM_BRA_050', 'Brassards du Mercenaire', 'ARM', NULL, 'common', 2, 0, 36, 0.5, 0, 0, 0, 1250, 312, 1, FALSE, FALSE, 185, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_BRA_051', 'ARM_BRA_051 — Gantelets du Chevalier Err Chel', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 190, '', '', NULL),
-('ARM_BRA_052', 'ARM_BRA_052 — Manches du Preux', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 195, '', '', NULL),
-('ARM_BRA_053', 'ARM_BRA_053 — Brassards du Défenseur', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 200, '', '', NULL),
-('ARM_BRA_054', 'ARM_BRA_054 — Gantelets du Templier', 'ARM', NULL, 'common', 3, 0, 44, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 205, '', '', NULL),
-('ARM_BRA_055', 'ARM_BRA_055 — Manches du Croisé', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 1750, 437, 1, FALSE, FALSE, 210, '', '', NULL),
-('ARM_BRA_056', 'ARM_BRA_056 — Brassards du Gardien des Profondeurs', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 1850, 462, 1, FALSE, FALSE, 215, '', '', NULL),
-('ARM_BRA_057', 'ARM_BRA_057 — Gantelets du Champion', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 2000, 500, 1, FALSE, FALSE, 220, '', '', NULL),
-('ARM_BRA_058', 'ARM_BRA_058 — Manches du Vétéran', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 225, '', '', NULL),
-('ARM_BRA_059', 'ARM_BRA_059 — Brassards du Conquérant', 'ARM', NULL, 'common', 3, 0, 55, 0.5, 0, 0, 0, 2300, 575, 1, FALSE, FALSE, 230, '', '', NULL),
-('ARM_BRA_060', 'ARM_BRA_060 — Gantelets du Titan', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2500, 625, 1, FALSE, FALSE, 240, '', '', NULL),
-('ARM_BRA_061', 'ARM_BRA_061 — Brassards en Chaîne d''Argent', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 180, '', '', NULL),
-('ARM_BRA_062', 'ARM_BRA_062 — Gantelets de Chaîne d''Apprenti Forgeron', 'ARM', NULL, 'common', 3, 0, 32, 0.5, 0, 0, 0, 1650, 412, 1, FALSE, FALSE, 185, '', '', NULL),
-('ARM_BRA_063', 'ARM_BRA_063 — Manches de Chaîne du Veilleur', 'ARM', NULL, 'common', 3, 0, 34, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 190, '', '', NULL),
-('ARM_BRA_064', 'ARM_BRA_064 — Brassards de Chaîne du Patrouilleur', 'ARM', NULL, 'common', 3, 0, 36, 0.5, 0, 0, 0, 1750, 437, 1, FALSE, FALSE, 195, '', '', NULL),
-('ARM_BRA_065', 'ARM_BRA_065 — Gantelets de Chaîne Sertis', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 200, '', '', NULL),
-('ARM_BRA_066', 'ARM_BRA_066 — Manches de Chaîne du Guetteur', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 1850, 462, 1, FALSE, FALSE, 205, '', '', NULL),
-('ARM_BRA_067', 'ARM_BRA_067 — Brassards de Chaîne du Soldat d''Élite', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 1900, 475, 1, FALSE, FALSE, 210, '', '', NULL),
-('ARM_BRA_068', 'ARM_BRA_068 — Gantelets de Chaîne Dorée', 'ARM', NULL, 'common', 3, 0, 44, 0.5, 0, 0, 0, 2000, 500, 1, FALSE, FALSE, 215, '', '', NULL),
-('ARM_BRA_069', 'ARM_BRA_069 — Manches de Chaîne du Bretteur', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 1950, 487, 1, FALSE, FALSE, 220, '', '', NULL),
-('ARM_BRA_070', 'ARM_BRA_070 — Brassards de Chaîne du Maraudeur', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 2050, 512, 1, FALSE, FALSE, 225, '', '', NULL),
-('ARM_BRA_071', 'ARM_BRA_071 — Gantelets de la Légion', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 230, '', '', NULL),
-('ARM_BRA_072', 'ARM_BRA_072 — Manches du Capitaine', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 235, '', '', NULL),
-('ARM_BRA_073', 'ARM_BRA_073 — Brassards de l''Éclaireur Lourd', 'ARM', NULL, 'common', 3, 0, 54, 0.5, 0, 0, 0, 2150, 537, 1, FALSE, FALSE, 240, '', '', NULL),
-('ARM_BRA_074', 'ARM_BRA_074 — Gantelets du Sergent', 'ARM', NULL, 'common', 3, 0, 56, 0.5, 0, 0, 0, 2300, 575, 1, FALSE, FALSE, 245, '', '', NULL),
-('ARM_BRA_075', 'ARM_BRA_075 — Manches de Chaîne du Bastion', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 250, '', '', NULL),
-('ARM_BRA_076', 'ARM_BRA_076 — Brassards du Porte-Étendard', 'ARM', NULL, 'common', 3, 0, 60, 0.5, 0, 0, 0, 2500, 625, 1, FALSE, FALSE, 250, '', '', NULL),
-('ARM_BRA_077', 'ARM_BRA_077 — Gantelets de la Garde Royale', 'ARM', NULL, 'common', 3, 0, 62, 0.5, 0, 0, 0, 2700, 675, 1, FALSE, FALSE, 260, '', '', NULL),
-('ARM_BRA_078', 'ARM_BRA_078 — Manches du Connétable', 'ARM', NULL, 'common', 3, 0, 64, 0.5, 0, 0, 0, 2800, 700, 1, FALSE, FALSE, 270, '', '', NULL),
-('ARM_BRA_079', 'ARM_BRA_079 — Brassards de l''Invaincu', 'ARM', NULL, 'common', 3, 0, 66, 0.5, 0, 0, 0, 3000, 750, 1, FALSE, FALSE, 280, '', '', NULL),
-('ARM_BRA_080', 'ARM_BRA_080 — Gantelets du Roi-Sergent', 'ARM', NULL, 'common', 3, 0, 70, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 300, '', '', NULL),
-('ARM_BRA_081', 'ARM_BRA_081 — Brassards Tissé-Acier (Cloth+Chain)', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 220, '', '', NULL),
-('ARM_BRA_082', 'ARM_BRA_082 — Gantelets Cuir-Maille (Leather+Maille)', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 2300, 575, 1, FALSE, FALSE, 230, '', '', NULL),
-('ARM_BRA_083', 'ARM_BRA_083 — Manches Soie-Chaîne (Cloth+Chain)', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 240, '', '', NULL),
-('ARM_BRA_084', 'ARM_BRA_084 — Brassards Cuir-Mithril (Leather+Mithril)', 'ARM', NULL, 'common', 3, 0, 55, 0.5, 0, 0, 0, 2600, 650, 1, FALSE, FALSE, 250, '', '', NULL),
-('ARM_BRA_085', 'ARM_BRA_085 — Gantelets Tissu-Mithril (Cloth+Mithril)', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2800, 700, 1, FALSE, FALSE, 260, '', '', NULL),
-('ARM_BRA_086', 'ARM_BRA_086 — Brassards du Nexus (Tissu+Mithril+Légendaire)', 'ARM', NULL, 'common', 4, 0, 65, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 280, '', '', NULL),
-('ARM_BRA_087', 'ARM_BRA_087 — Gantelets de l''Équilibre (Cuir+Chaîne+Runique)', 'ARM', NULL, 'common', 4, 0, 68, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 290, '', '', NULL),
-('ARM_BRA_088', 'ARM_BRA_088 — Manches du Crépuscule (Soie+Mithril+Ombre)', 'ARM', NULL, 'common', 4, 0, 72, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 300, '', '', NULL),
-('ARM_BRA_089', 'ARM_BRA_089 — Brassards de l''Aube (Lin+Argent+Lumière)', 'ARM', NULL, 'common', 4, 0, 75, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 310, '', '', NULL),
-('ARM_BRA_090', 'ARM_BRA_090 — Gantelets du Proto-Créateur (Tous+Titan)', 'ARM', NULL, 'common', 4, 0, 80, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 350, '', '', NULL),
-('ARM_BRA_091', 'ARM_BRA_091 — Gantelets de l''Éther', 'ARM', NULL, 'common', 4, 0, 90, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 400, '', '', NULL),
-('ARM_BRA_092', 'ARM_BRA_092 — Poings du Dragon de Feu', 'ARM', NULL, 'common', 4, 0, 95, 0.5, 0, 0, 0, 10000, 2500, 1, FALSE, FALSE, 420, '', '', NULL),
-('ARM_BRA_093', 'ARM_BRA_093 — Brassards du Glacier Éternel', 'ARM', NULL, 'common', 4, 0, 100, 0.5, 0, 0, 0, 11000, 2750, 1, FALSE, FALSE, 440, '', '', NULL),
-('ARM_BRA_094', 'ARM_BRA_094 — Manches du Voile Temporel', 'ARM', NULL, 'common', 4, 0, 100, 0.5, 0, 0, 0, 12000, 3000, 1, FALSE, FALSE, 450, '', '', NULL),
-('ARM_BRA_095', 'ARM_BRA_095 — Gantelets du Titan de Terre', 'ARM', NULL, 'common', 4, 0, 110, 0.5, 0, 0, 0, 14000, 3500, 1, FALSE, FALSE, 480, '', '', NULL),
-('ARM_BRA_096', 'ARM_BRA_096 — Brassards de l''Ouragan', 'ARM', NULL, 'common', 4, 0, 115, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 500, '', '', NULL),
-('ARM_BRA_097', 'ARM_BRA_097 — Poings de l''Abysse', 'ARM', NULL, 'common', 4, 0, 120, 0.5, 0, 0, 0, 18000, 4500, 1, FALSE, FALSE, 520, '', '', NULL),
-('ARM_BRA_098', 'ARM_BRA_098 — Brassards de la Lumière Divine', 'ARM', NULL, 'common', 4, 0, 125, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 550, '', '', NULL),
-('ARM_BRA_099', 'ARM_BRA_099 — Gantelets du Créateur', 'ARM', NULL, 'common', 4, 0, 130, 0.5, 0, 0, 0, 30000, 7500, 1, FALSE, FALSE, 600, '', '', NULL),
-('ARM_BRA_100', 'ARM_BRA_100 — Poings de l''Infini', 'ARM', NULL, 'common', 4, 0, 150, 0.5, 0, 0, 0, 50000, 12500, 1, FALSE, FALSE, 700, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_BRA_051', 'Gantelets du Chevalier Err Chel', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 190, '', '', NULL),
+('ARM_BRA_052', 'Manches du Preux', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 195, '', '', NULL),
+('ARM_BRA_053', 'Brassards du Défenseur', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 200, '', '', NULL),
+('ARM_BRA_054', 'Gantelets du Templier', 'ARM', NULL, 'common', 3, 0, 44, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 205, '', '', NULL),
+('ARM_BRA_055', 'Manches du Croisé', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 1750, 437, 1, FALSE, FALSE, 210, '', '', NULL),
+('ARM_BRA_056', 'Brassards du Gardien des Profondeurs', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 1850, 462, 1, FALSE, FALSE, 215, '', '', NULL),
+('ARM_BRA_057', 'Gantelets du Champion', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 2000, 500, 1, FALSE, FALSE, 220, '', '', NULL),
+('ARM_BRA_058', 'Manches du Vétéran', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 225, '', '', NULL),
+('ARM_BRA_059', 'Brassards du Conquérant', 'ARM', NULL, 'common', 3, 0, 55, 0.5, 0, 0, 0, 2300, 575, 1, FALSE, FALSE, 230, '', '', NULL),
+('ARM_BRA_060', 'Gantelets du Titan', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2500, 625, 1, FALSE, FALSE, 240, '', '', NULL),
+('ARM_BRA_061', 'Brassards en Chaîne d''Argent', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 180, '', '', NULL),
+('ARM_BRA_062', 'Gantelets de Chaîne d''Apprenti Forgeron', 'ARM', NULL, 'common', 3, 0, 32, 0.5, 0, 0, 0, 1650, 412, 1, FALSE, FALSE, 185, '', '', NULL),
+('ARM_BRA_063', 'Manches de Chaîne du Veilleur', 'ARM', NULL, 'common', 3, 0, 34, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 190, '', '', NULL),
+('ARM_BRA_064', 'Brassards de Chaîne du Patrouilleur', 'ARM', NULL, 'common', 3, 0, 36, 0.5, 0, 0, 0, 1750, 437, 1, FALSE, FALSE, 195, '', '', NULL),
+('ARM_BRA_065', 'Gantelets de Chaîne Sertis', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 200, '', '', NULL),
+('ARM_BRA_066', 'Manches de Chaîne du Guetteur', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 1850, 462, 1, FALSE, FALSE, 205, '', '', NULL),
+('ARM_BRA_067', 'Brassards de Chaîne du Soldat d''Élite', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 1900, 475, 1, FALSE, FALSE, 210, '', '', NULL),
+('ARM_BRA_068', 'Gantelets de Chaîne Dorée', 'ARM', NULL, 'common', 3, 0, 44, 0.5, 0, 0, 0, 2000, 500, 1, FALSE, FALSE, 215, '', '', NULL),
+('ARM_BRA_069', 'Manches de Chaîne du Bretteur', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 1950, 487, 1, FALSE, FALSE, 220, '', '', NULL),
+('ARM_BRA_070', 'Brassards de Chaîne du Maraudeur', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 2050, 512, 1, FALSE, FALSE, 225, '', '', NULL),
+('ARM_BRA_071', 'Gantelets de la Légion', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 230, '', '', NULL),
+('ARM_BRA_072', 'Manches du Capitaine', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 235, '', '', NULL),
+('ARM_BRA_073', 'Brassards de l''Éclaireur Lourd', 'ARM', NULL, 'common', 3, 0, 54, 0.5, 0, 0, 0, 2150, 537, 1, FALSE, FALSE, 240, '', '', NULL),
+('ARM_BRA_074', 'Gantelets du Sergent', 'ARM', NULL, 'common', 3, 0, 56, 0.5, 0, 0, 0, 2300, 575, 1, FALSE, FALSE, 245, '', '', NULL),
+('ARM_BRA_075', 'Manches de Chaîne du Bastion', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 250, '', '', NULL),
+('ARM_BRA_076', 'Brassards du Porte-Étendard', 'ARM', NULL, 'common', 3, 0, 60, 0.5, 0, 0, 0, 2500, 625, 1, FALSE, FALSE, 250, '', '', NULL),
+('ARM_BRA_077', 'Gantelets de la Garde Royale', 'ARM', NULL, 'common', 3, 0, 62, 0.5, 0, 0, 0, 2700, 675, 1, FALSE, FALSE, 260, '', '', NULL),
+('ARM_BRA_078', 'Manches du Connétable', 'ARM', NULL, 'common', 3, 0, 64, 0.5, 0, 0, 0, 2800, 700, 1, FALSE, FALSE, 270, '', '', NULL),
+('ARM_BRA_079', 'Brassards de l''Invaincu', 'ARM', NULL, 'common', 3, 0, 66, 0.5, 0, 0, 0, 3000, 750, 1, FALSE, FALSE, 280, '', '', NULL),
+('ARM_BRA_080', 'Gantelets du Roi-Sergent', 'ARM', NULL, 'common', 3, 0, 70, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 300, '', '', NULL),
+('ARM_BRA_081', 'Brassards Tissé-Acier (Cloth+Chain)', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 220, '', '', NULL),
+('ARM_BRA_082', 'Gantelets Cuir-Maille (Leather+Maille)', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 2300, 575, 1, FALSE, FALSE, 230, '', '', NULL),
+('ARM_BRA_083', 'Manches Soie-Chaîne (Cloth+Chain)', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 240, '', '', NULL),
+('ARM_BRA_084', 'Brassards Cuir-Mithril (Leather+Mithril)', 'ARM', NULL, 'common', 3, 0, 55, 0.5, 0, 0, 0, 2600, 650, 1, FALSE, FALSE, 250, '', '', NULL),
+('ARM_BRA_085', 'Gantelets Tissu-Mithril (Cloth+Mithril)', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2800, 700, 1, FALSE, FALSE, 260, '', '', NULL),
+('ARM_BRA_086', 'Brassards du Nexus (Tissu+Mithril+Légendaire)', 'ARM', NULL, 'common', 4, 0, 65, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 280, '', '', NULL),
+('ARM_BRA_087', 'Gantelets de l''Équilibre (Cuir+Chaîne+Runique)', 'ARM', NULL, 'common', 4, 0, 68, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 290, '', '', NULL),
+('ARM_BRA_088', 'Manches du Crépuscule (Soie+Mithril+Ombre)', 'ARM', NULL, 'common', 4, 0, 72, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 300, '', '', NULL),
+('ARM_BRA_089', 'Brassards de l''Aube (Lin+Argent+Lumière)', 'ARM', NULL, 'common', 4, 0, 75, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 310, '', '', NULL),
+('ARM_BRA_090', 'Gantelets du Proto-Créateur (Tous+Titan)', 'ARM', NULL, 'common', 4, 0, 80, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 350, '', '', NULL),
+('ARM_BRA_091', 'Gantelets de l''Éther', 'ARM', NULL, 'common', 4, 0, 90, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 400, '', '', NULL),
+('ARM_BRA_092', 'Poings du Dragon de Feu', 'ARM', NULL, 'common', 4, 0, 95, 0.5, 0, 0, 0, 10000, 2500, 1, FALSE, FALSE, 420, '', '', NULL),
+('ARM_BRA_093', 'Brassards du Glacier Éternel', 'ARM', NULL, 'common', 4, 0, 100, 0.5, 0, 0, 0, 11000, 2750, 1, FALSE, FALSE, 440, '', '', NULL),
+('ARM_BRA_094', 'Manches du Voile Temporel', 'ARM', NULL, 'common', 4, 0, 100, 0.5, 0, 0, 0, 12000, 3000, 1, FALSE, FALSE, 450, '', '', NULL),
+('ARM_BRA_095', 'Gantelets du Titan de Terre', 'ARM', NULL, 'common', 4, 0, 110, 0.5, 0, 0, 0, 14000, 3500, 1, FALSE, FALSE, 480, '', '', NULL),
+('ARM_BRA_096', 'Brassards de l''Ouragan', 'ARM', NULL, 'common', 4, 0, 115, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 500, '', '', NULL),
+('ARM_BRA_097', 'Poings de l''Abysse', 'ARM', NULL, 'common', 4, 0, 120, 0.5, 0, 0, 0, 18000, 4500, 1, FALSE, FALSE, 520, '', '', NULL),
+('ARM_BRA_098', 'Brassards de la Lumière Divine', 'ARM', NULL, 'common', 4, 0, 125, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 550, '', '', NULL),
+('ARM_BRA_099', 'Gantelets du Créateur', 'ARM', NULL, 'common', 4, 0, 130, 0.5, 0, 0, 0, 30000, 7500, 1, FALSE, FALSE, 600, '', '', NULL),
+('ARM_BRA_100', 'Poings de l''Infini', 'ARM', NULL, 'common', 4, 0, 150, 0.5, 0, 0, 0, 50000, 12500, 1, FALSE, FALSE, 700, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_JAM_001', 'ARM_JAM_001 — Pantalon de Lin', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 50, 12, 1, FALSE, FALSE, 80, '', '', NULL),
-('ARM_JAM_002', 'ARM_JAM_002 — Braies de Coton', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 70, 17, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_JAM_003', 'ARM_JAM_003 — Jambières de Laine', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 90, 22, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_JAM_004', 'ARM_JAM_004 — Pantalon du Voyageur', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 110, 27, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_JAM_005', 'ARM_JAM_005 — Braies de l''Apprenti', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 130, 32, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_JAM_006', 'ARM_JAM_006 — Pantalon de Toile', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 80, '', '', NULL),
-('ARM_JAM_007', 'ARM_JAM_007 — Jambières du Messager', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 170, 42, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_JAM_008', 'ARM_JAM_008 — Pantalon du Novice', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 190, 47, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_JAM_009', 'ARM_JAM_009 — Braies Épaisses', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 210, 52, 1, FALSE, FALSE, 110, '', '', NULL),
-('ARM_JAM_010', 'ARM_JAM_010 — Pantalon de Chanvre', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 230, 57, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_JAM_011', 'ARM_JAM_011 — Jambières de Soie', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 130, '', '', NULL),
-('ARM_JAM_012', 'ARM_JAM_012 — Pantalon du Lettré', 'ARM', NULL, 'common', 2, 0, 7, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 120, '', '', NULL),
-('ARM_JAM_013', 'ARM_JAM_013 — Braies de l''Érudit', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 140, '', '', NULL),
-('ARM_JAM_014', 'ARM_JAM_014 — Pantalon de Satin', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 125, '', '', NULL),
-('ARM_JAM_015', 'ARM_JAM_015 — Jambières du Clerc', 'ARM', NULL, 'common', 2, 0, 10, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 145, '', '', NULL),
-('ARM_JAM_016', 'ARM_JAM_016 — Braies Enchantées', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 135, '', '', NULL),
-('ARM_JAM_017', 'ARM_JAM_017 — Pantalon du Ménestrel', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 130, '', '', NULL),
-('ARM_JAM_018', 'ARM_JAM_018 — Jambières de l''Abbé', 'ARM', NULL, 'common', 2, 0, 11, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 150, '', '', NULL),
-('ARM_JAM_019', 'ARM_JAM_019 — Pantalon de Velours', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 140, '', '', NULL),
-('ARM_JAM_020', 'ARM_JAM_020 — Braies du Conseiller', 'ARM', NULL, 'common', 2, 0, 10, 0.5, 0, 0, 0, 650, 162, 1, FALSE, FALSE, 145, '', '', NULL),
-('ARM_JAM_021', 'ARM_JAM_021 — Jambières de Cuir', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 80, 20, 1, FALSE, FALSE, 160, '', '', NULL),
-('ARM_JAM_022', 'ARM_JAM_022 — Braies de Peau', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 105, 26, 1, FALSE, FALSE, 150, '', '', NULL),
-('ARM_JAM_023', 'ARM_JAM_023 — Cuissards du Trappeur', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 130, 32, 1, FALSE, FALSE, 170, '', '', NULL),
-('ARM_JAM_024', 'ARM_JAM_024 — Jambières du Chasseur', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 155, 38, 1, FALSE, FALSE, 165, '', '', NULL),
-('ARM_JAM_025', 'ARM_JAM_025 — Braies du Rôdeur', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 180, 45, 1, FALSE, FALSE, 160, '', '', NULL),
-('ARM_JAM_026', 'ARM_JAM_026 — Cuissards du Pisteur', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 205, 51, 1, FALSE, FALSE, 180, '', '', NULL),
-('ARM_JAM_027', 'ARM_JAM_027 — Jambières du Vagabond', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 230, 57, 1, FALSE, FALSE, 165, '', '', NULL),
-('ARM_JAM_028', 'ARM_JAM_028 — Braies Sauvages', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 255, 63, 1, FALSE, FALSE, 170, '', '', NULL),
-('ARM_JAM_029', 'ARM_JAM_029 — Cuissards du Forestier', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 180, '', '', NULL),
-('ARM_JAM_030', 'ARM_JAM_030 — Jambières de la Meute', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 305, 76, 1, FALSE, FALSE, 175, '', '', NULL),
-('ARM_JAM_031', 'ARM_JAM_031 — Braies de l''Éclaireur', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 210, '', '', NULL),
-('ARM_JAM_032', 'ARM_JAM_032 — Cuissards du Ranger', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 410, 102, 1, FALSE, FALSE, 230, '', '', NULL),
-('ARM_JAM_033', 'ARM_JAM_033 — Jambières du Maraudeur', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 470, 117, 1, FALSE, FALSE, 220, '', '', NULL),
-('ARM_JAM_034', 'ARM_JAM_034 — Braies Renforcées', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 530, 132, 1, FALSE, FALSE, 240, '', '', NULL),
-('ARM_JAM_035', 'ARM_JAM_035 — Cuissards de l''Ombre', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 590, 147, 1, FALSE, FALSE, 225, '', '', NULL),
-('ARM_JAM_036', 'ARM_JAM_036 — Jambières du Fauconnier', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 650, 162, 1, FALSE, FALSE, 215, '', '', NULL),
-('ARM_JAM_037', 'ARM_JAM_037 — Braies du Nomade', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 710, 177, 1, FALSE, FALSE, 240, '', '', NULL),
-('ARM_JAM_038', 'ARM_JAM_038 — Cuissards de la Bête', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 770, 192, 1, FALSE, FALSE, 250, '', '', NULL),
-('ARM_JAM_039', 'ARM_JAM_039 — Jambières du Prédateur', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 830, 207, 1, FALSE, FALSE, 230, '', '', NULL),
-('ARM_JAM_040', 'ARM_JAM_040 — Braies du Corsaire', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 890, 222, 1, FALSE, FALSE, 260, '', '', NULL),
-('ARM_JAM_041', 'ARM_JAM_041 — Jambières de Mailles', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 260, '', '', NULL),
-('ARM_JAM_042', 'ARM_JAM_042 — Grèves d''Écailles', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 270, '', '', NULL),
-('ARM_JAM_043', 'ARM_JAM_043 — Cuissards Maillés', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 660, 165, 1, FALSE, FALSE, 265, '', '', NULL),
-('ARM_JAM_044', 'ARM_JAM_044 — Jambières du Garde', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 740, 185, 1, FALSE, FALSE, 280, '', '', NULL),
-('ARM_JAM_045', 'ARM_JAM_045 — Braies d''Acier', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 820, 205, 1, FALSE, FALSE, 290, '', '', NULL),
-('ARM_JAM_046', 'ARM_JAM_046 — Grèves du Sentinelle', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 275, '', '', NULL),
-('ARM_JAM_047', 'ARM_JAM_047 — Jambières du Soldat', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 980, 245, 1, FALSE, FALSE, 300, '', '', NULL),
-('ARM_JAM_048', 'ARM_JAM_048 — Cuissards du Milicien', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1060, 265, 1, FALSE, FALSE, 285, '', '', NULL),
-('ARM_JAM_049', 'ARM_JAM_049 — Grèves de Garnison', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1140, 285, 1, FALSE, FALSE, 295, '', '', NULL),
-('ARM_JAM_050', 'ARM_JAM_050 — Jambières du Veilleur', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1220, 305, 1, FALSE, FALSE, 300, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_JAM_001', 'Pantalon de Lin', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 50, 12, 1, FALSE, FALSE, 80, '', '', NULL),
+('ARM_JAM_002', 'Braies de Coton', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 70, 17, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_JAM_003', 'Jambières de Laine', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 90, 22, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_JAM_004', 'Pantalon du Voyageur', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 110, 27, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_JAM_005', 'Braies de l''Apprenti', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 130, 32, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_JAM_006', 'Pantalon de Toile', 'ARM', NULL, 'common', 1, 0, 3, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 80, '', '', NULL),
+('ARM_JAM_007', 'Jambières du Messager', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 170, 42, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_JAM_008', 'Pantalon du Novice', 'ARM', NULL, 'common', 1, 0, 4, 0.5, 0, 0, 0, 190, 47, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_JAM_009', 'Braies Épaisses', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 210, 52, 1, FALSE, FALSE, 110, '', '', NULL),
+('ARM_JAM_010', 'Pantalon de Chanvre', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 230, 57, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_JAM_011', 'Jambières de Soie', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 130, '', '', NULL),
+('ARM_JAM_012', 'Pantalon du Lettré', 'ARM', NULL, 'common', 2, 0, 7, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 120, '', '', NULL),
+('ARM_JAM_013', 'Braies de l''Érudit', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 140, '', '', NULL),
+('ARM_JAM_014', 'Pantalon de Satin', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 125, '', '', NULL),
+('ARM_JAM_015', 'Jambières du Clerc', 'ARM', NULL, 'common', 2, 0, 10, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 145, '', '', NULL),
+('ARM_JAM_016', 'Braies Enchantées', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 135, '', '', NULL),
+('ARM_JAM_017', 'Pantalon du Ménestrel', 'ARM', NULL, 'common', 2, 0, 8, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 130, '', '', NULL),
+('ARM_JAM_018', 'Jambières de l''Abbé', 'ARM', NULL, 'common', 2, 0, 11, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 150, '', '', NULL),
+('ARM_JAM_019', 'Pantalon de Velours', 'ARM', NULL, 'common', 2, 0, 9, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 140, '', '', NULL),
+('ARM_JAM_020', 'Braies du Conseiller', 'ARM', NULL, 'common', 2, 0, 10, 0.5, 0, 0, 0, 650, 162, 1, FALSE, FALSE, 145, '', '', NULL),
+('ARM_JAM_021', 'Jambières de Cuir', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 80, 20, 1, FALSE, FALSE, 160, '', '', NULL),
+('ARM_JAM_022', 'Braies de Peau', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 105, 26, 1, FALSE, FALSE, 150, '', '', NULL),
+('ARM_JAM_023', 'Cuissards du Trappeur', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 130, 32, 1, FALSE, FALSE, 170, '', '', NULL),
+('ARM_JAM_024', 'Jambières du Chasseur', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 155, 38, 1, FALSE, FALSE, 165, '', '', NULL),
+('ARM_JAM_025', 'Braies du Rôdeur', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 180, 45, 1, FALSE, FALSE, 160, '', '', NULL),
+('ARM_JAM_026', 'Cuissards du Pisteur', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 205, 51, 1, FALSE, FALSE, 180, '', '', NULL),
+('ARM_JAM_027', 'Jambières du Vagabond', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 230, 57, 1, FALSE, FALSE, 165, '', '', NULL),
+('ARM_JAM_028', 'Braies Sauvages', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 255, 63, 1, FALSE, FALSE, 170, '', '', NULL),
+('ARM_JAM_029', 'Cuissards du Forestier', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 180, '', '', NULL),
+('ARM_JAM_030', 'Jambières de la Meute', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 305, 76, 1, FALSE, FALSE, 175, '', '', NULL),
+('ARM_JAM_031', 'Braies de l''Éclaireur', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 210, '', '', NULL),
+('ARM_JAM_032', 'Cuissards du Ranger', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 410, 102, 1, FALSE, FALSE, 230, '', '', NULL),
+('ARM_JAM_033', 'Jambières du Maraudeur', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 470, 117, 1, FALSE, FALSE, 220, '', '', NULL),
+('ARM_JAM_034', 'Braies Renforcées', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 530, 132, 1, FALSE, FALSE, 240, '', '', NULL),
+('ARM_JAM_035', 'Cuissards de l''Ombre', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 590, 147, 1, FALSE, FALSE, 225, '', '', NULL),
+('ARM_JAM_036', 'Jambières du Fauconnier', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 650, 162, 1, FALSE, FALSE, 215, '', '', NULL),
+('ARM_JAM_037', 'Braies du Nomade', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 710, 177, 1, FALSE, FALSE, 240, '', '', NULL),
+('ARM_JAM_038', 'Cuissards de la Bête', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 770, 192, 1, FALSE, FALSE, 250, '', '', NULL),
+('ARM_JAM_039', 'Jambières du Prédateur', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 830, 207, 1, FALSE, FALSE, 230, '', '', NULL),
+('ARM_JAM_040', 'Braies du Corsaire', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 890, 222, 1, FALSE, FALSE, 260, '', '', NULL),
+('ARM_JAM_041', 'Jambières de Mailles', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 260, '', '', NULL),
+('ARM_JAM_042', 'Grèves d''Écailles', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 270, '', '', NULL),
+('ARM_JAM_043', 'Cuissards Maillés', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 660, 165, 1, FALSE, FALSE, 265, '', '', NULL),
+('ARM_JAM_044', 'Jambières du Garde', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 740, 185, 1, FALSE, FALSE, 280, '', '', NULL),
+('ARM_JAM_045', 'Braies d''Acier', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 820, 205, 1, FALSE, FALSE, 290, '', '', NULL),
+('ARM_JAM_046', 'Grèves du Sentinelle', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 275, '', '', NULL),
+('ARM_JAM_047', 'Jambières du Soldat', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 980, 245, 1, FALSE, FALSE, 300, '', '', NULL),
+('ARM_JAM_048', 'Cuissards du Milicien', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1060, 265, 1, FALSE, FALSE, 285, '', '', NULL),
+('ARM_JAM_049', 'Grèves de Garnison', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1140, 285, 1, FALSE, FALSE, 295, '', '', NULL),
+('ARM_JAM_050', 'Jambières du Veilleur', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1220, 305, 1, FALSE, FALSE, 300, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_JAM_051', 'ARM_JAM_051 — Cuissards du Chevalier', 'ARM', NULL, 'common', 3, 0, 28, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 340, '', '', NULL),
-('ARM_JAM_052', 'ARM_JAM_052 — Grèves du Paladin', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 360, '', '', NULL),
-('ARM_JAM_053', 'ARM_JAM_053 — Jambières du Croisé', 'ARM', NULL, 'common', 3, 0, 29, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 350, '', '', NULL),
-('ARM_JAM_054', 'ARM_JAM_054 — Braies du Templier', 'ARM', NULL, 'common', 3, 0, 31, 0.5, 0, 0, 0, 1650, 412, 1, FALSE, FALSE, 370, '', '', NULL),
-('ARM_JAM_055', 'ARM_JAM_055 — Cuissards du Gardien', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 365, '', '', NULL),
-('ARM_JAM_056', 'ARM_JAM_056 — Grèves du Détrousseur', 'ARM', NULL, 'common', 3, 0, 28, 0.5, 0, 0, 0, 1950, 487, 1, FALSE, FALSE, 345, '', '', NULL),
-('ARM_JAM_057', 'ARM_JAM_057 — Jambières du Braconnier', 'ARM', NULL, 'common', 3, 0, 29, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 355, '', '', NULL),
-('ARM_JAM_058', 'ARM_JAM_058 — Braies du Sanguinaire', 'ARM', NULL, 'common', 3, 0, 32, 0.5, 0, 0, 0, 2250, 562, 1, FALSE, FALSE, 380, '', '', NULL),
-('ARM_JAM_059', 'ARM_JAM_059 — Cuissards du Sénéchal', 'ARM', NULL, 'common', 3, 0, 33, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 390, '', '', NULL),
-('ARM_JAM_060', 'ARM_JAM_060 — Grèves du Connétable', 'ARM', NULL, 'common', 3, 0, 35, 0.5, 0, 0, 0, 2550, 637, 1, FALSE, FALSE, 400, '', '', NULL),
-('ARM_JAM_061', 'ARM_JAM_061 — Chaînes du Boucher', 'ARM', NULL, 'common', 3, 0, 33, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 360, '', '', NULL),
-('ARM_JAM_062', 'ARM_JAM_062 — Grèves en Chaîne', 'ARM', NULL, 'common', 3, 0, 34, 0.5, 0, 0, 0, 1620, 405, 1, FALSE, FALSE, 370, '', '', NULL),
-('ARM_JAM_063', 'ARM_JAM_063 — Jambières de Chaînes', 'ARM', NULL, 'common', 3, 0, 32, 0.5, 0, 0, 0, 1740, 435, 1, FALSE, FALSE, 355, '', '', NULL),
-('ARM_JAM_064', 'ARM_JAM_064 — Braies du Bourreau', 'ARM', NULL, 'common', 3, 0, 36, 0.5, 0, 0, 0, 1860, 465, 1, FALSE, FALSE, 380, '', '', NULL),
-('ARM_JAM_065', 'ARM_JAM_065 — Cuissards à Chaînes', 'ARM', NULL, 'common', 3, 0, 35, 0.5, 0, 0, 0, 1980, 495, 1, FALSE, FALSE, 375, '', '', NULL),
-('ARM_JAM_066', 'ARM_JAM_066 — Grèves du Forgeron', 'ARM', NULL, 'common', 3, 0, 34, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 370, '', '', NULL),
-('ARM_JAM_067', 'ARM_JAM_067 — Jambières du Marteleur', 'ARM', NULL, 'common', 3, 0, 37, 0.5, 0, 0, 0, 2220, 555, 1, FALSE, FALSE, 390, '', '', NULL),
-('ARM_JAM_068', 'ARM_JAM_068 — Braies du Mineur', 'ARM', NULL, 'common', 3, 0, 35, 0.5, 0, 0, 0, 2340, 585, 1, FALSE, FALSE, 380, '', '', NULL),
-('ARM_JAM_069', 'ARM_JAM_069 — Cuissards du Métallurgiste', 'ARM', NULL, 'common', 3, 0, 36, 0.5, 0, 0, 0, 2460, 615, 1, FALSE, FALSE, 385, '', '', NULL),
-('ARM_JAM_070', 'ARM_JAM_070 — Grèves du Fondeur', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 2580, 645, 1, FALSE, FALSE, 400, '', '', NULL),
-('ARM_JAM_071', 'ARM_JAM_071 — Chaînes du Taciturne', 'ARM', NULL, 'common', 3, 0, 37, 0.5, 0, 0, 0, 2700, 675, 1, FALSE, FALSE, 395, '', '', NULL),
-('ARM_JAM_072', 'ARM_JAM_072 — Jambières du Sombre', 'ARM', NULL, 'common', 3, 0, 39, 0.5, 0, 0, 0, 2820, 705, 1, FALSE, FALSE, 410, '', '', NULL),
-('ARM_JAM_073', 'ARM_JAM_073 — Grèves du Mercenaire', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 2940, 735, 1, FALSE, FALSE, 405, '', '', NULL),
-('ARM_JAM_074', 'ARM_JAM_074 — Braies du Champion', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 3060, 765, 1, FALSE, FALSE, 420, '', '', NULL),
-('ARM_JAM_075', 'ARM_JAM_075 — Cuissards du Colosse', 'ARM', NULL, 'common', 3, 0, 41, 0.5, 0, 0, 0, 3180, 795, 1, FALSE, FALSE, 430, '', '', NULL),
-('ARM_JAM_076', 'ARM_JAM_076 — Chaînes du Bourlingueur', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 3300, 825, 1, FALSE, FALSE, 400, '', '', NULL),
-('ARM_JAM_077', 'ARM_JAM_077 — Jambières du Soudard', 'ARM', NULL, 'common', 3, 0, 39, 0.5, 0, 0, 0, 3420, 855, 1, FALSE, FALSE, 415, '', '', NULL),
-('ARM_JAM_078', 'ARM_JAM_078 — Grèves du Sicaire', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 3540, 885, 1, FALSE, FALSE, 425, '', '', NULL),
-('ARM_JAM_079', 'ARM_JAM_079 — Braies du Spadassin', 'ARM', NULL, 'common', 3, 0, 41, 0.5, 0, 0, 0, 3660, 915, 1, FALSE, FALSE, 430, '', '', NULL),
-('ARM_JAM_080', 'ARM_JAM_080 — Cuissards du Condottiere', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 3780, 945, 1, FALSE, FALSE, 440, '', '', NULL),
-('ARM_JAM_081', 'ARM_JAM_081 — Jambières du Vent', 'ARM', NULL, 'common', 3, 0, 24, 0.5, 0, 0, 0, 2500, 625, 1, FALSE, FALSE, 300, '', '', NULL),
-('ARM_JAM_082', 'ARM_JAM_082 — Pantalon du Mage', 'ARM', NULL, 'common', 3, 0, 14, 0.5, 0, 0, 0, 2900, 725, 1, FALSE, FALSE, 200, '', '', NULL),
-('ARM_JAM_083', 'ARM_JAM_083 — Braies du Sorcier', 'ARM', NULL, 'common', 3, 0, 15, 0.5, 0, 0, 0, 3300, 825, 1, FALSE, FALSE, 210, '', '', NULL),
-('ARM_JAM_084', 'ARM_JAM_084 — Cuissards du Spectre', 'ARM', NULL, 'common', 3, 0, 26, 0.5, 0, 0, 0, 3700, 925, 1, FALSE, FALSE, 320, '', '', NULL),
-('ARM_JAM_085', 'ARM_JAM_085 — Jambières du Zéphyr', 'ARM', NULL, 'common', 3, 0, 25, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 310, '', '', NULL),
-('ARM_JAM_086', 'ARM_JAM_086 — Pantalon de l''Enchanteur', 'ARM', NULL, 'common', 3, 0, 16, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 220, '', '', NULL),
-('ARM_JAM_087', 'ARM_JAM_087 — Braies du Nécromant', 'ARM', NULL, 'common', 4, 0, 20, 0.5, 0, 0, 0, 5300, 1325, 1, FALSE, FALSE, 280, '', '', NULL),
-('ARM_JAM_088', 'ARM_JAM_088 — Cuissards du Liche', 'ARM', NULL, 'common', 4, 0, 32, 0.5, 0, 0, 0, 5700, 1425, 1, FALSE, FALSE, 400, '', '', NULL),
-('ARM_JAM_089', 'ARM_JAM_089 — Jambières du Gouffre', 'ARM', NULL, 'common', 4, 0, 34, 0.5, 0, 0, 0, 6100, 1525, 1, FALSE, FALSE, 420, '', '', NULL),
-('ARM_JAM_090', 'ARM_JAM_090 — Pantalon du Prophète', 'ARM', NULL, 'common', 4, 0, 22, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 300, '', '', NULL),
-('ARM_JAM_091', 'ARM_JAM_091 — Grèves du Titan', 'ARM', NULL, 'common', 4, 0, 55, 0.5, 0, 0, 0, 18800, 4700, 1, FALSE, FALSE, 500, '', '', NULL),
-('ARM_JAM_092', 'ARM_JAM_092 — Jambières de l''Éclipse', 'ARM', NULL, 'common', 4, 0, 40, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 450, '', '', NULL),
-('ARM_JAM_093', 'ARM_JAM_093 — Pantalon de l''Aurore', 'ARM', NULL, 'common', 4, 0, 25, 0.5, 0, 0, 0, 21200, 5300, 1, FALSE, FALSE, 350, '', '', NULL),
-('ARM_JAM_094', 'ARM_JAM_094 — Cuissards du Léviathan', 'ARM', NULL, 'common', 4, 0, 48, 0.5, 0, 0, 0, 22400, 5600, 1, FALSE, FALSE, 480, '', '', NULL),
-('ARM_JAM_095', 'ARM_JAM_095 — Chaînes du Néant', 'ARM', NULL, 'common', 4, 0, 56, 0.5, 0, 0, 0, 23600, 5900, 1, FALSE, FALSE, 510, '', '', NULL),
-('ARM_JAM_096', 'ARM_JAM_096 — Jambières du Phénix', 'ARM', NULL, 'common', 4, 0, 42, 0.5, 0, 0, 0, 24800, 6200, 1, FALSE, FALSE, 460, '', '', NULL),
-('ARM_JAM_097', 'ARM_JAM_097 — Braies du Crépuscule', 'ARM', NULL, 'common', 4, 0, 27, 0.5, 0, 0, 0, 26000, 6500, 1, FALSE, FALSE, 360, '', '', NULL),
-('ARM_JAM_098', 'ARM_JAM_098 — Grèves du Cataclysme', 'ARM', NULL, 'common', 4, 0, 50, 0.5, 0, 0, 0, 27200, 6800, 1, FALSE, FALSE, 490, '', '', NULL),
-('ARM_JAM_099', 'ARM_JAM_099 — Cuissards de l''Immortel', 'ARM', NULL, 'common', 4, 0, 58, 0.5, 0, 0, 0, 28400, 7100, 1, FALSE, FALSE, 520, '', '', NULL),
-('ARM_JAM_100', 'ARM_JAM_100 — Pantalon du Jugement', 'ARM', NULL, 'common', 4, 0, 28, 0.5, 0, 0, 0, 29600, 7400, 1, FALSE, FALSE, 370, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_JAM_051', 'Cuissards du Chevalier', 'ARM', NULL, 'common', 3, 0, 28, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 340, '', '', NULL),
+('ARM_JAM_052', 'Grèves du Paladin', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 360, '', '', NULL),
+('ARM_JAM_053', 'Jambières du Croisé', 'ARM', NULL, 'common', 3, 0, 29, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 350, '', '', NULL),
+('ARM_JAM_054', 'Braies du Templier', 'ARM', NULL, 'common', 3, 0, 31, 0.5, 0, 0, 0, 1650, 412, 1, FALSE, FALSE, 370, '', '', NULL),
+('ARM_JAM_055', 'Cuissards du Gardien', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 365, '', '', NULL),
+('ARM_JAM_056', 'Grèves du Détrousseur', 'ARM', NULL, 'common', 3, 0, 28, 0.5, 0, 0, 0, 1950, 487, 1, FALSE, FALSE, 345, '', '', NULL),
+('ARM_JAM_057', 'Jambières du Braconnier', 'ARM', NULL, 'common', 3, 0, 29, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 355, '', '', NULL),
+('ARM_JAM_058', 'Braies du Sanguinaire', 'ARM', NULL, 'common', 3, 0, 32, 0.5, 0, 0, 0, 2250, 562, 1, FALSE, FALSE, 380, '', '', NULL),
+('ARM_JAM_059', 'Cuissards du Sénéchal', 'ARM', NULL, 'common', 3, 0, 33, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 390, '', '', NULL),
+('ARM_JAM_060', 'Grèves du Connétable', 'ARM', NULL, 'common', 3, 0, 35, 0.5, 0, 0, 0, 2550, 637, 1, FALSE, FALSE, 400, '', '', NULL),
+('ARM_JAM_061', 'Chaînes du Boucher', 'ARM', NULL, 'common', 3, 0, 33, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 360, '', '', NULL),
+('ARM_JAM_062', 'Grèves en Chaîne', 'ARM', NULL, 'common', 3, 0, 34, 0.5, 0, 0, 0, 1620, 405, 1, FALSE, FALSE, 370, '', '', NULL),
+('ARM_JAM_063', 'Jambières de Chaînes', 'ARM', NULL, 'common', 3, 0, 32, 0.5, 0, 0, 0, 1740, 435, 1, FALSE, FALSE, 355, '', '', NULL),
+('ARM_JAM_064', 'Braies du Bourreau', 'ARM', NULL, 'common', 3, 0, 36, 0.5, 0, 0, 0, 1860, 465, 1, FALSE, FALSE, 380, '', '', NULL),
+('ARM_JAM_065', 'Cuissards à Chaînes', 'ARM', NULL, 'common', 3, 0, 35, 0.5, 0, 0, 0, 1980, 495, 1, FALSE, FALSE, 375, '', '', NULL),
+('ARM_JAM_066', 'Grèves du Forgeron', 'ARM', NULL, 'common', 3, 0, 34, 0.5, 0, 0, 0, 2100, 525, 1, FALSE, FALSE, 370, '', '', NULL),
+('ARM_JAM_067', 'Jambières du Marteleur', 'ARM', NULL, 'common', 3, 0, 37, 0.5, 0, 0, 0, 2220, 555, 1, FALSE, FALSE, 390, '', '', NULL),
+('ARM_JAM_068', 'Braies du Mineur', 'ARM', NULL, 'common', 3, 0, 35, 0.5, 0, 0, 0, 2340, 585, 1, FALSE, FALSE, 380, '', '', NULL),
+('ARM_JAM_069', 'Cuissards du Métallurgiste', 'ARM', NULL, 'common', 3, 0, 36, 0.5, 0, 0, 0, 2460, 615, 1, FALSE, FALSE, 385, '', '', NULL),
+('ARM_JAM_070', 'Grèves du Fondeur', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 2580, 645, 1, FALSE, FALSE, 400, '', '', NULL),
+('ARM_JAM_071', 'Chaînes du Taciturne', 'ARM', NULL, 'common', 3, 0, 37, 0.5, 0, 0, 0, 2700, 675, 1, FALSE, FALSE, 395, '', '', NULL),
+('ARM_JAM_072', 'Jambières du Sombre', 'ARM', NULL, 'common', 3, 0, 39, 0.5, 0, 0, 0, 2820, 705, 1, FALSE, FALSE, 410, '', '', NULL),
+('ARM_JAM_073', 'Grèves du Mercenaire', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 2940, 735, 1, FALSE, FALSE, 405, '', '', NULL),
+('ARM_JAM_074', 'Braies du Champion', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 3060, 765, 1, FALSE, FALSE, 420, '', '', NULL),
+('ARM_JAM_075', 'Cuissards du Colosse', 'ARM', NULL, 'common', 3, 0, 41, 0.5, 0, 0, 0, 3180, 795, 1, FALSE, FALSE, 430, '', '', NULL),
+('ARM_JAM_076', 'Chaînes du Bourlingueur', 'ARM', NULL, 'common', 3, 0, 38, 0.5, 0, 0, 0, 3300, 825, 1, FALSE, FALSE, 400, '', '', NULL),
+('ARM_JAM_077', 'Jambières du Soudard', 'ARM', NULL, 'common', 3, 0, 39, 0.5, 0, 0, 0, 3420, 855, 1, FALSE, FALSE, 415, '', '', NULL),
+('ARM_JAM_078', 'Grèves du Sicaire', 'ARM', NULL, 'common', 3, 0, 40, 0.5, 0, 0, 0, 3540, 885, 1, FALSE, FALSE, 425, '', '', NULL),
+('ARM_JAM_079', 'Braies du Spadassin', 'ARM', NULL, 'common', 3, 0, 41, 0.5, 0, 0, 0, 3660, 915, 1, FALSE, FALSE, 430, '', '', NULL),
+('ARM_JAM_080', 'Cuissards du Condottiere', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 3780, 945, 1, FALSE, FALSE, 440, '', '', NULL),
+('ARM_JAM_081', 'Jambières du Vent', 'ARM', NULL, 'common', 3, 0, 24, 0.5, 0, 0, 0, 2500, 625, 1, FALSE, FALSE, 300, '', '', NULL),
+('ARM_JAM_082', 'Pantalon du Mage', 'ARM', NULL, 'common', 3, 0, 14, 0.5, 0, 0, 0, 2900, 725, 1, FALSE, FALSE, 200, '', '', NULL),
+('ARM_JAM_083', 'Braies du Sorcier', 'ARM', NULL, 'common', 3, 0, 15, 0.5, 0, 0, 0, 3300, 825, 1, FALSE, FALSE, 210, '', '', NULL),
+('ARM_JAM_084', 'Cuissards du Spectre', 'ARM', NULL, 'common', 3, 0, 26, 0.5, 0, 0, 0, 3700, 925, 1, FALSE, FALSE, 320, '', '', NULL),
+('ARM_JAM_085', 'Jambières du Zéphyr', 'ARM', NULL, 'common', 3, 0, 25, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 310, '', '', NULL),
+('ARM_JAM_086', 'Pantalon de l''Enchanteur', 'ARM', NULL, 'common', 3, 0, 16, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 220, '', '', NULL),
+('ARM_JAM_087', 'Braies du Nécromant', 'ARM', NULL, 'common', 4, 0, 20, 0.5, 0, 0, 0, 5300, 1325, 1, FALSE, FALSE, 280, '', '', NULL),
+('ARM_JAM_088', 'Cuissards du Liche', 'ARM', NULL, 'common', 4, 0, 32, 0.5, 0, 0, 0, 5700, 1425, 1, FALSE, FALSE, 400, '', '', NULL),
+('ARM_JAM_089', 'Jambières du Gouffre', 'ARM', NULL, 'common', 4, 0, 34, 0.5, 0, 0, 0, 6100, 1525, 1, FALSE, FALSE, 420, '', '', NULL),
+('ARM_JAM_090', 'Pantalon du Prophète', 'ARM', NULL, 'common', 4, 0, 22, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 300, '', '', NULL),
+('ARM_JAM_091', 'Grèves du Titan', 'ARM', NULL, 'common', 4, 0, 55, 0.5, 0, 0, 0, 18800, 4700, 1, FALSE, FALSE, 500, '', '', NULL),
+('ARM_JAM_092', 'Jambières de l''Éclipse', 'ARM', NULL, 'common', 4, 0, 40, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 450, '', '', NULL),
+('ARM_JAM_093', 'Pantalon de l''Aurore', 'ARM', NULL, 'common', 4, 0, 25, 0.5, 0, 0, 0, 21200, 5300, 1, FALSE, FALSE, 350, '', '', NULL),
+('ARM_JAM_094', 'Cuissards du Léviathan', 'ARM', NULL, 'common', 4, 0, 48, 0.5, 0, 0, 0, 22400, 5600, 1, FALSE, FALSE, 480, '', '', NULL),
+('ARM_JAM_095', 'Chaînes du Néant', 'ARM', NULL, 'common', 4, 0, 56, 0.5, 0, 0, 0, 23600, 5900, 1, FALSE, FALSE, 510, '', '', NULL),
+('ARM_JAM_096', 'Jambières du Phénix', 'ARM', NULL, 'common', 4, 0, 42, 0.5, 0, 0, 0, 24800, 6200, 1, FALSE, FALSE, 460, '', '', NULL),
+('ARM_JAM_097', 'Braies du Crépuscule', 'ARM', NULL, 'common', 4, 0, 27, 0.5, 0, 0, 0, 26000, 6500, 1, FALSE, FALSE, 360, '', '', NULL),
+('ARM_JAM_098', 'Grèves du Cataclysme', 'ARM', NULL, 'common', 4, 0, 50, 0.5, 0, 0, 0, 27200, 6800, 1, FALSE, FALSE, 490, '', '', NULL),
+('ARM_JAM_099', 'Cuissards de l''Immortel', 'ARM', NULL, 'common', 4, 0, 58, 0.5, 0, 0, 0, 28400, 7100, 1, FALSE, FALSE, 520, '', '', NULL),
+('ARM_JAM_100', 'Pantalon du Jugement', 'ARM', NULL, 'common', 4, 0, 28, 0.5, 0, 0, 0, 29600, 7400, 1, FALSE, FALSE, 370, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_TAI_001', 'ARM_TAI_001 — Ceinture en Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 20, '', '', NULL),
-('ARM_TAI_002', 'ARM_TAI_002 — Ceinture de Chanvre Tresse', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 120, 30, 1, FALSE, FALSE, 22, '', '', NULL),
-('ARM_TAI_003', 'ARM_TAI_003 — Ceinture de Toile Rustique', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 165, 41, 1, FALSE, FALSE, 25, '', '', NULL),
-('ARM_TAI_004', 'ARM_TAI_004 — Ceinture de Coton Sauvage', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 180, 45, 1, FALSE, FALSE, 28, '', '', NULL),
-('ARM_TAI_005', 'ARM_TAI_005 — Ceinture d''Apprenti', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 30, '', '', NULL),
-('ARM_TAI_006', 'ARM_TAI_006 — Ceinture de Tisserand', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 210, 52, 1, FALSE, FALSE, 32, '', '', NULL),
-('ARM_TAI_007', 'ARM_TAI_007 — Ceinture de Vagabond', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 230, 57, 1, FALSE, FALSE, 35, '', '', NULL),
-('ARM_TAI_008', 'ARM_TAI_008 — Ceinture de Jute Renforce', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 260, 65, 1, FALSE, FALSE, 38, '', '', NULL),
-('ARM_TAI_009', 'ARM_TAI_009 — Ceinture du Messager', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 40, '', '', NULL),
-('ARM_TAI_010', 'ARM_TAI_010 — Ceinture aux Glycines', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 42, '', '', NULL),
-('ARM_TAI_011', 'ARM_TAI_011 — Ceinture de Soie Delicate', 'ARM', NULL, 'common', 2, 0, 12, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 45, '', '', NULL),
-('ARM_TAI_012', 'ARM_TAI_012 — Ceinture Brodee d''Alne', 'ARM', NULL, 'common', 2, 0, 13, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 48, '', '', NULL),
-('ARM_TAI_013', 'ARM_TAI_013 — Ceinture du Vent Leger', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 50, '', '', NULL),
-('ARM_TAI_014', 'ARM_TAI_014 — Ceinture aux Rubans', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 52, '', '', NULL),
-('ARM_TAI_015', 'ARM_TAI_015 — Ceinture de Moire', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 620, 155, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_TAI_016', 'ARM_TAI_016 — Ceinture de Taffetas', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 680, 170, 1, FALSE, FALSE, 58, '', '', NULL),
-('ARM_TAI_017', 'ARM_TAI_017 — Ceinture de Velours', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 750, 187, 1, FALSE, FALSE, 60, '', '', NULL),
-('ARM_TAI_018', 'ARM_TAI_018 — Ceinture des Nues', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 62, '', '', NULL),
-('ARM_TAI_019', 'ARM_TAI_019 — Ceinture d''Etoffe Enchantee', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_TAI_020', 'ARM_TAI_020 — Ceinture du Zephyr', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 70, '', '', NULL),
-('ARM_TAI_021', 'ARM_TAI_021 — Ceinturon de Peau Brute', 'ARM', NULL, 'common', 1, 0, 15, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 35, '', '', NULL),
-('ARM_TAI_022', 'ARM_TAI_022 — Ceinturon de Veau', 'ARM', NULL, 'common', 1, 0, 16, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 38, '', '', NULL),
-('ARM_TAI_023', 'ARM_TAI_023 — Ceinturon de Randonneur', 'ARM', NULL, 'common', 1, 0, 17, 0.5, 0, 0, 0, 310, 77, 1, FALSE, FALSE, 40, '', '', NULL),
-('ARM_TAI_024', 'ARM_TAI_024 — Ceinturon de Chasseur', 'ARM', NULL, 'common', 1, 0, 18, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 42, '', '', NULL),
-('ARM_TAI_025', 'ARM_TAI_025 — Ceinturon de Trappeur', 'ARM', NULL, 'common', 1, 0, 19, 0.5, 0, 0, 0, 380, 95, 1, FALSE, FALSE, 45, '', '', NULL),
-('ARM_TAI_026', 'ARM_TAI_026 — Ceinturon de Fouet', 'ARM', NULL, 'common', 1, 0, 20, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 48, '', '', NULL),
-('ARM_TAI_027', 'ARM_TAI_027 — Ceinturon de Ventre de Loup', 'ARM', NULL, 'common', 1, 0, 21, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 50, '', '', NULL),
-('ARM_TAI_028', 'ARM_TAI_028 — Ceinturon des Steppes', 'ARM', NULL, 'common', 1, 0, 22, 0.5, 0, 0, 0, 480, 120, 1, FALSE, FALSE, 52, '', '', NULL),
-('ARM_TAI_029', 'ARM_TAI_029 — Ceinturon de Garde', 'ARM', NULL, 'common', 1, 0, 23, 0.5, 0, 0, 0, 520, 130, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_TAI_030', 'ARM_TAI_030 — Ceinturon des Plaines', 'ARM', NULL, 'common', 1, 0, 24, 0.5, 0, 0, 0, 560, 140, 1, FALSE, FALSE, 58, '', '', NULL),
-('ARM_TAI_031', 'ARM_TAI_031 — Ceinturon de Cuir Fonce', 'ARM', NULL, 'common', 2, 0, 28, 0.5, 0, 0, 0, 750, 187, 1, FALSE, FALSE, 62, '', '', NULL),
-('ARM_TAI_032', 'ARM_TAI_032 — Ceinturon de Bouclier', 'ARM', NULL, 'common', 2, 0, 30, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_TAI_033', 'ARM_TAI_033 — Ceinturon de Ranger', 'ARM', NULL, 'common', 2, 0, 32, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 68, '', '', NULL),
-('ARM_TAI_034', 'ARM_TAI_034 — Ceinturon Renforce', 'ARM', NULL, 'common', 2, 0, 35, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 70, '', '', NULL),
-('ARM_TAI_035', 'ARM_TAI_035 — Ceinturon de Sacoche', 'ARM', NULL, 'common', 2, 0, 36, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 72, '', '', NULL),
-('ARM_TAI_036', 'ARM_TAI_036 — Ceinturon de Voyageur', 'ARM', NULL, 'common', 2, 0, 38, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 75, '', '', NULL),
-('ARM_TAI_037', 'ARM_TAI_037 — Ceinturon de l''Eclaireur', 'ARM', NULL, 'common', 2, 0, 40, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 78, '', '', NULL),
-('ARM_TAI_038', 'ARM_TAI_038 — Ceinturon de la Savane', 'ARM', NULL, 'common', 2, 0, 42, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 80, '', '', NULL),
-('ARM_TAI_039', 'ARM_TAI_039 — Ceinturon de Bouffon', 'ARM', NULL, 'common', 2, 0, 44, 0.5, 0, 0, 0, 1900, 475, 1, FALSE, FALSE, 82, '', '', NULL),
-('ARM_TAI_040', 'ARM_TAI_040 — Ceinturon Dore', 'ARM', NULL, 'common', 2, 0, 48, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_TAI_041', 'ARM_TAI_041 — Ceinture de Mailles d''Argent', 'ARM', NULL, 'common', 2, 0, 35, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_TAI_042', 'ARM_TAI_042 — Ceinture de Mailles d''Etain', 'ARM', NULL, 'common', 2, 0, 36, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 58, '', '', NULL),
-('ARM_TAI_043', 'ARM_TAI_043 — Ceinture de Mailles de Cuivre', 'ARM', NULL, 'common', 2, 0, 38, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 60, '', '', NULL),
-('ARM_TAI_044', 'ARM_TAI_044 — Ceinture de Chainons', 'ARM', NULL, 'common', 2, 0, 40, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 62, '', '', NULL),
-('ARM_TAI_045', 'ARM_TAI_045 — Ceinture de Jongleur', 'ARM', NULL, 'common', 2, 0, 42, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_TAI_046', 'ARM_TAI_046 — Ceinture de Mailles Legeres', 'ARM', NULL, 'common', 2, 0, 44, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 68, '', '', NULL),
-('ARM_TAI_047', 'ARM_TAI_047 — Ceinture de Maille d''Anneaux', 'ARM', NULL, 'common', 2, 0, 46, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 70, '', '', NULL),
-('ARM_TAI_048', 'ARM_TAI_048 — Ceinture a Cotte de Mailles', 'ARM', NULL, 'common', 2, 0, 48, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 72, '', '', NULL),
-('ARM_TAI_049', 'ARM_TAI_049 — Ceinture de Serrure', 'ARM', NULL, 'common', 2, 0, 50, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 75, '', '', NULL),
-('ARM_TAI_050', 'ARM_TAI_050 — Ceinture de Mille Anneaux', 'ARM', NULL, 'common', 2, 0, 55, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 78, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_TAI_001', 'Ceinture en Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 20, '', '', NULL),
+('ARM_TAI_002', 'Ceinture de Chanvre Tresse', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 120, 30, 1, FALSE, FALSE, 22, '', '', NULL),
+('ARM_TAI_003', 'Ceinture de Toile Rustique', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 165, 41, 1, FALSE, FALSE, 25, '', '', NULL),
+('ARM_TAI_004', 'Ceinture de Coton Sauvage', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 180, 45, 1, FALSE, FALSE, 28, '', '', NULL),
+('ARM_TAI_005', 'Ceinture d''Apprenti', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 30, '', '', NULL),
+('ARM_TAI_006', 'Ceinture de Tisserand', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 210, 52, 1, FALSE, FALSE, 32, '', '', NULL),
+('ARM_TAI_007', 'Ceinture de Vagabond', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 230, 57, 1, FALSE, FALSE, 35, '', '', NULL),
+('ARM_TAI_008', 'Ceinture de Jute Renforce', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 260, 65, 1, FALSE, FALSE, 38, '', '', NULL),
+('ARM_TAI_009', 'Ceinture du Messager', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 40, '', '', NULL),
+('ARM_TAI_010', 'Ceinture aux Glycines', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 42, '', '', NULL),
+('ARM_TAI_011', 'Ceinture de Soie Delicate', 'ARM', NULL, 'common', 2, 0, 12, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 45, '', '', NULL),
+('ARM_TAI_012', 'Ceinture Brodee d''Alne', 'ARM', NULL, 'common', 2, 0, 13, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 48, '', '', NULL),
+('ARM_TAI_013', 'Ceinture du Vent Leger', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 50, '', '', NULL),
+('ARM_TAI_014', 'Ceinture aux Rubans', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 52, '', '', NULL),
+('ARM_TAI_015', 'Ceinture de Moire', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 620, 155, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_TAI_016', 'Ceinture de Taffetas', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 680, 170, 1, FALSE, FALSE, 58, '', '', NULL),
+('ARM_TAI_017', 'Ceinture de Velours', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 750, 187, 1, FALSE, FALSE, 60, '', '', NULL),
+('ARM_TAI_018', 'Ceinture des Nues', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 62, '', '', NULL),
+('ARM_TAI_019', 'Ceinture d''Etoffe Enchantee', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_TAI_020', 'Ceinture du Zephyr', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 70, '', '', NULL),
+('ARM_TAI_021', 'Ceinturon de Peau Brute', 'ARM', NULL, 'common', 1, 0, 15, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 35, '', '', NULL),
+('ARM_TAI_022', 'Ceinturon de Veau', 'ARM', NULL, 'common', 1, 0, 16, 0.5, 0, 0, 0, 280, 70, 1, FALSE, FALSE, 38, '', '', NULL),
+('ARM_TAI_023', 'Ceinturon de Randonneur', 'ARM', NULL, 'common', 1, 0, 17, 0.5, 0, 0, 0, 310, 77, 1, FALSE, FALSE, 40, '', '', NULL),
+('ARM_TAI_024', 'Ceinturon de Chasseur', 'ARM', NULL, 'common', 1, 0, 18, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 42, '', '', NULL),
+('ARM_TAI_025', 'Ceinturon de Trappeur', 'ARM', NULL, 'common', 1, 0, 19, 0.5, 0, 0, 0, 380, 95, 1, FALSE, FALSE, 45, '', '', NULL),
+('ARM_TAI_026', 'Ceinturon de Fouet', 'ARM', NULL, 'common', 1, 0, 20, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 48, '', '', NULL),
+('ARM_TAI_027', 'Ceinturon de Ventre de Loup', 'ARM', NULL, 'common', 1, 0, 21, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 50, '', '', NULL),
+('ARM_TAI_028', 'Ceinturon des Steppes', 'ARM', NULL, 'common', 1, 0, 22, 0.5, 0, 0, 0, 480, 120, 1, FALSE, FALSE, 52, '', '', NULL),
+('ARM_TAI_029', 'Ceinturon de Garde', 'ARM', NULL, 'common', 1, 0, 23, 0.5, 0, 0, 0, 520, 130, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_TAI_030', 'Ceinturon des Plaines', 'ARM', NULL, 'common', 1, 0, 24, 0.5, 0, 0, 0, 560, 140, 1, FALSE, FALSE, 58, '', '', NULL),
+('ARM_TAI_031', 'Ceinturon de Cuir Fonce', 'ARM', NULL, 'common', 2, 0, 28, 0.5, 0, 0, 0, 750, 187, 1, FALSE, FALSE, 62, '', '', NULL),
+('ARM_TAI_032', 'Ceinturon de Bouclier', 'ARM', NULL, 'common', 2, 0, 30, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_TAI_033', 'Ceinturon de Ranger', 'ARM', NULL, 'common', 2, 0, 32, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 68, '', '', NULL),
+('ARM_TAI_034', 'Ceinturon Renforce', 'ARM', NULL, 'common', 2, 0, 35, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 70, '', '', NULL),
+('ARM_TAI_035', 'Ceinturon de Sacoche', 'ARM', NULL, 'common', 2, 0, 36, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 72, '', '', NULL),
+('ARM_TAI_036', 'Ceinturon de Voyageur', 'ARM', NULL, 'common', 2, 0, 38, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 75, '', '', NULL),
+('ARM_TAI_037', 'Ceinturon de l''Eclaireur', 'ARM', NULL, 'common', 2, 0, 40, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 78, '', '', NULL),
+('ARM_TAI_038', 'Ceinturon de la Savane', 'ARM', NULL, 'common', 2, 0, 42, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 80, '', '', NULL),
+('ARM_TAI_039', 'Ceinturon de Bouffon', 'ARM', NULL, 'common', 2, 0, 44, 0.5, 0, 0, 0, 1900, 475, 1, FALSE, FALSE, 82, '', '', NULL),
+('ARM_TAI_040', 'Ceinturon Dore', 'ARM', NULL, 'common', 2, 0, 48, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_TAI_041', 'Ceinture de Mailles d''Argent', 'ARM', NULL, 'common', 2, 0, 35, 0.5, 0, 0, 0, 800, 200, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_TAI_042', 'Ceinture de Mailles d''Etain', 'ARM', NULL, 'common', 2, 0, 36, 0.5, 0, 0, 0, 850, 212, 1, FALSE, FALSE, 58, '', '', NULL),
+('ARM_TAI_043', 'Ceinture de Mailles de Cuivre', 'ARM', NULL, 'common', 2, 0, 38, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 60, '', '', NULL),
+('ARM_TAI_044', 'Ceinture de Chainons', 'ARM', NULL, 'common', 2, 0, 40, 0.5, 0, 0, 0, 950, 237, 1, FALSE, FALSE, 62, '', '', NULL),
+('ARM_TAI_045', 'Ceinture de Jongleur', 'ARM', NULL, 'common', 2, 0, 42, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_TAI_046', 'Ceinture de Mailles Legeres', 'ARM', NULL, 'common', 2, 0, 44, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 68, '', '', NULL),
+('ARM_TAI_047', 'Ceinture de Maille d''Anneaux', 'ARM', NULL, 'common', 2, 0, 46, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 70, '', '', NULL),
+('ARM_TAI_048', 'Ceinture a Cotte de Mailles', 'ARM', NULL, 'common', 2, 0, 48, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 72, '', '', NULL),
+('ARM_TAI_049', 'Ceinture de Serrure', 'ARM', NULL, 'common', 2, 0, 50, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 75, '', '', NULL),
+('ARM_TAI_050', 'Ceinture de Mille Anneaux', 'ARM', NULL, 'common', 2, 0, 55, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 78, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_TAI_051', 'ARM_TAI_051 — Ceinture de Fer Tresse', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 82, '', '', NULL),
-('ARM_TAI_052', 'ARM_TAI_052 — Ceinture de Chaine d''Argent', 'ARM', NULL, 'common', 3, 0, 60, 0.5, 0, 0, 0, 2600, 650, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_TAI_053', 'ARM_TAI_053 — Ceinture de Maille d''Acier', 'ARM', NULL, 'common', 3, 0, 62, 0.5, 0, 0, 0, 3000, 750, 1, FALSE, FALSE, 88, '', '', NULL),
-('ARM_TAI_054', 'ARM_TAI_054 — Ceinture d''Ecailles Metalliques', 'ARM', NULL, 'common', 3, 0, 65, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_TAI_055', 'ARM_TAI_055 — Ceinture du Metallurgiste', 'ARM', NULL, 'common', 3, 0, 68, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 92, '', '', NULL),
-('ARM_TAI_056', 'ARM_TAI_056 — Ceinture de Maille Lourde', 'ARM', NULL, 'common', 3, 0, 70, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_TAI_057', 'ARM_TAI_057 — Ceinture de Tissu Metallique', 'ARM', NULL, 'common', 3, 0, 72, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 98, '', '', NULL),
-('ARM_TAI_058', 'ARM_TAI_058 — Ceinture de Mailles de Mithril', 'ARM', NULL, 'common', 3, 0, 75, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_TAI_059', 'ARM_TAI_059 — Ceinture de Serpent d''Acier', 'ARM', NULL, 'common', 3, 0, 78, 0.5, 0, 0, 0, 7000, 1750, 1, FALSE, FALSE, 102, '', '', NULL),
-('ARM_TAI_060', 'ARM_TAI_060 — Ceinture du Forgeron', 'ARM', NULL, 'common', 3, 0, 80, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 105, '', '', NULL),
-('ARM_TAI_061', 'ARM_TAI_061 — Ceinture a Plaques de Fer', 'ARM', NULL, 'common', 3, 0, 70, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_TAI_062', 'ARM_TAI_062 — Ceinture a Plaques de Bronze', 'ARM', NULL, 'common', 3, 0, 72, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 92, '', '', NULL),
-('ARM_TAI_063', 'ARM_TAI_063 — Ceinture a Plaques Rivetees', 'ARM', NULL, 'common', 3, 0, 75, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_TAI_064', 'ARM_TAI_064 — Ceinture a Plaques Lourdes', 'ARM', NULL, 'common', 3, 0, 78, 0.5, 0, 0, 0, 4600, 1150, 1, FALSE, FALSE, 98, '', '', NULL),
-('ARM_TAI_065', 'ARM_TAI_065 — Ceinture de Tole de Cuivre', 'ARM', NULL, 'common', 3, 0, 76, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 96, '', '', NULL),
-('ARM_TAI_066', 'ARM_TAI_066 — Ceinture de Lamelles d''Acier', 'ARM', NULL, 'common', 3, 0, 80, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_TAI_067', 'ARM_TAI_067 — Ceinture Segmentee', 'ARM', NULL, 'common', 3, 0, 82, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 102, '', '', NULL),
-('ARM_TAI_068', 'ARM_TAI_068 — Ceinture de Plaques de Protection', 'ARM', NULL, 'common', 3, 0, 85, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 105, '', '', NULL),
-('ARM_TAI_069', 'ARM_TAI_069 — Ceinture de Jambieres Renforcees', 'ARM', NULL, 'common', 3, 0, 88, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 108, '', '', NULL),
-('ARM_TAI_070', 'ARM_TAI_070 — Ceinture du Bastion', 'ARM', NULL, 'common', 3, 0, 90, 0.5, 0, 0, 0, 7000, 1750, 1, FALSE, FALSE, 110, '', '', NULL),
-('ARM_TAI_071', 'ARM_TAI_071 — Ceinture de Garnison', 'ARM', NULL, 'common', 3, 0, 92, 0.5, 0, 0, 0, 7500, 1875, 1, FALSE, FALSE, 112, '', '', NULL),
-('ARM_TAI_072', 'ARM_TAI_072 — Ceinture a Plaques de Gattan', 'ARM', NULL, 'common', 3, 0, 95, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 115, '', '', NULL),
-('ARM_TAI_073', 'ARM_TAI_073 — Ceinture de Piquet', 'ARM', NULL, 'common', 3, 0, 96, 0.5, 0, 0, 0, 8500, 2125, 1, FALSE, FALSE, 118, '', '', NULL),
-('ARM_TAI_074', 'ARM_TAI_074 — Ceinture de la Legion', 'ARM', NULL, 'common', 3, 0, 98, 0.5, 0, 0, 0, 9000, 2250, 1, FALSE, FALSE, 120, '', '', NULL),
-('ARM_TAI_075', 'ARM_TAI_075 — Ceinture de Brokkheim', 'ARM', NULL, 'common', 3, 0, 100, 0.5, 0, 0, 0, 10000, 2500, 1, FALSE, FALSE, 122, '', '', NULL),
-('ARM_TAI_076', 'ARM_TAI_076 — Ceinture de Bataille', 'ARM', NULL, 'common', 3, 0, 102, 0.5, 0, 0, 0, 11000, 2750, 1, FALSE, FALSE, 125, '', '', NULL),
-('ARM_TAI_077', 'ARM_TAI_077 — Ceinture du Chevalier', 'ARM', NULL, 'common', 3, 0, 105, 0.5, 0, 0, 0, 12000, 3000, 1, FALSE, FALSE, 128, '', '', NULL),
-('ARM_TAI_078', 'ARM_TAI_078 — Ceinture du Paladin', 'ARM', NULL, 'common', 3, 0, 108, 0.5, 0, 0, 0, 13000, 3250, 1, FALSE, FALSE, 130, '', '', NULL),
-('ARM_TAI_079', 'ARM_TAI_079 — Ceinture d''Acier Noir', 'ARM', NULL, 'common', 3, 0, 110, 0.5, 0, 0, 0, 14000, 3500, 1, FALSE, FALSE, 132, '', '', NULL),
-('ARM_TAI_080', 'ARM_TAI_080 — Ceinture du Titan', 'ARM', NULL, 'common', 3, 0, 115, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 135, '', '', NULL),
-('ARM_TAI_081', 'ARM_TAI_081 — Ceinture de Cuir et Mailles', 'ARM', NULL, 'common', 3, 0, 85, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_TAI_082', 'ARM_TAI_082 — Ceinture Tissu et Chaine', 'ARM', NULL, 'common', 3, 0, 82, 0.5, 0, 0, 0, 5200, 1300, 1, FALSE, FALSE, 98, '', '', NULL),
-('ARM_TAI_083', 'ARM_TAI_083 — Ceinture Hybride de Survie', 'ARM', NULL, 'common', 3, 0, 88, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 102, '', '', NULL),
-('ARM_TAI_084', 'ARM_TAI_084 — Ceinture du Rodeur', 'ARM', NULL, 'common', 3, 0, 92, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 105, '', '', NULL),
-('ARM_TAI_085', 'ARM_TAI_085 — Ceinture de l''Hybride', 'ARM', NULL, 'common', 3, 0, 95, 0.5, 0, 0, 0, 9000, 2250, 1, FALSE, FALSE, 108, '', '', NULL),
-('ARM_TAI_086', 'ARM_TAI_086 — Ceinture de Cuir Renforce Mithril', 'ARM', NULL, 'common', 4, 0, 110, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 120, '', '', NULL),
-('ARM_TAI_087', 'ARM_TAI_087 — Ceinture de Soie et Acier', 'ARM', NULL, 'common', 4, 0, 108, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 118, '', '', NULL),
-('ARM_TAI_088', 'ARM_TAI_088 — Ceinture de Maille et Plaque d''Adamantium', 'ARM', NULL, 'common', 4, 0, 115, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 125, '', '', NULL),
-('ARM_TAI_089', 'ARM_TAI_089 — Ceinture du Chasseur de Tresors', 'ARM', NULL, 'common', 4, 0, 112, 0.5, 0, 0, 0, 22000, 5500, 1, FALSE, FALSE, 122, '', '', NULL),
-('ARM_TAI_090', 'ARM_TAI_090 — Ceinture de l''Equilibre', 'ARM', NULL, 'common', 4, 0, 120, 0.5, 0, 0, 0, 25000, 6250, 1, FALSE, FALSE, 128, '', '', NULL),
-('ARM_TAI_091', 'ARM_TAI_091 — Ceinture du Vent Premier', 'ARM', NULL, 'common', 4, 0, 125, 0.5, 0, 0, 0, 30000, 7500, 1, FALSE, FALSE, 130, '', '', NULL),
-('ARM_TAI_092', 'ARM_TAI_092 — Ceinture du Serment de Feu', 'ARM', NULL, 'common', 4, 0, 130, 0.5, 0, 0, 0, 32000, 8000, 1, FALSE, FALSE, 135, '', '', NULL),
-('ARM_TAI_093', 'ARM_TAI_093 — Ceinture de l''Onde Primordiale', 'ARM', NULL, 'common', 4, 0, 120, 0.5, 0, 0, 0, 34000, 8500, 1, FALSE, FALSE, 132, '', '', NULL),
-('ARM_TAI_094', 'ARM_TAI_094 — Ceinture de la Terre Mere', 'ARM', NULL, 'common', 4, 0, 140, 0.5, 0, 0, 0, 35000, 8750, 1, FALSE, FALSE, 140, '', '', NULL),
-('ARM_TAI_095', 'ARM_TAI_095 — Ceinture du Roi des Ombres', 'ARM', NULL, 'common', 4, 0, 125, 0.5, 0, 0, 0, 36000, 9000, 1, FALSE, FALSE, 138, '', '', NULL),
-('ARM_TAI_096', 'ARM_TAI_096 — Ceinture du Crepuscule Eternel', 'ARM', NULL, 'common', 4, 0, 128, 0.5, 0, 0, 0, 40000, 10000, 1, FALSE, FALSE, 140, '', '', NULL),
-('ARM_TAI_097', 'ARM_TAI_097 — Ceinture de l''Aube Doree', 'ARM', NULL, 'common', 4, 0, 130, 0.5, 0, 0, 0, 42000, 10500, 1, FALSE, FALSE, 142, '', '', NULL),
-('ARM_TAI_098', 'ARM_TAI_098 — Ceinture du Neant Scelle', 'ARM', NULL, 'common', 4, 0, 135, 0.5, 0, 0, 0, 50000, 12500, 1, FALSE, FALSE, 145, '', '', NULL),
-('ARM_TAI_099', 'ARM_TAI_099 — Ceinture de la Deesse Mere', 'ARM', NULL, 'common', 4, 0, 140, 0.5, 0, 0, 0, 55000, 13750, 1, FALSE, FALSE, 148, '', '', NULL),
-('ARM_TAI_100', 'ARM_TAI_100 — Ceinture d''Yggdrasil', 'ARM', NULL, 'common', 4, 0, 150, 0.5, 0, 0, 0, 65000, 16250, 1, FALSE, FALSE, 150, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_TAI_051', 'Ceinture de Fer Tresse', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 2200, 550, 1, FALSE, FALSE, 82, '', '', NULL),
+('ARM_TAI_052', 'Ceinture de Chaine d''Argent', 'ARM', NULL, 'common', 3, 0, 60, 0.5, 0, 0, 0, 2600, 650, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_TAI_053', 'Ceinture de Maille d''Acier', 'ARM', NULL, 'common', 3, 0, 62, 0.5, 0, 0, 0, 3000, 750, 1, FALSE, FALSE, 88, '', '', NULL),
+('ARM_TAI_054', 'Ceinture d''Ecailles Metalliques', 'ARM', NULL, 'common', 3, 0, 65, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_TAI_055', 'Ceinture du Metallurgiste', 'ARM', NULL, 'common', 3, 0, 68, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 92, '', '', NULL),
+('ARM_TAI_056', 'Ceinture de Maille Lourde', 'ARM', NULL, 'common', 3, 0, 70, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_TAI_057', 'Ceinture de Tissu Metallique', 'ARM', NULL, 'common', 3, 0, 72, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 98, '', '', NULL),
+('ARM_TAI_058', 'Ceinture de Mailles de Mithril', 'ARM', NULL, 'common', 3, 0, 75, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_TAI_059', 'Ceinture de Serpent d''Acier', 'ARM', NULL, 'common', 3, 0, 78, 0.5, 0, 0, 0, 7000, 1750, 1, FALSE, FALSE, 102, '', '', NULL),
+('ARM_TAI_060', 'Ceinture du Forgeron', 'ARM', NULL, 'common', 3, 0, 80, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 105, '', '', NULL),
+('ARM_TAI_061', 'Ceinture a Plaques de Fer', 'ARM', NULL, 'common', 3, 0, 70, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_TAI_062', 'Ceinture a Plaques de Bronze', 'ARM', NULL, 'common', 3, 0, 72, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 92, '', '', NULL),
+('ARM_TAI_063', 'Ceinture a Plaques Rivetees', 'ARM', NULL, 'common', 3, 0, 75, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_TAI_064', 'Ceinture a Plaques Lourdes', 'ARM', NULL, 'common', 3, 0, 78, 0.5, 0, 0, 0, 4600, 1150, 1, FALSE, FALSE, 98, '', '', NULL),
+('ARM_TAI_065', 'Ceinture de Tole de Cuivre', 'ARM', NULL, 'common', 3, 0, 76, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 96, '', '', NULL),
+('ARM_TAI_066', 'Ceinture de Lamelles d''Acier', 'ARM', NULL, 'common', 3, 0, 80, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_TAI_067', 'Ceinture Segmentee', 'ARM', NULL, 'common', 3, 0, 82, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 102, '', '', NULL),
+('ARM_TAI_068', 'Ceinture de Plaques de Protection', 'ARM', NULL, 'common', 3, 0, 85, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 105, '', '', NULL),
+('ARM_TAI_069', 'Ceinture de Jambieres Renforcees', 'ARM', NULL, 'common', 3, 0, 88, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 108, '', '', NULL),
+('ARM_TAI_070', 'Ceinture du Bastion', 'ARM', NULL, 'common', 3, 0, 90, 0.5, 0, 0, 0, 7000, 1750, 1, FALSE, FALSE, 110, '', '', NULL),
+('ARM_TAI_071', 'Ceinture de Garnison', 'ARM', NULL, 'common', 3, 0, 92, 0.5, 0, 0, 0, 7500, 1875, 1, FALSE, FALSE, 112, '', '', NULL),
+('ARM_TAI_072', 'Ceinture a Plaques de Gattan', 'ARM', NULL, 'common', 3, 0, 95, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 115, '', '', NULL),
+('ARM_TAI_073', 'Ceinture de Piquet', 'ARM', NULL, 'common', 3, 0, 96, 0.5, 0, 0, 0, 8500, 2125, 1, FALSE, FALSE, 118, '', '', NULL),
+('ARM_TAI_074', 'Ceinture de la Legion', 'ARM', NULL, 'common', 3, 0, 98, 0.5, 0, 0, 0, 9000, 2250, 1, FALSE, FALSE, 120, '', '', NULL),
+('ARM_TAI_075', 'Ceinture de Brokkheim', 'ARM', NULL, 'common', 3, 0, 100, 0.5, 0, 0, 0, 10000, 2500, 1, FALSE, FALSE, 122, '', '', NULL),
+('ARM_TAI_076', 'Ceinture de Bataille', 'ARM', NULL, 'common', 3, 0, 102, 0.5, 0, 0, 0, 11000, 2750, 1, FALSE, FALSE, 125, '', '', NULL),
+('ARM_TAI_077', 'Ceinture du Chevalier', 'ARM', NULL, 'common', 3, 0, 105, 0.5, 0, 0, 0, 12000, 3000, 1, FALSE, FALSE, 128, '', '', NULL),
+('ARM_TAI_078', 'Ceinture du Paladin', 'ARM', NULL, 'common', 3, 0, 108, 0.5, 0, 0, 0, 13000, 3250, 1, FALSE, FALSE, 130, '', '', NULL),
+('ARM_TAI_079', 'Ceinture d''Acier Noir', 'ARM', NULL, 'common', 3, 0, 110, 0.5, 0, 0, 0, 14000, 3500, 1, FALSE, FALSE, 132, '', '', NULL),
+('ARM_TAI_080', 'Ceinture du Titan', 'ARM', NULL, 'common', 3, 0, 115, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 135, '', '', NULL),
+('ARM_TAI_081', 'Ceinture de Cuir et Mailles', 'ARM', NULL, 'common', 3, 0, 85, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_TAI_082', 'Ceinture Tissu et Chaine', 'ARM', NULL, 'common', 3, 0, 82, 0.5, 0, 0, 0, 5200, 1300, 1, FALSE, FALSE, 98, '', '', NULL),
+('ARM_TAI_083', 'Ceinture Hybride de Survie', 'ARM', NULL, 'common', 3, 0, 88, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 102, '', '', NULL),
+('ARM_TAI_084', 'Ceinture du Rodeur', 'ARM', NULL, 'common', 3, 0, 92, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 105, '', '', NULL),
+('ARM_TAI_085', 'Ceinture de l''Hybride', 'ARM', NULL, 'common', 3, 0, 95, 0.5, 0, 0, 0, 9000, 2250, 1, FALSE, FALSE, 108, '', '', NULL),
+('ARM_TAI_086', 'Ceinture de Cuir Renforce Mithril', 'ARM', NULL, 'common', 4, 0, 110, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 120, '', '', NULL),
+('ARM_TAI_087', 'Ceinture de Soie et Acier', 'ARM', NULL, 'common', 4, 0, 108, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 118, '', '', NULL),
+('ARM_TAI_088', 'Ceinture de Maille et Plaque d''Adamantium', 'ARM', NULL, 'common', 4, 0, 115, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 125, '', '', NULL),
+('ARM_TAI_089', 'Ceinture du Chasseur de Tresors', 'ARM', NULL, 'common', 4, 0, 112, 0.5, 0, 0, 0, 22000, 5500, 1, FALSE, FALSE, 122, '', '', NULL),
+('ARM_TAI_090', 'Ceinture de l''Equilibre', 'ARM', NULL, 'common', 4, 0, 120, 0.5, 0, 0, 0, 25000, 6250, 1, FALSE, FALSE, 128, '', '', NULL),
+('ARM_TAI_091', 'Ceinture du Vent Premier', 'ARM', NULL, 'common', 4, 0, 125, 0.5, 0, 0, 0, 30000, 7500, 1, FALSE, FALSE, 130, '', '', NULL),
+('ARM_TAI_092', 'Ceinture du Serment de Feu', 'ARM', NULL, 'common', 4, 0, 130, 0.5, 0, 0, 0, 32000, 8000, 1, FALSE, FALSE, 135, '', '', NULL),
+('ARM_TAI_093', 'Ceinture de l''Onde Primordiale', 'ARM', NULL, 'common', 4, 0, 120, 0.5, 0, 0, 0, 34000, 8500, 1, FALSE, FALSE, 132, '', '', NULL),
+('ARM_TAI_094', 'Ceinture de la Terre Mere', 'ARM', NULL, 'common', 4, 0, 140, 0.5, 0, 0, 0, 35000, 8750, 1, FALSE, FALSE, 140, '', '', NULL),
+('ARM_TAI_095', 'Ceinture du Roi des Ombres', 'ARM', NULL, 'common', 4, 0, 125, 0.5, 0, 0, 0, 36000, 9000, 1, FALSE, FALSE, 138, '', '', NULL),
+('ARM_TAI_096', 'Ceinture du Crepuscule Eternel', 'ARM', NULL, 'common', 4, 0, 128, 0.5, 0, 0, 0, 40000, 10000, 1, FALSE, FALSE, 140, '', '', NULL),
+('ARM_TAI_097', 'Ceinture de l''Aube Doree', 'ARM', NULL, 'common', 4, 0, 130, 0.5, 0, 0, 0, 42000, 10500, 1, FALSE, FALSE, 142, '', '', NULL),
+('ARM_TAI_098', 'Ceinture du Neant Scelle', 'ARM', NULL, 'common', 4, 0, 135, 0.5, 0, 0, 0, 50000, 12500, 1, FALSE, FALSE, 145, '', '', NULL),
+('ARM_TAI_099', 'Ceinture de la Deesse Mere', 'ARM', NULL, 'common', 4, 0, 140, 0.5, 0, 0, 0, 55000, 13750, 1, FALSE, FALSE, 148, '', '', NULL),
+('ARM_TAI_100', 'Ceinture d''Yggdrasil', 'ARM', NULL, 'common', 4, 0, 150, 0.5, 0, 0, 0, 65000, 16250, 1, FALSE, FALSE, 150, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('ARM_TET_001', 'Capuche de l''Initié Sylvestre', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 180, 45, 1, FALSE, FALSE, 160, '', '', NULL),
 ('ARM_TET_002', 'Bandeau de Plume-Vive', 'ARM', NULL, 'uncommon', 1, 0, 11, 0.5, 0, 0, 0, 340, 85, 1, FALSE, FALSE, 200, '', '', NULL),
@@ -512,107 +512,107 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('ARM_TET_099', 'Couronne Funéraire de Pennroth', 'ARM', NULL, 'common', 5, 0, 132, 0.5, 0, 0, 0, 10100, 2525, 1, FALSE, FALSE, 990, '', '', NULL),
 ('ARM_TET_100', 'Feuille d''Yggdrasil Cristallisée', 'ARM', NULL, 'common', 5, 0, 200, 0.5, 0, 0, 0, 30, 7, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_TOR_001', 'ARM_TOR_001 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 20, '', '', NULL),
-('ARM_TOR_002', 'ARM_TOR_002 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 22, '', '', NULL),
-('ARM_TOR_003', 'ARM_TOR_003 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 24, '', '', NULL),
-('ARM_TOR_004', 'ARM_TOR_004 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 26, '', '', NULL),
-('ARM_TOR_005', 'ARM_TOR_005 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 28, '', '', NULL),
-('ARM_TOR_006', 'ARM_TOR_006 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 30, '', '', NULL),
-('ARM_TOR_007', 'ARM_TOR_007 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 32, '', '', NULL),
-('ARM_TOR_008', 'ARM_TOR_008 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 34, '', '', NULL),
-('ARM_TOR_009', 'ARM_TOR_009 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 36, '', '', NULL),
-('ARM_TOR_010', 'ARM_TOR_010 — Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 14, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 38, '', '', NULL),
-('ARM_TOR_011', 'ARM_TOR_011 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 13, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 25, '', '', NULL),
-('ARM_TOR_012', 'ARM_TOR_012 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 27, '', '', NULL),
-('ARM_TOR_013', 'ARM_TOR_013 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 29, '', '', NULL),
-('ARM_TOR_014', 'ARM_TOR_014 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 31, '', '', NULL),
-('ARM_TOR_015', 'ARM_TOR_015 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 33, '', '', NULL),
-('ARM_TOR_016', 'ARM_TOR_016 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 35, '', '', NULL),
-('ARM_TOR_017', 'ARM_TOR_017 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 37, '', '', NULL),
-('ARM_TOR_018', 'ARM_TOR_018 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 39, '', '', NULL),
-('ARM_TOR_019', 'ARM_TOR_019 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 41, '', '', NULL),
-('ARM_TOR_020', 'ARM_TOR_020 — Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 43, '', '', NULL),
-('ARM_TOR_021', 'ARM_TOR_021 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 420, 105, 1, FALSE, FALSE, 25, '', '', NULL),
-('ARM_TOR_022', 'ARM_TOR_022 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 440, 110, 1, FALSE, FALSE, 27, '', '', NULL),
-('ARM_TOR_023', 'ARM_TOR_023 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 460, 115, 1, FALSE, FALSE, 29, '', '', NULL),
-('ARM_TOR_024', 'ARM_TOR_024 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 14, 0.5, 0, 0, 0, 480, 120, 1, FALSE, FALSE, 31, '', '', NULL),
-('ARM_TOR_025', 'ARM_TOR_025 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 15, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 33, '', '', NULL),
-('ARM_TOR_026', 'ARM_TOR_026 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 16, 0.5, 0, 0, 0, 520, 130, 1, FALSE, FALSE, 35, '', '', NULL),
-('ARM_TOR_027', 'ARM_TOR_027 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 17, 0.5, 0, 0, 0, 540, 135, 1, FALSE, FALSE, 37, '', '', NULL),
-('ARM_TOR_028', 'ARM_TOR_028 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 18, 0.5, 0, 0, 0, 560, 140, 1, FALSE, FALSE, 39, '', '', NULL),
-('ARM_TOR_029', 'ARM_TOR_029 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 19, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 41, '', '', NULL),
-('ARM_TOR_030', 'ARM_TOR_030 — Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 20, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 43, '', '', NULL),
-('ARM_TOR_031', 'ARM_TOR_031 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 1130, 282, 1, FALSE, FALSE, 35, '', '', NULL),
-('ARM_TOR_032', 'ARM_TOR_032 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 1160, 290, 1, FALSE, FALSE, 37, '', '', NULL),
-('ARM_TOR_033', 'ARM_TOR_033 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 1190, 297, 1, FALSE, FALSE, 39, '', '', NULL),
-('ARM_TOR_034', 'ARM_TOR_034 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 1220, 305, 1, FALSE, FALSE, 41, '', '', NULL),
-('ARM_TOR_035', 'ARM_TOR_035 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 1250, 312, 1, FALSE, FALSE, 43, '', '', NULL),
-('ARM_TOR_036', 'ARM_TOR_036 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 1280, 320, 1, FALSE, FALSE, 45, '', '', NULL),
-('ARM_TOR_037', 'ARM_TOR_037 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1310, 327, 1, FALSE, FALSE, 47, '', '', NULL),
-('ARM_TOR_038', 'ARM_TOR_038 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1340, 335, 1, FALSE, FALSE, 49, '', '', NULL),
-('ARM_TOR_039', 'ARM_TOR_039 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1370, 342, 1, FALSE, FALSE, 51, '', '', NULL),
-('ARM_TOR_040', 'ARM_TOR_040 — Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 53, '', '', NULL),
-('ARM_TOR_041', 'ARM_TOR_041 — Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 1250, 312, 1, FALSE, FALSE, 45, '', '', NULL),
-('ARM_TOR_042', 'ARM_TOR_042 — Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 47, '', '', NULL),
-('ARM_TOR_043', 'ARM_TOR_043 — Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 49, '', '', NULL),
-('ARM_TOR_044', 'ARM_TOR_044 — Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 51, '', '', NULL),
-('ARM_TOR_045', 'ARM_TOR_045 — Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1450, 362, 1, FALSE, FALSE, 53, '', '', NULL),
-('ARM_TOR_046', 'ARM_TOR_046 — Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 26, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_TOR_047', 'ARM_TOR_047 — Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 27, 0.5, 0, 0, 0, 1550, 387, 1, FALSE, FALSE, 57, '', '', NULL),
-('ARM_TOR_048', 'ARM_TOR_048 — Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 28, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 59, '', '', NULL),
-('ARM_TOR_049', 'ARM_TOR_049 — Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 29, 0.5, 0, 0, 0, 1650, 412, 1, FALSE, FALSE, 61, '', '', NULL),
-('ARM_TOR_050', 'ARM_TOR_050 — Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 30, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 63, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_TOR_001', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 5, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 20, '', '', NULL),
+('ARM_TOR_002', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 6, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 22, '', '', NULL),
+('ARM_TOR_003', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 7, 0.5, 0, 0, 0, 250, 62, 1, FALSE, FALSE, 24, '', '', NULL),
+('ARM_TOR_004', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 8, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 26, '', '', NULL),
+('ARM_TOR_005', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 9, 0.5, 0, 0, 0, 350, 87, 1, FALSE, FALSE, 28, '', '', NULL),
+('ARM_TOR_006', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 10, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 30, '', '', NULL),
+('ARM_TOR_007', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 32, '', '', NULL),
+('ARM_TOR_008', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 34, '', '', NULL),
+('ARM_TOR_009', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 550, 137, 1, FALSE, FALSE, 36, '', '', NULL),
+('ARM_TOR_010', 'Tunique de Lin d''Alne', 'ARM', NULL, 'common', 1, 0, 14, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 38, '', '', NULL),
+('ARM_TOR_011', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 13, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 25, '', '', NULL),
+('ARM_TOR_012', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 14, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 27, '', '', NULL),
+('ARM_TOR_013', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 15, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 29, '', '', NULL),
+('ARM_TOR_014', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 31, '', '', NULL),
+('ARM_TOR_015', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 33, '', '', NULL),
+('ARM_TOR_016', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 35, '', '', NULL),
+('ARM_TOR_017', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 37, '', '', NULL),
+('ARM_TOR_018', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 39, '', '', NULL),
+('ARM_TOR_019', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 41, '', '', NULL),
+('ARM_TOR_020', 'Robe de Soie d''Alne', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 43, '', '', NULL),
+('ARM_TOR_021', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 11, 0.5, 0, 0, 0, 420, 105, 1, FALSE, FALSE, 25, '', '', NULL),
+('ARM_TOR_022', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 12, 0.5, 0, 0, 0, 440, 110, 1, FALSE, FALSE, 27, '', '', NULL),
+('ARM_TOR_023', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 13, 0.5, 0, 0, 0, 460, 115, 1, FALSE, FALSE, 29, '', '', NULL),
+('ARM_TOR_024', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 14, 0.5, 0, 0, 0, 480, 120, 1, FALSE, FALSE, 31, '', '', NULL),
+('ARM_TOR_025', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 15, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 33, '', '', NULL),
+('ARM_TOR_026', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 16, 0.5, 0, 0, 0, 520, 130, 1, FALSE, FALSE, 35, '', '', NULL),
+('ARM_TOR_027', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 17, 0.5, 0, 0, 0, 540, 135, 1, FALSE, FALSE, 37, '', '', NULL),
+('ARM_TOR_028', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 18, 0.5, 0, 0, 0, 560, 140, 1, FALSE, FALSE, 39, '', '', NULL),
+('ARM_TOR_029', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 19, 0.5, 0, 0, 0, 580, 145, 1, FALSE, FALSE, 41, '', '', NULL),
+('ARM_TOR_030', 'Cuir de Randonneur de Freelia', 'ARM', NULL, 'common', 1, 0, 20, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 43, '', '', NULL),
+('ARM_TOR_031', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 16, 0.5, 0, 0, 0, 1130, 282, 1, FALSE, FALSE, 35, '', '', NULL),
+('ARM_TOR_032', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 17, 0.5, 0, 0, 0, 1160, 290, 1, FALSE, FALSE, 37, '', '', NULL),
+('ARM_TOR_033', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 18, 0.5, 0, 0, 0, 1190, 297, 1, FALSE, FALSE, 39, '', '', NULL),
+('ARM_TOR_034', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 19, 0.5, 0, 0, 0, 1220, 305, 1, FALSE, FALSE, 41, '', '', NULL),
+('ARM_TOR_035', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 20, 0.5, 0, 0, 0, 1250, 312, 1, FALSE, FALSE, 43, '', '', NULL),
+('ARM_TOR_036', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 1280, 320, 1, FALSE, FALSE, 45, '', '', NULL),
+('ARM_TOR_037', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1310, 327, 1, FALSE, FALSE, 47, '', '', NULL),
+('ARM_TOR_038', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1340, 335, 1, FALSE, FALSE, 49, '', '', NULL),
+('ARM_TOR_039', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1370, 342, 1, FALSE, FALSE, 51, '', '', NULL),
+('ARM_TOR_040', 'Cuir Renforce de Freelia', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 53, '', '', NULL),
+('ARM_TOR_041', 'Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 21, 0.5, 0, 0, 0, 1250, 312, 1, FALSE, FALSE, 45, '', '', NULL),
+('ARM_TOR_042', 'Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 22, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 47, '', '', NULL),
+('ARM_TOR_043', 'Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 23, 0.5, 0, 0, 0, 1350, 337, 1, FALSE, FALSE, 49, '', '', NULL),
+('ARM_TOR_044', 'Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 24, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 51, '', '', NULL),
+('ARM_TOR_045', 'Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 25, 0.5, 0, 0, 0, 1450, 362, 1, FALSE, FALSE, 53, '', '', NULL),
+('ARM_TOR_046', 'Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 26, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_TOR_047', 'Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 27, 0.5, 0, 0, 0, 1550, 387, 1, FALSE, FALSE, 57, '', '', NULL),
+('ARM_TOR_048', 'Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 28, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 59, '', '', NULL),
+('ARM_TOR_049', 'Cotte de Mailles de Granzam', 'ARM', NULL, 'common', 2, 0, 29, 0.5, 0, 0, 0, 1650, 412, 1, FALSE, FALSE, 61, '', '', NULL),
+('ARM_TOR_050', 'Cotte de Mailles de Voulg', 'ARM', NULL, 'common', 2, 0, 30, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 63, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('ARM_TOR_051', 'ARM_TOR_051 — Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 41, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_TOR_052', 'ARM_TOR_052 — Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 58, '', '', NULL),
-('ARM_TOR_053', 'ARM_TOR_053 — Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 43, 0.5, 0, 0, 0, 4300, 1075, 1, FALSE, FALSE, 61, '', '', NULL),
-('ARM_TOR_054', 'ARM_TOR_054 — Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 44, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 64, '', '', NULL),
-('ARM_TOR_055', 'ARM_TOR_055 — Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 45, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 67, '', '', NULL),
-('ARM_TOR_056', 'ARM_TOR_056 — Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 4600, 1150, 1, FALSE, FALSE, 70, '', '', NULL),
-('ARM_TOR_057', 'ARM_TOR_057 — Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 47, 0.5, 0, 0, 0, 4700, 1175, 1, FALSE, FALSE, 73, '', '', NULL),
-('ARM_TOR_058', 'ARM_TOR_058 — Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 4800, 1200, 1, FALSE, FALSE, 76, '', '', NULL),
-('ARM_TOR_059', 'ARM_TOR_059 — Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 49, 0.5, 0, 0, 0, 4900, 1225, 1, FALSE, FALSE, 79, '', '', NULL),
-('ARM_TOR_060', 'ARM_TOR_060 — Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 82, '', '', NULL),
-('ARM_TOR_061', 'ARM_TOR_061 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 3100, 775, 1, FALSE, FALSE, 55, '', '', NULL),
-('ARM_TOR_062', 'ARM_TOR_062 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 47, 0.5, 0, 0, 0, 3200, 800, 1, FALSE, FALSE, 57, '', '', NULL),
-('ARM_TOR_063', 'ARM_TOR_063 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 3300, 825, 1, FALSE, FALSE, 59, '', '', NULL),
-('ARM_TOR_064', 'ARM_TOR_064 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 49, 0.5, 0, 0, 0, 3400, 850, 1, FALSE, FALSE, 61, '', '', NULL),
-('ARM_TOR_065', 'ARM_TOR_065 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 63, '', '', NULL),
-('ARM_TOR_066', 'ARM_TOR_066 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 51, 0.5, 0, 0, 0, 3600, 900, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_TOR_067', 'ARM_TOR_067 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 3700, 925, 1, FALSE, FALSE, 67, '', '', NULL),
-('ARM_TOR_068', 'ARM_TOR_068 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 53, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 69, '', '', NULL),
-('ARM_TOR_069', 'ARM_TOR_069 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 54, 0.5, 0, 0, 0, 3900, 975, 1, FALSE, FALSE, 71, '', '', NULL),
-('ARM_TOR_070', 'ARM_TOR_070 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 55, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 73, '', '', NULL),
-('ARM_TOR_071', 'ARM_TOR_071 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 56, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 75, '', '', NULL),
-('ARM_TOR_072', 'ARM_TOR_072 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 57, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 77, '', '', NULL),
-('ARM_TOR_073', 'ARM_TOR_073 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 4300, 1075, 1, FALSE, FALSE, 79, '', '', NULL),
-('ARM_TOR_074', 'ARM_TOR_074 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 59, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 81, '', '', NULL),
-('ARM_TOR_075', 'ARM_TOR_075 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 60, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 83, '', '', NULL),
-('ARM_TOR_076', 'ARM_TOR_076 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 61, 0.5, 0, 0, 0, 4600, 1150, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_TOR_077', 'ARM_TOR_077 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 62, 0.5, 0, 0, 0, 4700, 1175, 1, FALSE, FALSE, 87, '', '', NULL),
-('ARM_TOR_078', 'ARM_TOR_078 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 63, 0.5, 0, 0, 0, 4800, 1200, 1, FALSE, FALSE, 89, '', '', NULL),
-('ARM_TOR_079', 'ARM_TOR_079 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 64, 0.5, 0, 0, 0, 4900, 1225, 1, FALSE, FALSE, 91, '', '', NULL),
-('ARM_TOR_080', 'ARM_TOR_080 — Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 65, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 93, '', '', NULL),
-('ARM_TOR_081', 'ARM_TOR_081 — Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 21, 0.5, 0, 0, 0, 3600, 900, 1, FALSE, FALSE, 38, '', '', NULL),
-('ARM_TOR_082', 'ARM_TOR_082 — Robe de Soie des Arcanes de Swilvane', 'ARM', NULL, 'common', 3, 0, 22, 0.5, 0, 0, 0, 3700, 925, 1, FALSE, FALSE, 41, '', '', NULL),
-('ARM_TOR_083', 'ARM_TOR_083 — Robe de Soie des Arcanes de Penwether', 'ARM', NULL, 'common', 3, 0, 23, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 44, '', '', NULL),
-('ARM_TOR_084', 'ARM_TOR_084 — Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 24, 0.5, 0, 0, 0, 3900, 975, 1, FALSE, FALSE, 47, '', '', NULL),
-('ARM_TOR_085', 'ARM_TOR_085 — Robe de Soie des Arcanes de Swilvane', 'ARM', NULL, 'common', 3, 0, 25, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 50, '', '', NULL),
-('ARM_TOR_086', 'ARM_TOR_086 — Robe de Soie des Arcanes de Penwether', 'ARM', NULL, 'common', 3, 0, 26, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 53, '', '', NULL),
-('ARM_TOR_087', 'ARM_TOR_087 — Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 27, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 56, '', '', NULL),
-('ARM_TOR_088', 'ARM_TOR_088 — Robe de Soie des Arcanes de Swilvane', 'ARM', NULL, 'common', 3, 0, 28, 0.5, 0, 0, 0, 4300, 1075, 1, FALSE, FALSE, 59, '', '', NULL),
-('ARM_TOR_089', 'ARM_TOR_089 — Robe de Soie des Arcanes de Penwether', 'ARM', NULL, 'common', 3, 0, 29, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 62, '', '', NULL),
-('ARM_TOR_090', 'ARM_TOR_090 — Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 65, '', '', NULL),
-('ARM_TOR_091', 'ARM_TOR_091 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 81, 0.5, 0, 0, 0, 20200, 5050, 1, FALSE, FALSE, 80, '', '', NULL),
-('ARM_TOR_092', 'ARM_TOR_092 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 82, 0.5, 0, 0, 0, 20400, 5100, 1, FALSE, FALSE, 85, '', '', NULL),
-('ARM_TOR_093', 'ARM_TOR_093 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 83, 0.5, 0, 0, 0, 20600, 5150, 1, FALSE, FALSE, 90, '', '', NULL),
-('ARM_TOR_094', 'ARM_TOR_094 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 84, 0.5, 0, 0, 0, 20800, 5200, 1, FALSE, FALSE, 95, '', '', NULL),
-('ARM_TOR_095', 'ARM_TOR_095 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 85, 0.5, 0, 0, 0, 21000, 5250, 1, FALSE, FALSE, 100, '', '', NULL),
-('ARM_TOR_096', 'ARM_TOR_096 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 86, 0.5, 0, 0, 0, 21200, 5300, 1, FALSE, FALSE, 105, '', '', NULL),
-('ARM_TOR_097', 'ARM_TOR_097 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 87, 0.5, 0, 0, 0, 21400, 5350, 1, FALSE, FALSE, 110, '', '', NULL),
-('ARM_TOR_098', 'ARM_TOR_098 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 88, 0.5, 0, 0, 0, 21600, 5400, 1, FALSE, FALSE, 115, '', '', NULL),
-('ARM_TOR_099', 'ARM_TOR_099 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 89, 0.5, 0, 0, 0, 21800, 5450, 1, FALSE, FALSE, 120, '', '', NULL),
-('ARM_TOR_100', 'ARM_TOR_100 — Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 90, 0.5, 0, 0, 0, 22000, 5500, 1, FALSE, FALSE, 125, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('ARM_TOR_051', 'Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 41, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_TOR_052', 'Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 42, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 58, '', '', NULL),
+('ARM_TOR_053', 'Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 43, 0.5, 0, 0, 0, 4300, 1075, 1, FALSE, FALSE, 61, '', '', NULL),
+('ARM_TOR_054', 'Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 44, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 64, '', '', NULL),
+('ARM_TOR_055', 'Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 45, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 67, '', '', NULL),
+('ARM_TOR_056', 'Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 4600, 1150, 1, FALSE, FALSE, 70, '', '', NULL),
+('ARM_TOR_057', 'Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 47, 0.5, 0, 0, 0, 4700, 1175, 1, FALSE, FALSE, 73, '', '', NULL),
+('ARM_TOR_058', 'Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 4800, 1200, 1, FALSE, FALSE, 76, '', '', NULL),
+('ARM_TOR_059', 'Grandes Mailles de Granzam', 'ARM', NULL, 'common', 3, 0, 49, 0.5, 0, 0, 0, 4900, 1225, 1, FALSE, FALSE, 79, '', '', NULL),
+('ARM_TOR_060', 'Grandes Mailles de Voulg', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 82, '', '', NULL),
+('ARM_TOR_061', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 46, 0.5, 0, 0, 0, 3100, 775, 1, FALSE, FALSE, 55, '', '', NULL),
+('ARM_TOR_062', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 47, 0.5, 0, 0, 0, 3200, 800, 1, FALSE, FALSE, 57, '', '', NULL),
+('ARM_TOR_063', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 48, 0.5, 0, 0, 0, 3300, 825, 1, FALSE, FALSE, 59, '', '', NULL),
+('ARM_TOR_064', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 49, 0.5, 0, 0, 0, 3400, 850, 1, FALSE, FALSE, 61, '', '', NULL),
+('ARM_TOR_065', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 50, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 63, '', '', NULL),
+('ARM_TOR_066', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 51, 0.5, 0, 0, 0, 3600, 900, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_TOR_067', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 52, 0.5, 0, 0, 0, 3700, 925, 1, FALSE, FALSE, 67, '', '', NULL),
+('ARM_TOR_068', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 53, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 69, '', '', NULL),
+('ARM_TOR_069', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 54, 0.5, 0, 0, 0, 3900, 975, 1, FALSE, FALSE, 71, '', '', NULL),
+('ARM_TOR_070', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 55, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 73, '', '', NULL),
+('ARM_TOR_071', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 56, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 75, '', '', NULL),
+('ARM_TOR_072', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 57, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 77, '', '', NULL),
+('ARM_TOR_073', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 58, 0.5, 0, 0, 0, 4300, 1075, 1, FALSE, FALSE, 79, '', '', NULL),
+('ARM_TOR_074', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 59, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 81, '', '', NULL),
+('ARM_TOR_075', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 60, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 83, '', '', NULL),
+('ARM_TOR_076', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 61, 0.5, 0, 0, 0, 4600, 1150, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_TOR_077', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 62, 0.5, 0, 0, 0, 4700, 1175, 1, FALSE, FALSE, 87, '', '', NULL),
+('ARM_TOR_078', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 63, 0.5, 0, 0, 0, 4800, 1200, 1, FALSE, FALSE, 89, '', '', NULL),
+('ARM_TOR_079', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 64, 0.5, 0, 0, 0, 4900, 1225, 1, FALSE, FALSE, 91, '', '', NULL),
+('ARM_TOR_080', 'Plastron de Brokkheim', 'ARM', NULL, 'common', 3, 0, 65, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 93, '', '', NULL),
+('ARM_TOR_081', 'Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 21, 0.5, 0, 0, 0, 3600, 900, 1, FALSE, FALSE, 38, '', '', NULL),
+('ARM_TOR_082', 'Robe de Soie des Arcanes de Swilvane', 'ARM', NULL, 'common', 3, 0, 22, 0.5, 0, 0, 0, 3700, 925, 1, FALSE, FALSE, 41, '', '', NULL),
+('ARM_TOR_083', 'Robe de Soie des Arcanes de Penwether', 'ARM', NULL, 'common', 3, 0, 23, 0.5, 0, 0, 0, 3800, 950, 1, FALSE, FALSE, 44, '', '', NULL),
+('ARM_TOR_084', 'Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 24, 0.5, 0, 0, 0, 3900, 975, 1, FALSE, FALSE, 47, '', '', NULL),
+('ARM_TOR_085', 'Robe de Soie des Arcanes de Swilvane', 'ARM', NULL, 'common', 3, 0, 25, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 50, '', '', NULL),
+('ARM_TOR_086', 'Robe de Soie des Arcanes de Penwether', 'ARM', NULL, 'common', 3, 0, 26, 0.5, 0, 0, 0, 4100, 1025, 1, FALSE, FALSE, 53, '', '', NULL),
+('ARM_TOR_087', 'Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 27, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 56, '', '', NULL),
+('ARM_TOR_088', 'Robe de Soie des Arcanes de Swilvane', 'ARM', NULL, 'common', 3, 0, 28, 0.5, 0, 0, 0, 4300, 1075, 1, FALSE, FALSE, 59, '', '', NULL),
+('ARM_TOR_089', 'Robe de Soie des Arcanes de Penwether', 'ARM', NULL, 'common', 3, 0, 29, 0.5, 0, 0, 0, 4400, 1100, 1, FALSE, FALSE, 62, '', '', NULL),
+('ARM_TOR_090', 'Robe de Soie des Arcanes de Alne', 'ARM', NULL, 'common', 3, 0, 30, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 65, '', '', NULL),
+('ARM_TOR_091', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 81, 0.5, 0, 0, 0, 20200, 5050, 1, FALSE, FALSE, 80, '', '', NULL),
+('ARM_TOR_092', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 82, 0.5, 0, 0, 0, 20400, 5100, 1, FALSE, FALSE, 85, '', '', NULL),
+('ARM_TOR_093', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 83, 0.5, 0, 0, 0, 20600, 5150, 1, FALSE, FALSE, 90, '', '', NULL),
+('ARM_TOR_094', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 84, 0.5, 0, 0, 0, 20800, 5200, 1, FALSE, FALSE, 95, '', '', NULL),
+('ARM_TOR_095', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 85, 0.5, 0, 0, 0, 21000, 5250, 1, FALSE, FALSE, 100, '', '', NULL),
+('ARM_TOR_096', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 86, 0.5, 0, 0, 0, 21200, 5300, 1, FALSE, FALSE, 105, '', '', NULL),
+('ARM_TOR_097', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 87, 0.5, 0, 0, 0, 21400, 5350, 1, FALSE, FALSE, 110, '', '', NULL),
+('ARM_TOR_098', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 88, 0.5, 0, 0, 0, 21600, 5400, 1, FALSE, FALSE, 115, '', '', NULL),
+('ARM_TOR_099', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 89, 0.5, 0, 0, 0, 21800, 5450, 1, FALSE, FALSE, 120, '', '', NULL),
+('ARM_TOR_100', 'Cuirasse Legendaire de Brokkheim', 'ARM', NULL, 'common', 4, 0, 90, 0.5, 0, 0, 0, 22000, 5500, 1, FALSE, FALSE, 125, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('CSM_CRI_001', 'Cristal de Soin', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 1350, 337, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_CRI_002', 'Cristal de Soin Suprême', 'CSM', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 4800, 1200, 99, TRUE, FALSE, 0, '', '', NULL),
@@ -659,32 +659,32 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('CSM_NOU_033', 'Curry Ardent', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 500, 125, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_NOU_034', 'Plateau du Gourmet', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 480, 120, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_NOU_035', 'Grand Cru d''Yggdrasil', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 900, 225, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_036', 'Bière d''Alne —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 15, 3, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_037', 'Hydromel de Gattan —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 20, 5, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_038', 'Thé des Sylphes —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 20, 5, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_039', 'Jus de Fruit —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 10, 2, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_040', 'Eau de Mer Purifiée —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 8, 2, 99, TRUE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('CSM_NOU_036', 'Bière d''Alne', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 15, 3, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_037', 'Hydromel de Gattan', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 20, 5, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_038', 'Thé des Sylphes', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 20, 5, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_039', 'Jus de Fruit', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 10, 2, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_040', 'Eau de Mer Purifiée', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 8, 2, 99, TRUE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('CSM_NOU_041', 'Lait de Chèvre —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 12, 3, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_042', 'Soupe de Légumes —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 25, 6, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_043', 'Ragoût d''Haricots —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 25, 6, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_044', 'Poisson Grillé —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 40, 10, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_045', 'Tourte à la Viande —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 45, 11, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_046', 'Pain d''Épices —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 35, 8, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_047', 'Gâteau de Miel —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 50, 12, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_048', 'Vin de Feu —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 60, 15, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_049', 'Liqueur d''Ombre —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 60, 15, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_050', 'Nectar des Fées —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 80, 20, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_051', 'Bière Naine —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 100, 25, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_052', 'Whisky de Forge —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 120, 30, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_053', 'Élixir de Mana —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 150, 37, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_054', 'Ragoût du Héros —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 200, 50, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_055', 'Soupe d''Yggdrasil —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 250, 62, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_056', 'Festin Royal —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 300, 75, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_057', 'Dessert des Glaces —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 100, 25, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_058', 'Poisson Lune Grillé —', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 120, 30, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_059', 'Bière de Braise —', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 70, 17, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_NOU_060', 'Pain de Guerrier —', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 30, 7, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_041', 'Lait de Chèvre', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 12, 3, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_042', 'Soupe de Légumes', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 25, 6, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_043', 'Ragoût d''Haricots', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 25, 6, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_044', 'Poisson Grillé', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 40, 10, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_045', 'Tourte à la Viande', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 45, 11, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_046', 'Pain d''Épices', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 35, 8, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_047', 'Gâteau de Miel', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 50, 12, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_048', 'Vin de Feu', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 60, 15, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_049', 'Liqueur d''Ombre', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 60, 15, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_050', 'Nectar des Fées', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 80, 20, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_051', 'Bière Naine', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 100, 25, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_052', 'Whisky de Forge', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 120, 30, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_053', 'Élixir de Mana', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 150, 37, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_054', 'Ragoût du Héros', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 200, 50, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_055', 'Soupe d''Yggdrasil', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 250, 62, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_056', 'Festin Royal', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 300, 75, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_057', 'Dessert des Glaces', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 100, 25, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_058', 'Poisson Lune Grillé', 'CSM', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 120, 30, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_059', 'Bière de Braise', 'CSM', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 70, 17, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_NOU_060', 'Pain de Guerrier', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 30, 7, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_001', 'Parchemin de Retour à Alne', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 60, 15, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_002', 'Parchemin de Retour à la Cité Natale', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 60, 15, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_003', 'Parchemin de Rappel', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 130, 32, 99, TRUE, FALSE, 0, '', '', NULL),
@@ -739,63 +739,63 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('CSM_POT_038', 'Perle d''Air des Profondeurs', 'CSM', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 1600, 400, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_039', 'Antidote de Fond', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 200, 50, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_040', 'Sérum Neutralisant', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 600, 150, 99, TRUE, FALSE, 0, '', '', NULL),
-('DEC_FON_001', 'Fontaine d''Undine (`DEC_FON_001`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 22000, 5500, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FON_002', 'Vasque de Larmes de Puca (`DEC_FON_002`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 7000, 1750, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FON_003', 'Source Thermale Miniature (`DEC_FON_003`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6800, 1700, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_001', 'Lit de Plumes de Sylphe (`DEC_FUR_001`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_002', 'Bibliothèque de Chêne (`DEC_FUR_002`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_003', 'Grande Table de Frêne (`DEC_FUR_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_004', 'Fauteuil de Lecture Rembourré (`DEC_FUR_004`)', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_005', 'Âtre de Pierre de Granzam (`DEC_FUR_005`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_006', 'Armoire Laquée Cait Sith (`DEC_FUR_006`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_007', 'Établi Pliant de Leprechaun (`DEC_FUR_007`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_FUR_008', 'Berceau Runique (`DEC_FUR_008`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_LGT_001', 'Lanterne de Feu-Follet (`DEC_LGT_001`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_LGT_002', 'Lustre de Cristal de Brise (`DEC_LGT_002`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_LGT_003', 'Brasero de Salamander (`DEC_LGT_003`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4800, 1200, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_LGT_004', 'Bougeoir d''Ambre (`DEC_LGT_004`)', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_LGT_005', 'Globe Luminescent d''Abysse (`DEC_LGT_005`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_PLT_001', 'Bonsaï d''If (`DEC_PLT_001`)', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_PLT_002', 'Jardinière de Fleurs de Lune (`DEC_PLT_002`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_PLT_003', 'Carré d''Herbes Aromatiques (`DEC_PLT_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_PLT_004', 'Bassin de Nénuphars de Cristal (`DEC_PLT_004`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 18000, 4500, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_PLT_005', 'Lotus Flottant Doré (`DEC_PLT_005`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_PLT_006', 'Ronce Lumineuse d''Yggdrasil (`DEC_PLT_006`)', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 90000, 22500, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_001', 'Tapis Tissé des Steppes (`DEC_RUG_001`)', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_002', 'Tenture Héraldique de Guilde (`DEC_RUG_002`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_003', 'Descente de Lit en Peau d''Ours (`DEC_RUG_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_004', 'Tapisserie de Fils de Mithril (`DEC_RUG_004`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_005', 'Bannière de la Grande Forge (`DEC_RUG_005`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('DEC_FON_001', 'Fontaine d''Undine', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 22000, 5500, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FON_002', 'Vasque de Larmes de Puca', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 7000, 1750, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FON_003', 'Source Thermale Miniature', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6800, 1700, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_001', 'Lit de Plumes de Sylphe', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1800, 450, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_002', 'Bibliothèque de Chêne', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_003', 'Grande Table de Frêne', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_004', 'Fauteuil de Lecture Rembourré', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 400, 100, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_005', 'Âtre de Pierre de Granzam', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4500, 1125, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_006', 'Armoire Laquée Cait Sith', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_007', 'Établi Pliant de Leprechaun', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_FUR_008', 'Berceau Runique', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1600, 400, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_LGT_001', 'Lanterne de Feu-Follet', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_LGT_002', 'Lustre de Cristal de Brise', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_LGT_003', 'Brasero de Salamander', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4800, 1200, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_LGT_004', 'Bougeoir d''Ambre', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 300, 75, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_LGT_005', 'Globe Luminescent d''Abysse', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 16000, 4000, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_PLT_001', 'Bonsaï d''If', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_PLT_002', 'Jardinière de Fleurs de Lune', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_PLT_003', 'Carré d''Herbes Aromatiques', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1500, 375, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_PLT_004', 'Bassin de Nénuphars de Cristal', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 18000, 4500, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_PLT_005', 'Lotus Flottant Doré', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1200, 300, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_PLT_006', 'Ronce Lumineuse d''Yggdrasil', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 90000, 22500, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_RUG_001', 'Tapis Tissé des Steppes', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_RUG_002', 'Tenture Héraldique de Guilde', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_RUG_003', 'Descente de Lit en Peau d''Ours', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_RUG_004', 'Tapisserie de Fils de Mithril', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_RUG_005', 'Bannière de la Grande Forge', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('DEC_STA_001', 'Totem de Granit Gnome (`DEC_STA_001`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_STA_002', 'Statue de la Déesse-Mère (`DEC_STA_002`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_STA_003', 'Gargouille Veilleuse d''Imp (`DEC_STA_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_STA_004', 'Idole Primordiale (`DEC_STA_004`)', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 120000, 30000, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_TRO_001', 'Râtelier d''Armes Poli (`DEC_TRO_001`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_TRO_002', 'Tête de Roi-Taupe Empaillée (`DEC_TRO_002`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_TRO_003', 'Crâne de Kraken Juvénile (`DEC_TRO_003`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 17000, 4250, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_TRO_004', 'Écaille de Dragon Spectral sous Verre (`DEC_TRO_004`)', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 100000, 25000, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_TRO_005', 'Plume de Phénix Montée (`DEC_TRO_005`)', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 110000, 27500, 1, FALSE, FALSE, 0, '', '', NULL),
-('MAT_WOD_001', 'Bois d''If —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_002', 'Bois de Chêne —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_003', 'Branche de Saule —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_004', 'Bois de Frêne —', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_005', 'Bois d''Ébène —', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_006', 'Cèdre des Ombres —', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_007', 'Bois de Charme —', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_008', 'Érable de Lave —', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_009', 'Bois d''Yggdrasil —', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_010', 'Palissandre d''Ombre —', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_011', 'Bois d''Adamantium —', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_012', 'Cœur de Chêne —', 'MAT', NULL, 'uncommon', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_013', 'Bambou de Vent —', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_014', 'Bois de Rose —', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_015', 'Épicéa des Glaces —', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_016', 'Acacia des Savanes —', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_017', 'Noyer des Gnomes —', 'MAT', NULL, 'uncommon', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_018', 'Bois de Fer —', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_019', 'Bois du Monde —', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_WOD_020', 'Bois Spectral —', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('DEC_STA_001', 'Totem de Granit Gnome', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_STA_002', 'Statue de la Déesse-Mère', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_STA_003', 'Gargouille Veilleuse d''Imp', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_STA_004', 'Idole Primordiale', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 120000, 30000, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_TRO_001', 'Râtelier d''Armes Poli', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_TRO_002', 'Tête de Roi-Taupe Empaillée', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6500, 1625, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_TRO_003', 'Crâne de Kraken Juvénile', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 17000, 4250, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_TRO_004', 'Écaille de Dragon Spectral sous Verre', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 100000, 25000, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_TRO_005', 'Plume de Phénix Montée', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 110000, 27500, 1, FALSE, FALSE, 0, '', '', NULL),
+('MAT_WOD_001', 'Bois d''If', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_002', 'Bois de Chêne', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_003', 'Branche de Saule', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_004', 'Bois de Frêne', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_005', 'Bois d''Ébène', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_006', 'Cèdre des Ombres', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_007', 'Bois de Charme', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_008', 'Érable de Lave', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_009', 'Bois d''Yggdrasil', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_010', 'Palissandre d''Ombre', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_011', 'Bois d''Adamantium', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_012', 'Cœur de Chêne', 'MAT', NULL, 'uncommon', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_013', 'Bambou de Vent', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_014', 'Bois de Rose', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_015', 'Épicéa des Glaces', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_016', 'Acacia des Savanes', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_017', 'Noyer des Gnomes', 'MAT', NULL, 'uncommon', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_018', 'Bois de Fer', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_019', 'Bois du Monde', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_WOD_020', 'Bois Spectral', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_CUI_001', 'Fourrure Grise', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_CUI_002', 'Carapace Éclatée', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_CUI_003', 'Glande Bouillante', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
@@ -903,23 +903,6 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('MAT_DRP_018', 'Gemme de Sang', 'MAT', NULL, 'common', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_DRP_019', 'Essence de Yggdrasil', 'MAT', NULL, 'common', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_DRP_020', 'Cœur du Monde', 'MAT', NULL, 'common', 5, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_014', 'Plume d''Anemone —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_013', 'Fleur de Lave —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_010', 'Herbe des Savanes —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_001', 'Roseau Chantant —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_022', 'Fleur de l''Harmonie —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_007', 'Champignon Noir —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_023', 'Racine Retorse —', 'MAT', NULL, 'common', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_004', 'Cristal de Gemme —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_005', 'Herbe des Steppes —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_003', 'Lichen de Scories —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_006', 'Champignon de Forge —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_002', 'Plante d''Ombre —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_008', 'Fleur de Lune —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_009', 'Algue Lumineuse —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_020', 'Mousse des Bassins —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_025', 'Feuille d''Yggdrasil —', 'MAT', NULL, 'common', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('MAT_GEM_001', 'Gemme de Granit', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_GEM_002', 'Gemme d''Obsidienne', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_GEM_003', 'Gemme de Brise', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
@@ -930,15 +913,32 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('MAT_GEM_008', 'Opale des Ruines', 'MAT', NULL, 'epic', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_GEM_009', 'Gemme d''Ombre', 'MAT', NULL, 'epic', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_GEM_010', 'Gemme Primordiale', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_001', 'Lin Sylvestre', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_002', 'Fleur de Gravats', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_003', 'Prêle des Vapeurs', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_004', 'Mousse de Caillasse', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_005', 'Herbe des Steppes', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_006', 'Fleur de Soufre', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('MAT_HRB_007', 'Plante des Ombres', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_008', 'Fleur de Lune', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_009', 'Herbe des Marais', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_010', 'Fleur de Savane', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_011', 'Pétale de Rose Grise', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_012', 'Herbe de Mithril', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_013', 'Fleur d''Obsidienne', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_014', 'Herbe des Neiges', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_015', 'Fleur de l''Âme', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_016', 'Herbe des Ruines', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_017', 'Fleur des Forges', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_018', 'Fleur de Lotus', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_019', 'Herbe des Canaux', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_020', 'Herbe d''Eau Claire', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_021', 'Fleur de Grenat', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_022', 'Herbe du Vent', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_023', 'Fleur du Crépuscule', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_024', 'Herbe de Résine', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_025', 'Plante Primordiale', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_MIN_001', 'Minerai de Fer', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_MIN_002', 'Cuivre Brut', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_MIN_003', 'Étain des Collines', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
@@ -964,13 +964,35 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('MAT_MIN_023', 'Scorie de Mithril', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_MIN_024', 'Minerai de Lumière', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_MIN_025', 'Minerai Primordial', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_001', 'Truite Sylphe', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 6, 1, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_002', 'Carpe Dorée', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 40, 10, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_003', 'Maquereau Bleu', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 8, 2, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_004', 'Poisson-Corail', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 35, 8, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_005', 'Espadon Géant', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 120, 30, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_006', 'Anguille des Abysses', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 420, 105, 99, FALSE, TRUE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('MAT_POI_007', 'Saumon d''Argent', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 7, 1, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_008', 'Perche Chantante', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 6, 1, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_009', 'Brochet des Échos', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 38, 9, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_010', 'Poisson-Chat Tigré', 'MAT', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 36, 9, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_011', 'Poisson-Mort des Marais', 'MAT', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 400, 100, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_POI_012', 'Léviathan Miniature', 'MAT', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 1500, 375, 99, FALSE, TRUE, 0, '', '', NULL),
+('OUT_CAN_001', 'Canne en Bambou', 'MSC', 'OUT_CAN', 'common', 1, 0, 0, 0.5, 0, 0, 0, 120, 30, 1, FALSE, FALSE, 160, '', '', NULL),
+('OUT_CAN_002', 'Canne en Frêne', 'MSC', 'OUT_CAN', 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 500, 125, 1, FALSE, FALSE, 240, '', '', NULL),
+('OUT_CAN_003', 'Canne Nacrée', 'MSC', 'OUT_CAN', 'rare', 3, 0, 0, 0.5, 0, 0, 0, 2000, 500, 1, FALSE, FALSE, 360, '', '', NULL),
+('OUT_CAN_004', 'Canne de Corail Noir', 'MSC', 'OUT_CAN', 'epic', 4, 0, 0, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 520, '', '', NULL),
+('OUT_CAN_005', 'Canne du Léviathan', 'MSC', 'OUT_CAN', 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 28000, 7000, 1, FALSE, FALSE, 750, '', '', NULL),
+('OUT_PIO_001', 'Pioche en Fer', 'MSC', 'OUT_PIO', 'common', 1, 0, 0, 0.5, 0, 0, 0, 150, 37, 1, FALSE, FALSE, 160, '', '', NULL),
+('OUT_PIO_002', 'Pioche en Acier', 'MSC', 'OUT_PIO', 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 600, 150, 1, FALSE, FALSE, 240, '', '', NULL),
+('OUT_PIO_003', 'Pioche d''Obsidienne', 'MSC', 'OUT_PIO', 'rare', 3, 0, 0, 0.5, 0, 0, 0, 2400, 600, 1, FALSE, FALSE, 360, '', '', NULL),
+('OUT_PIO_004', 'Pioche en Mithril', 'MSC', 'OUT_PIO', 'epic', 4, 0, 0, 0.5, 0, 0, 0, 9000, 2250, 1, FALSE, FALSE, 520, '', '', NULL),
+('OUT_PIO_005', 'Pioche d''Orichalque', 'MSC', 'OUT_PIO', 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 30000, 7500, 1, FALSE, FALSE, 750, '', '', NULL),
 ('BAG_001', 'Besace de Cuir de Freelia', 'BAG', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_002', 'Sac de Toile de Swilvane', 'BAG', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 220, 55, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_003', 'Havresac à Maille de Granzam', 'BAG', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 240, 60, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_004', 'Sac de Marche Renforcé', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_005', 'Sac d''Explorateur', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 0, '', '', NULL),
-('BAG_006', 'Sac de Marchand', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('BAG_006', 'Sac de Marchand', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_007', 'Sac de Cuir Épais', 'BAG', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_008', 'Sac du Plongeur Undine', 'BAG', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_009', 'Sac Ignifuge de Gattan', 'BAG', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 0, '', '', NULL),
@@ -996,66 +1018,366 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('HRN_008', 'Harnais de l''Arsenal', 'HRN', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 6000, 1500, 1, FALSE, FALSE, 0, '', '', NULL),
 ('HRN_009', 'Baudrier du Champion', 'HRN', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 8000, 2000, 1, FALSE, FALSE, 0, '', '', NULL),
 ('MSC_ENG_001', 'Anneau d''Engagement (Ring of Betrothal)', 'MSC', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 50000, 0, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_001', 'OFT_BOT_001 — Pantalon de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_002', 'OFT_BOT_002 — Pantalon d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_003', 'OFT_BOT_003 — Pantalon de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_004', 'OFT_BOT_004 — Pantalon de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_005', 'OFT_BOT_005 — Pantalon de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_006', 'OFT_BOT_006 — Pantalon de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_007', 'OFT_BOT_007 — Pantalon de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_008', 'OFT_BOT_008 — Pantalon de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_009', 'OFT_BOT_009 — Pantalon de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_010', 'OFT_BOT_010 — Pantalon de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_011', 'OFT_BOT_011 — Pantalon de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_012', 'OFT_BOT_012 — Short de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_013', 'OFT_BOT_013 — Short d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_014', 'OFT_BOT_014 — Short de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_015', 'OFT_BOT_015 — Short de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_016', 'OFT_BOT_016 — Short de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_017', 'OFT_BOT_017 — Short de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_018', 'OFT_BOT_018 — Short de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_019', 'OFT_BOT_019 — Short de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_020', 'OFT_BOT_020 — Short de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_021', 'OFT_BOT_021 — Short de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_022', 'OFT_BOT_022 — Short de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_023', 'OFT_BOT_023 — Robe de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_024', 'OFT_BOT_024 — Robe d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_025', 'OFT_BOT_025 — Robe de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('OFT_BOT_001', 'Pantalon de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_002', 'Pantalon d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_003', 'Pantalon de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
-('OFT_BOT_026', 'OFT_BOT_026 — Robe de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_027', 'OFT_BOT_027 — Robe de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_028', 'OFT_BOT_028 — Robe de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_029', 'OFT_BOT_029 — Robe de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_030', 'OFT_BOT_030 — Robe de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_031', 'OFT_BOT_031 — Robe de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_032', 'OFT_BOT_032 — Robe de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_033', 'OFT_BOT_033 — Robe de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_001', 'OFT_TOP_001 — T-shirt de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_002', 'OFT_TOP_002 — T-shirt d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_003', 'OFT_TOP_003 — T-shirt de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_004', 'OFT_TOP_004 — T-shirt de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_005', 'OFT_TOP_005 — T-shirt de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_006', 'OFT_TOP_006 — T-shirt de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_007', 'OFT_TOP_007 — T-shirt de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_008', 'OFT_TOP_008 — T-shirt de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_009', 'OFT_TOP_009 — T-shirt de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_010', 'OFT_TOP_010 — T-shirt de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_011', 'OFT_TOP_011 — T-shirt de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_012', 'OFT_TOP_012 — Haut col rond manches courtes', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_013', 'OFT_TOP_013 — Haut col V manches longues', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_014', 'OFT_TOP_014 — Chemise légère', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_015', 'OFT_TOP_015 — Tunique paysanne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_016', 'OFT_TOP_016 — Débardeur', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_017', 'OFT_TOP_017 — Chemisier à lacets', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_018', 'OFT_TOP_018 — Corsage ample', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_019', 'OFT_TOP_019 — Haut à capuche', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_020', 'OFT_TOP_020 — Veste légère ouverte', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_021', 'OFT_TOP_021 — Blouse d''artisan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_TOP_022', 'OFT_TOP_022 — Haut à épaules dégagées', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+('OFT_BOT_004', 'Pantalon de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_005', 'Pantalon de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_006', 'Pantalon de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_007', 'Pantalon de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_008', 'Pantalon de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_009', 'Pantalon de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_010', 'Pantalon de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_011', 'Pantalon de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_012', 'Short de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_013', 'Short d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_014', 'Short de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_015', 'Short de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_016', 'Short de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_017', 'Short de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_018', 'Short de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_019', 'Short de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_020', 'Short de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_021', 'Short de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_022', 'Short de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_023', 'Robe de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_024', 'Robe d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_025', 'Robe de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_026', 'Robe de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_027', 'Robe de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_028', 'Robe de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_029', 'Robe de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_030', 'Robe de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_031', 'Robe de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_032', 'Robe de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_033', 'Robe de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_001', 'T-shirt de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_002', 'T-shirt d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_003', 'T-shirt de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_004', 'T-shirt de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_005', 'T-shirt de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_006', 'T-shirt de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_007', 'T-shirt de Lioda', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_008', 'T-shirt de Duskarn', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_009', 'T-shirt de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_010', 'T-shirt de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_011', 'T-shirt de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_012', 'Haut col rond manches courtes', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_013', 'Haut col V manches longues', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_014', 'Chemise légère', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_015', 'Tunique paysanne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_016', 'Débardeur', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_017', 'Chemisier à lacets', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_018', 'Corsage ample', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_019', 'Haut à capuche', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_020', 'Veste légère ouverte', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('OFT_TOP_021', 'Blouse d''artisan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_TOP_022', 'Haut à épaules dégagées', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 
--- Items : 1030 lignes
+-- Items : 1052 lignes
 -- ============================================================
 -- T_MONSTERS_DICT
+-- ============================================================
+-- T_RESOURCE_NODES
+-- ============================================================
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_001', 'FLORA', 'Plume d''Anemone', 'ZONE_SYL_HUNT_001', 'MAT_HRB_014', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_002', 'FLORA', 'Mousse Volante', 'ZONE_SYL_HUNT_001', 'MAT_HRB_014', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_003', 'FLORA', 'Fleur de Cumulus', 'ZONE_SYL_HUNT_001', 'MAT_HRB_014', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_004', 'FLORA', 'Herbe Siffleuse', 'ZONE_SYL_HUNT_001', 'MAT_HRB_014', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_005', 'FLORA', 'Petale de Nacre', 'ZONE_SYL_HUNT_002', 'MAT_HRB_014', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_006', 'FLORA', 'Bourgeon Eolien', 'ZONE_SYL_HUNT_002', 'MAT_HRB_014', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_007', 'FLORA', 'Graine de Sylphe', 'ZONE_SYL_HUNT_002', 'MAT_HRB_014', 1, 3, 1, 4, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_008', 'FLORA', 'Fleur d''Altitude', 'ZONE_SYL_HUNT_002', 'MAT_HRB_014', 1, 3, 1, 4, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_009', 'FLORA', 'Herbe des Cimes', 'ZONE_SYL_HUNT_002', 'MAT_HRB_014', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_010', 'FLORA', 'Mousse des Nuages', 'ZONE_SYL_HUNT_002', 'MAT_HRB_014', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_011', 'FLORA', 'Fleur de Lave', 'ZONE_SAL_HUNT_001', 'MAT_HRB_013', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_012', 'FLORA', 'Champignon de Cendre', 'ZONE_SAL_HUNT_001', 'MAT_HRB_013', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_013', 'FLORA', 'Herbe de Braise', 'ZONE_SAL_HUNT_001', 'MAT_HRB_013', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_014', 'FLORA', 'Fleur de Soufre', 'ZONE_SAL_HUNT_001', 'MAT_HRB_013', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_015', 'FLORA', 'Ronce de Magma', 'ZONE_SAL_HUNT_002', 'MAT_HRB_013', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_016', 'FLORA', 'Corail de Feu', 'ZONE_SAL_HUNT_002', 'MAT_HRB_013', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_017', 'FLORA', 'Fougere de la Caldera', 'ZONE_SAL_HUNT_002', 'MAT_HRB_013', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_018', 'FLORA', 'Mousse Ignifugee', 'ZONE_SAL_HUNT_002', 'MAT_HRB_013', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_019', 'FLORA', 'Epine de la Fournaise', 'ZONE_SAL_HUNT_002', 'MAT_HRB_013', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_020', 'FLORA', 'Fleur du Cratere', 'ZONE_SAL_HUNT_002', 'MAT_HRB_013', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_021', 'FLORA', 'Herbe des Savanes', 'ZONE_CAI_HUNT_001', 'MAT_HRB_010', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_022', 'FLORA', 'Baie Sauvage', 'ZONE_CAI_HUNT_001', 'MAT_HRB_010', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_023', 'FLORA', 'Fleur de la Plaine', 'ZONE_CAI_HUNT_001', 'MAT_HRB_010', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_024', 'FLORA', 'Liane de la Savane', 'ZONE_CAI_HUNT_001', 'MAT_HRB_010', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_025', 'FLORA', 'Racine de Soif', 'ZONE_CAI_HUNT_002', 'MAT_HRB_010', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_026', 'FLORA', 'Epine de Garde', 'ZONE_CAI_HUNT_002', 'MAT_HRB_010', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_027', 'FLORA', 'Fleur du Soleil Couchant', 'ZONE_CAI_HUNT_002', 'MAT_HRB_010', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_028', 'FLORA', 'Herbe a Chats Sauvage', 'ZONE_CAI_HUNT_002', 'MAT_HRB_010', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_029', 'FLORA', 'Buisson de la Steppe', 'ZONE_CAI_HUNT_002', 'MAT_HRB_010', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_030', 'FLORA', 'Fleur de l''Oasis', 'ZONE_CAI_HUNT_002', 'MAT_HRB_010', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_031', 'FLORA', 'Roseau Chantant', 'ZONE_PUC_HUNT_001', 'MAT_HRB_001', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_032', 'FLORA', 'Fleur de Tempo', 'ZONE_PUC_HUNT_001', 'MAT_HRB_001', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_033', 'FLORA', 'Herbe de la Melodie', 'ZONE_PUC_HUNT_001', 'MAT_HRB_001', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_034', 'FLORA', 'Graine de Tambour', 'ZONE_PUC_HUNT_001', 'MAT_HRB_001', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_035', 'FLORA', 'Fleur de l''Harmonie', 'ZONE_PUC_HUNT_002', 'MAT_HRB_022', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_036', 'FLORA', 'Brin d''Accord', 'ZONE_PUC_HUNT_002', 'MAT_HRB_022', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_037', 'FLORA', 'Liane Vibrante', 'ZONE_PUC_HUNT_002', 'MAT_HRB_022', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_038', 'FLORA', 'Fleur de l''Ouverture', 'ZONE_PUC_HUNT_002', 'MAT_HRB_022', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_039', 'FLORA', 'Herbe du Silence', 'ZONE_PUC_HUNT_002', 'MAT_HRB_022', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_040', 'FLORA', 'Rose de la Partition', 'ZONE_PUC_HUNT_002', 'MAT_HRB_022', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_041', 'FLORA', 'Champignon Noir', 'ZONE_IMP_HUNT_001', 'MAT_HRB_007', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_042', 'FLORA', 'Mousse d''Encre', 'ZONE_IMP_HUNT_001', 'MAT_HRB_007', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_043', 'FLORA', 'Fleur du Crepuscule', 'ZONE_IMP_HUNT_001', 'MAT_HRB_007', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_044', 'FLORA', 'Epine Tenebreuse', 'ZONE_IMP_HUNT_001', 'MAT_HRB_007', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_045', 'FLORA', 'Herbe de l''Ombre', 'ZONE_IMP_HUNT_002', 'MAT_HRB_007', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_046', 'FLORA', 'Fleur des Profondeurs', 'ZONE_IMP_HUNT_002', 'MAT_HRB_007', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_047', 'FLORA', 'Racine Retorse', 'ZONE_IMP_HUNT_002', 'MAT_HRB_023', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_048', 'FLORA', 'Graine de Nuit', 'ZONE_IMP_HUNT_002', 'MAT_HRB_023', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_049', 'FLORA', 'Fleur du Balcon', 'ZONE_IMP_HUNT_002', 'MAT_HRB_023', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_050', 'FLORA', 'Champignon des Falaises', 'ZONE_IMP_HUNT_002', 'MAT_HRB_023', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_051', 'FLORA', 'Cristal de Gemme', 'ZONE_GNO_HUNT_001', 'MAT_HRB_004', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_052', 'FLORA', 'Mousse de Granite', 'ZONE_GNO_HUNT_001', 'MAT_HRB_004', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_053', 'FLORA', 'Fleur de Pierraille', 'ZONE_GNO_HUNT_001', 'MAT_HRB_004', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_054', 'FLORA', 'Lichette de Roche', 'ZONE_GNO_HUNT_001', 'MAT_HRB_004', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_055', 'FLORA', 'Herbe des Steppes', 'ZONE_GNO_HUNT_002', 'MAT_HRB_005', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_056', 'FLORA', 'Fleur de Granit', 'ZONE_GNO_HUNT_002', 'MAT_HRB_005', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_057', 'FLORA', 'Buisson de la Carriere', 'ZONE_GNO_HUNT_002', 'MAT_HRB_005', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_058', 'FLORA', 'Fougere de la Halle', 'ZONE_GNO_HUNT_002', 'MAT_HRB_005', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_059', 'FLORA', 'Racine de Mineur', 'ZONE_GNO_HUNT_002', 'MAT_HRB_005', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_060', 'FLORA', 'Fleur de la Montagne Mere', 'ZONE_GNO_HUNT_002', 'MAT_HRB_005', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_061', 'FLORA', 'Lichen de Scories', 'ZONE_LEP_HUNT_001', 'MAT_HRB_003', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_062', 'FLORA', 'Fleur de Vapeur', 'ZONE_LEP_HUNT_001', 'MAT_HRB_003', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_063', 'FLORA', 'Mousse de la Vallee', 'ZONE_LEP_HUNT_001', 'MAT_HRB_003', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_064', 'FLORA', 'Herbe du Soufre', 'ZONE_LEP_HUNT_001', 'MAT_HRB_003', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_065', 'FLORA', 'Rose des Scories', 'ZONE_LEP_HUNT_002', 'MAT_HRB_003', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_066', 'FLORA', 'Champignon de Forge', 'ZONE_LEP_HUNT_002', 'MAT_HRB_006', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_067', 'FLORA', 'Fleur des Geysers', 'ZONE_LEP_HUNT_002', 'MAT_HRB_006', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_068', 'FLORA', 'Prele des Canaux', 'ZONE_LEP_HUNT_002', 'MAT_HRB_006', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_069', 'FLORA', 'Herbe de la Chaleur', 'ZONE_LEP_HUNT_002', 'MAT_HRB_006', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_070', 'FLORA', 'Fleur du Marteau', 'ZONE_LEP_HUNT_002', 'MAT_HRB_006', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_071', 'FLORA', 'Plante d''Ombre', 'ZONE_SPR_HUNT_001', 'MAT_HRB_002', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_072', 'FLORA', 'Epine Spectrale', 'ZONE_SPR_HUNT_001', 'MAT_HRB_002', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_073', 'FLORA', 'Fleur de Gravats', 'ZONE_SPR_HUNT_001', 'MAT_HRB_002', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_074', 'FLORA', 'Herbe des Ruines', 'ZONE_SPR_HUNT_001', 'MAT_HRB_002', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_075', 'FLORA', 'Fleur de Lune', 'ZONE_SPR_HUNT_002', 'MAT_HRB_008', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_076', 'FLORA', 'Mousse des Terres Grises', 'ZONE_SPR_HUNT_002', 'MAT_HRB_008', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_077', 'FLORA', 'Champignon du Cloitre', 'ZONE_SPR_HUNT_002', 'MAT_HRB_008', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_078', 'FLORA', 'Liane Spectrale', 'ZONE_SPR_HUNT_002', 'MAT_HRB_008', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_079', 'FLORA', 'Fleur Echo', 'ZONE_SPR_HUNT_002', 'MAT_HRB_008', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_080', 'FLORA', 'Ronce des Necropoles', 'ZONE_SPR_HUNT_002', 'MAT_HRB_008', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_081', 'FLORA', 'Algue Lumineuse', 'ZONE_UND_HUNT_001', 'MAT_HRB_009', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_082', 'FLORA', 'Corail Doux', 'ZONE_UND_HUNT_001', 'MAT_HRB_009', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_083', 'FLORA', 'Herbe des Marais', 'ZONE_UND_HUNT_001', 'MAT_HRB_009', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_084', 'FLORA', 'Fleur de Lotus Aquatique', 'ZONE_UND_HUNT_001', 'MAT_HRB_009', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_085', 'FLORA', 'Mousse des Bassins', 'ZONE_UND_HUNT_002', 'MAT_HRB_020', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_086', 'FLORA', 'Algue des Profondeurs', 'ZONE_UND_HUNT_002', 'MAT_HRB_020', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_087', 'FLORA', 'Rose des Ondes', 'ZONE_UND_HUNT_002', 'MAT_HRB_020', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_088', 'FLORA', 'Herbe d''Eau Claire', 'ZONE_UND_HUNT_002', 'MAT_HRB_020', 1, 3, 2, 4, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_089', 'FLORA', 'Corail Chantant', 'ZONE_UND_HUNT_002', 'MAT_HRB_020', 1, 3, 2, 5, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_090', 'FLORA', 'Fleur de l''Abysse', 'ZONE_UND_HUNT_002', 'MAT_HRB_020', 1, 3, 2, 6, NULL, 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_091', 'FLORA', 'Trefle', 'ZONE_NEU_CAP_001', 'MAT_HRB_001', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_092', 'FLORA', 'Paquerette', 'ZONE_NEU_CAP_001', 'MAT_HRB_001', 1, 3, 1, 1, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_093', 'FLORA', 'Ortie', 'ZONE_NEU_CAP_001', 'MAT_HRB_001', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_094', 'FLORA', 'Fleur des Champs', 'ZONE_NEU_CAP_001', 'MAT_HRB_001', 1, 3, 1, 2, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_095', 'FLORA', 'Pissenlit', 'ZONE_NEU_CAP_001', 'MAT_HRB_001', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_096', 'FLORA', 'Menthe Sauvage', 'ZONE_NEU_CAP_001', 'MAT_HRB_001', 1, 3, 1, 3, NULL, 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_097', 'FLORA', 'Feuille d''Yggdrasil', 'ZONE_YGG_DUN_001', 'MAT_HRB_025', 1, 3, 4, 35, NULL, 3600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_098', 'FLORA', 'Seve Doree', 'ZONE_YGG_DUN_001', 'MAT_HRB_025', 1, 3, 4, 36, NULL, 3600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_099', 'FLORA', 'Fleur du Monde', 'ZONE_YGG_TOP_001', 'MAT_HRB_025', 1, 3, 4, 38, NULL, 3600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FLO_100', 'FLORA', 'Bourgeon de l''Eternite', 'ZONE_YGG_TOP_001', 'MAT_HRB_025', 1, 3, 4, 40, NULL, 3600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_001', 'ORE', 'Filon — Gemme de Granit', 'ZONE_GNO_DUN_001', 'MAT_GEM_001', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_002', 'ORE', 'Filon — Gemme d''Obsidienne', 'ZONE_SAL_HUNT_001', 'MAT_GEM_002', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_003', 'ORE', 'Filon — Gemme de Brise', 'ZONE_SPR_HUNT_002', 'MAT_GEM_003', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_004', 'ORE', 'Filon — Perle d''Undine', 'ZONE_UND_HUNT_001', 'MAT_GEM_004', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_005', 'ORE', 'Filon — Rubis de Feu', 'ZONE_SAL_TWN_001', 'MAT_GEM_005', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_006', 'ORE', 'Filon — Saphir des Glaces', 'ZONE_SYL_CAP_001', 'MAT_GEM_006', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_007', 'ORE', 'Filon — Diamant de Mithril', 'ZONE_GNO_DUN_001', 'MAT_GEM_007', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_008', 'ORE', 'Filon — Opale des Ruines', 'ZONE_SPR_DUN_001', 'MAT_GEM_008', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_009', 'ORE', 'Filon — Gemme d''Ombre', 'ZONE_IMP_HUNT_001', 'MAT_GEM_009', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_010', 'ORE', 'Filon — Gemme Primordiale', 'ZONE_NEU_CAP_001', 'MAT_GEM_010', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_011', 'ORE', 'Filon — Minerai de Fer', 'ZONE_NEU_CAP_001', 'MAT_MIN_001', 1, 3, 1, 1, 'OUT_PIO', 900) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_012', 'ORE', 'Filon — Cuivre Brut', 'ZONE_GNO_HUNT_001', 'MAT_MIN_002', 1, 3, 1, 1, 'OUT_PIO', 900) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_013', 'ORE', 'Filon — Étain des Collines', 'ZONE_LEP_HUNT_001', 'MAT_MIN_003', 1, 3, 1, 1, 'OUT_PIO', 900) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_014', 'ORE', 'Filon — Minerai d''Argent', 'ZONE_SPR_HUNT_001', 'MAT_MIN_004', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_015', 'ORE', 'Filon — Charbon de Forge', 'ZONE_LEP_CAP_001', 'MAT_MIN_005', 1, 3, 1, 1, 'OUT_PIO', 900) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_016', 'ORE', 'Filon — Soufre Cristallisé', 'ZONE_LEP_HUNT_001', 'MAT_MIN_006', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_017', 'ORE', 'Filon — Cristal de Brise', 'ZONE_SPR_HUNT_002', 'MAT_MIN_007', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_018', 'ORE', 'Filon — Obsidienne de Gattan', 'ZONE_SAL_DUN_001', 'MAT_MIN_008', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_019', 'ORE', 'Filon — Granit de Granzam', 'ZONE_GNO_HUNT_002', 'MAT_MIN_009', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_020', 'ORE', 'Filon — Mithril Brut', 'ZONE_GNO_DUN_001', 'MAT_MIN_010', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_021', 'ORE', 'Filon — Cristal Violet', 'ZONE_IMP_HUNT_001', 'MAT_MIN_011', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_022', 'ORE', 'Filon — Pierre de Lune', 'ZONE_SPR_HUNT_001', 'MAT_MIN_012', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_023', 'ORE', 'Filon — Minerai de Cuivre Raffiné', 'ZONE_GNO_HUNT_001', 'MAT_MIN_013', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_024', 'ORE', 'Filon — Minerai d''Étain Fin', 'ZONE_LEP_HUNT_002', 'MAT_MIN_014', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_025', 'ORE', 'Filon — Minerai de Mage', 'ZONE_SPR_HUNT_001', 'MAT_MIN_015', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_026', 'ORE', 'Filon — Minerai de Foudre', 'ZONE_SPR_HUNT_002', 'MAT_MIN_016', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_027', 'ORE', 'Filon — Pierre Philosophale', 'ZONE_SPR_DUN_001', 'MAT_MIN_017', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_028', 'ORE', 'Filon — Adamantium', 'ZONE_LEP_DUN_001', 'MAT_MIN_018', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_029', 'ORE', 'Filon — Minerai de Glace Éternelle', 'ZONE_UND_HUNT_001', 'MAT_MIN_019', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_030', 'ORE', 'Filon — Minerai de Feu Infernal', 'ZONE_SAL_HUNT_001', 'MAT_MIN_020', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_031', 'ORE', 'Filon — Minerai d''Ombre', 'ZONE_SPR_DUN_001', 'MAT_MIN_021', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_032', 'ORE', 'Filon — Minerai de Terre Profonde', 'ZONE_GNO_HUNT_001', 'MAT_MIN_022', 1, 3, 2, 10, 'OUT_PIO', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_033', 'ORE', 'Filon — Scorie de Mithril', 'ZONE_LEP_HUNT_002', 'MAT_MIN_023', 1, 2, 3, 20, 'OUT_PIO', 2700) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_034', 'ORE', 'Filon — Minerai de Lumière', 'ZONE_LEP_CAP_001', 'MAT_MIN_024', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('ORE_035', 'ORE', 'Filon — Minerai Primordial', 'ZONE_NEU_CAP_001', 'MAT_MIN_025', 1, 1, 4, 35, 'OUT_PIO', 5400) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_001', 'FISH', 'Coin de pêche — Truite Sylphe', 'ZONE_SYL_HUNT_001', 'MAT_POI_001', 1, 1, 1, 1, 'OUT_CAN', 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_002', 'FISH', 'Coin de pêche — Carpe Dorée', 'ZONE_SYL_HUNT_002', 'MAT_POI_002', 1, 1, 2, 10, 'OUT_CAN', 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_003', 'FISH', 'Coin de pêche — Maquereau Bleu', 'ZONE_UND_CAP_001', 'MAT_POI_003', 1, 1, 1, 1, 'OUT_CAN', 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_004', 'FISH', 'Coin de pêche — Poisson-Corail', 'ZONE_UND_HUNT_001', 'MAT_POI_004', 1, 1, 2, 10, 'OUT_CAN', 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_005', 'FISH', 'Coin de pêche — Espadon Géant', 'ZONE_UND_HUNT_002', 'MAT_POI_005', 1, 1, 3, 20, 'OUT_CAN', 1800) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_006', 'FISH', 'Coin de pêche — Anguille des Abysses', 'ZONE_UND_DUN_001', 'MAT_POI_006', 1, 1, 4, 35, 'OUT_CAN', 3600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_007', 'FISH', 'Coin de pêche — Saumon d''Argent', 'ZONE_NEU_CAP_001', 'MAT_POI_007', 1, 1, 1, 1, 'OUT_CAN', 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_008', 'FISH', 'Coin de pêche — Perche Chantante', 'ZONE_PUC_CAP_001', 'MAT_POI_008', 1, 1, 1, 1, 'OUT_CAN', 600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_009', 'FISH', 'Coin de pêche — Brochet des Échos', 'ZONE_PUC_HUNT_002', 'MAT_POI_009', 1, 1, 2, 10, 'OUT_CAN', 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_010', 'FISH', 'Coin de pêche — Poisson-Chat Tigré', 'ZONE_CAI_HUNT_002', 'MAT_POI_010', 1, 1, 2, 10, 'OUT_CAN', 1200) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_011', 'FISH', 'Coin de pêche — Poisson-Mort des Marais', 'ZONE_JOT_FLD_001', 'MAT_POI_011', 1, 1, 4, 35, 'OUT_CAN', 3600) ON CONFLICT (node_id) DO NOTHING;
+INSERT INTO T_RESOURCE_NODES (node_id, node_type, name, zone_id, yield_item_id, yield_min, yield_max, node_tier, level_required, required_tool_prefix, respawn_sec) VALUES
+('FSH_012', 'FISH', 'Coin de pêche — Léviathan Miniature', 'ZONE_JOT_RAID_001', 'MAT_POI_012', 1, 1, 5, 50, 'OUT_CAN', 7200) ON CONFLICT (node_id) DO NOTHING;
+
+-- Nœuds de ressource : 147 lignes
 -- ============================================================
 INSERT INTO T_MONSTERS_DICT (monster_id, name, level, family, base_hp, base_mp, base_atk, base_def, base_agi, element, weakness, resistance, immune, exp_yield, bounty_yrds, is_boss, is_flying, aggression_range, spawn_behavior, lore_text) VALUES
 ('MOB_AIN_001', 'Chevalier d''Argent', 52, NULL, 7000, 0, 210, 160, 140, 'Lumière', NULL, 'Physique', NULL, 50, 15, FALSE, FALSE, 10, 'passive', ''),
@@ -26759,6 +27081,16 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_UND_14', 'MAT_WOD_014', 30, 'LOCAL', NULL, 10, 7, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_UND_14', 'OUT_CAN_001', 120, 'LOCAL', NULL, -1, NULL, '—');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_UND_14', 'OUT_CAN_002', 500, 'LOCAL', NULL, -1, NULL, 'Niv. 10+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_UND_14', 'OUT_CAN_003', 2000, 'LOCAL', NULL, -1, NULL, 'Niv. 20+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_UND_14', 'OUT_CAN_004', 8000, 'LOCAL', NULL, -1, NULL, 'Niv. 35+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_UND_14', 'OUT_CAN_005', 28000, 'LOCAL', NULL, -1, NULL, 'Niv. 50+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_UND_15', 'MAT_CUI_001', 10, 'LOCAL', NULL, 15, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_UND_15', 'MAT_CUI_014', 20, 'LOCAL', NULL, 10, 3, '—');
@@ -27252,6 +27584,12 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_BRO_33', 'MAT_WOD_007', 35, 'LOCAL', NULL, 5, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_BRO_33', 'MAT_WOD_013', 20, 'LOCAL', NULL, 5, NULL, '—');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_BRO_33', 'OUT_PIO_001', 150, 'LOCAL', NULL, -1, NULL, '—');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_BRO_33', 'OUT_PIO_002', 600, 'LOCAL', NULL, -1, NULL, 'Niv. 10+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_BRO_33', 'OUT_PIO_003', 2400, 'LOCAL', NULL, -1, NULL, 'Niv. 20+');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_BRO_34', 'MAT_GEM_002', 220, 'LOCAL', NULL, 2, NULL, 'Niv. 20+');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -28598,6 +28936,16 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_GRA_32', 'CSM_NOU_015', 20, 'LOCAL', '(-20%)', 25, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_32', 'MAT_HRB_018', 10, 'IMPORT', '(+40%)', 6, NULL, '---');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_GRA_32', 'OUT_PIO_001', 150, 'LOCAL', NULL, -1, NULL, '—');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_GRA_32', 'OUT_PIO_002', 600, 'LOCAL', NULL, -1, NULL, 'Niv. 10+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_GRA_32', 'OUT_PIO_003', 2400, 'LOCAL', NULL, -1, NULL, 'Niv. 20+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_GRA_32', 'OUT_PIO_004', 9000, 'LOCAL', NULL, -1, NULL, 'Niv. 35+');
+INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
+('SHOP_GRA_32', 'OUT_PIO_005', 30000, 'LOCAL', NULL, -1, NULL, 'Niv. 50+');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_33', 'WPN_MAS_001', 185, 'LOCAL', '(-20%)', 6, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -30249,7 +30597,7 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_VOU_93', 'WPN_JET_004', 12000, 'LOCAL', NULL, 2, NULL, 'AFF>=80');
 
--- Articles boutique : 1944 lignes
+-- Articles boutique : 1957 lignes
 -- ============================================================
 -- T_SKILLS_DICT
 -- ============================================================

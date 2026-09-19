@@ -5,6 +5,7 @@ import { extractEntities } from '../models/ner.js';
 const INTENT_PATTERNS = [
   { intent: 'MENU', pattern: /^!menu$/i },
   { intent: 'REPAIR', pattern: /^!?repair\b.*/i },
+  { intent: 'GATHER', pattern: /^!?(?:recolter|mine|fish|fish_reel)\b.*/i },
   { intent: 'MARRIAGE', pattern: /^!?(?:propose|accept_proposal|decline_proposal|cancel_proposal|divorce|joint_bank|partner_bank|joint_pay|partner_status|partner_locate|whisper_partner|mariage)\b.*/i },
   { intent: 'MOVE', pattern: /^(?:je )?(?:vais?|va|vé|va à|vais à|me déplace|teleporte|tp)\s*(?::\s*)?(`?\w+`?)?/i },
   { intent: 'SHOP_LIST', pattern: /^(?:boutique|shop|magasin|marchand|shop_list|!shop_list)$/i },
@@ -48,7 +49,7 @@ export function getAgentForIntent(intent) {
     MOVE: 'movement', SHOP_LIST: 'economy', BUY: 'economy', SELL: 'economy',
     ENCYCLOPEDIA: 'lore', WIKI: 'lore', LORE_DOC: 'lore',
     ACHIEVEMENTS: 'player', RANKINGS: 'player', SKILL_LIST: 'player', PET: 'player', LINK_START: 'player',
-    DIPLOMACY: 'lore', HOUSING: 'player', MENU: 'system', MARRIAGE: 'social', REPAIR: 'economy', FLIGHT: 'player', INSPECT: 'player', DROP_ITEM: 'player',
+    DIPLOMACY: 'lore', HOUSING: 'player', MENU: 'system', MARRIAGE: 'social', REPAIR: 'economy', GATHER: 'economy', FLIGHT: 'player', INSPECT: 'player', DROP_ITEM: 'player',
     ATTACK: 'combat', USE_SKILL: 'combat',
     TALK: 'dialogue', INVENTORY: 'player', QUEST: 'player',
     STATUS: 'player', PARTY: 'social', GUILD: 'social',

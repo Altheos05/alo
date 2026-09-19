@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (5 articles)
+## 2. Inventaire (10 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 |`CSM_CRI_008`|Cristal d'Enregistrement|T2|200|LOCAL (-20%)|15|jour|---|
@@ -17,6 +17,11 @@
 |`CSM_NOU_014`|Ration de Campagne|T1|45|LOCAL (-20%)|20|jour|---|
 |`CSM_NOU_015`|Galette d'Avoine|T1|20|LOCAL (-20%)|25|jour|---|
 |`MAT_HRB_018`|Fleur de Lotus|T3|10|IMPORT (+40%)|6|semaine|---|
+|`OUT_PIO_001`|Pioche en Fer|T1|150|LOCAL|∞|semaine|—|
+|`OUT_PIO_002`|Pioche en Acier|T2|600|LOCAL|∞|semaine|Niv. 10+|
+|`OUT_PIO_003`|Pioche d'Obsidienne|T3|2400|LOCAL|∞|semaine|Niv. 20+|
+|`OUT_PIO_004`|Pioche en Mithril|T4|9000|LOCAL|∞|semaine|Niv. 35+|
+|`OUT_PIO_005`|Pioche d'Orichalque|T5|30000|LOCAL|∞|semaine|Niv. 50+|
 
 ## 3. Politique de rachat
 

@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (8 articles)
+## 2. Inventaire (11 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `MAT_WOD_001` | Bois d'If — `MAT_WOD_001` | T1 | 6 | LOCAL | 10 | jour | — |
@@ -20,6 +20,9 @@
 | `MAT_WOD_006` | Cèdre des Ombres — `MAT_WOD_006` | T2 | 30 | LOCAL | 5 | semaine | — |
 | `MAT_WOD_007` | Bois de Charme — `MAT_WOD_007` | T2 | 35 | LOCAL | 5 | semaine | — |
 | `MAT_WOD_013` | Bambou de Vent — `MAT_WOD_013` | T2 | 20 | LOCAL | 5 | semaine | — |
+| `OUT_PIO_001` | Pioche en Fer | T1 | 150 | LOCAL | ∞ | semaine | — |
+| `OUT_PIO_002` | Pioche en Acier | T2 | 600 | LOCAL | ∞ | semaine | Niv. 10+ |
+| `OUT_PIO_003` | Pioche d'Obsidienne | T3 | 2400 | LOCAL | ∞ | semaine | Niv. 20+ |
 
 ## 3. Politique de rachat
 - **Rachète** : Outils T1 (20%), bois (25%)

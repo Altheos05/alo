@@ -1,5 +1,6 @@
 import { CRAFT_TYPES, getTypeCounts, getRecipesByType, getRecipeByName, craftItem } from '../engine/craft.js';
 import { menuRow, MAX_CARD_ROWS } from '../services/cardRenderer.js';
+import { cookingPlace } from '../engine/gathering.js';
 
 const TYPE_LABELS = { forge: 'Forge', alchemy: 'Alchimie', sewing: 'Couture', cooking: 'Cuisine', enchanting: 'Enchantement' };
 const TYPE_KEYWORDS = {
@@ -10,12 +11,6 @@ const TYPE_KEYWORDS = {
   enchanting: /enchant/i,
 };
 
-// §7 whatsapp_commands_list.md liste !mine à côté des vraies catégories de recette
-// — ce n'est PAS un craft_type de T_RECIPES (extraction en zone, non construite ici).
-// !repair a son propre intent (REPAIR, D88).
-const UNIMPLEMENTED_COMMANDS = {
-  mine: `⛏️ L'extraction de minerai (!mine) n'est pas encore implémentée — voir le système de récolte, pas encore construit.`,
-};
 
 function detectType(text) {
   for (const [type, re] of Object.entries(TYPE_KEYWORDS)) {
@@ -25,10 +20,6 @@ function detectType(text) {
 }
 
 export async function handleCraft(db, playerId, raw = '') {
-  for (const [word, message] of Object.entries(UNIMPLEMENTED_COMMANDS)) {
-    if (new RegExp(`^${word}\\b`, 'i').test(raw.trim())) return message;
-  }
-
   const commandMatch = raw.match(/(?:craft_list|craft|fabrique?|forge?|artisanat|recette?|enchant|alchimie|cook)\s+(.+)/i);
   const arg = commandMatch?.[1]?.trim();
 
@@ -37,6 +28,10 @@ export async function handleCraft(db, playerId, raw = '') {
     if (!type) {
       const recipe = await getRecipeByName(db, arg);
       if (recipe) {
+        // Clause cuisine (gathering_cooking_system.md §4) : feu de camp ou cuisine de logement.
+        if (recipe.craft_type === 'cooking' && !(await cookingPlace(db, playerId))) {
+          return `🍳 Il faut un feu de camp (en extérieur sauvage : zone de chasse ou plaine) ou la cuisine de ton logement pour cuisiner.`;
+        }
         const result = await craftItem(db, playerId, recipe.recipe_id);
         if (!result.success) {
           if (result.error === 'MISSING_INGREDIENT') {

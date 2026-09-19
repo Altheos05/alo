@@ -2,6 +2,7 @@ import logger from '../utils/logger.js';
 import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifications.js';
 import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/marriage.js';
 import { modifyDurability, setDurability } from '../engine/durability.js';
+import { setNodeEvent, restockFishingSpot, resetHarvest } from '../engine/gathering.js';
 
 const COMMANDS = {};
 
@@ -322,6 +323,95 @@ define('SYS_DURABILITY_SET', {
   async execute(db, params) {
     const n = await setDurability(db, params.player_id, params.item_id, parseInt(params.value, 10));
     return n ? { ok: true, message: `${n} exemplaire(s) mis à jour` } : { ok: false, message: 'Aucun exemplaire à durabilité' };
+  },
+});
+
+// ─── D87 : état global des nœuds de ressource (jamais écrit par une récolte) ───
+
+const NODE_TYPES = ['FLORA', 'ORE', 'FISH'];
+const zoneExists = async (db, zoneId) =>
+  (await db.query('SELECT 1 FROM t_zones WHERE zone_id = $1', [zoneId])).rows.length > 0;
+
+define('SYS_DEPLETE_RESOURCE', {
+  description: 'Épuise pour tous les nœuds d\'un type dans une zone (60 min)',
+  schema: { zone_id: 'string', resource_type: 'string' },
+  async d71(db, params) {
+    if (!(await zoneExists(db, params.zone_id))) return `Zone ${params.zone_id} introuvable`;
+    if (!NODE_TYPES.includes(params.resource_type.toUpperCase())) return `Type ${params.resource_type} invalide (FLORA/ORE/FISH)`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const n = await setNodeEvent(db, { zoneId: params.zone_id, nodeType: params.resource_type.toUpperCase() }, 'deplete');
+    return { ok: true, message: `${n} nœud(s) épuisé(s)` };
+  },
+});
+
+define('SYS_BONUS_HARVEST', {
+  description: 'Multiplie les rendements d\'une zone pour tous (60 min)',
+  schema: { zone_id: 'string', multiplier: 'string' },
+  async d71(db, params) {
+    if (!(await zoneExists(db, params.zone_id))) return `Zone ${params.zone_id} introuvable`;
+    const m = Number(params.multiplier);
+    if (!(m >= 1 && m <= 10)) return `Multiplicateur ${params.multiplier} invalide (1 à 10)`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    let n = 0;
+    for (const nodeType of NODE_TYPES) {
+      n += await setNodeEvent(db, { zoneId: params.zone_id, nodeType }, 'bonus', undefined, Number(params.multiplier));
+    }
+    return { ok: true, message: `${n} nœud(s) à ×${params.multiplier}` };
+  },
+});
+
+define('SYS_STOCK_FISHING_SPOT', {
+  description: 'Réapprovisionne les coins de pêche d\'un poisson dans une zone (lève l\'épuisement)',
+  schema: { zone_id: 'string', fish_id: 'string', rarity: 'string' },
+  async d71(db, params) {
+    if (!(await zoneExists(db, params.zone_id))) return `Zone ${params.zone_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const n = await restockFishingSpot(db, params.zone_id, params.fish_id);
+    return n ? { ok: true, message: `${n} coin(s) de pêche réapprovisionné(s)` } : { ok: false, message: 'Aucun coin de pêche pour ce poisson ici' };
+  },
+});
+
+define('SYS_NODE_EVENT', {
+  description: 'Épuise ou abonde un nœud précis (GM)',
+  schema: { node_id: 'string', event: 'string', duration_min: 'integer' },
+  async d71(db, params) {
+    if (!['deplete', 'bonus'].includes(params.event)) return `Événement ${params.event} invalide (deplete/bonus)`;
+    const r = await db.query('SELECT 1 FROM t_resource_nodes WHERE node_id = $1', [params.node_id]);
+    if (!r.rows.length) return `Nœud ${params.node_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return source === 'gm'; },
+  async execute(db, params) {
+    await setNodeEvent(db, { nodeId: params.node_id }, params.event, parseInt(params.duration_min, 10));
+    return { ok: true, message: `${params.node_id} : ${params.event} pour ${params.duration_min} min` };
+  },
+});
+
+define('SYS_NODE_RESET', {
+  description: 'Remet à zéro la repousse d\'un nœud pour un joueur (support)',
+  schema: { player_id: 'uuid', node_id: 'string' },
+  async d71(db, params) {
+    if (!(await avatarExists(db, params.player_id))) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return source === 'gm'; },
+  async execute(db, params) {
+    const n = await resetHarvest(db, params.player_id, params.node_id);
+    return { ok: true, message: n ? 'Repousse remise à zéro' : 'Aucune repousse en cours' };
   },
 });
 

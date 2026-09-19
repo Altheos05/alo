@@ -4,6 +4,7 @@ export async function getPlayer(db, playerUuid) {
   const result = await db.query(`
     SELECT a.avatar_uuid, a.avatar_name, a.race_id, a.level, a.hp_current, a.hp_max,
            a.mp_current, a.mp_max, a.yrd_balance, a.current_zone_id, a.is_alive,
+           a.stat_str, a.stat_agi, a.stat_vit, a.stat_int, a.stat_dex,
            r.name as race_name, z.zone_name as zone_name
     FROM t_avatars a
     JOIN t_races r ON a.race_id = r.race_id

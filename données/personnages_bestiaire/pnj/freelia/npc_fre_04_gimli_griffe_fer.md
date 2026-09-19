@@ -33,6 +33,7 @@
 | 8 | `QI_FRE_04_08` | K2 | collier, runes | Le collier du worg était gravé de runes qu'il n'a pas reconnues — il les a recouvertes de griffacier | `QUEST:QST_CAI_SELLE_01` |
 | 9 | `QI_FRE_04_09` | K3 | selle, ame, runes | Les runes sous le griffacier sont des runes d'ancrage d'âme — le worg n'était pas une bête normale, c'était un familier lié au premier dompteur. La selle a hérité de cette âme et cherche son cavalier | JAMAIS — déflection : *(il jette un chiffon sur la selle)* « La selle est pas à vendre. Elle est à personne. Elle était à un mort qui reviendra pas, et elle le sait. On touche pas à ce qui pleure encore. » |
 | 10 | `QI_FRE_04_10` | KX | *(hors sujet)* | « J'ai du travail. Va voir Brok si tu veux de la viande. » | — |
+| 11 | `QI_FRE_04_11` | K0 | reparation, forge | Seul forgeron de Freelia à réparer armes, armures et outils — barème forgeron, réparation dégressive (D88) | — |
 
 ## 4. Chaînage économique & quêtes
 

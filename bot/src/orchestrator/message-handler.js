@@ -148,6 +148,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return combat.handleAttack(db, playerId, routing.entities);
     }
 
+    case 'FLEE':
+      return combat.handleFlee(db, playerId);
+
     case 'SKILL_LIST':
       return skillsHandler.handleSkillList(db, playerId);
 
@@ -157,7 +160,8 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
     case 'USE_SKILL': {
       const existingCombat = combat.getCombatStatus(playerId);
       if (existingCombat) {
-        return combat.handleCombatAction(db, playerId, routing.entities);
+        const spell = (routing.raw || '').trim().split(/\s+/).slice(1).join(' ');
+        return combat.handleCombatAction(db, playerId, routing.entities, spell || null);
       }
       // D90 : hors combat, !cast / !music lancent soins et soutien.
       return effectsHandler.handleCast(db, playerId, routing.raw || '');

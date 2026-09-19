@@ -91,15 +91,15 @@ export async function handleAttack(db, playerUuid, entities) {
             m.exp_yield, m.family, m.element, m.is_boss
      FROM t_monsters_dict m
      JOIN t_spawn_tables s ON s.monster_id = m.monster_id
-     WHERE (m.monster_id = $1 OR m.name ILIKE $1) AND s.zone_id = $2
+     WHERE (m.monster_id = UPPER($3) OR m.name ILIKE $1) AND s.zone_id = $2
      LIMIT 1`,
-    [`%${monsterId}%`, player.current_zone_id]
+    [`%${monsterId}%`, player.current_zone_id, monsterId]
   );
 
   if (monsterResult.rows.length === 0) {
     const anyResult = await db.query(
-      'SELECT monster_id, name FROM t_monsters_dict WHERE monster_id = $1 OR name ILIKE $1 LIMIT 1',
-      [`%${monsterId}%`]
+      'SELECT monster_id, name FROM t_monsters_dict WHERE monster_id = UPPER($2) OR name ILIKE $1 LIMIT 1',
+      [`%${monsterId}%`, monsterId]
     );
     if (anyResult.rows.length) {
       return `❌ "${monsterId}" n'est pas dans ta zone actuelle.`;
@@ -123,11 +123,12 @@ export async function handleAttack(db, playerUuid, entities) {
   activeCombats.set(playerUuid, combat);
 
   try {
-    await db.query(
-      `INSERT INTO t_combat_sessions (session_id, avatar_uuid, monster_id, zone_id, status, started_at, turn_count)
-       VALUES ($1, $2, $3, $4, 'active', NOW(), 0)`,
-      [combatId, playerUuid, monster.monster_id, player.current_zone_id]
+    const session = await db.query(
+      `INSERT INTO t_combat_sessions (avatar_uuid, zone_id, enemy_type, enemy_id, enemy_name)
+       VALUES ($1, $2, $3, $4, $5) RETURNING session_uuid`,
+      [playerUuid, player.current_zone_id, monster.is_boss ? 'boss' : 'mob', monster.monster_id, monster.name.slice(0, 32)]
     );
+    combat.sessionUuid = session.rows[0].session_uuid;
   } catch (err) {
     logger.warn('Impossible de persister le combat', { error: err.message });
   }
@@ -156,7 +157,45 @@ export async function handleAttack(db, playerUuid, entities) {
   };
 }
 
-export async function handleCombatAction(db, playerUuid, action) {
+// Sort / OSS lancé en combat : coût en PM, puis soin, effet persistant ou dégâts.
+// Renvoie la ligne de narration du joueur, ou { error } sans consommer le tour.
+async function castInCombat(db, combat, skillQuery, effectsDict) {
+  const r = await db.query(
+    `SELECT s.skill_id, s.name, s.mp_cost, s.base_damage, s.base_healing, s.stat_scaling
+     FROM t_avatar_skills a JOIN t_skills_dict s ON s.skill_id = a.skill_id
+     WHERE a.avatar_uuid = $1 AND s.skill_type IN ('MAG','OSS') AND (s.skill_id = UPPER($2) OR s.name ILIKE $2)
+     LIMIT 1`,
+    [combat.playerUuid, skillQuery]
+  );
+  const skill = r.rows[0];
+  if (!skill) return { error: `❌ Tu ne connais pas "${skillQuery}".` };
+  if (combat.player.mp_current < skill.mp_cost) return { error: `❌ PM insuffisants (${skill.mp_cost} requis).` };
+
+  combat.player.mp_current -= skill.mp_cost;
+  await db.query('UPDATE t_avatars SET mp_current = GREATEST(0, mp_current - $1) WHERE avatar_uuid = $2', [skill.mp_cost, combat.playerUuid]);
+
+  const scaling = skill.stat_scaling || {};
+  if (skill.base_healing > 0) {
+    const amount = Math.round(skill.base_healing + (combat.player.stat_int || 0) * (scaling.stat_int || 0));
+    const before = combat.player.hp_current;
+    combat.player.hp_current = Math.min(combat.player.hp_max, before + amount);
+    return { line: `✨ ${combat.player.avatar_name} lance **${skill.name}** : +${combat.player.hp_current - before} PV.` };
+  }
+  const effect = effectsDict[`EFF_${skill.skill_id}`];
+  if (effect) {
+    applyStatusEffect(combat.player, { ...effect });
+    return { line: `✨ ${combat.player.avatar_name} lance **${skill.name}** : ${effect.name}.` };
+  }
+  const playerMods = getStatModifiers(combat.player.activeEffects, combat.player);
+  const dmg = calculateDamage({ ...combat.player, ...playerMods }, combat.monster, skill, combat.monster.activeEffects);
+  combat.monster.hp_current = Math.max(0, combat.monster.hp_current - dmg);
+  return { line: render('attack_damage', {
+    actorName: `${combat.player.avatar_name} (${skill.name})`, damage: dmg,
+    targetName: combat.monster.name, targetHp: combat.monster.hp_current,
+  }) };
+}
+
+export async function handleCombatAction(db, playerUuid, action, skillQuery = null) {
   const combat = activeCombats.get(playerUuid);
   if (!combat) {
     return `⚔️ Tu n'es pas en combat. Tape "attaque [monstre]" pour en engager un.`;
@@ -217,12 +256,7 @@ export async function handleCombatAction(db, playerUuid, action) {
       logger.error('Erreur récompense combat', { error: err.message });
     }
     await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
-    try {
-      await db.query(
-        'UPDATE t_combat_sessions SET status = $1, ended_at = NOW(), turn_count = $2 WHERE session_id = $3',
-        ['victory', combat.turn, combat.combatId]
-      );
-    } catch {}
+    await endSession(db, combat, 'victory');
     response.push(render('attack_kill', { targetName: combat.monster.name, exp, yrds }));
     await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
@@ -237,32 +271,33 @@ export async function handleCombatAction(db, playerUuid, action) {
     } catch (err) {
       logger.error('Erreur mort combat', { error: err.message });
     }
-    try {
-      await db.query(
-        'UPDATE t_combat_sessions SET status = $1, ended_at = NOW(), turn_count = $2 WHERE session_id = $3',
-        ['defeat', combat.turn, combat.combatId]
-      );
-    } catch {}
+    await endSession(db, combat, 'defeat');
     response.push(render('attack_death'));
     await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
     return response.join('\n');
   }
 
-  const playerMods = getStatModifiers(combat.player.activeEffects, combat.player);
-  const dmg = calculateDamage(
-    { ...combat.player, ...playerMods },
-    combat.monster,
-    null,
-    combat.monster.activeEffects
-  );
-  combat.monster.hp_current = Math.max(0, combat.monster.hp_current - dmg);
-  response.push(render('attack_damage', {
-    actorName: combat.player.avatar_name,
-    damage: dmg,
-    targetName: combat.monster.name,
-    targetHp: combat.monster.hp_current,
-  }));
+  if (skillQuery) {
+    const cast = await castInCombat(db, combat, skillQuery, effectsDict);
+    if (cast.error) return cast.error;
+    response.push(cast.line);
+  } else {
+    const playerMods = getStatModifiers(combat.player.activeEffects, combat.player);
+    const dmg = calculateDamage(
+      { ...combat.player, ...playerMods },
+      combat.monster,
+      null,
+      combat.monster.activeEffects
+    );
+    combat.monster.hp_current = Math.max(0, combat.monster.hp_current - dmg);
+    response.push(render('attack_damage', {
+      actorName: combat.player.avatar_name,
+      damage: dmg,
+      targetName: combat.monster.name,
+      targetHp: combat.monster.hp_current,
+    }));
+  }
 
   if (combat.monster.hp_current <= 0) {
     const exp = calculateExpReward(combat.monster);
@@ -276,12 +311,7 @@ export async function handleCombatAction(db, playerUuid, action) {
       logger.error('Erreur récompense combat', { error: err.message });
     }
     await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
-    try {
-      await db.query(
-        'UPDATE t_combat_sessions SET status = $1, ended_at = NOW(), turn_count = $2 WHERE session_id = $3',
-        ['victory', combat.turn, combat.combatId]
-      );
-    } catch {}
+    await endSession(db, combat, 'victory');
     response.push(render('attack_kill', { targetName: combat.monster.name, exp, yrds }));
     await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
@@ -326,12 +356,7 @@ export async function handleCombatAction(db, playerUuid, action) {
     } catch (err) {
       logger.error('Erreur mort combat', { error: err.message });
     }
-    try {
-      await db.query(
-        'UPDATE t_combat_sessions SET status = $1, ended_at = NOW(), turn_count = $2 WHERE session_id = $3',
-        ['defeat', combat.turn, combat.combatId]
-      );
-    } catch {}
+    await endSession(db, combat, 'defeat');
     response.push(render('attack_death'));
     await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
@@ -354,6 +379,18 @@ export async function handleCombatAction(db, playerUuid, action) {
   return response.join('\n');
 }
 
+async function endSession(db, combat, outcome) {
+  if (!combat.sessionUuid) return;
+  try {
+    await db.query(
+      "UPDATE t_combat_sessions SET outcome = $1, ended_at = NOW(), turn_number = $2, turn_state = 'ended' WHERE session_uuid = $3",
+      [outcome, combat.turn, combat.sessionUuid]
+    );
+  } catch (err) {
+    logger.warn('Impossible de clore la session de combat', { error: err.message });
+  }
+}
+
 // D88 : chaque combat use les pièces portées.
 async function applyCombatWear(db, playerUuid, response) {
   try {
@@ -368,6 +405,7 @@ export async function handleFlee(db, playerUuid) {
   const combat = activeCombats.get(playerUuid);
   if (!combat) return `⚔️ Tu n'es pas en combat.`;
   await persistCombatEffects(db, playerUuid, combat.player.activeEffects);
+  await endSession(db, combat, 'flee');
   const response = [`🏃 Tu as fui le combat contre **${combat.monster.name}**.`];
   await applyCombatWear(db, playerUuid, response);
   activeCombats.delete(playerUuid);

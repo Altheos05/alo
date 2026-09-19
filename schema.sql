@@ -915,7 +915,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- ============================================================================
--- NIVEAU 5 — Tables postérieures à la compilation du 2026-07-10
+-- NIVEAU 6 — Rattrapage : tables et colonnes postérieures à la compilation du 2026-07-10
 -- (étapes 43-60 : D-SOC-*, D83, D85, D87, D88, D90, D91). Idempotent
 -- (IF NOT EXISTS) : cette section peut être rejouée seule sur une base
 -- existante sans rebuild. Source : fiches MLD_Logic/*.md correspondantes.
@@ -1065,6 +1065,31 @@ CREATE TABLE IF NOT EXISTS T_AVATAR_HARVESTS (
 -- D88 (I8 de T_INVENTORY)
 ALTER TABLE T_INVENTORY ADD COLUMN IF NOT EXISTS durability_cap INT;
 ALTER TABLE T_INVENTORY ADD COLUMN IF NOT EXISTS repair_count INT NOT NULL DEFAULT 0;
+
+-- D18/D84 : fiche MLD T_NPC_KNOWLEDGE (K3/KX stockés, filtrés à l'injection ; sujets de service)
+ALTER TABLE T_NPC_KNOWLEDGE DROP CONSTRAINT IF EXISTS t_npc_knowledge_k_level_check;
+ALTER TABLE T_NPC_KNOWLEDGE ADD CONSTRAINT t_npc_knowledge_k_level_check CHECK (k_level IN ('K0','K1','K2','K3','KX'));
+ALTER TABLE T_NPC_KNOWLEDGE ADD COLUMN IF NOT EXISTS is_service BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE T_NPC_KNOWLEDGE ADD COLUMN IF NOT EXISTS service_sys_command VARCHAR(50);
+ALTER TABLE T_NPC_KNOWLEDGE ADD COLUMN IF NOT EXISTS service_cost_yrds INT;
+ALTER TABLE T_NPC_KNOWLEDGE DROP CONSTRAINT IF EXISTS t_npc_knowledge_service_level_check;
+ALTER TABLE T_NPC_KNOWLEDGE ADD CONSTRAINT t_npc_knowledge_service_level_check CHECK (NOT is_service OR k_level IN ('K0','K1'));
+ALTER TABLE T_NPC_KNOWLEDGE DROP CONSTRAINT IF EXISTS t_npc_knowledge_service_cmd_check;
+ALTER TABLE T_NPC_KNOWLEDGE ADD CONSTRAINT t_npc_knowledge_service_cmd_check CHECK (NOT is_service OR service_sys_command IS NOT NULL);
+
+-- Objets liés dès l'acquisition (fiche « **Lié** : OUI », ex. MSC_ENG_001)
+ALTER TABLE T_ITEMS_DICT ADD COLUMN IF NOT EXISTS binds_on_acquire BOOLEAN NOT NULL DEFAULT FALSE;
+-- Point d'application unique : quel que soit le canal (achat, don GM, butin, coffre), l'instance naît liée.
+CREATE OR REPLACE FUNCTION bind_on_acquire() RETURNS TRIGGER AS $$
+BEGIN
+    IF (SELECT binds_on_acquire FROM T_ITEMS_DICT WHERE item_id = NEW.item_id) THEN
+        NEW.is_bound := TRUE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS trg_bind_on_acquire ON T_INVENTORY;
+CREATE TRIGGER trg_bind_on_acquire BEFORE INSERT ON T_INVENTORY FOR EACH ROW EXECUTE FUNCTION bind_on_acquire();
 
 -- D90 (amendement T_ACTIVE_EFFECTS)
 ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_kind VARCHAR(6) CHECK (source_kind IN ('skill','food','system'));

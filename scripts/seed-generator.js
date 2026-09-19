@@ -164,7 +164,7 @@ function parseItems() {
 
     rows.push([itemId, name, type, subtype, rarity, tier, atk, def, 0.5, 0, 0, 0,
                buyPrice, resaleValue, maxStack, isConsumable, isCraftable, durability,
-               desc, '', null]);
+               desc, '', null, /\*\*Lié\*\*\s*:\s*OUI/i.test(content) ? 'TRUE' : 'FALSE']);
   }
   return rows;
 }
@@ -688,7 +688,7 @@ try {
   console.log(batchInsert('T_ITEMS_DICT', [
     'item_id','name','item_type','subtype','rarity','tier','base_atk','base_def','weight',
     'str_req','agi_req','int_req','buy_price','resale_value','max_stack','is_consumable',
-    'is_craftable','durability_max','description','lore_text','icon'
+    'is_craftable','durability_max','description','lore_text','icon','binds_on_acquire'
   ], items, 50, '(item_id)'));
   console.log(`-- Items : ${items.length} lignes`);
 

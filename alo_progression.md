@@ -2129,7 +2129,7 @@ Balayage `node --check` complet ré-exécuté après corrections — aucune rég
 
 Base Postgres jetable (conteneur `alo-test-pg`, port 55432) reconstruite depuis `schema.sql` + inserts de `rebuild.sh` + `seed_data.sql`. Constats immédiats :
 - **La suite n'avait jamais pu passer** : aucun fixture ne créait l'avatar de test ; deux tests inséraient des ID inexistants (FK). Corrigés. Base de départ : 77/82, puis 82/82 après correction du routeur (voir plus bas).
-- **`schema.sql` ne contenait pas** `T_PROPERTIES`, `T_NPC_RELATIONS` (utilisées par le code depuis l'étape 59) ni aucune table de l'étape 60. Ajoutées dans une section « NIVEAU 5 » **idempotente** (`IF NOT EXISTS`), rejouable seule sur une base existante.
+- **`schema.sql` ne contenait pas** `T_PROPERTIES`, `T_NPC_RELATIONS` (utilisées par le code depuis l'étape 59) ni aucune table de l'étape 60. Ajoutées dans une section « NIVEAU 6 » **idempotente** (`IF NOT EXISTS`), rejouable seule sur une base existante.
 - **Le générateur d'objets lisait mal le format réel des fiches** : les 1 052 objets avaient prix 0, ATQ/DEF 0, rareté `common`, durabilité 0. Les boutiques vendaient donc gratuitement. Deux lots de 50 objets étaient rejetés (tenues `T0`, hors CHECK). Et `MAT_HRB_014` portait le nom d'une fiche de flore.
 - **`T_NPC_KNOWLEDGE` restait à 0 ligne malgré le correctif de l'étape 56** : `topic_tags` (`TEXT[]`) recevait une chaîne. On passe à 8 681 lignes chargées. Les ~2 200 fiches K3/KX restent rejetées par le CHECK du schéma (K0-K2 seulement) : c'est un conflit schéma/doc hérité, non tranché.
 - **Une seule ligne invalide faisait perdre ses 49 voisines** (inserts par lots de 50). PNJ, fiches QI et boutiques sont désormais insérés ligne à ligne.
@@ -2199,5 +2199,5 @@ Base Postgres jetable (conteneur `alo-test-pg`, port 55432) reconstruite depuis 
 - `effects` : 9.
 
 `seed_data.sql` régénéré. **Au PE :**
-- rejouer la section « NIVEAU 5 » de `schema.sql` sur la base réelle, ou lancer `rebuild.sh` (destructif) ;
+- rejouer la section « NIVEAU 6 » de `schema.sql` sur la base réelle, ou lancer `rebuild.sh` (destructif) ;
 - recharger `seed_data.sql`.

@@ -111,10 +111,11 @@ const RARITY = {
 // Effet d'usage d'un consommable (colonne « Effet » de la fiche). Les bonus de stat
 // deviennent un effet persistant EFF_<Item_ID> (D90 E6), collecté dans CONSUMABLE_EFFECTS.
 const CONSUMABLE_EFFECTS = [];
-const STAT_KEYS = { STR: 'stat_str', AGI: 'stat_agi', VIT: 'stat_vit', INT: 'stat_int' };
+// ATQ/DEF/END : synonymes employés par les fiches 036-060 (« | Stat | +15% ATQ | »).
+const STAT_KEYS = { STR: 'stat_str', ATQ: 'stat_str', AGI: 'stat_agi', VIT: 'stat_vit', END: 'stat_vit', DEF: 'stat_vit', INT: 'stat_int' };
 
 function parseUseEffect(itemId, name, content) {
-  const effect = tableField(content, 'Effet') || '';
+  const effect = tableField(content, 'Effet') || tableField(content, 'Stat') || '';
   const duration = tableField(content, 'Durée') || '';
   const out = {};
   const hp = effect.match(/Soin instantané de ([\d\s\u00a0\u202f]+)\s*HP/i);
@@ -130,7 +131,7 @@ function parseUseEffect(itemId, name, content) {
     if (hpRate) out.regen_hp = hpRate * secs;
     if (mpRate) out.regen_mp = mpRate * secs;
   }
-  const stat = effect.match(/\+(\d+)%\s*(STR|AGI|VIT|INT)\b/i);
+  const stat = effect.match(/\+(\d+)%\s*(STR|ATQ|AGI|VIT|END|DEF|INT)\b/i);
   if (stat) {
     const mins = duration.match(/(\d+)\s*min/i);
     const hours = duration.match(/(\d+)\s*h/i);

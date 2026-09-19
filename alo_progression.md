@@ -2321,3 +2321,14 @@ Spécification et tableaux d'ingestion : `system_mechanics/cuisine_libre.md`. Pr
 - **Réussite au niveau 1** : une recette T2 à 3 ingrédients (complexité 5) réussit à **34 %** — c'est voulu (D94), mais sévère. Les recettes de l'étape 62 réussissaient à 90 % d'emblée.
 - **Plats simples** : 1 ou 2 ingrédients sans effet réussissent à 94-98 %.
 - **Essences** : attribuées par l'ACP d'après le nom et le lore des ingrédients (tableau §2), donc ajustables dans `cuisine_libre.md` sans toucher au code.
+
+### Complément — effets des plats 036-060 (2026-09-19)
+
+Les fiches `CSM_NOU_036` à `060` écrivent leur effet sous la forme « `| Stat | +15% ATQ |` », que le générateur ne lisait pas : ces plats et boissons se mangeaient sans effet. `parseUseEffect` lit maintenant aussi ce format. Il accepte les synonymes ATQ (→ STR), END et DEF (→ VIT).
+
+**Plats avec effet : 46/60** (contre 32). Les 14 restants n'ont rien à appliquer :
+- 4 sans effet : Bière d'Alne, Jus de fruit, Lait de chèvre, Eau de mer purifiée (« anti-soif ») ;
+- 6 à résistances : aucune résistance n'existe au combat ;
+- 2 au charisme : aucune statistique de charisme ;
+- 2 à « régénération PM » : aucune régénération continue des PM hors combat.
+

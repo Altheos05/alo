@@ -9,7 +9,7 @@
 | **Type** | ÉTAL |
 | **Accès** | libre |
 
-## 2. Inventaire (8 articles)
+## 2. Inventaire (9 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `CSM_PAR_003` | Parchemin de Rappel | T2 | 105 | LOCAL | 6 | semaine | — |
@@ -20,6 +20,7 @@
 | `WPN_BAG_002` | Baguette de Source | T2 | 1260 | IMPORT | 2 | mois | Niv. 15+ |
 | `CSM_POT_012` | Potion de Mana | T2 | 180 | IMPORT | 6 | semaine | — |
 | `CSM_CRI_003` | Cristal de Mana | T3 | 2100 | IMPORT | 4 | mois | Niv. 20+ |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : Curiosités (20%), partitions (25%)

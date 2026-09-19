@@ -62,6 +62,8 @@ const config = {
     startingYrds: parseInt(process.env.STARTING_YRDS || '500', 10),
     startingZone: process.env.STARTING_ZONE || 'ZONE_NEU_CAP_001',
     gmPhones: (process.env.GM_PHONES || '').split(',').map(s => s.trim()).filter(Boolean),
+    // D85 : durée de validité d'une demande en mariage (paramètre de configuration).
+    proposalTtlHours: parseInt(process.env.PROPOSAL_TTL_HOURS || '48', 10),
   },
   get dbUrl() {
     return `postgresql://${this.db.user}:${this.db.password}@${this.db.host}:${this.db.port}/${this.db.database}`;

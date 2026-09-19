@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (8 articles)
+## 2. Inventaire (9 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `CSM_CRI_005` | Cristal de Téléportation | T3 | 1 200 | LOCAL | 2 | semaine | Niv.20+ |
@@ -20,6 +20,7 @@
 | `CSM_NOU_005` | Sashimi de Perle | T2 | 100 | LOCAL | 4 | semaine | — |
 | `MAT_MIN_002` | Cuivre Brut | T1 | 5 | LOCAL | 10 | jour | — |
 | `MAT_MIN_003` | Étain des Collines | T1 | 5 | LOCAL | 10 | jour | — |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : Cristaux T1-T2 (25%), bijoux, pierres taillées

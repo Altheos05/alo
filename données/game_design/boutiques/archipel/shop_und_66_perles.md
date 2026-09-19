@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (7 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `ARM_TET_021` | Diadème de Nacre | T2 | 800 | LOCAL | 4 | 7j | — |
@@ -18,6 +18,7 @@
 | `CSM_CRI_007` | Cristal de Fuite | T3 | 1120 | LOCAL | 4 | 7j | — |
 | `CSM_POT_006` | Potion de Soin Suprême | T3 | 600 | LOCAL | 3 | 14j | — |
 | `CSM_POT_009` | Potion de Régénération | T2 | 145 | LOCAL | 8 | 7j | — |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : perles magiques (30%), bijoux de nacre (25%)

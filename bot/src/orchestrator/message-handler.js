@@ -22,6 +22,7 @@ import * as housingHandler from '../handlers/housing.js';
 import * as flightHandler from '../handlers/flight.js';
 import * as questsHandler from '../handlers/quests.js';
 import * as itemsHandler from '../handlers/items.js';
+import * as marriageHandler from '../handlers/marriage.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import * as menus from '../services/menus.js';
@@ -239,6 +240,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
     case 'DIPLOMACY':
       return diplomacyHandler.handleDiplomacy(db, playerId);
 
+    case 'MARRIAGE':
+      return marriageHandler.handleMarriage(db, playerId, routing.raw || '', { confirmed: routing.confirmed });
+
     case 'MENU': {
       const block = await menus.redisplayMenu(db, playerId);
       if (!block) return `ℹ️ Aucun menu actif.`;
@@ -257,6 +261,8 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
 const GM_ALIASES = {
   SYS_NOTIFY: 'SYS_NOTIFY_PLAYER',
   SYS_ANNOUNCE: 'SYS_ANNOUNCE_GLOBAL',
+  SYS_DIVORCE: 'SYS_DIVORCE_SETTLE',
+  SYS_PROPOSAL_CANCEL: 'SYS_CANCEL_PROPOSAL',
 };
 
 async function isGm(_db, _playerId, phoneNumber) {

@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (7 articles)
+## 2. Inventaire (8 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `MAT_DRP_017` | Éclat de Miroir | T3 | 400 | LOCAL | 2 | 10j | Niv. 20+ |
@@ -19,6 +19,7 @@
 | `MAT_GEM_005` | Rubis de Feu | T3 | 190 | LOCAL | 4 | semaine | — |
 | `MAT_GEM_006` | Saphir des Glaces | T3 | 190 | LOCAL | 4 | semaine | — |
 | `MAT_DRP_001` | Glande Bouillante Pure | T2 | 120 | LOCAL | 4 | semaine | — |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : Antiquités des ruines (20%), Bijoux anciens (20%)

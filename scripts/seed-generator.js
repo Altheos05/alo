@@ -39,6 +39,12 @@ function esc(val) {
   return `'${s.replace(/'/g, "''")}'`;
 }
 
+// « racines, direction » → '{"racines","direction"}' (topic_tags est un TEXT[]).
+function pgArray(csv) {
+  const items = String(csv || '').split(',').map(t => t.trim()).filter(Boolean);
+  return `{${items.map(t => `"${t.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`).join(',')}}`;
+}
+
 function batchInsert(table, columns, rows, chunk = 50, onConflict, onConflictAction = 'DO NOTHING') {
   const colList = columns.join(', ');
   const conflict = onConflict ? ` ON CONFLICT ${onConflict} ${onConflictAction}` : '';
@@ -55,6 +61,53 @@ function batchInsert(table, columns, rows, chunk = 50, onConflict, onConflictAct
 // ---------------------------------------------------------------------------
 // 1. ITEMS → T_ITEMS_DICT
 // ---------------------------------------------------------------------------
+// Champ « - **Label** : valeur · … » du bloc d'identification (premier segment).
+function bulletField(content, label) {
+  const m = content.match(new RegExp(`\\*\\*${label}\\*\\*\\s*:\\s*([^·\\n]+)`, 'i'));
+  return m ? m[1].trim() : null;
+}
+
+// Valeur d'une table markdown, verticale (| Label | Valeur |) ou horizontale
+// (en-tête | A | Label | B | puis ligne de données).
+// Comparaison insensible à la casse et aux accents (« Durabilite » existe dans ~150 fiches).
+const norm = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+function tableField(content, label) {
+  const want = norm(label);
+  const lines = content.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (!lines[i].trim().startsWith('|')) continue;
+    const rows = [];
+    while (i < lines.length && lines[i].trim().startsWith('|')) {
+      const cells = lines[i].trim().split('|').slice(1, -1).map(c => c.replace(/\*/g, '').trim());
+      if (!cells.every(c => /^[\s\-:]*$/.test(c))) rows.push(cells);
+      i++;
+    }
+    const col = rows[0]?.findIndex(h => norm(h) === want) ?? -1;
+    if (col >= 0) {
+      if (rows[1]?.[col] !== undefined) return rows[1][col];
+      continue;
+    }
+    for (const r of rows) {
+      if (r[0] !== undefined && norm(r[0]) === want && r[1] !== undefined) return r[1];
+    }
+  }
+  return null;
+}
+
+// « 1 350 Yrds », « 22 000 ¥ » → 1350, 22000 (espaces fines/insécables comprises).
+function firstNumber(text) {
+  const m = text?.match(/\d[\d\s  ]*/);
+  return m ? parseInt(m[0].replace(/[\s  ]/g, ''), 10) : null;
+}
+
+const RARITY = {
+  commun: 'common', commune: 'common', common: 'common',
+  'peu commun': 'uncommon', 'peu commune': 'uncommon', uncommon: 'uncommon',
+  rare: 'rare', épique: 'epic', epique: 'epic', epic: 'epic',
+  légendaire: 'legendary', legendaire: 'legendary', legendary: 'legendary', unique: 'unique',
+};
+
 function parseItems() {
   const rows = [];
   const seen = new Set();
@@ -62,8 +115,10 @@ function parseItems() {
   for (const f of files) {
     if (path.basename(f).startsWith('_')) continue; // skip index files
     const content = fs.readFileSync(f, 'utf-8');
-    const itemId = (content.match(/[\*]?Item_ID[\*]?\s*:\s*(\S+)/i) ||
-                    content.match(/item_id[:\s]+(\S+)/i) ||
+    // Le bloc d'identification prime : le repli « premier ID du fichier »
+    // attrapait un ID cité en préambule (ex. ACC_ANN_003 dans la fiche de MSC_ENG_001).
+    const itemId = (content.match(/\*\*Item_ID\*\*\s*:\s*`?([A-Z0-9_]+)`?/) ||
+                    content.match(/item_id[:\s]+`?([A-Z0-9_]+)`?/i) ||
                     content.match(/([A-Z]+_[A-Z]+_\d{3})/) ||
                     [])[1];
     if (!itemId || seen.has(itemId)) continue;
@@ -77,27 +132,31 @@ function parseItems() {
                   itemId.startsWith('BAG_') ? 'BAG' :
                   itemId.startsWith('HRN_') ? 'HRN' :
                   itemId.startsWith('BELT_') ? 'BELT' :
-                  itemId.startsWith('OFT_') ? 'OFT' :
-                  itemId.startsWith('ACC_') ? 'MSC' : 'MSC');
-    const rarity = (content.match(/rar[ée]t[ée]\s*:\s*(\w+)/i) ||
-                    content.match(/Raret[ée]\s*[:\-]\s*(\w+)/i) ||
-                    [])[1] || 'common';
-    const tier = parseInt(content.match(/Tier\s*[:]?\s*(\d)/i)?.[1] ||
-                          content.match(/T(\d)/)?.[1] || 1);
-    const buyPrice = parseInt(content.match(/prix\s*[:]?\s*(\d+)/i)?.[1] ||
-                              content.match(/buy_price\s*[:]?\s*(\d+)/i)?.[1] || 0);
-    const atk = parseInt(content.match(/ATK\s*[:]?\s*(\d+)/i)?.[1] ||
-                         content.match(/base_atk\s*[:]?\s*(\d+)/i)?.[1] || 0);
-    const def = parseInt(content.match(/DEF\s*[:]?\s*(\d+)/i)?.[1] ||
-                         content.match(/base_def\s*[:]?\s*(\d+)/i)?.[1] || 0);
+                  itemId.startsWith('OFT_') ? 'OFT' : 'MSC');
+    // Outils de récolte (D87/D88) : MSC dont le sous-type porte le préfixe d'outil.
+    const subtype = itemId.match(/^(OUT_[A-Z]+)_/)?.[1] || null;
+    const rarityRaw = (bulletField(content, 'Raret[ée]') || '').toLowerCase().replace(/[^a-zéè ]/g, '').trim();
+    const rarity = RARITY[rarityRaw] || 'common';
+    // T0 (tenues de départ) n'existe pas au schéma (CHECK 1..5) : ramené à T1.
+    const tierRaw = parseInt((bulletField(content, 'Tier') || '').match(/(\d)/)?.[1] || '1', 10);
+    const tier = Math.min(5, Math.max(1, tierRaw));
+    const buyPrice = firstNumber(bulletField(content, 'Prix')) ??
+                     firstNumber(bulletField(content, 'Prix base')) ??
+                     firstNumber(tableField(content, 'Prix base')) ??
+                     firstNumber(tableField(content, 'Prix')) ?? 0;
+    const atk = firstNumber(tableField(content, 'ATQ')) ?? firstNumber(tableField(content, 'ATK')) ?? 0;
+    const def = firstNumber(tableField(content, 'DEF')) ?? 0;
+    const durability = firstNumber(tableField(content, 'Durabilité')) ?? 0;
     const isConsumable = type === 'CSM' ? 'TRUE' : 'FALSE';
     const isCraftable = type === 'MAT' ? 'TRUE' : 'FALSE';
     const maxStack = type === 'CSM' || type === 'MAT' ? 99 : 1;
-    const resaleValue = Math.floor(buyPrice * 0.25);
+    // Revente déclarée (« · 0 Yrds (revente) » pour un objet lié), sinon 25 %.
+    const resaleValue = firstNumber(content.match(/\*\*Prix\*\*[^\n]*·\s*\**\s*([\d\s\u00a0\u202f]+)[^\n·]*revente/i)?.[1]) ??
+                        Math.floor(buyPrice * 0.25);
     const desc = (content.match(/description\s*[:]\s*(.+)/i)?.[1] || '').slice(0, 200).replace(/'/g, "''");
 
-    rows.push([itemId, name, type, null, rarity, tier, atk, def, 0.5, 0, 0, 0,
-               buyPrice, resaleValue, maxStack, isConsumable, isCraftable, 0,
+    rows.push([itemId, name, type, subtype, rarity, tier, atk, def, 0.5, 0, 0, 0,
+               buyPrice, resaleValue, maxStack, isConsumable, isCraftable, durability,
                desc, '', null]);
   }
   return rows;
@@ -363,9 +422,10 @@ function parseNPCs() {
                      content.match(/\|\s*role_type\s*\|\s*(.+?)\s*\|/i)?.[1]?.trim() ||
                      'SERVICE').replace(/`/g, '');
     const roleType = mapRole(roleRaw);
+    // Un sous-lieu « ZONE_SPR_CAP_001A — Penwether, … » appartient à la zone ZONE_SPR_CAP_001.
     const zoneId = (content.match(/`(ZONE_\w+_\d+)`/) ||
-                    content.match(/\|\s*Zone\s*\|\s*(.+?)\s*\|/i)
-                   )?.[1]?.trim().replace(/`/g, '') || null;
+                    content.match(/\|\s*Zone\s*\|\s*`?(ZONE_[A-Z]+_[A-Z]+_\d{3})/i)
+                   )?.[1]?.trim() || null;
     const levelMatch = content.match(/\|\s*Niveau\s*\/\s*HP\s*\/\s*MP\s*\|\s*(\d+)\s*\/\s*(\d+)\s*\/\s*(\d+)/i) ||
                        content.match(/\|\s*Niveau\b.*?\|\s*(\d+).*?\|/i);
     const level = parseInt(levelMatch?.[1] || 1);
@@ -405,7 +465,7 @@ function parseNPCs() {
             // K3/KX sont stockés comme les autres : le pare-feu (D18) filtre à l'injection
             // (vue K0+K1+(K2∩unlocks)), pas à l'ingestion — cf. table_t_npc_knowledge.md trigger K3.
             knowledgeRows.push([
-              qiId, npcId, kLevel, parts[4] || '',
+              qiId, npcId, kLevel, pgArray(parts[4]),
               parts[5]?.replace(/\n/g, ' ') || '',
               parts[6]?.includes('JAMAIS') ? null : (parts[6] || null),
               parts[6]?.includes('déflection') || parts[6]?.includes('deflection') ? parts.slice(6).join(' | ').replace(/^.*?d[ée]flection\s*[:\-–]\s*/i, '').replace(/\s*\|\s*$/, '').replace(/`/g, '').trim() : null
@@ -604,7 +664,7 @@ try {
     'npc_id','display_name','race','role_type','zone_id','location_label','level','hp','mp',
     'stats_json','shop_ref','quest_ref','dialog_ref','secret_note','qi_budget',
     'is_canon','is_essential','is_alive'
-  ], npcData.npcRows, 50, '(npc_id)'));
+  ], npcData.npcRows, 1, '(npc_id)'));
   console.log(`-- PNJ : ${npcData.npcRows.length} lignes`);
 
   if (npcData.knowledgeRows.length > 0) {
@@ -613,7 +673,7 @@ try {
     console.log('-- ============================================================');
     console.log(batchInsert('T_NPC_KNOWLEDGE', [
       'qi_id','npc_id','k_level','topic_tags','content','unlock_condition','deflection_line'
-    ], npcData.knowledgeRows, 50));
+    ], npcData.knowledgeRows, 1));
     console.log(`-- QI : ${npcData.knowledgeRows.length} lignes`);
   }
 
@@ -624,7 +684,7 @@ try {
   console.log('-- ============================================================');
   console.log(batchInsert('T_SHOPS', [
     'shop_id','owner_npc_id','zone_id','shop_type','access_rule','buyback_categories','is_open'
-  ], shopData.shopRows, 50, '(shop_id)'));
+  ], shopData.shopRows, 1, '(shop_id)'));
   console.log(`-- Boutiques : ${shopData.shopRows.length} lignes`);
 
   console.log('-- ============================================================');
@@ -632,7 +692,7 @@ try {
   console.log('-- ============================================================');
   console.log(batchInsert('T_SHOP_ITEMS', [
     'shop_id','item_id','price','origin','origin_city','stock','restock_days','condition'
-  ], shopData.itemRows, 50));
+  ], shopData.itemRows, 1));
   console.log(`-- Articles boutique : ${shopData.itemRows.length} lignes`);
 
   // Skills

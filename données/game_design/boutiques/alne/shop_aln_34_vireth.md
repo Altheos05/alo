@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (7 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `MAT_GEM_001` | Gemme de Granit | T2 | 125 | IMPORT Granzam | ∞ | hebdo | — |
@@ -18,6 +18,7 @@
 | `MAT_GEM_005` | Rubis de Feu | T3 | 335 | IMPORT Gattan | ∞ | hebdo | — |
 | `MAT_GEM_006` | Saphir des Glaces | T3 | 335 | IMPORT Granzam | ∞ | hebdo | — |
 | `MAT_GEM_007` | Diamant de Mithril | T4 | 1680 | IMPORT Brokkheim | ∞ | hebdo | — |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : gemmes brutes et éclats (`MAT_GEM_*`) à 25 %.

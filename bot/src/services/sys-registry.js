@@ -1,5 +1,6 @@
 import logger from '../utils/logger.js';
 import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifications.js';
+import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/marriage.js';
 
 const COMMANDS = {};
 
@@ -201,6 +202,74 @@ define('SYS_SET_GENDER', {
     await db.query('UPDATE t_avatars SET gender = $1 WHERE avatar_uuid = $2', [params.gender, params.player_id]);
     logger.info('SYS_SET_GENDER ok', { player: params.player_id, gender: params.gender });
     return { ok: true, message: `Genre de ${params.player_id} corrigé : ${params.gender}` };
+  },
+});
+
+// ─── D85 : mariage (GM court-circuite le flux, jamais M1/M2) ───
+
+const avatarExists = async (db, uuid) =>
+  (await db.query('SELECT 1 FROM t_avatars WHERE avatar_uuid = $1', [uuid])).rows.length > 0;
+const activeMarriageExists = async (db, uuid) =>
+  (await db.query("SELECT 1 FROM t_marriages WHERE marriage_uuid = $1 AND status = 'active'", [uuid])).rows.length > 0;
+
+define('SYS_MARRY', {
+  description: 'Unit deux avatars (GM, sans anneau/niveau/lieu/foyer ; M1-M2 conservés)',
+  schema: { player_a: 'uuid', player_b: 'uuid' },
+  async d71(db, params) {
+    if (!(await avatarExists(db, params.player_a))) return `Joueur ${params.player_a} introuvable`;
+    if (!(await avatarExists(db, params.player_b))) return `Joueur ${params.player_b} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return source === 'gm'; },
+  async execute(db, params) {
+    const r = await forceMarriage(db, params.player_a, params.player_b);
+    return r.success ? { ok: true, message: `Mariage ${r.marriageUuid} créé` } : { ok: false, message: `Refusé : ${r.error}` };
+  },
+});
+
+define('SYS_DIVORCE_SETTLE', {
+  description: 'Prononce un divorce et règle la séparation par provenance (M5)',
+  schema: { marriage_id: 'uuid' },
+  async d71(db, params) {
+    if (!(await activeMarriageExists(db, params.marriage_id))) return `Mariage actif ${params.marriage_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const r = await settleDivorce(db, params.marriage_id);
+    return r.success ? { ok: true, message: `Divorce ${params.marriage_id} réglé` } : { ok: false, message: `Refusé : ${r.error}` };
+  },
+});
+
+define('SYS_CANCEL_PROPOSAL', {
+  description: 'Retire les demandes en mariage émises par un avatar',
+  schema: { player_id: 'uuid' },
+  async d71(db, params) {
+    if (!(await avatarExists(db, params.player_id))) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const r = await db.query('DELETE FROM t_marriage_proposals WHERE proposer_uuid = $1', [params.player_id]);
+    return { ok: true, message: `${r.rowCount} demande(s) retirée(s)` };
+  },
+});
+
+define('SYS_GENERATE_WEDDING_GIFT', {
+  description: 'Tire le cadeau de noces d\'un mariage qui n\'en a pas (M6)',
+  schema: { marriage_id: 'uuid' },
+  async d71(db, params) {
+    if (!(await activeMarriageExists(db, params.marriage_id))) return `Mariage actif ${params.marriage_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const r = await generateGiftIfMissing(db, params.marriage_id);
+    return r.success ? { ok: true, message: `Cadeau ${r.itemId} déposé au coffre conjugal` } : { ok: false, message: `Refusé : ${r.error}` };
   },
 });
 

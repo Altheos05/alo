@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (7 articles)
+## 2. Inventaire (8 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `MAT_GEM_002` | Gemme d'Obsidienne | T3 | 310 | IMPORT Granzam | 6 | semaine | — |
@@ -19,6 +19,7 @@
 | `MAT_MIN_009` | Granit de Granzam | T3 | 350 | IMPORT Granzam | 10 | semaine | — |
 | `MAT_MIN_004` | Minerai d'Argent | T2 | 110 | IMPORT Granzam | 8 | semaine | — |
 | `MAT_GEM_007` | Diamant de Mithril | T4 | 1 680 | IMPORT Granzam | 1 | mois | AFF>=60 |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : gemmes et minerais de Granzam contre fourrures fauves (25 %).

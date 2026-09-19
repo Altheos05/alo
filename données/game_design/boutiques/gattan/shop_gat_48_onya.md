@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (7 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `MAT_GEM_001` | Gemme de Granit | T2 | 85 | IMPORT Granzam | ∞ | hebdo | — |
@@ -18,6 +18,7 @@
 | `MAT_DRP_010` | Perle des Abysses | T3 | 335 | IMPORT Archipel | ∞ | hebdo | — |
 | `MAT_DRP_014` | Larme de Puca | T2 | 85 | IMPORT Lioda | ∞ | hebdo | — |
 | `MAT_MIN_011` | Cristal Violet | T3 | 335 | IMPORT Duskarn | ∞ | hebdo | — |
+| `MSC_ENG_001` | Anneau d'Engagement | T2 | 50000 | LOCAL | ∞ | semaine | Niv. 15+ |
 
 ## 3. Politique de rachat
 - **Rachète** : gemmes et pierres à 25%.

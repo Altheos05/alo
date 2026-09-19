@@ -2,7 +2,8 @@
 import { test, assert, createAvatar, finish, pool } from './helpers.mjs';
 import { processMessage } from '../src/orchestrator/message-handler.js';
 import { composeDish } from '../src/engine/cooking.js';
-import { elementalResistance } from '../src/engine/combat.js';
+import { elementalResistance, resolveAlteration } from '../src/engine/combat.js';
+import { executeCommand } from '../src/services/sys-pipeline.js';
 import { applyCharisma } from '../src/engine/knowledge.js';
 
 const give = (uuid, itemId, qty = 1) =>
@@ -35,6 +36,31 @@ async function run() {
     assert(elementalResistance([res('res_all', 15)], 'Terre') === 0.15, 'toutes');
     assert(elementalResistance([res('res_all', 15)], null) === 0, 'non élémentaire');
     assert(elementalResistance([res('res_all', 60), res('res_feu', 60)], 'Feu') === 0.75, 'plafond');
+  });
+
+  await test('D96-a — altération élémentaire : ignorée ou raccourcie selon la résistance', async () => {
+    const burn = { effect_id: 'EFF_BURN', element: 'Feu', duration_sec: 15 };
+    const shield = [res('res_feu', 40)];
+    assert(resolveAlteration(shield, burn, () => 0.1) === null, 'tirage sous 40 % : altération ignorée');
+    assert(resolveAlteration(shield, burn, () => 0.9).duration_sec === 9, 'sinon durée −40 % (15 → 9 s)');
+    assert(resolveAlteration(shield, { ...burn, element: null }, () => 0) !== null, 'une altération sans élément passe toujours');
+    assert(resolveAlteration([], burn, () => 0) === burn, 'sans résistance : inchangée');
+  });
+
+  await test('D96-a — l\'élément des altérations est en base', async () => {
+    const r = await pool.query("SELECT effect_id, element FROM t_status_effects_dict WHERE effect_id IN ('EFF_BURN','EFF_STUN') ORDER BY effect_id");
+    assert(r.rows[0].element === 'Feu' && r.rows[1].element === null, JSON.stringify(r.rows));
+  });
+
+  await test('D96-a — hors combat, SYS_DEBUFF_PLAYER tient compte des résistances', async () => {
+    const a = await createAvatar();
+    await executeCommand(pool, { command: 'SYS_EFFECT_APPLY', params: { player_id: a.avatar_uuid, effect_id: 'EFF_CSM_NOU_055', duration_sec: '600' } }, 'gm');
+    await executeCommand(pool, { command: 'SYS_DEBUFF_PLAYER', params: { player_id: a.avatar_uuid, status_effect: 'EFF_BURN' } }, 'system');
+    const burn = await pool.query(
+      "SELECT EXTRACT(EPOCH FROM (expires_at - NOW())) AS s FROM t_active_effects WHERE target_id = $1 AND effect_id = 'EFF_BURN'",
+      [a.avatar_uuid]);
+    // 15 % de chances d'être ignorée ; sinon 15 s × 0,85 ≈ 13 s.
+    assert(!burn.rows.length || burn.rows[0].s <= 13, 'durée non réduite : ' + burn.rows[0]?.s);
   });
 
   await test('D96-b — charisme : usage unique, fait monter la relation d\'un palier', async () => {

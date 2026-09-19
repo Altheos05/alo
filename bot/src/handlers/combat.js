@@ -7,6 +7,7 @@ import {
   formatActiveEffects,
   getStatModifiers,
   elementalResistance,
+  resolveAlteration,
 } from '../engine/combat.js';
 import { getPlayer } from '../services/player.js';
 import { getGearStats, wearEquipment, COMBAT_WEAR_PVE } from '../engine/durability.js';
@@ -348,8 +349,12 @@ export async function handleCombatAction(db, playerUuid, action, skillQuery = nu
 
   if (Math.random() < MONSTER_EFFECT_CHANCE) {
     const effectId = getMonsterStatusEffect(combat.monster);
-    if (effectId && effectsDict[effectId]) {
-      const applied = applyStatusEffect(combat.player, effectsDict[effectId]);
+    const effect = effectId && effectsDict[effectId];
+    const resolved = effect ? resolveAlteration(combat.player.activeEffects, effect) : null;
+    if (effect && !resolved) {
+      response.push(`🛡️ ${combat.player.avatar_name} résiste à ${effect.name}.`);
+    } else if (resolved) {
+      const applied = applyStatusEffect(combat.player, resolved);
       if (applied) {
         response.push(render('effect_applied', {
           targetName: combat.player.avatar_name,

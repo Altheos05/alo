@@ -4,7 +4,8 @@ import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/m
 import { addToInventory } from '../engine/bank.js';
 import { modifyDurability, breakItem, setDurability } from '../engine/durability.js';
 import { setNodeEvent, restockFishingSpot, resetHarvest } from '../engine/gathering.js';
-import { applyEffect, clearEffects } from '../engine/effects.js';
+import { applyEffect, clearEffects, loadCombatEffects } from '../engine/effects.js';
+import { resolveAlteration } from '../engine/combat.js';
 
 const COMMANDS = {};
 
@@ -430,9 +431,15 @@ function effectCommand(description, schemaKey, type, fixedDuration) {
     async prereqs() { return null; },
     async authorize(source) { return ['gm', 'system'].includes(source); },
     async execute(db, params) {
-      const r = await applyEffect(db, params.player_id, params[schemaKey], {
-        durationSec: fixedDuration ? null : parseInt(params.duration_sec, 10), sourceKind: 'system',
-      });
+      let durationSec = fixedDuration ? null : parseInt(params.duration_sec, 10);
+      if (type === 'debuff') {
+        // D96-a : les résistances du joueur valent aussi hors combat.
+        const dict = (await db.query('SELECT * FROM t_status_effects_dict WHERE effect_id = $1', [params[schemaKey]])).rows[0];
+        const resolved = resolveAlteration(await loadCombatEffects(db, params.player_id), dict);
+        if (!resolved) return { ok: true, message: `${params[schemaKey]} résisté par le joueur` };
+        durationSec = resolved.duration_sec;
+      }
+      const r = await applyEffect(db, params.player_id, params[schemaKey], { durationSec, sourceKind: 'system' });
       return r.success ? { ok: true, message: `${params[schemaKey]} posé pour ${r.durationSec} s` } : { ok: false, message: r.error };
     },
   };

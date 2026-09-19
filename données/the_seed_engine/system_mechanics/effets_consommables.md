@@ -25,7 +25,20 @@ Un bonus faible dure longtemps, un bonus fort peu : à tier égal, le joueur cho
 - **Effet** : `+N % résistance au feu` / `à l'ombre` / `toutes résistances`. Un effet actif réduit de N % les dégâts élémentaires reçus.
 - **Portée (première version)** : les **dégâts directs d'un monstre élémentaire** sur le joueur. Un monstre est élémentaire si son `T_MONSTERS_DICT.element` nomme un élément ; le feu comprend « Feu » et les éléments composés qui le contiennent (« Feu/Foudre/Glace ») ; l'ombre comprend « Ténèbres » et « Ombre ». `toutes résistances` couvre tout élément, jamais les dégâts non élémentaires (`element` vide ou « Aucun »).
 - **Cumul** : les résistances d'un même élément s'additionnent, plafonnées à 75 %.
-- **Hors portée** (à décider plus tard) : altérations élémentaires (Brûlure…), sorts élémentaires des joueurs (PvP), résistances des monstres.
+- **Altérations élémentaires** (amendement D96-a, étape 65) : une altération porte un élément (tableau ci-dessous). Face à une résistance de N % à cet élément :
+  1. la chance que l'altération s'applique baisse de N % (une résistance de 30 % ignore 30 % des tentatives) ;
+  2. si elle s'applique quand même, sa **durée** baisse de N % (arrondie à la seconde, 1 s au minimum) — donc aussi le nombre de ses dégâts périodiques.
+- Cela vaut pour les altérations infligées par un monstre en combat **et** pour celles posées hors combat par l'IA ou le GM (`SYS_DEBUFF_PLAYER`).
+- Une altération sans élément (étourdissement, lenteur, silence) n'est jamais réduite, même par « toutes résistances ».
+- **Hors portée** : sorts élémentaires des joueurs (PvP), résistances des monstres.
+
+| Effet_ID | Altération | Élément |
+|---|---|---|
+| `EFF_BURN` | Brûlure | Feu |
+| `EFF_FREEZE` | Gel | Glace |
+| `EFF_POISON` | Poison | Poison |
+| `EFF_FEAR` | Peur | Ténèbres |
+| `EFF_BLIND` | Cécité | Lumière |
 
 ## 3. Charisme (D96-b)
 

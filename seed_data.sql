@@ -1302,6 +1302,11 @@ INSERT INTO T_STATUS_EFFECTS_DICT (effect_id, name, type, stat_modified, modifie
 ('EFF_CUI_INT_3', 'Plat d''esprit III', 'buff', 'stat_int', 15, 'percent', 600, 0, 0, TRUE, 1, NULL) ON CONFLICT (effect_id) DO NOTHING;
 
 -- Effets de sorts : 42 lignes
+UPDATE T_STATUS_EFFECTS_DICT SET element = 'Feu' WHERE effect_id = 'EFF_BURN';
+UPDATE T_STATUS_EFFECTS_DICT SET element = 'Glace' WHERE effect_id = 'EFF_FREEZE';
+UPDATE T_STATUS_EFFECTS_DICT SET element = 'Poison' WHERE effect_id = 'EFF_POISON';
+UPDATE T_STATUS_EFFECTS_DICT SET element = 'Ténèbres' WHERE effect_id = 'EFF_FEAR';
+UPDATE T_STATUS_EFFECTS_DICT SET element = 'Lumière' WHERE effect_id = 'EFF_BLIND';
 -- ============================================================
 -- T_RESOURCE_NODES
 -- ============================================================

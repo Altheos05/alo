@@ -881,6 +881,11 @@ try {
     'tick_damage','tick_interval','is_dispellable','max_stacks','icon_emoji'
   ], [...spellEffects, ...CONSUMABLE_EFFECTS, ...parseCookingEffects()], 50, '(effect_id)'));
   console.log(`-- Effets de sorts : ${spellEffects.length} lignes`);
+  // D96-a : éléments des altérations (effets_consommables.md §2), après le seed de base de rebuild.sh.
+  const altSpec = fs.readFileSync(path.join(BASE, 'the_seed_engine', 'system_mechanics', 'effets_consommables.md'), 'utf-8');
+  for (const [, id, element] of altSpec.matchAll(/^\| `(EFF_[A-Z_]+)` \| [^|]+ \| ([^|]+?) \|$/gm)) {
+    console.log(`UPDATE T_STATUS_EFFECTS_DICT SET element = ${esc(element.trim())} WHERE effect_id = ${esc(id)};`);
+  }
 
   const nodes = parseNodes();
   console.log('-- ============================================================');

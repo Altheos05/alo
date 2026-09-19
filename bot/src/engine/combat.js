@@ -165,6 +165,15 @@ export function elementalResistance(activeEffects, element) {
   return Math.min(RESIST_CAP, pct / 100);
 }
 
+// D96-a (amendement) : une altération élémentaire face à une résistance de N % —
+// N % de chances d'être ignorée, sinon durée réduite de N %. null = résistée.
+export function resolveAlteration(activeEffects, effect, random = Math.random) {
+  const resist = elementalResistance(activeEffects, effect.element);
+  if (!resist) return effect;
+  if (random() < resist) return null;
+  return { ...effect, duration_sec: Math.max(1, Math.round((effect.duration_sec || 10) * (1 - resist))) };
+}
+
 export function getStatModifiers(activeEffects, baseStats) {
   if (!activeEffects?.length) return { ...baseStats };
   const result = { ...baseStats };

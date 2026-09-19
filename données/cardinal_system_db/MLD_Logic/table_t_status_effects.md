@@ -59,4 +59,4 @@ CREATE INDEX idx_active_effects_expiry ON T_ACTIVE_EFFECTS(target_type, target_i
 - `stat_modified` accepte `res_feu`, `res_ombre`, `res_all` (résistance élémentaire, % de réduction des dégâts), `charisma` (discussion, usage unique) et `mp_regen` (% des PM max par minute).
 - `T_ACTIVE_EFFECTS.last_tick_at TIMESTAMP` : horodatage de la dernière résolution paresseuse d'un effet périodique hors combat (régénération PM) ; `NULL` = `applied_at`.
 - Détail : `system_mechanics/effets_consommables.md`.
-
+- `T_STATUS_EFFECTS_DICT.element VARCHAR(20)` (amendement D96-a, étape 65) : élément d'une altération (`NULL` = non élémentaire), lu pour les résistances ; ingéré depuis `effets_consommables.md` §2.

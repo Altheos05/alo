@@ -1104,6 +1104,8 @@ ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_kind VARCHAR(6) CHE
 ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_ref VARCHAR(30);
 -- D96 : dernière résolution paresseuse d'un effet périodique hors combat (régénération PM).
 ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS last_tick_at TIMESTAMP;
+-- D96-a : élément d'une altération (résistances).
+ALTER TABLE T_STATUS_EFFECTS_DICT ADD COLUMN IF NOT EXISTS element VARCHAR(20);
 CREATE INDEX IF NOT EXISTS idx_active_effects_expiry ON T_ACTIVE_EFFECTS(target_type, target_id, expires_at);
 
 

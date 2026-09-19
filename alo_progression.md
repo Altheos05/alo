@@ -2361,3 +2361,22 @@ Les fiches `CSM_NOU_036` à `060` écrivent leur effet sous la forme « `| Stat 
 ### Vérification
 
 202 tests verts sur base jetable, dont la nouvelle suite `consumable-effects` (7 tests). La suite `marmite` a été ajustée à la nouvelle formule de durée.
+
+---
+
+## ÉTAPE 65 — Résistances contre les altérations élémentaires (amendement D96-a) ✅ (2026-09-19)
+
+**Demande PE** : étendre la portée des résistances aux altérations élémentaires.
+
+**Règle** (`effets_consommables.md` §2) : face à une résistance de N % à l'élément d'une altération :
+- l'altération a N % de chances d'être ignorée ;
+- sinon sa durée est réduite de N % (1 s au minimum), et avec elle le nombre de ses dégâts périodiques.
+
+Portée : altérations infligées en combat par un monstre, et altérations posées hors combat par l'IA ou le GM (`SYS_DEBUFF_PLAYER`). Les éléments sont Brûlure = feu, Gel = glace, Poison, Peur = ténèbres, Cécité = lumière. Les altérations sans élément (étourdissement, lenteur, silence) ne sont jamais réduites, même par « toutes résistances ». Hors portée : PvP et résistances des monstres.
+
+**Modifications** :
+- `T_STATUS_EFFECTS_DICT.element`, renseignée par le générateur depuis le tableau de la spec ;
+- `resolveAlteration()` (pure, `engine/combat.js`), utilisée en combat — le joueur voit « résiste à … » — et par `SYS_DEBUFF_PLAYER` ;
+- registre (D96 amendé), fiche MLD.
+
+**Vérification** : 205 tests verts, dont 3 nouveaux dans `consumable-effects`.

@@ -21,8 +21,18 @@ export async function handleShopList(db, playerId) {
     .join('');
   const overflow = overflowLine(items.length, 'autres articles');
 
+  // D83 §3.3 : les 8 premiers articles, achetables d'un chiffre (pagination « 0 » non construite).
+  const menu = {
+    context: 'SHOP',
+    ref: player.current_zone_id,
+    options: items.slice(0, MAX_CARD_ROWS).map((i, idx) => ({
+      digit: idx + 1, label: `${i.item_name} — ${i.price} Y`, command: `!buy ${i.item_id}`,
+    })),
+  };
+
   return {
     text,
+    menu,
     card: {
       template: 'boutique',
       variables: { zoneName: player.zone_name, itemCount: items.length, itemsHtml: rows + overflow },
@@ -46,6 +56,9 @@ export async function handleBuy(db, playerId, entities) {
     }
     if (result.error === 'ITEM_NOT_FOUND') {
       return render('buy_fail_notfound', { itemName: entities.itemId });
+    }
+    if (result.error === 'NOT_SOLD_HERE') {
+      return `❌ Aucune boutique ne vend **${result.item.name}** ici (ou stock épuisé). "!shop_list" pour l'offre de la zone.`;
     }
     return render('error');
   }

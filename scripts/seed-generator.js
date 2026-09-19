@@ -527,7 +527,8 @@ function parseNPCs() {
               qiId, npcId, kLevel, pgArray(parts[4]),
               parts[5]?.replace(/\n/g, ' ') || '',
               parts[6]?.includes('JAMAIS') ? null : (parts[6] || null),
-              parts[6]?.includes('déflection') || parts[6]?.includes('deflection') ? parts.slice(6).join(' | ').replace(/^.*?d[ée]flection\s*[:\-–]\s*/i, '').replace(/\s*\|\s*$/, '').replace(/`/g, '').trim() : null
+              parts[6]?.includes('déflection') || parts[6]?.includes('deflection') ? parts.slice(6).join(' | ').replace(/^.*?d[ée]flection\s*[:\-–]\s*/i, '').replace(/\s*\|\s*$/, '').replace(/`/g, '').trim() : null,
+              'FALSE', null
             ]);
           }
         }
@@ -537,10 +538,45 @@ function parseNPCs() {
   return { npcRows, knowledgeRows };
 }
 
+// D84 : « `!demander wrenna routes` (sujet de service, K0) : … IA `SYS_SET_TRADE_ROUTE` ».
+// Le slot K0/K1 portant ce sujet devient un sujet de service ; à défaut, un slot est créé.
+function markServiceTopics(npcRows, knowledgeRows) {
+  const byNpc = new Map();
+  for (const f of walk(path.join(BASE, 'personnages_bestiaire', 'pnj'))) {
+    const content = fs.readFileSync(f, 'utf-8');
+    const npcId = content.match(/`(NPC_\w+_\d+)`/)?.[1];
+    for (const line of content.split('\n')) {
+      const m = line.match(/`!demander \S+ (\w+)[^`]*`\s*\(sujet de service, K[01][^)]*\)\s*:\s*(.*?IA `(SYS_\w+)`.*)$/);
+      if (m && npcId) byNpc.set(`${npcId}|${m[1]}`, { npcId, topic: m[1], text: m[2], command: m[3] });
+    }
+  }
+  const norm = (t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/_/g, ' ');
+  for (const svc of byNpc.values()) {
+    const row = knowledgeRows.find(r => r[1] === svc.npcId && ['K0', 'K1'].includes(r[2]) &&
+      r[3].slice(1, -1).split(',').some(t => norm(t.replace(/"/g, '')) === norm(svc.topic)));
+    if (row) {
+      row[7] = 'TRUE';
+      row[8] = svc.command;
+    } else {
+      knowledgeRows.push([`QI_${svc.npcId.slice(4)}_SVC_${svc.topic.toUpperCase()}`.slice(0, 50), svc.npcId, 'K0',
+        pgArray(svc.topic), svc.text.replace(/`/g, '').slice(0, 400), null, null, 'TRUE', svc.command]);
+    }
+  }
+  return byNpc.size;
+}
+
 // ---------------------------------------------------------------------------
 // 4. BOUTIQUES → T_SHOPS + T_SHOP_ITEMS
 // ---------------------------------------------------------------------------
-function parseShops() {
+// Dossier de boutiques → zone de la ville (repli quand la fiche ne cite pas d'ID de zone).
+const SHOP_CITY_ZONES = {
+  alne: 'ZONE_NEU_CAP_001', archipel: 'ZONE_UND_CAP_001', brokkheim: 'ZONE_LEP_CAP_001',
+  duskarn: 'ZONE_IMP_CAP_001', freelia: 'ZONE_CAI_CAP_001', gattan: 'ZONE_SAL_CAP_001',
+  granzam: 'ZONE_GNO_CAP_001', lioda: 'ZONE_PUC_CAP_001', penwether: 'ZONE_SPR_CAP_001',
+  swilvane: 'ZONE_SYL_CAP_001', voulg: 'ZONE_SAL_TWN_001',
+};
+
+function parseShops(npcZones = new Map()) {
   const shopRows = [];
   const itemRows = [];
   const seenShops = new Set();
@@ -558,10 +594,12 @@ function parseShops() {
     const ownerNpc = (content.match(/Propriétaire.*?`(NPC_\w+_\d+)`/i) ||
                       content.match(/owner_npc_id\s*[|]\s*`(\S+)`/i) ||
                       [])?.[1] || null;
-    const zoneId = (content.match(/Zone.*?[|]\s*`(\S+)`/i) ||
+    // 154 fiches nomment la zone en clair (« Archipel, Lac Cristallin ») : repli sur la
+    // zone du propriétaire, puis sur la ville du dossier (elles tombaient toutes à Aincrad).
+    const zoneId = (content.match(/Zone.*?[|]\s*`(ZONE_[A-Z]+_[A-Z]+_\d{3})/i) ||
                     content.match(/zone_id\s*[|]\s*`(\S+)`/i) ||
-                    content.match(/`(ZONE_\w+_\d+)`/) ||
-                    [])?.[1] || 'ZONE_AIN_HUB_001';
+                    content.match(/`(ZONE_[A-Z]+_[A-Z]+_\d{3})`/) ||
+                    [])?.[1] || npcZones.get(ownerNpc) || SHOP_CITY_ZONES[path.basename(path.dirname(f))] || 'ZONE_AIN_HUB_001';
     const shopType = (content.match(/Type\s*[|]\s*(\w+)/i)?.[1] ||
                       content.match(/shop_type\s*[|]\s*`(\w+)`/i)?.[1] ||
                       'BOUTIQUE').toUpperCase();
@@ -651,7 +689,9 @@ function parseSkills() {
 // ---------------------------------------------------------------------------
 // 6. QUÊTES → T_QUESTS_DICT (partial)
 // ---------------------------------------------------------------------------
-function parseQuests() {
+// Donneur, zone (celle du donneur), niveau, récompenses et étapes lus dans le format
+// réel des fiches : sans zone, aucune quête n'apparaissait jamais au tableau.
+function parseQuests(npcZones = new Map()) {
   const rows = [];
   const seen = new Set();
   const files = walk(path.join(BASE, 'game_design', 'quetes'));
@@ -668,15 +708,20 @@ function parseQuests() {
     const qtype = questId.includes('DAILY') || questId.includes('daily') ? 'daily' :
                   questId.includes('LEG') || questId.includes('legendary') ? 'legendary' :
                   questId.includes('T5') || questId.includes('_t5') ? 't5' : 'side';
-    const minLevel = parseInt(content.match(/Niveau requis?\s*[:]\s*(\d+)/i)?.[1] || 1);
-    const rewardXp = parseInt(content.match(/EXP\s*[:]\s*(\d+)/i)?.[1] || 0);
-    const rewardYrds = parseInt(content.match(/Yrds?\s*[:]\s*(\d+)/i)?.[1] || 0);
+    const giver = content.match(/\*\*Donneur\*\*\s*:\s*`(NPC_\w+_\d+)`/)?.[1] || null;
+    const prereq = bulletField(content, 'Prérequis') || '';
+    const reward = bulletField(content, 'Récompense') || '';
+    const minLevel = parseInt(prereq.match(/Niveau\s*(\d+)/i)?.[1] || content.match(/Niveau requis?\s*[:]\s*(\d+)/i)?.[1] || 1);
+    const rewardXp = parseInt(reward.match(/([\d\s]+)\s*EXP/i)?.[1]?.replace(/\s/g, '') || content.match(/EXP\s*[:]\s*(\d+)/i)?.[1] || 0);
+    const rewardYrds = parseInt(reward.match(/([\d\s]+)\s*Yrds?/i)?.[1]?.replace(/\s/g, '') || content.match(/Yrds?\s*[:]\s*(\d+)/i)?.[1] || 0);
+    const steps = (content.split(/^## /m).find(sec => /^D[ée]roulement/.test(sec)) || '').match(/^\d+\.\s/gm)?.length || 1;
+    const firstStep = (content.split(/^## /m).find(sec => /^D[ée]roulement/.test(sec)) || '').match(/^1\.\s+(.+)$/m)?.[1] || '';
 
-    rows.push([questId, title, qtype, minLevel, null, null, null, '{}', 1,
+    rows.push([questId, title.replace(/\s*—\s*`[^`]+`\s*$/, ''), qtype, minLevel, null, npcZones.get(giver) || null, giver, '{}', steps,
                rewardXp, rewardYrds, '[]', null, '{}',
                qtype === 'daily' ? 'TRUE' : 'FALSE', 'FALSE',
                qtype === 'daily' ? 'TRUE' : 'FALSE',
-               qtype === 'daily' ? 24 : null, '', '']);
+               qtype === 'daily' ? 24 : null, firstStep.slice(0, 500), '']);
   }
   return rows;
 }
@@ -761,14 +806,17 @@ try {
     console.log('-- ============================================================');
     console.log('-- T_NPC_KNOWLEDGE');
     console.log('-- ============================================================');
+    const services = markServiceTopics(npcData.npcRows, npcData.knowledgeRows);
     console.log(batchInsert('T_NPC_KNOWLEDGE', [
-      'qi_id','npc_id','k_level','topic_tags','content','unlock_condition','deflection_line'
+      'qi_id','npc_id','k_level','topic_tags','content','unlock_condition','deflection_line',
+      'is_service','service_sys_command'
     ], npcData.knowledgeRows, 1));
+    console.log(`-- Sujets de service (D84) : ${services}`);
     console.log(`-- QI : ${npcData.knowledgeRows.length} lignes`);
   }
 
   // Shops
-  const shopData = parseShops();
+  const shopData = parseShops(new Map(npcData.npcRows.filter(r => r[4]).map(r => [r[0], r[4]])));
   console.log('-- ============================================================');
   console.log('-- T_SHOPS');
   console.log('-- ============================================================');
@@ -801,14 +849,14 @@ try {
   console.log('-- ============================================================');
   console.log('-- T_QUESTS_DICT');
   console.log('-- ============================================================');
-  const quests = parseQuests();
+  const quests = parseQuests(new Map(npcData.npcRows.filter(r => r[4]).map(r => [r[0], r[4]])));
   if (quests.length > 0) {
     console.log(batchInsert('T_QUESTS_DICT', [
       'quest_id','title','quest_type','min_level','recommended_level','zone_id','giver_npc_id',
       'objective_json','total_steps','reward_xp','reward_yrds','reward_items','reward_title_id',
       'prerequisites','is_repeatable','is_hidden','has_deadline','deadline_hours',
       'description','lore_text'
-    ], quests, 50, '(quest_id)'));
+    ], quests, 1, '(quest_id)'));
   }
   console.log(`-- Quêtes : ${quests.length} lignes`);
 

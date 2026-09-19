@@ -88,7 +88,7 @@ async function run() {
 
   await test('acceptQuest — plafond 10 quêtes actives (régression Q1)', async () => {
     // t_active_quests.quest_id est une FK : le plafond se remplit avec de vraies quêtes.
-    const questRows = await pool.query('SELECT quest_id FROM t_quests_dict ORDER BY quest_id LIMIT 11');
+    const questRows = await pool.query('SELECT quest_id FROM t_quests_dict WHERE min_level <= 20 ORDER BY quest_id LIMIT 11');
     if (questRows.rows.length < 11) return; // pas assez de quêtes seedées, régression non vérifiable ici
     const ids = questRows.rows.map(r => r.quest_id);
     await pool.query('DELETE FROM t_active_quests WHERE avatar_uuid = $1', [TEST_PLAYER]);

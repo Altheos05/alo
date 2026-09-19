@@ -137,7 +137,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       if (existingCombat) {
         return '⚔️ Tu es en combat ! Tu ne peux pas te déplacer.';
       }
-      return movement.handleMove(db, playerId, routing.entities);
+      // Une commande de menu « !tp ZONE_… » porte l'ID : il prime sur l'entité devinée.
+      const zoneInText = (routing.raw || '').match(/ZONE_[A-Z]+_[A-Z0-9]+_\d{3}/i)?.[0];
+      return movement.handleMove(db, playerId, zoneInText ? { ...routing.entities, zoneId: zoneInText } : routing.entities);
     }
 
     case 'ATTACK': {
@@ -147,6 +149,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       }
       return combat.handleAttack(db, playerId, routing.entities);
     }
+
+    case 'ASK':
+      return dialogue.handleAsk(db, playerId, routing.raw || '');
 
     case 'FLEE':
       return combat.handleFlee(db, playerId);

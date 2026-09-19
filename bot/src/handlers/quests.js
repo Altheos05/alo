@@ -26,8 +26,17 @@ export async function handleQuestBoard(db, playerId) {
     .join('');
   const overflow = overflowLine(quests.length, 'autres quêtes');
 
+  const menu = {
+    context: 'QUEST_BOARD',
+    ref: player.current_zone_id,
+    options: quests.slice(0, MAX_CARD_ROWS).map((q, idx) => ({
+      digit: idx + 1, label: q.title, command: `!quest_accept ${q.quest_id}`,
+    })),
+  };
+
   return {
     text,
+    menu,
     card: { template: 'quete_tableau', variables: { zoneName: player.zone_name, questCount: quests.length, itemsHtml: rows + overflow } },
   };
 }

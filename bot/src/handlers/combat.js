@@ -143,6 +143,7 @@ export async function handleAttack(db, playerUuid, entities) {
 
   return {
     text,
+    menu: await combatMenu(db, playerUuid),
     card: {
       template: 'combat_rencontre',
       variables: {
@@ -379,7 +380,22 @@ export async function handleCombatAction(db, playerUuid, action, skillQuery = nu
   }
 
   combat.turn++;
-  return response.join('\n');
+  return { text: response.join('\n'), menu: await combatMenu(db, playerUuid) };
+}
+
+const MENU_SPELLS = 2;
+
+// D83 §3.1 : attaquer, les sorts connus les plus accessibles, fuir.
+async function combatMenu(db, playerUuid) {
+  const spells = await db.query(
+    `SELECT s.skill_id, s.name FROM t_avatar_skills a JOIN t_skills_dict s ON s.skill_id = a.skill_id
+     WHERE a.avatar_uuid = $1 AND s.skill_type IN ('MAG','OSS') ORDER BY a.is_equipped DESC, s.mp_cost LIMIT $2`,
+    [playerUuid, MENU_SPELLS]
+  );
+  const options = [{ label: 'Attaquer', command: '!attaque' },
+    ...spells.rows.map(s => ({ label: `Lancer ${s.name}`, command: `!cast ${s.skill_id}` })),
+    { label: 'Fuir', command: '!fuite' }];
+  return { context: 'COMBAT', ref: playerUuid, options: options.map((o, i) => ({ digit: i + 1, ...o })) };
 }
 
 async function endSession(db, combat, outcome) {

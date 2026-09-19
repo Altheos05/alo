@@ -63,6 +63,9 @@ export async function cleanupAvatars() {
   await pool.query('DELETE FROM t_guilds WHERE leader_avatar_uuid = ANY($1)', [ids]);
   await pool.query('DELETE FROM t_parties WHERE leader_id = ANY($1)', [ids]);
   await pool.query('DELETE FROM t_combat_sessions WHERE avatar_uuid = ANY($1)', [ids]);
+  await pool.query('DELETE FROM t_npc_knowledge_unlocks WHERE avatar_uuid = ANY($1)', [ids]);
+  await pool.query('DELETE FROM t_active_quests WHERE avatar_uuid = ANY($1)', [ids]);
+  await pool.query('DELETE FROM t_quest_history WHERE avatar_uuid = ANY($1)', [ids]);
   await pool.query("DELETE FROM t_active_effects WHERE target_type = 'avatar' AND target_id = ANY($1)", [ids]);
   await pool.query('DELETE FROM t_avatars WHERE avatar_uuid = ANY($1)', [ids]);
 }

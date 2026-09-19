@@ -12,7 +12,7 @@ export async function handleMove(db, playerUuid, entities) {
   const targetZone = (entities.zoneId || entities.target || '').toUpperCase().replace(/`/g, '');
 
   if (!targetZone) {
-    return `📍 Tu es à **${player.zone_name}** (${fromZone}). Où veux-tu aller ?`;
+    return { text: `📍 Tu es à **${player.zone_name}** (${fromZone}). Où veux-tu aller ?`, menu: movementMenu(fromZone) };
   }
 
   if (!zoneExists(targetZone)) {
@@ -77,10 +77,24 @@ export async function handleMove(db, playerUuid, entities) {
 
   return {
     text,
+    menu: movementMenu(targetZone),
     card: {
       template: 'mouvement',
       variables: { destination: targetZone, cost, travelTime },
     },
+  };
+}
+
+const MENU_MAX = 8;
+
+// D83 §3.4 : zones adjacentes réellement accessibles (T_ZONE_LINKS).
+function movementMenu(zoneId) {
+  const exits = getNeighbors(zoneId).slice(0, MENU_MAX);
+  if (!exits.length) return null;
+  return {
+    context: 'MOVEMENT',
+    ref: zoneId,
+    options: exits.map((n, i) => ({ digit: i + 1, label: n.zone, command: `!tp ${n.zone}` })),
   };
 }
 

@@ -3,6 +3,8 @@ import { retrieveKnowledge, getDialogueResponse } from '../services/rag.js';
 import { enhanceDialogue } from '../services/llm.js';
 import { executePipelineCommands } from '../services/sys-pipeline.js';
 import logger from '../utils/logger.js';
+import { findNpc, askTopic, menuTopics, recordInteraction } from '../engine/knowledge.js';
+import { getPlayer } from '../services/player.js';
 
 const AFFINITY_LABELS = {
   hostile: 'Hostile',
@@ -80,7 +82,7 @@ export async function handleTalk(db, playerId, entities) {
 
   if (!dialogue) {
     const knowledgeResult = await db.query(
-      "SELECT content FROM t_npc_knowledge WHERE npc_id = $1 AND k_level IN ('K0','K1','K2') ORDER BY k_level ASC LIMIT 1",
+      "SELECT content FROM t_npc_knowledge WHERE npc_id = $1 AND k_level IN ('K0','K1') ORDER BY k_level ASC LIMIT 1",
       [npc.npc_id]
     );
     dialogue = knowledgeResult.rows.length > 0
@@ -89,15 +91,62 @@ export async function handleTalk(db, playerId, entities) {
   }
 
   const text = render('talk', { npcName: npc.display_name, dialogue });
+  await recordInteraction(db, playerId, npc.npc_id);
   const relationLabel = await getRelationLabel(db, playerId, npc.npc_id);
+
+  // D83 §3.2 : sujets K0/K1 (services en tête) résolus en « !demander ».
+  const topics = await menuTopics(db, npc.npc_id, MENU_TOPICS);
+  const menu = topics.length ? {
+    context: 'DIALOGUE',
+    ref: npc.npc_id,
+    options: topics.map((t, i) => ({
+      digit: i + 1,
+      label: `${t.is_service ? '🛠️ ' : ''}${t.tag}`,
+      command: `!demander ${npc.npc_id} ${t.tag.replace(/\s+/g, '_')}`,
+    })),
+  } : null;
 
   return {
     text,
+    menu,
     card: {
       template: 'dialogue_talk',
       variables: { npcName: npc.display_name, npcId: npc.npc_id, dialogue, relationLabel },
     },
   };
+}
+
+const MENU_TOPICS = 6;
+
+// !demander [PNJ] [sujet] [payer] — pare-feu QI (D18) et sujets de service (D84).
+export async function handleAsk(db, playerId, raw = '') {
+  const tokens = raw.trim().split(/\s+/).slice(1);
+  const wantsToPay = /^payer$/i.test(tokens.at(-1) || '');
+  if (wantsToPay) tokens.pop();
+  if (tokens.length < 2) return '🗣️ Utilisation : "!demander [PNJ] [sujet]".';
+  const topic = tokens.pop().replace(/_/g, ' ');
+  const player = await getPlayer(db, playerId);
+  const npc = await findNpc(db, tokens.join(' '), player?.current_zone_id);
+  if (!npc) return render('talk_notfound', { npcName: tokens.join(' ') });
+  if (npc.zone_id && npc.zone_id !== player.current_zone_id) return `🗣️ **${npc.display_name}** n'est pas ici.`;
+
+  const r = await askTopic(db, playerId, npc, topic, { wantsToPay });
+  const who = `**${npc.display_name}**`;
+  switch (r.kind) {
+    case 'ignorance':
+    case 'deflection':
+      return `🗣️ ${who} : ${r.text}`;
+    case 'locked':
+      return `🗣️ ${who} te regarde longuement… et change de sujet. (Il faudra gagner sa confiance.)`;
+    case 'price':
+      return `🗣️ ${who} : « Ça a un prix : ${r.price} Yrds. » — "!demander ${npc.npc_id} ${topic.replace(/\s+/g, '_')} payer" pour accepter.`;
+    case 'too_poor':
+      return `❌ Il te faut ${r.price} Yrds pour cette information.`;
+    default: {
+      const service = r.service ? `\n🛠️ ${r.service.message}` : '';
+      return `🗣️ ${who} : ${r.text}${service}`;
+    }
+  }
 }
 
 function getDefaultDialogue(roleType) {
@@ -114,4 +163,4 @@ function getDefaultDialogue(roleType) {
   return dialogues[roleType] || dialogues.default;
 }
 
-export default { handleTalk };
+export default { handleTalk, handleAsk };

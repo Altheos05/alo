@@ -7,7 +7,7 @@
 - `!sys_group_create [Nom_Lieu] [Type: Public/Secret]` : Le bot génère un nouveau groupe WhatsApp (ex: *Palier 27 - Salle du Boss*).
 - `!sys_group_add [Num_WhatsApp] [Group_ID]` : Ajoute silencieusement un joueur à un groupe secret s'il en a les droits.
 - `!sys_group_kick [Num_WhatsApp] [Group_ID]` : Expulse un joueur du groupe (ex: mort dans le donjon ou retour en ville).
-- `!sys_announce [Texte]` : Ping global du bot (Message épinglé) dans tous les groupes de la communauté (ex: *L'Event de la Purge commence*).
+- `!sys_announce [Texte]` : Ping global du bot (Message épinglé) dans tous les groupes de la communauté (ex: *L'Event de la Purge commence*). Émis via la file bridée `T_NOTIFICATIONS` (D91).
 - `!sys_ban [Num_WhatsApp]` : Blacklist un numéro.
 - `!sys_give [Objet/Yrd] [Num_WhatsApp]` : Commande GM pour le support.
 - `!sys_spawn_boss [Group_ID] [Boss_ID]` : Force l'apparition d'un Raid Boss dans un groupe WhatsApp spécifique.
@@ -28,6 +28,14 @@
 - `!sys_recall_party [Party_ID] [Ancre_Avatar_ID]` : Rappelle les membres consentants d'un groupe vers une ancre (équivalent GM du Cristal de Ralliement `CSM_CRI_010`). Équivalent IA : `SYS_GROUP_RECALL`. Chaque membre confirme par `!accept_rally`.
 - `!sys_rag_reindex [scope]` : Force la ré-indexation incrémentale par hash de l'index vectoriel RAG (`scope` = `fiche`/`dossier`/`global` ; D-RAG-9, `15_cdc_rag.md`) — une fiche modifiée doit remonter à jour dans la constellation sans réentraînement. Respecte le verrou d'ingestion K3/méta/secret (D-RAG-2/D22). Équivalent IA : `SYS_RAG_REINDEX`.
 - `!sys_menu_force [Avatar] [Contexte]` : Force l'affichage d'un menu contextuel de test pour un avatar (debug/support — D83, `system_mechanics/menu_contextuel_protocol.md`), même hors situation de jeu réelle. Équivalent IA : `SYS_MENU_RENDER`.
+- `!sys_set_gender [Num_WhatsApp] [homme|femme|neutre]` : Seule voie de correction du genre d'un avatar, immuable côté joueur (D86, `T_AVATARS` A8). Équivalent IA : `SYS_SET_GENDER`.
+- `!sys_proposal_cancel [Num_WhatsApp]` : Annule la demande en mariage sortante d'un joueur (D85, `T_MARRIAGE_PROPOSALS`). Équivalent IA : `SYS_CANCEL_PROPOSAL`.
+- `!sys_node_reset [Num_WhatsApp] [Node_ID]` : Remet à zéro la repousse d'un nœud de ressource pour un joueur (D87, `T_AVATAR_HARVESTS`).
+- `!sys_node_event [Node_ID] [deplete|bonus] [Durée]` : Épuise ou fait abonder un nœud pour tous (état global, D87). Équivalents IA : `SYS_DEPLETE_RESOURCE`, `SYS_BONUS_HARVEST`.
+- `!sys_durability_set [Num_WhatsApp] [Item_ID] [Valeur]` : Fixe la durabilité d'une instance (support, D88). Équivalent IA : `SYS_MODIFY_DURABILITY` *(existant)*.
+- `!sys_effect_apply [Num_WhatsApp] [Effect_ID] [Durée]` / `!sys_effect_clear [Num_WhatsApp]` : Pose ou retire des effets actifs persistants (D90, `T_ACTIVE_EFFECTS`). Équivalents IA : `SYS_BLESS_PLAYER` / `SYS_DEBUFF_PLAYER` *(existants)*, `SYS_CLEAR_EFFECTS`.
+- `!sys_notify [Num_WhatsApp] [Texte]` : Message privé système à un joueur, via la file bridée (D91, `T_NOTIFICATIONS`). Équivalent IA : `SYS_NOTIFY_PLAYER`.
+- `!sys_notif_queue` : Affiche l'état de la file de notifications sortantes (en attente, échecs) (D91).
 
 ## 2. 📚 Encyclopédie & Index Système (Guide d'Argo)
 *Le savoir est verrouillé. Les joueurs débloquent la documentation en explorant.*
@@ -48,13 +56,15 @@
 - `!portal [Ville]` : Utilise un cristal de téléportation pour changer de groupe WhatsApp instantanément (capitale).
 
 ## 4. ⚙️ Gestion de Compte & AmuSphere
-- `!link_start [Race]` : Inscription, liaison du MSISDN.
+- `!link_start [Race] [Nom] [Genre]` : Inscription, liaison du MSISDN. `Genre` = `homme` / `femme` / `neutre`, **définitif** (D86 — correction GM seule, `!sys_set_gender`).
 - `!profil` / `!stats_view` / `!stats_add [Attribut] [Points]` / `!titre_set [ID]`.
 - `!logout` : Déconnexion. Le bot retire temporairement le joueur des groupes de combat pour éviter le spam.
 - `!ping` : Affiche la latence de réponse du bot (Simule le *Connection Status* de l'AmuSphere).
 
 ## 5. ⚔️ Moteur de Combat & Instances (PvE/PvP)
 - `!attaque` / `!cast [Sort]` / `!oss [Skill]` / `!parry` / `!switch [Allié]` / `!analyze` / `!fuite`.
+- `!cast [Sort] [Num_WhatsApp?]` **hors combat** (D90) : seuls les sorts sans dégâts directs (soutien, soin, buffs, `MAG_GUE_006` Revive sur un allié mort). T1-T2 : soi ou l'allié désigné, dans la même zone ; T3+ : tout le groupe présent dans la même zone. L'effet persiste jusqu'à son échéance, combat ou pas.
+- `!effets` : Liste ses effets actifs (buffs, malus, plats) et leur temps restant (D90, `T_ACTIVE_EFFECTS`).
 - `!target [ID_Ennemi]` : Verrouille une cible si la zone contient plusieurs monstres (le bot affiche les ID dans le groupe).
 - `!use [Item_ID]` : Consomme/active un objet consommable (`CSM_*` : cristaux, potions, parchemins, nourriture, encens…). `!use_potion` et `!use_crystal [type]` sont des alias spécialisés historiques. GM : `!sys_give` (octroi) ; IA : `SYS_GRANT_ITEM` (octroi) + primitive de résolution d'effet propre à l'item (ex. `SYS_OPEN_CORRIDOR`, `SYS_GROUP_RECALL`).
 - `!use_potion [Nom_Potion]` / `!revive_light [Cible]`.
@@ -62,13 +72,14 @@
 - `!duel_challenge [Num_WhatsApp]` : Lance une invitation au duel formel (Anti-PK). Si accepté, le bot arbitre les dégâts sans pénalité de mort.
 
 ## 6. 🎒 Inventaire, Équipement & Paramètres d'Avatar
-- `!inventaire` / `!equiper [Item_ID] [Slot]` / `!unequip [Slot]` / `!jeter [Item_ID]`.
-- `!inspect [Item_ID]` : Lit la description d'un objet.
+- `!inventaire` / `!equiper [Item_ID] [Slot]` / `!unequip [Slot]` / `!jeter [Item_ID]`. Jeter un objet **lié à l'âme** exige une confirmation (menu `1` confirmer / `2` annuler, D92).
+- `!inspect [Item_ID]` : Lit la description d'un objet, et pour un objet possédé son **état** (Neuf / Quasi neuf / Bon état / État correct / Usé / Cassé) et sa durabilité (D88).
 - `!outfit [Cosmétique]` : Change la description visuelle publique de l'avatar.
 - `!bank_depot` / `!bank_retrait` / `!mail_send [Destinataire] [Colis]`.
 
 ## 7. 🔨 Artisanat, Forgeron & Alchimie
 - `!craft_list` / `!forge [Recette]` / `!repair [Objet]` / `!enchant [Objet]` / `!alchimie [Herbe]` / `!cook` / `!mine`.
+- `!repair [Objet]` (D88) : **uniquement dans une zone où se trouve un forgeron PNJ** ; coût = barème par tier × points restaurés, payé au PNJ ; chaque réparation ampute définitivement la durabilité max (objet irréparable à terme). Aucun parchemin de réparation (`CSM_PAR_007/008` retirés). Détail : `system_mechanics/durability_repair_system.md`.
 - `!appraise [Objet_Non_Identifié]` : Identifie un loot mystère moyennant des Yrds (Marchand).
 
 ## 8. 🐾 Domptage & Familiers (Beast Taming)
@@ -81,7 +92,7 @@
 - `!bounty_board` / `!bounty_claim` : Registre des assassins.
 
 ## 10. 🛡️ Guildes, Groupes & Politique
-- `!guild_create [Nom]` / `!guild_disband` / `!guild_leave` / `!guild_bank`.
+- `!guild_create [Nom]` / `!guild_disband` / `!guild_leave` / `!guild_bank`. `!guild_disband` exige une confirmation (D92).
 - **Rejoindre** : `!guild_invite [Num]` → `!guild_accept` (invitation) · `!guild_apply [Nom]` → `!guild_approve [Num]` (candidature) · `!guild_kick [Num]`. Un joueur = **une** guilde à la fois (`T_GUILDS` G5). Équivalents IA : `SYS_GUILD_INVITE`, `SYS_GUILD_JOIN`.
 - `!guild_war [Nom_Guilde]` : Déclare une guerre de faction. Autorise le PK sans pénalité de Karma entre les deux guildes.
 - `!party_create` / `!party_invite` / `!party_leave` / `!party_leader [Allié]`.
@@ -104,22 +115,25 @@
 - `!hover` : Vol stationnaire pour caster en altitude.
 - `!flight_gauge` : Affiche la barre de vol restante (10 min max, recharge au sol).
 
-## 13. 🎭 Magie Illusoire (Spriggan)
-*Commandes liées au système d'illusion (cf. `illusion_magic_system.md`).*
-- `!illusion [Type]` : Lance une illusion (Leurre, Mirage, Nuit Artificielle, Transmutation, etc.).
-- `!treasure_sense` : (Passif Spriggan) Détecte les coffres et objets cachés dans un rayon de 50m.
+## 13. 🎭 Magie Illusoire (Spriggan) — ⛔ RETIRÉE (D89, étape 60)
+*`illusion_magic_system.md` est remplacé par le lot validé I-4 (application de D66) : aucune école d'Illusion n'existe parmi les 10 écoles (D40) — l'école affine des Spriggan est `TEN`, lancée par `!cast`.*
+- ~~`!illusion [Type]`~~ — retirée.
+- ~~`!treasure_sense`~~ — retirée.
 
-## 14. 🎵 Magie Musicale (Puca)
-*Commandes liées au système de mélodies (cf. `music_magic_system.md`).*
-- `!music [Nom_Mélodie]` : Joue une mélodie conférant un buff de zone au groupe (Hymne du Vent, Requiem de Guerre, Symphonie de Guérison, etc.).
-- `!music_stop` : Arrête la mélodie en cours.
-- `!melodies` : Liste les mélodies débloquées par le joueur.
+## 14. 🎵 Magie Musicale (Puca) — absorbée par l'école `SUP` (D89, étape 60)
+*`music_magic_system.md` est remplacé par le lot validé I-4 : les sorts de barde Puca **sont** l'école `SUP` (Support).*
+- `!music [Sort]` : **alias de `!cast`** restreint à l'école `SUP` (ex. `!music requiem` = `!cast requiem`). Hors combat : règles D90.
+- `!melodies` : Liste les sorts `SUP` appris par le joueur.
+- ~~`!music_stop`~~ — retirée (plus de canalisation continue : incantation + durée, modèle standard).
 
 ## 15. 💍 Mariage & Housing
 *Commandes liées au système social avancé (cf. `marriage_housing_system.md`).*
 - `!propose [Num_WhatsApp]` : Envoie une demande de mariage (nécessite Ring of Betrothal).
-- `!accept_proposal` : Accepte la demande. **Prérequis (D-SOC, `T_MARRIAGES` M3)** : les deux Niv ≥ 15, **homme + femme uniquement**, un Anneau d'Engagement chacun, et **au moins un foyer** (housing actif) entre les deux ; un seul mariage actif par personne.
-- `!divorce` : Sépare le couple. **Chacun repart avec ce qu'il a apporté** (restitution par provenance via `T_MARRIAGE_ASSETS`) + partage 50/50 des biens communs ; cooldown 30 j.
+  - D85 : la demande part **à distance** (la cible est prévenue en privé, D91) et reste valable **48 h** ; **une seule demande sortante** à la fois.
+- `!accept_proposal [Num_WhatsApp?]` : Accepte la demande (numéro requis seulement si plusieurs demandes sont en attente). **Prérequis (D-SOC, `T_MARRIAGES` M3)** : les deux Niv ≥ 15, **homme + femme uniquement**, un Anneau d'Engagement chacun, et **au moins un foyer** (housing actif) entre les deux ; un seul mariage actif par personne. **D85 : acceptation en personne** — les deux fiancés dans **la même zone**, hors combat ; la cérémonie a lieu immédiatement.
+- `!decline_proposal [Num_WhatsApp]` : Refuse une demande reçue (le demandeur est prévenu). *(D85)*
+- `!cancel_proposal` : Retire sa propre demande en attente. *(D85)*
+- `!divorce` : Sépare le couple (confirmation requise, D92). **Chacun repart avec ce qu'il a apporté** (restitution par provenance via `T_MARRIAGE_ASSETS`) + partage 50/50 des biens communs ; cooldown 30 j.
 - `!partner_status` : Statut du conjoint **en temps réel** (PV/PM/stamina/niveau/zone), sans coût, quelle que soit la zone.
 - `!whisper_partner [Message]` : Message privé au conjoint, peu importe la zone.
 - `!partner_locate` : Affiche la zone du conjoint.
@@ -133,19 +147,21 @@
 - `!home_invite [Num_WhatsApp]` / `!home_kick [Num_WhatsApp]` : Gère les invités du logement.
 - `!decorate [Item]` : Place un objet décoratif dans la maison (confère des buffs passifs).
 - `!housing_leave` : Résilie une location.
+- `!housing_sell` et `!housing_leave` exigent une confirmation (D92). Perdre le foyer conjugal ne dissout pas le mariage (D85).
 
-> Équivalents GM/IA : `!sys_marry`/`!sys_divorce`/`!sys_grant_property`/`!sys_evict` · `SYS_GENERATE_CEREMONY`, `SYS_GENERATE_WEDDING_GIFT`, `SYS_DIVORCE_SETTLE`, `SYS_CREATE_HOME_GROUP`, `SYS_GRANT_PROPERTY`, `SYS_EVICT_TENANT`, `SYS_DESTROY_HOME` (cf. §10 orchestrateur). Détail : `system_mechanics/marriage_housing_system.md` (v2.0), tables `table_t_marriages.md` / `table_t_properties.md`.
+> Équivalents GM/IA : `!sys_marry`/`!sys_divorce`/`!sys_grant_property`/`!sys_evict` · `SYS_GENERATE_CEREMONY`, `SYS_GENERATE_WEDDING_GIFT`, `SYS_DIVORCE_SETTLE`, `SYS_CREATE_HOME_GROUP`, `SYS_GRANT_PROPERTY`, `SYS_EVICT_TENANT`, `SYS_DESTROY_HOME` (cf. §10 orchestrateur). Détail : `system_mechanics/marriage_housing_system.md` (v2.1), tables `table_t_marriages.md` / `table_t_marriage_proposals.md` / `table_t_properties.md`.
 
 ## 16. 🎣 Pêche, Cuisine & Récolte Avancée
-*Commandes liées aux métiers secondaires (cf. `gathering_cooking_system.md`).*
-- `!fish` : Lance une session de pêche (nécessite canne + zone avec eau).
-- `!reel` : Remonte la ligne au bon moment (mini-jeu textuel basé sur la DEX).
+*Commandes liées aux métiers secondaires (cf. `gathering_cooking_system.md` **v2.0**, D87 — modèle unique `T_RESOURCE_NODES`, repousse propre à chaque joueur).*
+- `!fish [FSH_ID?]` : Lance une session de pêche (canne `OUT_CAN_*` de tier ≥ nœud, possédée). **Mini-jeu asynchrone** : 3 options numérotées (menu D83, contexte `FISHING`), une seule juste selon l'indice narratif, réussite modulée par la DEX — **sans chronomètre**. Sans ID : menu des nœuds de pêche de la zone.
+- ~~`!reel`~~ — retirée (la fenêtre chronométrée de 10 s est remplacée par le mini-jeu à options).
 - `!cook [Recette]` : Prépare un repas avec des ingrédients (buffs temporaires).
 - `!sew [Matériau]` : Couture d'armure textile ou de sacs d'inventaire.
-- `!gather` : Récolte des herbes et plantes dans la zone.
-- `!recolter <FLO_ID>` : Récolte un node de flore identifié (`FLO_*`) — déclenche le mini-jeu de récolte et crédite le matériau dans l'inventaire. L'ID du node est visible via `!inspect` ou les panneaux de zone.
-- `!inspect <FLO_ID>` : Affiche les informations (nom, rareté, état de croissance, temps avant repousse) d'un node de flore `FLO_*` présent dans la zone.
-- `!mine` : Extraction de minerais (nécessite pioche + zone minière).
+- `!gather` : alias de `!recolter` sans ID — menu des nœuds de flore de la zone.
+- `!recolter <FLO_ID>` : Récolte un nœud de flore (`FLO_*`) — **résolution immédiate**, aucun outil requis ; crédite le matériau (`MAT_HRB_*`). L'ID du nœud est visible via `!inspect` ou les panneaux de zone.
+- `!inspect <Node_ID>` : Informations d'un nœud `FLO_*` / `ORE_*` / `FSH_*` de la zone : produit, niveau, outil requis, **repousse restante pour soi**, état global (épuisé / abondance).
+- `!mine [ORE_ID?]` : Extraction de minerais — **résolution immédiate** ; pioche `OUT_PIO_*` possédée, de tier ≥ nœud, non cassée. Sans ID : menu des nœuds de minage de la zone.
+- Outils : chaque tentative use l'outil (D88) ; réparation au forgeron uniquement.
 
 ## 17. 🧭 Navigation & Cristaux
 *Commandes liées à la cartographie et aux cristaux (cf. `navigation_system.md`, `crystals_system.md`).*

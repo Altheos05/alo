@@ -16,7 +16,7 @@ CREATE TABLE T_MARRIAGES (
     ceremony_zone_id    VARCHAR(50) REFERENCES T_ZONES(zone_id),
 
     -- Prérequis & biens communs
-    home_property_uuid  UUID NOT NULL REFERENCES T_PROPERTIES(property_uuid), -- foyer conjugal (prérequis PE)
+    home_property_uuid  UUID REFERENCES T_PROPERTIES(property_uuid) ON DELETE SET NULL, -- foyer conjugal : condition d'ENTRÉE (D85), NULL si perdu après la cérémonie
     joint_vault_id      UUID REFERENCES T_BANK_VAULTS(vault_id),             -- coffre commun (owner_type='marriage')
 
     -- Cadeau système à la cérémonie (tiré selon la moyenne de niveau)
@@ -65,6 +65,12 @@ Bonus conservés du legacy : télépathie `!whisper_partner`, localisation `!par
 3. Chacun possède un **Anneau d'Engagement** (`MSC_ENG_001`, item de service bijoutier, sans stat, consommé à la cérémonie).
 4. **Au moins un foyer** : l'un des deux détient une propriété active (`T_PROPERTIES`, own ou rent à jour) ⇒ `home_property_uuid` (prérequis PE, M3 ↔ `T_PROPERTIES` P5).
 
+> **D85 — le foyer est une condition d'entrée, pas un invariant permanent.** Il est vérifié à la cérémonie ; ensuite, sa perte (vente, résiliation, expulsion pour loyer impayé) **ne dissout pas le mariage** : `home_property_uuid` passe à `NULL` (`ON DELETE SET NULL`). Lecture retenue du texte PE « prérequis obligatoire **au** mariage » ; l'alternative (condition permanente) obligeait à inventer une règle pour l'expulsion forcée, et chacune était mauvaise (suspendre l'expulsion casse l'économie, divorcer d'office est brutal). La règle de séparation « le foyer reste au propriétaire d'origine » est inchangée.
+
+**Flux de demande (D85)** : état intermédiaire persistant dans `T_MARRIAGE_PROPOSALS` (TTL 48 h). Demande **à distance** (`!propose [Num]`), acceptation **en personne** (même zone, hors combat, tous les prérequis revérifiés sous verrou au moment de l'acceptation) ; une demande sortante max par demandeur, plusieurs entrantes possibles. Détail : `table_t_marriage_proposals.md`.
+
+**Coffre conjugal (D85)** : Yrds **et objets** dès la v1 — le stockage d'objets des coffres (`T_BANK_VAULTS.items_stored`, jamais branché à l'étape 57) est construit d'abord, en tâche préalable, car le cadeau de noces (M6) et la restitution d'objets à la séparation (M5) en dépendent.
+
 **Séparation** (`!divorce`) — « chacun repart avec ce qu'il a apporté » :
 - Les apports **individuels** (`T_MARRIAGE_ASSETS` où `is_joint_earned = FALSE`) sont **rendus à leur contributeur** (Yrds crédités, items rendus / mis en `T_MAIL` si inventaire plein).
 - Les biens **acquis en commun** (`is_joint_earned = TRUE` : cadeau système, butin déposé sans provenance individuelle) sont **partagés 50/50**.
@@ -77,7 +83,7 @@ Bonus conservés du legacy : télépathie `!whisper_partner`, localisation `!par
 |---|---|---|
 | M1 | **Homme + femme (D-SOC-10)** | INSERT rejeté si `spouse_male_uuid.gender ≠ 'male'` OU `spouse_female_uuid.gender ≠ 'female'`. Un `neutral` ne peut occuper ni slot |
 | M2 | **Monogamie** | Les deux index partiels garantissent au plus 1 mariage `active` par avatar ; `!propose` refusé si l'un des deux est déjà marié |
-| M3 | **Prérequis** | INSERT rejeté si niveau < 15, anneau manquant, ou aucun foyer (`home_property_uuid` obligatoire, NOT NULL) |
+| M3 | **Prérequis** | INSERT rejeté si niveau < 15, anneau manquant, ou aucun foyer (`home_property_uuid` obligatoire **à l'INSERT** ; nullable ensuite, D85), ou fiancés pas dans la même zone, ou l'un des deux en combat (D85) |
 | M4 | **Coffre conjugal** | À l'activation : création `T_BANK_VAULTS(owner_type='marriage', owner_id=marriage_uuid)`, `max_slots` doublé, accès aux deux conjoints ; `access_level='all_members'` restreint au couple |
 | M5 | **Règlement de séparation** | `!divorce` déclenche `SYS_DIVORCE_SETTLE` : restitution par provenance (`is_joint_earned=FALSE`) + split 50/50 du commun, dans une **transaction atomique** ; puis `status='divorced'`, cooldown 30 j |
 | M6 | **Cadeau de noces** | À la cérémonie, `SYS_GENERATE_WEDDING_GIFT(marriage_uuid, avg_level)` tire l'item, l'enregistre `is_joint_earned=TRUE` dans `T_MARRIAGE_ASSETS`, le dépose au coffre conjugal |
@@ -87,9 +93,10 @@ Bonus conservés du legacy : télépathie `!whisper_partner`, localisation `!par
 
 | Opération | Joueur | GM | IA |
 |---|---|---|---|
-| Demander / accepter | `!propose [Num_WhatsApp]`, `!accept_proposal` | `!sys_marry [Avatar_A] [Avatar_B]` | `SYS_GENERATE_CEREMONY` *(existant)*, `SYS_GENERATE_WEDDING_GIFT` |
+| Demander / accepter | `!propose [Num_WhatsApp]`, `!accept_proposal [Num?]` | `!sys_marry [Avatar_A] [Avatar_B]` | `SYS_GENERATE_CEREMONY` *(existant)*, `SYS_GENERATE_WEDDING_GIFT` |
+| Refuser / retirer une demande (D85) | `!decline_proposal [Num]`, `!cancel_proposal` | `!sys_proposal_cancel [Avatar]` | `SYS_CANCEL_PROPOSAL` |
 | Coffre / solde commun | `!joint_bank`, `!joint_pay [Montant]` | — | — |
 | Statut / localisation / message | `!partner_status`, `!partner_locate`, `!whisper_partner [Msg]` | — | — |
-| Divorcer | `!divorce` | `!sys_divorce [Marriage_ID]` | `SYS_DIVORCE_SETTLE` |
+| Divorcer | `!divorce` *(confirmation D92 requise)* | `!sys_divorce [Marriage_ID]` | `SYS_DIVORCE_SETTLE` |
 
 > **Règle de complétude** : `!joint_bank`, `!joint_pay`, `!partner_status`, `!sys_marry`, `!sys_divorce`, `SYS_GENERATE_WEDDING_GIFT`, `SYS_DIVORCE_SETTLE` à propager (§15 WhatsApp / §10 orchestrateur). `!partner_bank` (legacy) est **renommé `!joint_bank`** ; l'ancien alias est conservé en redirection.

@@ -39,8 +39,11 @@
 - `SYS_SET_VARIANT_RATE(Zone_ID_ou_global, Taux)` : Règle la probabilité de promotion d'un mob commun en Variant à l'instanciation (D79, `19_cdc_moteur_deterministe.md` §4/§6 D-DET-6) — résolu par L1 : stats de la fiche mob ×2,5 PV/×1,4 ATQ-DEF/×2 XP, loot existant garanti, +Yrds ×3. Zéro nouvelle ligne `T_SPAWN_TABLES`, zéro nouvel item. Équivalent GM : `!sys_variant_rate`.
 
 ## 4. 🧬 Manipulation Directe des Joueurs (Droit Divin)
-- `SYS_DEBUFF_PLAYER(Avatar_ID, Status_Effect)` : Applique une altération d'état (Cécité, Poison, Silence) suite à une erreur critique du joueur.
-- `SYS_BLESS_PLAYER(Avatar_ID, Buff_Type)` : Accorde une bénédiction (ex: +50% EXP pendant 1h) pour récompenser un Roleplay héroïque.
+- `SYS_DEBUFF_PLAYER(Avatar_ID, Status_Effect)` : Applique une altération d'état (Cécité, Poison, Silence) suite à une erreur critique du joueur. *(D90 : persistée dans `T_ACTIVE_EFFECTS`, jamais mortelle hors combat.)*
+- `SYS_BLESS_PLAYER(Avatar_ID, Buff_Type)` : Accorde une bénédiction (ex: +50% EXP pendant 1h) pour récompenser un Roleplay héroïque. *(D90 : persistée dans `T_ACTIVE_EFFECTS`.)*
+- `SYS_CLEAR_EFFECTS(Avatar_ID)` : Dissipe les effets actifs dissipables d'un joueur (D90). Équivalent GM : `!sys_effect_clear`.
+- `SYS_SET_GENDER(Avatar_ID, Genre)` : Corrige le genre d'un avatar — seule voie, le genre étant immuable côté joueur (D86). Équivalent GM : `!sys_set_gender`.
+- `SYS_NOTIFY_PLAYER(Avatar_ID, Texte)` : Message privé système à un joueur, via la file bridée `T_NOTIFICATIONS` (D91). Équivalent GM : `!sys_notify`.
 - `SYS_CURSE_KARMA(Avatar_ID, Yrd_Penalty)` : Si le joueur triche ou exploite une faille de langage, l'IA draine son compte bancaire ou brise son arme.
 - `SYS_FORCE_TELEPORT(Avatar_ID, Zone_ID)` : Téléporte instantanément un joueur dans une prison système ou une dimension parallèle (ex: Salle blanche du GM).
 - `SYS_WIPE_MEMORY(Avatar_ID, Knowledge_ID)` : Efface une entrée de l'Encyclopédie du joueur, simulant une amnésie due à un Boss Psychique.
@@ -55,7 +58,7 @@
 - `SYS_GENERATE_QUEST(Group_ID, Quest_JSON)` : L'IA génère et propose une "Emergency Quest" (Quête Urgente) directement aux joueurs présents dans la zone.
 
 ## 6. ⚙️ Gestion de l'Interface et du Cache Serveur
-- `SYS_ANNOUNCE_GLOBAL(Texte)` : L'IA pousse un message épinglé dans tous les groupes WhatsApp de la communauté en tant qu'Alerte Rouge.
+- `SYS_ANNOUNCE_GLOBAL(Texte)` : L'IA pousse un message épinglé dans tous les groupes WhatsApp de la communauté en tant qu'Alerte Rouge. *(Émis via `T_NOTIFICATIONS`, une ligne par groupe, débit bridé — D91.)*
 - `SYS_OVERRIDE_BGM(Track_Name)` : (Narration) Le bot précise au joueur que la musique du monde virtuel vient de changer (ex: *BGM: Boss Theme*).
 - `SYS_PAUSE_INSTANCE(Combat_ID)` : L'IA gèle le timer d'un combat asynchrone si une maintenance ou une vérification est requise.
 - `SYS_RAG_REINDEX(scope)` : Force la ré-indexation incrémentale par hash de l'index vectoriel RAG (`scope` = `fiche`/`dossier`/`global` ; D-RAG-9, `15_cdc_rag.md`) — permet à une fiche modifiée de remonter à jour dans la constellation sans réentraînement complet. Respecte le verrou d'ingestion K3/méta/secret (D-RAG-2/D22) : les sections exclues à l'ingestion le restent après réindexation. Équivalent GM : `!sys_rag_reindex`.
@@ -68,7 +71,7 @@
 - `SYS_SPAWN_INFINITE_GUARDIANS(Zone_ID, Guardian_Type)` : Génère les Chevaliers Dorés en boucle infinie pour l'assaut de l'Arbre-Monde.
 - `SYS_TRIGGER_SIEGE(Target_Capital, Attacking_Race)` : L'IA lance un siège de capitale.
 - `SYS_ACTIVATE_SEASONAL_EVENT(Event_Type, Duration_Days)` : L'IA active un événement saisonnier (Festival, Invasion, Tournoi).
-- `SYS_BROADCAST_WORLD_MESSAGE(Text)` : Message scénarisé dans TOUS les groupes du serveur.
+- `SYS_BROADCAST_WORLD_MESSAGE(Text)` : Message scénarisé dans TOUS les groupes du serveur. *(Émis via `T_NOTIFICATIONS`, débit bridé — D91.)*
 - `SYS_MODIFY_WORLD_STATE(State_Key, Value)` : Modifie une variable globale (ex: `eternal_winter = true`).
 - `SYS_TRIGGER_SERVER_FREEZE(Zone_ID, Duration)` : Glaciation du serveur si quête échouée.
 - `SYS_TRIGGER_BOSS_RACE(Boss_ID, Competing_Guilds[])` : Course au boss entre guildes.
@@ -92,16 +95,14 @@
 - `SYS_GRANT_PASSIVE(Avatar_ID, Skill_ID, Rang)` : L'IA enseigne ou fait monter une compétence passive (`PAS_*`) à un rang I/II/III (bonus plafonné +8 %, max 2 passives du même domaine équipées — cf. `competences_magie/_index_skills.md`). Complète `SYS_GRANT_SPELL` (sorts `MAG_*`) et `SYS_GRANT_OSS` (`OSS_*`). Face joueur : `!learn_skill` ; équivalent GM : `!sys_grant_skill`.
 - `SYS_TRANSFER_OSS(Source_ID, Target_ID, OSS_ID)` : Transfert d'OSS via parchemin.
 - `SYS_VALIDATE_SKILL_CONNECT(Avatar_ID, Skill_A, Skill_B)` : Vérification du timing de Skill Connect.
-- `SYS_GRANT_MELODY(Avatar_ID, Melody_ID)` : L'IA enseigne une mélodie secrète à un Puca.
-- `SYS_AMPLIFY_MUSIC(Zone_ID, Multiplier)` : L'IA amplifie la portée de la musique dans une zone sacrée.
-- `SYS_REVEAL_ILLUSION(Zone_ID)` : L'IA dissipe toutes les illusions actives.
-- `SYS_CREATE_MIRAGE_ZONE(Zone_ID, Description)` : L'IA crée un mirage environnemental.
-- `SYS_PLANT_TREASURE(Zone_ID, Item_ID)` : L'IA cache un objet rare détectable par les Spriggans.
+- ~~`SYS_GRANT_MELODY(Avatar_ID, Melody_ID)`~~ — **redirigée vers `SYS_GRANT_SPELL`** (sorts `MAG_SUP_*`) : la musique Puca est l'école `SUP` (D89).
+- ~~`SYS_AMPLIFY_MUSIC`~~, ~~`SYS_REVEAL_ILLUSION`~~, ~~`SYS_CREATE_MIRAGE_ZONE`~~, ~~`SYS_PLANT_TREASURE`~~ — **retirées** avec `illusion_magic_system.md` / `music_magic_system.md` (D89, application de D66).
 - `SYS_TRIGGER_SACRIFICE(Avatar_ID, Damage_Radius)` : L'IA gère les conséquences d'un sort sacrificiel.
 
 ## 10. 💍 Social, Mariage, Housing & Emploi
 > Domaine étendu à l'étape 43 (D-SOC-*). Tables : `T_MARRIAGES`, `T_PROPERTIES`, `T_JOBS_DICT`, `T_NPC_RELATIONS`. **Frontière déterministe** : la validation des prérequis (genre, monogamie, foyer, provenance de séparation, plafonds) est faite par le **moteur déterministe L1** ; l'IA ne fait que la narration + l'émission de la commande. Toute violation ⇒ rejet L1.
-- `SYS_GENERATE_CEREMONY(Avatar_ID_1, Avatar_ID_2, Zone_ID)` : narration de cérémonie de mariage.
+- `SYS_GENERATE_CEREMONY(Avatar_ID_1, Avatar_ID_2, Zone_ID)` : narration de cérémonie de mariage. *(D85 : `Zone_ID` = zone commune des deux fiancés à l'acceptation en personne.)*
+- `SYS_CANCEL_PROPOSAL(Avatar_ID)` : Annule la demande en mariage sortante d'un avatar (D85, `T_MARRIAGE_PROPOSALS`). Équivalent GM : `!sys_proposal_cancel`.
 - `SYS_GENERATE_WEDDING_GIFT(Marriage_ID, Avg_Level)` : tire le cadeau de noces (tier ∝ moyenne de niveau), déposé au coffre conjugal (`T_MARRIAGE_ASSETS.is_joint_earned=TRUE`).
 - `SYS_DIVORCE_SETTLE(Marriage_ID)` : règlement de séparation atomique — restitution par provenance + split 50/50 du commun (M5).
 - `SYS_CREATE_HOME_GROUP(Avatar_ID, House_Type)` : crée le groupe WhatsApp privé du logement.
@@ -115,14 +116,15 @@
 - `SYS_TRIGGER_ALLIANCE_EVENT(Race_A, Race_B, Type)` : L'IA déclenche un événement d'alliance.
 
 ## 11. 🎣 Récolte, Artisanat & Économie Dynamique
-- `SYS_SPAWN_NODE(Zone_ID, FLO_ID, Qty)` : Fait apparaître un node de flore (`FLO_*`) dans une zone — quantité d'utilisations avant épuisement, timer de repousse géré par le Cardinal. Face joueur : `!recolter <FLO_ID>`.
-- `SYS_REMOVE_NODE(Node_ID)` : Supprime un node de flore existant (épuisement narratif, événement, déséquilibre). Distinct de `SYS_DEPLETE_RESOURCE` qui vide un gisement entier.
-- `SYS_STOCK_FISHING_SPOT(Zone_ID, Fish_ID, Rarity)` : L'IA peuple un point de pêche.
-- `SYS_DEPLETE_RESOURCE(Zone_ID, Resource_Type)` : L'IA vide un gisement de minerai.
-- `SYS_BONUS_HARVEST(Zone_ID, Multiplier)` : L'IA déclenche une Récolte Abondante (x2 drops).
-- `SYS_MODIFY_DURABILITY(Item_Instance_ID, Delta)` : L'IA modifie la durabilité d'un item.
+> **D87 (étape 60)** : les nœuds de toutes natures (`FLO_*`/`ORE_*`/`FSH_*`) vivent dans `T_RESOURCE_NODES` ; la repousse est **propre à chaque joueur**, l'épuisement collectif ne passe que par l'état global du nœud.
+- `SYS_SPAWN_NODE(Zone_ID, Node_ID)` : Active (ou crée, pour un événement) un nœud dans une zone. *Réinterprété D87 : l'ancien paramètre `Qty` (« utilisations partagées avant épuisement ») est supprimé — incompatible avec la repousse par joueur.* Face joueur : `!recolter` / `!mine` / `!fish`.
+- `SYS_REMOVE_NODE(Node_ID)` : Retire un nœud (tout type) — événement, déséquilibre. Distinct de `SYS_DEPLETE_RESOURCE`, qui le rend temporairement indisponible.
+- `SYS_STOCK_FISHING_SPOT(Zone_ID, Fish_ID, Rarity)` : L'IA peuple un point de pêche (active un nœud `FSH_*` de la zone).
+- `SYS_DEPLETE_RESOURCE(Zone_ID, Resource_Type)` : Rend les nœuds du type visé indisponibles **pour tous** pendant une durée (`depleted_until`, D87). Équivalent GM : `!sys_node_event … deplete`.
+- `SYS_BONUS_HARVEST(Zone_ID, Multiplier)` : Multiplie les rendements **pour tous** jusqu'à échéance (`yield_multiplier`, D87). Équivalent GM : `!sys_node_event … bonus`.
+- `SYS_MODIFY_DURABILITY(Item_Instance_ID, Delta)` : L'IA modifie la durabilité d'un item (D88 : bornée au plafond courant de l'instance ; à 0, l'objet est **Cassé**). Équivalent GM : `!sys_durability_set`.
 - `SYS_DROP_WEAPON(Avatar_ID, Weapon_ID)` : L'IA force le drop d'une arme en récompense.
-- `SYS_BREAK_WEAPON(Item_ID, Instance_ID)` : L'IA brise une arme en combat pour créer du drame.
+- `SYS_BREAK_WEAPON(Item_ID, Instance_ID)` : L'IA brise une arme en combat pour créer du drame. *(D88 : durabilité mise à 0 — **Cassé**, réparable au forgeron — et non destruction.)*
 - `SYS_SET_SHOP_PRICES(NPC_ID, Multiplier)` : L'IA modifie les prix d'un marchand (inflation locale).
 - `SYS_SHOP_RESTOCK(Shop_ID)` : Réassort d'une boutique (réécrit `T_SHOP_ITEMS.stock`), périodique (`T_SHOPS.restock_days`) ou événementiel (pénurie, afflux, siège). Employé par les 54 fiches boutiques C-1+. Équivalent GM : `!sys_shop_restock`. **Aucune face joueur** (anti-exploit) — le joueur ne voit que `!shop_list`/`!buy`/`!sell`.
 
@@ -162,7 +164,7 @@
 - `SYS_SEAL_CONTRACT(Contract_ID, Parties, Clauses)` : Scelle un acte notarié inviolable (Verd `62`) ; le « contrat fondateur » de l'anti-PK (`QI_ALN_62_09`) est non ouvrable.
 - `SYS_LEVY_TAX(Avatar_ID, Amount)` : Prélève une taxe de marché (Molk `63`) ; la « taxe fantôme » (`QI_ALN_63_09`) est un flag méta.
 - `SYS_SET_COSMETIC(Avatar_ID, Cosmetic_ID)` : Portrait/coiffure/tatouage cosmétique (Ode `83`, Vane `65`, Sten `59`).
-- `SYS_ANNOUNCE(Zone_ID, Message)` : Diffuse une annonce publique (Perla `64`, Prell `89`) — vecteur des événements serveur.
+- `SYS_ANNOUNCE(Zone_ID, Message)` : Diffuse une annonce publique (Perla `64`, Prell `89`) — vecteur des événements serveur. *(Émis dans le groupe du territoire de `Zone_ID` via `T_NOTIFICATIONS`, D91.)*
 - `SYS_QUERY_REGISTRY(Registry, Key)` : Consulte les registres de disparus (Sorne `97`, Lom `46`, Wrenna `11`).
 - `SYS_APPLY_HEAL(Avatar_ID, Amount)` : Soins de fortune (Osmé `40`, Aeliss `91`) ; résurrection = `SYS_REVIVE_PLAYER` (§12).
 - `SYS_TUTORIAL_STEP(Avatar_ID, Step_ID)` : Progression du tutoriel d'onboarding (Pell `96`).

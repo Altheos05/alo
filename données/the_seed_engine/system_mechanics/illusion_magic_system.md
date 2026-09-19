@@ -1,5 +1,7 @@
 # Système de Magie Illusoire (Illusion Magic - Spriggan)
 
+> ⛔ **REMPLACÉ (étape 60, D89)** — Prose héritée d'avant les conventions d'ID (D13) : aucune illusion n'a d'ID, aucune table ne les stocke, et le lot validé I-4 (D40, `competences_magie/`) ne contient pas d'école d'Illusion (l'école affine des Spriggan est `TEN`, Ténèbres). Par application de D66 (non-autorité du contenu pré-généré), **ce document n'est plus une source de vérité**. `!illusion` et `!treasure_sense` sont retirés, ainsi que `SYS_REVEAL_ILLUSION`, `SYS_CREATE_MIRAGE_ZONE` et `SYS_PLANT_TREASURE`. Conservé pour mémoire uniquement.
+
 ## 1. Définition Cardinal System
 Les Spriggans sont les maîtres de l'illusion et de la chasse aux trésors dans ALfheim Online. Leur affinité magique unique leur permet de manipuler la perception des autres joueurs et des mobs en projetant des polygones fantômes.
 

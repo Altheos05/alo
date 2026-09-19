@@ -8,7 +8,7 @@
 CREATE TABLE T_PENDING_MENUS (
     avatar_uuid    UUID PRIMARY KEY REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
     context_type   VARCHAR(20) NOT NULL
-                       CHECK (context_type IN ('COMBAT','DIALOGUE','SHOP','MOVEMENT','QUEST_BOARD')),
+                       CHECK (context_type IN ('COMBAT','DIALOGUE','SHOP','MOVEMENT','QUEST_BOARD','FISHING','CONFIRM')),  -- FISHING (D87), CONFIRM (D92) ajoutés étape 60
     context_ref    VARCHAR(50),
     options        JSONB NOT NULL,
     wa_message_id  VARCHAR(100) NOT NULL,

@@ -67,7 +67,7 @@ Les prix ci-dessous sont les **fourchettes constatées** dans les fiches items r
 | Nourriture taverne (buff 30 min) | 90–125 ¥ | Ratatouille 90 ¥, Brochette 115 ¥ |
 | Nourriture chef (buff 1h) | 480–650 ¥ | Plateau du Gourmet 480 ¥, Banquet 650 ¥ |
 | Vins/bières (amendement) | 12–120 ¥ | Lait de Chèvre 12 ¥, Whisky de Forge 120 ¥ |
-| Parchemins (retour, utilitaire) | 80–300 ¥ | Retour 80 ¥, Réparation 250 ¥ |
+| Parchemins (retour, utilitaire) | 80–300 ¥ | Retour 80 ¥ *(parchemins de réparation retirés, D88)* |
 | Cristaux (téléportation, soin) | 150–800 ¥ | Soin instantané 150 ¥, Ralliement 800 ¥ |
 
 ### Matériaux (craft)
@@ -96,6 +96,8 @@ Les prix ci-dessous sont les **fourchettes constatées** dans les fiches items r
 | T5 | 75 ¥ | 7 500 ¥ | 75 ¥ | 225 ¥ |
 
 > **Durabilité max par tier** : T1 160, T2 240, T3 360, T4 520, T5 750 (constaté sur armures tête). La réparation complète coûte `coût/pt × durabilité_max`.
+>
+> **Étape 60 (D88)** : ce barème devient réellement actif — usure en combat (−1/pièce PvE, −3 PvP) et par tentative d'outil ; réparation **au forgeron PNJ uniquement** ; chaque réparation ampute définitivement la durabilité max (10 % de l'origine par défaut), jusqu'à l'objet irréparable. Voir `system_mechanics/durability_repair_system.md`.
 
 ---
 
@@ -170,13 +172,16 @@ Les prix ci-dessous sont les **fourchettes constatées** dans les fiches items r
 
 ### Prix de Rachat PNJ (% du prix catalogue)
 
+> **Grille remplacée à l'étape 60 (D88)** — nouveaux paliers définis par le PE, taux de rachat de l'étape 37 conservés. Détail : `system_mechanics/durability_repair_system.md` §3.
+
 | Condition de l'Item | % Rachat |
 |:---|---:|
-| Neuf (100% durabilité) | 25% |
-| Bon état (>75% durabilité) | 22% |
-| Usé (50-75% durabilité) | 18% |
-| Endommagé (25-50% durabilité) | 12% |
-| Cassé (<25% durabilité) | 5% |
+| Neuf (100 % durabilité) | 25% |
+| Quasi neuf (75–99 %) | 22% |
+| Bon état (50–74 %) | 18% |
+| État correct (26–49 %) | 12% |
+| Usé (1–25 %) | 5% |
+| Cassé (0 %, inutilisable jusqu'à réparation) | 5% |
 
 ---
 

@@ -29,3 +29,27 @@ CREATE TABLE T_ACTIVE_EFFECTS (
 
 CREATE INDEX idx_active_effects_target ON T_ACTIVE_EFFECTS(target_id);
 ```
+
+## Amendement D90 (étape 60) — effets actifs persistants hors combat
+
+**Constat** : la table existe au schéma et `handlers/combat.js` (`persistActiveEffects`) y **écrit** les effets restants en fin de combat, mais **rien ne les relit** — un buff n'existe qu'à l'intérieur d'une session de combat, et aucun effet ne peut être posé hors combat (`USE_SKILL` n'est câblé qu'en combat). Anomalie relevée au passage : pour une cible `monster`, le code écrit `monster_id` (un `VARCHAR` `MOB_*`) dans `target_id UUID` — l'écriture échoue et n'est journalisée qu'en avertissement.
+
+**Colonnes ajoutées** :
+
+```sql
+ALTER TABLE T_ACTIVE_EFFECTS
+    ADD COLUMN source_kind VARCHAR(6) CHECK (source_kind IN ('skill','food','system')),
+    ADD COLUMN source_ref  VARCHAR(30);   -- MAG_* / CSM_NOU_* / NULL ; source_id reste l'UUID du lanceur
+CREATE INDEX idx_active_effects_expiry ON T_ACTIVE_EFFECTS(target_type, target_id, expires_at);
+```
+
+| # | Contrat | Comportement |
+|---|---|---|
+| E1 | **Durée indépendante du combat** | Un effet vit jusqu'à `expires_at`, combat ou pas : lu au début de chaque combat (chargé dans la session), réécrit à la fin ; posé hors combat par un sort ou un plat |
+| E2 | **Expiration paresseuse** | Une ligne `expires_at <= NOW()` est ignorée par toute lecture, puis purgée par maintenance. **Aucun planificateur requis** |
+| E3 | **Négatifs non mortels hors combat** | Les effets `type = 'debuff'` persistent jusqu'à échéance (malus de stats compris), mais leurs dégâts périodiques, appliqués paresseusement hors combat, **ne descendent jamais sous 1 PV**. En combat, règles de combat inchangées |
+| E4 | **Ciblage hors combat** | Sorts T1-T2 : cible unique — soi par défaut ou un allié désigné par son numéro, **dans la même zone**. Sorts T3+ (zone d'effet, règle des fiches I-4) : tous les membres du groupe (`T_PARTY_MEMBERS`) du lanceur **présents dans la même zone** |
+| E5 | **Sorts admissibles hors combat** | Seuls les sorts **sans dégâts directs** (soutien, soin, buffs). `MAG_GUE_006` Revive hors combat ressuscite un allié mort de la même zone. Les sorts offensifs restent réservés au combat |
+| E6 | **Plats** | Un repas cuisiné (`!cook`) pose son buff ici (`source_kind = 'food'`), avec la durée de la recette |
+
+Équivalents : Joueur `!cast [sort] [Num?]` (hors combat, D90), `!effets` ; GM `!sys_effect_apply [Avatar] [Effect_ID] [Durée]`, `!sys_effect_clear [Avatar]` ; IA `SYS_BLESS_PLAYER` / `SYS_DEBUFF_PLAYER` *(existants, désormais persistés ici)*, `SYS_CLEAR_EFFECTS(Avatar_ID)`.

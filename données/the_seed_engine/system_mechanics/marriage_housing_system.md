@@ -1,5 +1,7 @@
 # Systèmes Sociaux — Mariage, Housing, Emploi & Mémoire relationnelle PNJ
 
+> **v2.1 (étape 60, 2026-09-19)** — ajout du flux de demande (§1.4, D85) et du genre à l'inscription (D86) ; foyer requalifié en condition d'entrée.
+>
 > **v2.0 (étape 43, 2026-07-10)** — Spécification alignée sur la directive PE. Supersede la v1.0 (prose SAO générique : deux joueurs quelconques, sans genre, sans provenance de séparation, sans prérequis de foyer). **Source de vérité = les tables MLD** citées ci-dessous ; ce document est la spécification de comportement, pas le modèle de données.
 
 Tables adossées : `T_NPC_RELATIONS`, `T_PROPERTIES`, `T_MARRIAGES` (+ `T_MARRIAGE_ASSETS`), `T_JOBS_DICT` (+ `T_AVATAR_JOB`), `T_BANK_VAULTS` (`owner_type='marriage'`), `T_GUILDS` (rejoindre).
@@ -39,6 +41,17 @@ L'affinité (−100…+100) se traduit en 5 paliers (`hostile`→`confidant`) qu
 - apports **individuels** (`T_MARRIAGE_ASSETS.is_joint_earned = FALSE`) **rendus au contributeur** ;
 - biens **communs** (cadeau système, gains non attribués) **partagés 50/50** ;
 - le **foyer** reste au propriétaire d'origine ; cooldown **30 j** ; coffre conjugal clos.
+- `!divorce` exige une confirmation explicite (menu D83, contexte `CONFIRM`, D92).
+
+### 1.4 Flux de demande (D85, D86 — étape 60)
+
+- **Genre** : choisi à l'inscription (`!link_start [Race] [Nom] [Genre]`), immuable, correction GM seule (D86, `T_AVATARS` A8). Prérequis structurel : sans lui, aucun avatar `female` ne peut exister.
+- **Demande à distance** : `!propose [Num]` depuis n'importe quelle zone ; contrôles rapides (genres, célibat, niveau, anneau du demandeur, cooldown) ; la cible reçoit une **notification privée** (D91). La demande est persistée dans `T_MARRIAGE_PROPOSALS`, valable **48 h**.
+- **Une demande sortante max** par demandeur (retrait : `!cancel_proposal`) ; **plusieurs demandes entrantes** possibles pour une cible, qui accepte (`!accept_proposal [Num?]`) ou refuse (`!decline_proposal [Num]`).
+- **Acceptation en personne** : les deux fiancés doivent être **dans la même zone** et **hors combat**. Tous les prérequis sont revérifiés sous verrou ; la cérémonie a lieu immédiatement, `ceremony_zone_id` = la zone commune (narration `SYS_GENERATE_CEREMONY`). Un échec (zone différente, anneau manquant) laisse la demande valable jusqu'à son échéance.
+- **Foyer = condition d'entrée** : vérifié à la cérémonie seulement ; sa perte ultérieure ne dissout pas le mariage (`home_property_uuid` → `NULL`).
+- **Coffre conjugal** : Yrds **et objets** dès la v1 (le stockage d'objets des coffres est construit d'abord).
+- **Tâches préalables** : genre à l'inscription ; anneau `MSC_ENG_001` réellement en base (0 occurrence dans `seed_data.sql` à l'étape 60 — le générateur ne l'ingère pas) et en vente chez les bijoutiers d'Alne et des capitales raciales ; stockage d'objets des coffres ; notifications (D91) ; confirmation (D92).
 
 ---
 

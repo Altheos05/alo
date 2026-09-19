@@ -49,7 +49,7 @@ Un message qui contient un chiffre **et** du texte (« *je prends l'option 2* »
 CREATE TABLE T_PENDING_MENUS (
     avatar_uuid    UUID PRIMARY KEY REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
     context_type   VARCHAR(20) NOT NULL
-                       CHECK (context_type IN ('COMBAT','DIALOGUE','SHOP','MOVEMENT','QUEST_BOARD')),
+                       CHECK (context_type IN ('COMBAT','DIALOGUE','SHOP','MOVEMENT','QUEST_BOARD','FISHING','CONFIRM')),  -- FISHING (D87), CONFIRM (D92) ajoutés étape 60
     context_ref    VARCHAR(50),               -- Combat_ID / NPC_ID / Shop_ID / Zone_ID selon context_type
     options        JSONB NOT NULL,            -- [{"digit":1,"command":"!attaque","label":"Attaquer"}, ...]
     wa_message_id  VARCHAR(100) NOT NULL,     -- ID du message WhatsApp du menu (mode citation)
@@ -85,6 +85,8 @@ SINON SI message.body correspond exactement à ^[0-9]$ :
 | `SHOP` | 180 s | Parcourir un catalogue prend du temps |
 | `MOVEMENT` | 120 s | Choix de direction au rythme de la marche |
 | `QUEST_BOARD` | 300 s | Lecture de plusieurs quêtes disponibles |
+| `FISHING` | 120 s | Mini-jeu de pêche asynchrone (D87, §6) — pas de chronomètre de réflexe, le TTL borne seulement l'abandon |
+| `CONFIRM` | 60 s | Confirmation d'une action irréversible (D92, §7) — une confirmation ne doit pas traîner |
 
 ### 2.4 Résolution d'un chiffre
 
@@ -176,3 +178,26 @@ Zones adjacentes réellement accessibles (`T_ZONE_LINKS`, atlas) — jamais plus
 
 - **Ambiguïté en groupe partagé** : `T_PENDING_MENUS` est indexée par `avatar_uuid`, pas par groupe WhatsApp — deux joueurs avec un menu actif dans le même groupe territorial ne peuvent pas se marcher dessus, chacun ne résout que son propre menu. Le message-menu **mentionne** (`@avatar`) son destinataire pour la lisibilité humaine du fil, mais ce n'est pas ce qui garantit la résolution.
 - **Chiffre nu accidentel** : un joueur qui tape « 2 » dans une conversation normale, dans la fenêtre TTL suivant un menu qui lui a été montré, déclenchera l'option 2 par erreur. Risque assumé et borné : les TTL sont courts (60-300 s), l'action reste visible immédiatement (le joueur voit le résultat et peut réagir), et le mode citation (zéro ambiguïté) reste toujours disponible pour qui veut la garantie absolue. Ne pas désactiver le chiffre nu en groupe : ALO se joue exclusivement en groupes territoriaux (jamais en DM), le désactiver là viderait le bénéfice de fluidité recherché.
+
+---
+
+## 6. Contexte `FISHING` — mini-jeu de pêche (D87, étape 60)
+
+`!fish` affiche une description de la ligne (tension, remous, poids) suivie de **3 options** (ex. `1` tirer fort · `2` laisser filer · `3` ferrer doucement). Une seule est juste selon l'indice narratif ; la réussite est ensuite modulée par la DEX. Le contenu des options et la bonne réponse sont calculés par L1 à la génération du menu (jamais par le LLM, §2.5). Aucun chronomètre : la fenêtre de 10 s de l'ancienne spécification est abandonnée, la latence WhatsApp la rendait injuste. Détail : `gathering_cooking_system.md` v2.0 §2.
+
+## 7. Contexte `CONFIRM` — confirmation générique (D92, étape 60)
+
+Une action **irréversible** ne s'exécute pas à la première commande : le bot répond par un résumé de ses conséquences et un menu `1` confirmer · `2` annuler (TTL 60 s). Seul `1` exécute l'action, **en revérifiant tous ses prérequis sous verrou** (l'état a pu changer pendant la fenêtre). `2`, l'expiration ou toute autre commande l'annulent.
+
+**Liste fermée** des actions concernées :
+
+| Action | Pourquoi |
+|---|---|
+| `!jeter` un objet **lié à l'âme** (`is_bound`) | Destruction définitive d'un objet non rachetable (I4 de `T_INVENTORY` exige une double confirmation) |
+| `!divorce` | Dissolution du mariage, règlement de séparation, cooldown 30 j |
+| `!housing_sell`, `!housing_leave` | Perte du logement (et, pour la vente, reprise à 50 %) |
+| Dissolution de guilde | Perte de la guilde et de son organisation |
+
+Ajouter une action à cette liste est une décision (amendement de D92), pas un détail d'implémentation.
+
+**Citation obligatoire (amendement D92, arbitrage PE étape 60)** : le §5 accepte le risque du *chiffre nu accidentel* parce que « l'action reste visible immédiatement et le joueur peut réagir ». Ce n'est plus vrai ici — un « 1 » tapé par hasard dans la minute suivant un `!divorce` ne se rattrape pas. En contexte `CONFIRM`, la réponse n'est donc acceptée **qu'en mode citation** (réponse au message-menu) ; un chiffre nu est ignoré et le bot rappelle qu'il faut citer le menu. Le chiffre nu reste valable pour tous les autres contextes.

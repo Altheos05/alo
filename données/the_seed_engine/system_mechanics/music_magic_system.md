@@ -1,5 +1,7 @@
 # Système de Magie Musicale (Puca Sound Magic)
 
+> ⛔ **REMPLACÉ (étape 60, D89)** — Prose héritée d'avant les conventions d'ID (D13), qui **duplique** l'école `SUP` (Support, affine Puca) du lot validé I-4 (D40) : ses sorts sont déjà de la magie de barde (Battle Hymn, War March, Requiem `MAG_SUP_008`, Harmony of Valor, Overture of Genesis). La canalisation continue (« tant que le Puca joue », MP/seconde) n'a pas d'équivalent sur WhatsApp. Par application de D66, **ce document n'est plus une source de vérité** : `!music [sort]` devient un **alias de `!cast`** pour l'école `SUP`, `!melodies` liste les sorts `SUP` appris, `!music_stop` est retiré ; `SYS_GRANT_MELODY` est redirigée vers l'attribution de sort standard, `SYS_AMPLIFY_MUSIC` est retirée. Lancement hors combat : D90. Conservé pour mémoire uniquement.
+
 ## 1. Définition Cardinal System
 La magie musicale est l'apanage exclusif de la race **Puca**. Contrairement aux autres races qui vocalisent des incantations en pseudo-vieux norrois, les Puca canalisent le mana à travers des instruments de musique virtuels (harpe, flûte, luth, tambour). La mélodie jouée détermine l'effet magique.
 

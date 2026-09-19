@@ -1,12 +1,12 @@
 # 📜 Registre des Décisions — Projet ALO
 
-> **Règle d'usage (obligatoire)** : avant d'allouer un nouveau numéro `D<nn>` ou un nouveau préfixe `D-<SLUG>-<n>`, consulter ce fichier en premier — il remplace le grep manuel dans tout le projet. Prochain numéro simple libre : **D85**. Ce registre couvre le dépôt git (`données/`, `directives_generation/`, `cahier_des_charges.md`, `alo_context.md`, `alo_progression.md`). Il ne couvre **pas** `directives_generiques/` (kit générique du PE, non versionné, espace de nommage volontairement distinct — voir §4).
+> **Règle d'usage (obligatoire)** : avant d'allouer un nouveau numéro `D<nn>` ou un nouveau préfixe `D-<SLUG>-<n>`, consulter ce fichier en premier — il remplace le grep manuel dans tout le projet. Prochain numéro simple libre : **D93**. Ce registre couvre le dépôt git (`données/`, `directives_generation/`, `cahier_des_charges.md`, `alo_context.md`, `alo_progression.md`). Il ne couvre **pas** `directives_generiques/` (kit générique du PE, non versionné, espace de nommage volontairement distinct — voir §4).
 >
 > Constitué le 2026-09-17 (étape 53, session de reprise) par inventaire exhaustif (agent Explore, lecture intégrale des 24 CDC `directives_generation/`, de `alo_progression.md`, `cahier_des_charges.md`, `alo_context.md`, `README.md`, des fiches de données référençant une décision). Deux anomalies réelles trouvées ont été corrigées dans la foulée (§3) ; le reste est classé par ordre croissant, avec statut et sources.
 
 ---
 
-## 1. Décisions numérotées D1 → D84
+## 1. Décisions numérotées D1 → D92
 
 | ID | Intitulé | Étape | Statut | Source(s) principale(s) |
 |---|---|---|---|---|
@@ -96,6 +96,14 @@
 | D82 | *(ex-D46, renuméroté étape 53)* Fils rouges Undine | 11 | ✅ | idem |
 | D83 | Menu contextuel numéroté (couche déterministe, pré-NLU) : 1-8 options résolues par L1 + `9` aide universelle ; résolution par citation du message-menu ou chiffre nu avec TTL par contexte ; ne retire aucune commande texte existante | 54 | ✅ | `system_mechanics/menu_contextuel_protocol.md` |
 | D84 | Sujets de service : sur les ~30 verbes dédiés de la §21 (services de Capitale Alne), **~21 seulement** deviennent des sujets `!demander [NPC] [sujet]` (K0/K1, jamais K2/K3) déclenchant leur primitive `SYS_*` déjà existante — **13 gardent une commande dédiée** (3 mécaniques à point d'accès multiple : réputation, sertissage de gemme, tutoriel ; **10 archétypes déjà répliqués dans 2 à 5 autres villes**, découverts par vérification croisée après le diagnostic initial : voyage, raid_register, mount_rent, sharpen, fence, oracle, memorial, laundry, loan, heal) ; 2 verbes purement redondants avec le K2 `PAY:<N>` existant retirés | 55 | ✅ | `system_mechanics/npc_knowledge_protocol.md` §2-bis |
+| D85 | Flux de mariage : demande persistante `T_MARRIAGE_PROPOSALS` (TTL 48 h, pas de Map en mémoire) ; demande **à distance**, acceptation **en personne** (même zone, hors combat, prérequis revérifiés sous verrou) ; 1 demande sortante max, plusieurs entrantes (`!decline_proposal`/`!cancel_proposal`) ; foyer = **condition d'entrée** (`home_property_uuid` nullable, `ON DELETE SET NULL`) ; coffre conjugal Yrds **+ objets** dès la v1 | 60 | ✅ | `system_mechanics/marriage_housing_system.md` §1.4, `table_t_marriage_proposals.md`, `table_t_marriages.md` |
+| D86 | Genre choisi à l'inscription (`!link_start [Race] [Nom] [Genre]`), **immuable** ; correction GM uniquement (`!sys_set_gender`) — le `male` codé en dur rendait tout mariage impossible | 60 | ✅ | `table_t_avatars.md` A8 |
+| D87 | Ressources : table unique `T_RESOURCE_NODES` (`FLORA`/`ORE`/`FISH`) ; repousse **propre à chaque joueur** (`T_AVATAR_HARVESTS`, creuse) + état global du nœud réservé aux événements IA ; pêche, récolte et minage en v1 (lot de contenu Pêche `MAT_POI_*` d'abord) ; outils `OUT_*` en simple possession, tier de l'outil ≥ tier du nœud ; pêche = mini-jeu asynchrone à 3 options (D83), récolte/minage immédiats ; appâts en V2 ; cuisine limitée au feu de camp ou à la cuisine de logement (clause v1.0 conservée). Supersede la prose de `gathering_cooking_system.md` v1.0 | 60 | ✅ | `system_mechanics/gathering_cooking_system.md` v2.0, `table_t_resource_nodes.md` |
+| D88 | Durabilité : usure des outils (par récolte) **et** de l'équipement de combat (−1/pièce/combat PvE, −3 PvP) ; réparation **dégressive** (chaque réparation ampute la durabilité max) au **forgeron PNJ uniquement** ; parchemins de réparation `CSM_PAR_007/008` retirés ; grille d'état Neuf/Quasi neuf/Bon état/État correct/Usé/Cassé et coefficients de valeur ; objet cassé = aucune statistique ; **T5 liés à l'âme exemptés de l'amputation** (usure et coût conservés) | 60 | ✅ | `system_mechanics/durability_repair_system.md` |
+| D89 | `illusion_magic_system.md` et `music_magic_system.md` (prose héritée) **remplacés par le lot I-4** (application D66) : `!music` = alias de `!cast` pour l'école `SUP` ; `!illusion`, `!music_stop`, `!treasure_sense` et commandes IA associées retirés | 60 | ✅ | bandeaux des deux documents, `whatsapp_commands_list.md` §6-bis |
+| D90 | Effets actifs persistants hors combat : `T_ACTIVE_EFFECTS` **existante** (déjà écrite en fin de combat, jamais relue) complétée — sorts **et** plats, expiration paresseuse (aucun planificateur) ; effets négatifs persistants mais **jamais mortels hors combat** (plancher 1 PV) ; ciblage T1-T2 unique (soi / allié même zone), T3+ = groupe présent dans la même zone ; hors combat, seuls les sorts sans dégâts directs | 60 | ✅ | `table_t_status_effects.md` (amendement D90) |
+| D91 | Notifications sortantes : personnel → message privé, collectif → groupe de territoire (ou communautaire) ; file persistante et **bridée** `T_NOTIFICATIONS` (anti-bannissement du client non officiel) ; les handlers renvoient les notifications, seule la couche WhatsApp les émet | 60 | ✅ | `system_mechanics/notifications_protocol.md`, `table_t_notifications.md` |
+| D92 | Confirmation générique des actions irréversibles via le menu D83 (contexte `CONFIRM`, 1 confirmer / 2 annuler, 60 s, revérification sous verrou) ; liste fermée : jeter un objet lié, divorce, vente/résiliation de logement, dissolution de guilde ; en `CONFIRM`, **citation du menu obligatoire** (chiffre nu ignoré) | 60 | ✅ | `system_mechanics/menu_contextuel_protocol.md` §7 |
 
 ---
 
@@ -143,4 +151,4 @@ Ce dossier est un **kit méthodologique générique** extrait par le PE (réutil
 
 ## 5. Prochain numéro libre
 
-**D85** (simple). Pour les préfixes `D-<SLUG>`, vérifier la plage déjà consommée en §2 avant d'ajouter — chaque famille est contiguë et complète, pas de trou à combler.
+**D93** (simple). Pour les préfixes `D-<SLUG>`, vérifier la plage déjà consommée en §2 avant d'ajouter — chaque famille est contiguë et complète, pas de trou à combler.

@@ -2051,3 +2051,70 @@ Balayage `node --check` complet ré-exécuté après corrections — aucune rég
 **26 cartes réellement câblées et dynamiques** (22 de l'étape 58 + logement, vol, tableau de quêtes, inspection d'objet). `node --check` OK sur l'ensemble du dépôt `bot/`, avant et après corrections `/code-review`. Commit séparé déjà fait pour l'étape 56 (suite) : `b5848c2`.
 
 **Reste après ce point** : Mariage (dépend de Housing, maintenant prêt), Pêche/Récolte/Minage (nécessite une décision de modélisation d'abord), Illusion/Musique (nécessite d'étendre `USE_SKILL` hors combat), Notifications/Confirmation (décision d'architecture), `!rest` en vrai tick/min + logout (nécessite un scheduler, aucun n'existe dans `bot/`).
+
+---
+
+## ÉTAPE 60 — Grilling des 4 chantiers bloqués + ADR D85-D92 ✅ (2026-09-19)
+
+**Objectif** : sur demande PE (« Faisons ça » → « Tout »), trancher les décisions de modélisation qui bloquaient les quatre systèmes laissés ouverts à l'étape 59 — Mariage, Pêche/Récolte/Minage, Illusion/Musique, Notifications/Confirmation — par une session `grilling` (une question à la fois, recommandation à chaque fois), puis les inscrire (`domain-modeling`). **Markdown uniquement, aucun code** ; l'implémentation relève de futures sessions `/implement`, une par ADR.
+
+### Décisions (22 arbitrages PE, regroupés en 8 ADR)
+
+| ADR | Objet |
+|---|---|
+| D85 | Flux de mariage : `T_MARRIAGE_PROPOSALS` persistante (TTL 48 h) ; demande à distance, acceptation en personne (même zone, hors combat) ; 1 demande sortante / plusieurs entrantes, `!decline_proposal` / `!cancel_proposal` ; foyer = condition d'entrée (`home_property_uuid` nullable) ; coffre conjugal Yrds + objets |
+| D86 | Genre choisi à `!link_start`, immuable, correction GM seule |
+| D87 | `T_RESOURCE_NODES` unique (`FLORA`/`ORE`/`FISH`) ; repousse par joueur + état global IA ; les trois activités en v1 ; outils `OUT_*` possédés, tier ≥ nœud ; pêche asynchrone à 3 options (D83), récolte/minage immédiats ; appâts en V2 |
+| D88 | Durabilité : usure outils + équipement de combat, réparation dégressive au forgeron uniquement, grille Neuf / Quasi neuf / Bon état / État correct / Usé / Cassé (paliers PE), parchemins de réparation retirés |
+| D89 | Illusion et Musique (prose héritée) remplacées par le lot I-4 (D66) |
+| D90 | Effets actifs persistants hors combat, négatifs non mortels hors combat, ciblage T1-T2 / T3+ |
+| D91 | Notifications sortantes : privé / groupe de territoire, file persistante bridée `T_NOTIFICATIONS` |
+| D92 | Confirmation générique via le menu D83 (contexte `CONFIRM`), liste fermée |
+
+### Faits découverts en cours de session (vérifiés dans le dépôt)
+
+- **Aucun avatar féminin ne pouvait exister** : `createPlayer` écrit `gender = 'male'` en dur et `!link_start` n'avait pas d'argument de genre → mariage structurellement impossible (d'où D86).
+- **L'anneau `MSC_ENG_001` n'est pas en base** (0 occurrence dans `seed_data.sql`) ni en vente chez aucun bijoutier → prérequis du mariage inatteignable.
+- **Les 100 `FLO_*` ne sont pas ingérés** et leurs zones suivent une convention hors atlas (`ZONE_GAT_HUNT_01`), 0 correspondance ; aucun poisson brut, aucune pioche, aucune canne n'existe.
+- **La durabilité n'est jamais consommée** alors que le puits « Réparations » est compté dans le bilan anti-inflation ; la ligne de durabilité existe sur 100 % des fiches d'armes et d'armures mais le générateur ne l'ingère pas (valeurs à 0). Les parchemins `CSM_PAR_008` (remise à neuf à 180 Yrds, fabricables) neutralisaient le puits.
+- **Illusion et Musique n'existent pas dans le lot validé** : la musique Puca *est* l'école `SUP` (Requiem `MAG_SUP_008` en double), l'illusion n'a aucune école (Spriggan = `TEN`).
+- **`T_ACTIVE_EFFECTS` existait déjà** (schéma + écriture en fin de combat dans `combat.js`), mais n'était jamais relue — correction d'une affirmation faite en session (« effets uniquement en mémoire »), qui ne change pas la décision. Anomalie annexe : pour une cible monstre, `persistActiveEffects` écrit un `MOB_*` dans une colonne `UUID`.
+- **Le bot est purement réactif** (`msg.reply` uniquement) : aucune demande en mariage, courrier ou annonce ne pouvait atteindre un tiers ; 4 commandes de diffusion étaient spécifiées sans moyen d'émission.
+- **Doublons évités** : `SYS_MODIFY_DURABILITY`, `SYS_BLESS_PLAYER` / `SYS_DEBUFF_PLAYER` existaient déjà — réutilisés au lieu de créer `SYS_SET_DURABILITY` / `SYS_APPLY_EFFECT`. `SYS_SPAWN_NODE` réinterprété (paramètre `Qty` incompatible avec la repousse par joueur).
+
+### Modifications
+
+| # | Action | Fichier |
+|---|---|---|
+| 60.1 | ✏️ D85-D92 inscrites, prochain numéro libre → D93 | `registre_decisions.md` |
+| 60.2 | 🆕 Fiche MLD | `MLD_Logic/table_t_marriage_proposals.md` |
+| 60.3 | ✏️ Foyer nullable, flux, commandes, confirmation | `MLD_Logic/table_t_marriages.md`, `table_t_properties.md` (P5) |
+| 60.4 | ✏️ A8 genre immuable | `MLD_Logic/table_t_avatars.md` |
+| 60.5 | ✏️ v2.1 — §1.4 flux de demande | `system_mechanics/marriage_housing_system.md` |
+| 60.6 | 🆕 Fiche MLD (+ `T_AVATAR_HARVESTS`) | `MLD_Logic/table_t_resource_nodes.md` |
+| 60.7 | ✏️ v2.0 — supersede la prose v1.0 (tables héritées en annexe non autoritaire) | `system_mechanics/gathering_cooking_system.md` |
+| 60.8 | 🆕 Spécification | `system_mechanics/durability_repair_system.md` |
+| 60.9 | ✏️ Grille d'état remplacée, parchemins retirés, barème rendu actif | `stat_scaling/economy_balance_sheet.md` |
+| 60.10 | ✏️ I4 (confirmation), I8 (durabilité) ; I3 (outils) | `MLD_Logic/table_t_inventory.md`, `table_t_items_dict.md` |
+| 60.11 | ✏️ Amendement D90 (colonnes, contrats E1-E6) | `MLD_Logic/table_t_status_effects.md` |
+| 60.12 | 🆕 Fiche MLD + protocole | `MLD_Logic/table_t_notifications.md`, `system_mechanics/notifications_protocol.md` |
+| 60.13 | ✏️ Contextes `FISHING` / `CONFIRM` (CHECK, TTL, §6-§7) | `system_mechanics/menu_contextuel_protocol.md`, `MLD_Logic/table_t_pending_menus.md` |
+| 60.14 | ✏️ Bandeaux « remplacé » (D89) | `system_mechanics/illusion_magic_system.md`, `music_magic_system.md` |
+| 60.15 | ✏️ Règle de complétude : ajouts / amendements / retraits Joueur-GM-IA | `whatsapp_commands_list.md`, `ai_orchestrator_commands.md` |
+| 60.16 | ✏️ Journal et contexte | `alo_progression.md`, `alo_context.md` |
+
+### Points ouverts — tranchés par le PE en fin d'étape (amendements, pas de nouveau numéro)
+
+1. **Objets T5 liés à l'âme** (amendement D88) : **exemptés de l'amputation** — usure, casse et coût de réparation T5 conservés, `durability_cap` jamais réduit. `durability_repair_system.md` §5.
+2. **Chiffre nu en contexte `CONFIRM`** (amendement D92) : **citation du menu obligatoire**, chiffre nu ignoré avec rappel. `menu_contextuel_protocol.md` §7.
+3. **Clause cuisine héritée** (amendement D87) : **conservée** — `!cook` exige un feu de camp ou une cuisine de logement (possédé, loué ou conjugal). `gathering_cooking_system.md` §4.
+
+### Tâches préalables recensées (avant les `/implement`)
+
+- **Contenu (ACP)** : lot Pêche (`MAT_POI_*` + nœuds `FSH_*`) ; outils `OUT_PIO_*` / `OUT_CAN_*` ; nœuds `ORE_*` dérivés des sources `MAT_MIN_*` / `MAT_GEM_*` ; remappage des zones des 100 `FLO_*` sur l'atlas ; anneau `MSC_ENG_001` dans les inventaires de bijoutiers ; **retrait des parchemins `CSM_PAR_007/008`** — archivage des 2 fiches + nettoyage de 13 boutiques (`shop_vou_41`, `shop_aln_22`, `shop_fre_67`, `shop_swi_05`, `shop_und_27`, `shop_lio_04`, `shop_gat_24`, `shop_gra_04`, `shop_gra_32`, `shop_dus_47`, `shop_bro_05`, `shop_pen_87`, `shop_pen_32`) et de la recette `mat_hrb_024` ; relecture de `npc_pen_02` / `npc_pen_23` (mentions d'illusion).
+- **Générateur** : ingestion de `MSC_ENG_001`, des `FLO_*`, de la durabilité.
+- **Code (`bot/`, demande PE explicite)** — ordre suggéré : D91 notifications + D92 confirmation → D86 genre → stockage d'objets des coffres → D85 mariage → D88 durabilité → D87 ressources → D90 effets et magie hors combat.
+
+### État de sortie
+
+8 ADR inscrites et propagées dans toutes les couches (MLD, mécanique, commandes Joueur/GM/IA). Aucun fichier de `bot/` touché. Les 3 points ouverts ont été tranchés en fin d'étape. Prochaine étape au choix du PE : lancer le lot de contenu préalable, ou démarrer le premier `/implement` (D91 + D92).

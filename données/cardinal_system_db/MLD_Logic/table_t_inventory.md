@@ -41,10 +41,11 @@ CREATE INDEX idx_inventory_item ON T_INVENTORY(item_id);
 | I1 | **Capacité respectée (D44)** | INSERT refusé si `T_AVATARS.inventory_used` ≥ `inventory_capacity`. Met à jour `inventory_used` à chaque INSERT/DELETE/fusion |
 | I2 | **Empilage** | Ajout d'un empilable : fusion dans la pile existante jusqu'à `T_ITEMS_DICT.max_stack`, puis nouvelle instance |
 | I3 | **Anti-duplication** | Verrou pessimiste sur l'instance pendant toute transaction. Une instance ne peut être ni vendue deux fois ni échangée pendant un calcul de dégâts |
-| I4 | **Liaison d'âme** | `is_bound = TRUE` ⇒ rejet de tout transfert (vente, échange, marché, gage). `!jeter` demande double confirmation |
+| I4 | **Liaison d'âme** | `is_bound = TRUE` ⇒ rejet de tout transfert (vente, échange, marché, gage). `!jeter` demande double confirmation — mécanisme générique D92 (menu D83, contexte `CONFIRM`) : jeter est une destruction, pas un transfert, donc autorisé **après** confirmation |
 | I5 | **Équipement cohérent** | `is_equipped = TRUE` exige `slot_equipped` compatible avec le type d'item : armure/tenue sur 5 slots, armes en mains/ceinture/sangle |
 | I6 | **Armes hors sac/virtuel (D45)** | `item_id LIKE 'WPN_%'` non équipé ⇒ forcé en `storage_zone = 'BANK'`. INSERT/UPDATE en VIRTUAL ou BAG refusé |
 | I7 | **Mort / Remain Light** | À la mort hors zone sûre : drop selon `pk_karma`. Instances `is_bound` ne droppent JAMAIS. Banque protégée |
+| I8 | **Durabilité (D88)** | `current_durability` ∈ [0, plafond] où plafond = `durability_cap` (nouvelle colonne `INT`, `NULL` = `T_ITEMS_DICT.durability_max`) ; `repair_count INT NOT NULL DEFAULT 0` (nouvelle colonne). Usure : −1/pièce équipée par combat PvE, −3 PvP, par tentative pour les outils. À 0 : **Cassé**, aucune statistique. `!repair` (forgeron PNJ seul) remet au plafond puis ampute `durability_cap` de 10 % de l'origine ; plafond 0 = irréparable. Détail : `system_mechanics/durability_repair_system.md` |
 
 ## 4. Équivalents Commandes
 

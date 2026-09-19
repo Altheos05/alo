@@ -46,6 +46,15 @@ async function test(name, fn) {
 async function run() {
   console.log('\n🔬 Tests d\'intégration — Système Cardinal\n');
 
+  // Fixture : la suite suppose un avatar de test existant (jamais créé jusqu'ici).
+  await pool.query(
+    `INSERT INTO t_avatars (avatar_uuid, whatsapp_phone, avatar_name, race_id, gender,
+                            hp_current, hp_max, mp_current, mp_max, current_zone_id, level, yrd_balance)
+     VALUES ($1, '33600000001', 'Testeur', 'RACE_SYLPH', 'male', 100, 100, 50, 50, 'ZONE_SYL_CAP_001', 20, 10000)
+     ON CONFLICT (avatar_uuid) DO NOTHING`,
+    [TEST_PLAYER]
+  );
+
   await test('Gazetteer chargé', async () => {
     await loadGazetteer(pool);
   });
@@ -78,23 +87,25 @@ async function run() {
   });
 
   await test('acceptQuest — plafond 10 quêtes actives (régression Q1)', async () => {
-    await pool.query("DELETE FROM t_active_quests WHERE avatar_uuid = $1 AND quest_id LIKE 'TEST_CAP_%'", [TEST_PLAYER]);
+    // t_active_quests.quest_id est une FK : le plafond se remplit avec de vraies quêtes.
+    const questRows = await pool.query('SELECT quest_id FROM t_quests_dict ORDER BY quest_id LIMIT 11');
+    if (questRows.rows.length < 11) return; // pas assez de quêtes seedées, régression non vérifiable ici
+    const ids = questRows.rows.map(r => r.quest_id);
+    await pool.query('DELETE FROM t_active_quests WHERE avatar_uuid = $1', [TEST_PLAYER]);
     try {
-      for (let i = 0; i < 10; i++) {
+      for (const questId of ids.slice(0, 10)) {
         await pool.query(
           `INSERT INTO t_active_quests (avatar_uuid, quest_id, current_step, progress_status)
-           VALUES ($1, $2, 1, 'in_progress') ON CONFLICT (avatar_uuid, quest_id) DO NOTHING`,
-          [TEST_PLAYER, `TEST_CAP_${i}`]
+           VALUES ($1, $2, 1, 'in_progress')`,
+          [TEST_PLAYER, questId]
         );
       }
-      const questRow = await pool.query('SELECT quest_id FROM t_quests_dict LIMIT 1');
-      if (questRow.rows.length === 0) return; // pas de quête seedée, régression non vérifiable ici
-      const result = await questsEngine.acceptQuest(pool, TEST_PLAYER, questRow.rows[0].quest_id);
+      const result = await questsEngine.acceptQuest(pool, TEST_PLAYER, ids[10]);
       if (result.success || result.error !== 'QUEST_CAP_REACHED') {
         throw new Error('Plafond 10 quêtes actives non appliqué : ' + JSON.stringify(result));
       }
     } finally {
-      await pool.query("DELETE FROM t_active_quests WHERE avatar_uuid = $1 AND quest_id LIKE 'TEST_CAP_%'", [TEST_PLAYER]);
+      await pool.query('DELETE FROM t_active_quests WHERE avatar_uuid = $1', [TEST_PLAYER]);
     }
   });
 
@@ -330,21 +341,23 @@ async function run() {
     if (result.routing.intent !== 'DROP_ITEM') throw new Error('Pas DROP_ITEM: ' + result.routing.intent);
   });
 
-  await test('dropItem — objet lié à l\'âme refusé (régression I4)', async () => {
+  await test('dropItem — objet lié à l\'âme refusé sans confirmation (régression I4)', async () => {
+    // t_inventory.item_id est une FK : l'objet de test doit exister au dictionnaire.
+    const { item_id: itemId } = (await pool.query("SELECT item_id FROM t_items_dict ORDER BY item_id LIMIT 1")).rows[0];
     await pool.query(
       `INSERT INTO t_inventory (instance_uuid, avatar_uuid, item_id, quantity, is_bound)
-       VALUES (gen_random_uuid(), $1, 'ITEM_POT_001', 1, TRUE)`,
-      [TEST_PLAYER]
+       VALUES (gen_random_uuid(), $1, $2, 1, TRUE)`,
+      [TEST_PLAYER, itemId]
     );
     try {
-      const result = await itemsEngine.dropItem(pool, TEST_PLAYER, 'ITEM_POT_001', 1);
+      const result = await itemsEngine.dropItem(pool, TEST_PLAYER, itemId, 1);
       if (result.success || result.error !== 'BOUND_ITEM') {
         throw new Error('Objet lié jeté sans rejet : ' + JSON.stringify(result));
       }
     } finally {
       await pool.query(
-        `DELETE FROM t_inventory WHERE avatar_uuid = $1 AND item_id = 'ITEM_POT_001' AND is_bound = TRUE`,
-        [TEST_PLAYER]
+        'DELETE FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 AND is_bound = TRUE',
+        [TEST_PLAYER, itemId]
       );
     }
   });

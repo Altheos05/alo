@@ -3,6 +3,7 @@ import { getPlayer } from '../services/player.js';
 import { getCombatStatus } from './combat.js';
 import { syncPlayerGroups } from '../services/zone-groups.js';
 import { menuRow } from '../services/cardRenderer.js';
+import { confirmationMenu } from '../services/menus.js';
 
 const TYPES = Object.keys(HOUSING_GRID);
 const TYPE_RE = new RegExp(`\\b(${TYPES.join('|')})\\b`, 'i');
@@ -36,7 +37,7 @@ function formatStatus(property) {
   return lines.join('\n');
 }
 
-export async function handleHousing(db, playerId, raw = '') {
+export async function handleHousing(db, playerId, raw = '', { confirmed = false } = {}) {
   const player = await getPlayer(db, playerId);
   if (!player) return `❌ Impossible de déterminer ta zone.`;
 
@@ -90,7 +91,19 @@ export async function handleHousing(db, playerId, raw = '') {
   }
 
   if (SELL_RE.test(raw) || LEAVE_RE.test(raw)) {
-    const result = await releaseProperty(db, playerId, { refund: SELL_RE.test(raw) });
+    const selling = SELL_RE.test(raw);
+    // D92 : perte du logement ⇒ confirmation citée ; l'existence du logement
+    // est revérifiée sous verrou par releaseProperty à la confirmation.
+    if (!confirmed) {
+      const property = await getProperty(db, playerId);
+      if (!property) return `❌ Tu n'as pas de logement.`;
+      const label = HOUSING_GRID[property.property_type].label;
+      const consequence = selling
+        ? `Tu vas **vendre** ton logement (${label}) — seuls 50 % du prix d'achat te seront rendus.`
+        : `Tu vas **quitter** ton logement (${label}) — aucun remboursement.`;
+      return { text: `⚠️ ${consequence}`, menu: confirmationMenu(selling ? '!housing_sell' : '!housing_leave') };
+    }
+    const result = await releaseProperty(db, playerId, { refund: selling });
     if (!result.success) return `❌ Tu n'as pas de logement.`;
     return result.refundAmount > 0
       ? `🏠 Logement vendu — ${result.refundAmount} Yrds crédités (50% du prix d'achat).`

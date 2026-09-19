@@ -24,9 +24,11 @@ import * as questsHandler from '../handlers/quests.js';
 import * as itemsHandler from '../handlers/items.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
+import * as menus from '../services/menus.js';
 import config from '../config.js';
 
-export async function processMessage(db, text, playerId = null, groupId = null, phoneNumber = null) {
+// options.quotedMessageId : identifiant du message cité (mode citation du menu D83).
+export async function processMessage(db, text, playerId = null, groupId = null, phoneNumber = null, options = {}) {
   if (!text || typeof text !== 'string') {
     return { response: render('error'), routing: { intent: 'ERROR', confidence: 0 } };
   }
@@ -41,11 +43,29 @@ export async function processMessage(db, text, playerId = null, groupId = null, 
     playerId = '00000000-0000-0000-0000-000000000001';
   }
 
+  // D83 §2.2 : la résolution de menu passe AVANT toute classification.
+  let menuContext = null;
+  const menuReply = await menus.resolveMenuReply(db, playerId, text, options.quotedMessageId || null);
+  if (menuReply?.kind === 'text') {
+    return { response: menuReply.text, card: null, routing: { intent: 'MENU', confidence: 1 }, playerId };
+  }
+  if (menuReply?.kind === 'command') {
+    text = menuReply.command;
+    menuContext = menuReply;
+  } else if (!/^!menu$/i.test(text.trim())) {
+    // !menu relit le menu en attente : il ne doit pas l'annuler.
+    await menus.cancelPendingConfirmation(db, playerId);
+  }
+
   const routing = await routeMessage(text);
 
   if (routing.confidence < 0.7) {
     return { response: render('error'), routing };
   }
+  // Drapeau posé UNIQUEMENT par la résolution d'un menu CONFIRM cité : une
+  // commande tapée à la main ne peut jamais se déclarer confirmée.
+  routing.confirmed = menuContext?.context === 'CONFIRM' && menuContext.confirmed;
+  routing.menuRef = menuContext?.ref || null;
 
   let result;
   try {
@@ -62,9 +82,15 @@ export async function processMessage(db, text, playerId = null, groupId = null, 
   // carte visuelle (rendue par cardRenderer) accompagne la réponse (cf. dialogue.js).
   let response;
   let card = null;
+  let menuShown = false;
   if (result && typeof result === 'object') {
     response = result.text;
     card = result.card || null;
+    if (result.menu) {
+      response = `${response}\n\n${await menus.showMenu(db, playerId, result.menu)}`;
+      menuShown = true;
+    }
+    if (result.menuRedisplayed) menuShown = true;
   } else {
     response = result;
   }
@@ -81,10 +107,14 @@ export async function processMessage(db, text, playerId = null, groupId = null, 
     hasCard: !!card,
   });
 
+  // menuShown : la couche WhatsApp doit lier l'identifiant du message envoyé
+  // au menu (bindMenuMessage) pour que la citation soit résolvable.
   return {
     response,
     card,
     routing,
+    menuShown,
+    playerId,
   };
 }
 
@@ -177,7 +207,7 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return partyHandler.handlePartyCommand(db, playerId, routing.raw || '');
 
     case 'GUILD':
-      return guildHandler.handleGuildCommand(db, playerId, routing.raw || '');
+      return guildHandler.handleGuildCommand(db, playerId, routing.raw || '', { confirmed: routing.confirmed });
 
     case 'SOCIAL':
       return `🤝 Tape "groupe" ou "guilde" pour gérer tes groupes et guildes.`;
@@ -192,7 +222,7 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return `📩 Message privé à **${routing.entities.target || 'inconnu'}** : ${routing.match?.[1] || ''}`;
 
     case 'HOUSING':
-      return housingHandler.handleHousing(db, playerId, routing.raw || '');
+      return housingHandler.handleHousing(db, playerId, routing.raw || '', { confirmed: routing.confirmed });
 
     case 'FLIGHT':
       return flightHandler.handleFlight(db, playerId, routing.raw || '');
@@ -201,13 +231,19 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return itemsHandler.handleInspect(db, playerId, routing.raw || '');
 
     case 'DROP_ITEM':
-      return itemsHandler.handleDrop(db, playerId, routing.raw || '');
+      return itemsHandler.handleDrop(db, playerId, routing.raw || '', { confirmed: routing.confirmed });
 
     case 'LINK_START':
       return registrationHandler.handleLinkStart(db, phoneNumber, routing.raw || '');
 
     case 'DIPLOMACY':
       return diplomacyHandler.handleDiplomacy(db, playerId);
+
+    case 'MENU': {
+      const block = await menus.redisplayMenu(db, playerId);
+      if (!block) return `ℹ️ Aucun menu actif.`;
+      return { text: block, menuRedisplayed: true };
+    }
 
     case 'SYS':
       return handleSysCommand(db, routing, playerId, phoneNumber);
@@ -216,6 +252,12 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return null;
   }
 }
+
+// Noms GM documentés (whatsapp_commands_list.md) → primitive IA correspondante.
+const GM_ALIASES = {
+  SYS_NOTIFY: 'SYS_NOTIFY_PLAYER',
+  SYS_ANNOUNCE: 'SYS_ANNOUNCE_GLOBAL',
+};
 
 async function isGm(_db, _playerId, phoneNumber) {
   if (phoneNumber && config.game.gmPhones.includes(phoneNumber)) return true;
@@ -229,10 +271,11 @@ async function handleSysCommand(db, routing, playerId, phoneNumber) {
   }
 
   const parts = text.slice(1).split(/\s+/);
-  const cmdName = parts[0]?.toUpperCase();
-  if (!cmdName || !cmdName.startsWith('SYS_')) {
+  const typed = parts[0]?.toUpperCase();
+  if (!typed || !typed.startsWith('SYS_')) {
     return render('sys_unknown');
   }
+  const cmdName = GM_ALIASES[typed] || typed;
 
   const gm = await isGm(db, playerId, phoneNumber);
   if (!gm) {
@@ -240,11 +283,10 @@ async function handleSysCommand(db, routing, playerId, phoneNumber) {
     return `❌ Accès refusé. Seuls les GMs peuvent utiliser les commandes système.`;
   }
 
+  // key=value, ou key="valeur avec espaces" (textes d'annonce / de message).
   const params = {};
-  for (let i = 1; i < parts.length; i++) {
-    const eq = parts[i].indexOf('=');
-    if (eq === -1) continue;
-    params[parts[i].slice(0, eq)] = parts[i].slice(eq + 1);
+  for (const m of text.matchAll(/(\w+)=(?:"([^"]*)"|(\S+))/g)) {
+    params[m[1]] = m[2] ?? m[3];
   }
   if (!params.player_id && playerId) params.player_id = playerId;
 

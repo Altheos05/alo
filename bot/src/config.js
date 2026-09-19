@@ -43,6 +43,12 @@ const config = {
   wa: {
     sessionPath: process.env.WA_SESSION_PATH || './wa_session',
   },
+  // D91 N3 : débit sortant plafonné (protection du numéro, client non officiel).
+  notifications: {
+    intervalMs: parseInt(process.env.NOTIF_INTERVAL_MS || '4000', 10),
+    batchSize: parseInt(process.env.NOTIF_BATCH_SIZE || '1', 10),
+    maxAttempts: parseInt(process.env.NOTIF_MAX_ATTEMPTS || '5', 10),
+  },
   models: {
     path: resolve(__dirname, '..', 'models'),
     intent: process.env.MODEL_INTENT || 'intent.onnx',

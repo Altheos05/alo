@@ -101,12 +101,35 @@ export async function leaveGuild(db, avatarUuid) {
 }
 
 export async function disbandGuild(db, avatarUuid) {
-  const guild = await getGuildForAvatar(db, avatarUuid);
-  if (!guild) return { success: false, error: 'NOT_IN_GUILD' };
-  if (!guild.is_leader) return { success: false, error: 'NOT_LEADER' };
-
-  await db.query('DELETE FROM t_guilds WHERE guild_uuid = $1', [guild.guild_uuid]);
-  return { success: true };
+  const client = await db.connect();
+  try {
+    await client.query('BEGIN');
+    const guild = await client.query(
+      `SELECT g.guild_uuid, (g.leader_avatar_uuid = $1) AS is_leader
+       FROM t_guilds g JOIN t_guild_members m ON m.guild_uuid = g.guild_uuid
+       WHERE m.avatar_uuid = $1
+       FOR UPDATE OF g`,
+      [avatarUuid]
+    );
+    if (guild.rows.length === 0) {
+      await client.query('ROLLBACK');
+      return { success: false, error: 'NOT_IN_GUILD' };
+    }
+    if (!guild.rows[0].is_leader) {
+      await client.query('ROLLBACK');
+      return { success: false, error: 'NOT_LEADER' };
+    }
+    // t_guild_members suit par ON DELETE CASCADE.
+    await client.query('DELETE FROM t_guilds WHERE guild_uuid = $1', [guild.rows[0].guild_uuid]);
+    await client.query('COMMIT');
+    return { success: true };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    logger.error('Erreur lors de la dissolution de la guilde', { error: err.message, avatarUuid });
+    return { success: false, error: 'TRANSACTION_FAILED', message: err.message };
+  } finally {
+    client.release();
+  }
 }
 
 export default { getGuildForAvatar, getGuildMembers, createGuild, leaveGuild, disbandGuild };

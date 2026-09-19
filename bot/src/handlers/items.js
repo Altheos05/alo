@@ -1,4 +1,5 @@
 import { findItem, dropItem } from '../engine/items.js';
+import { confirmationMenu } from '../services/menus.js';
 
 export async function handleInspect(db, playerId, raw = '') {
   const match = raw.match(/inspect\s+(.+)/i);
@@ -31,7 +32,8 @@ export async function handleInspect(db, playerId, raw = '') {
   };
 }
 
-export async function handleDrop(db, playerId, raw = '') {
+// D92 : jeter un objet lié à l'âme passe par une confirmation citée.
+export async function handleDrop(db, playerId, raw = '', { confirmed = false } = {}) {
   const match = raw.match(/jeter\s+(\d+\s*x?\s*)?(.+)/i);
   const query = match?.[2]?.trim();
   if (!query) return `🗑️ Jeter quoi ? Ex. : "jeter Potion de Soin".`;
@@ -41,13 +43,18 @@ export async function handleDrop(db, playerId, raw = '') {
   const item = await findItem(db, query);
   if (!item) return `❌ Aucun objet ne correspond à "${query}".`;
 
-  const result = await dropItem(db, playerId, item.item_id, quantity);
+  const result = await dropItem(db, playerId, item.item_id, quantity, { allowBound: confirmed });
   if (!result.success) {
+    if (result.error === 'BOUND_ITEM') {
+      return {
+        text: `⚠️ **${item.name}** est lié à ton âme : le jeter le détruit **définitivement**, il ne pourra pas être racheté.`,
+        menu: confirmationMenu(`!jeter ${quantity} ${item.item_id}`, item.item_id),
+      };
+    }
     const messages = {
       NOT_OWNED: `❌ Tu ne possèdes pas ${item.name}.`,
       EQUIPPED: `❌ ${item.name} est équipé — retire-le d'abord ("unequip").`,
       INSUFFICIENT_QUANTITY: `❌ Tu n'as que ${result.available}× ${item.name}.`,
-      BOUND_ITEM: `❌ ${item.name} est lié à ton âme — impossible de le jeter.`,
     };
     return messages[result.error] || `❌ Impossible de jeter cet objet.`;
   }

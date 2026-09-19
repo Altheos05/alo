@@ -7,6 +7,8 @@ import config from '../config.js';
 import { processMessage } from '../orchestrator/message-handler.js';
 import { renderCard } from './cardRenderer.js';
 import pool from '../db/pool.js';
+import { bindMenuMessage } from './menus.js';
+import { startNotificationSender } from './notifications.js';
 
 let client = null;
 
@@ -35,8 +37,13 @@ export async function initWhatsApp() {
     logger.info('QR Code WhatsApp généré — scanne avec WhatsApp');
   });
 
+  let stopNotifications = null;
   client.on('ready', () => {
     logger.info('WhatsApp client connecté');
+    // D91 : seule la couche WhatsApp émet ; la boucle vide la file à débit plafonné.
+    if (!stopNotifications) {
+      stopNotifications = startNotificationSender(pool, (chatId, body) => client.sendMessage(chatId, body));
+    }
   });
 
   client.on('authenticated', () => {
@@ -55,7 +62,16 @@ export async function initWhatsApp() {
     if (!text) return;
 
     const groupId = msg.from.endsWith('@g.us') ? msg.from : null;
-    const phoneNumber = msg.from.replace('@c.us', '').replace('@g.us', '');
+    // En groupe, msg.from est l'identifiant du GROUPE : l'expéditeur réel est
+    // msg.author. Sans cela, tout joueur d'un groupe était résolu par l'id du groupe.
+    const sender = groupId ? (msg.author || '') : msg.from;
+    const phoneNumber = sender.replace(/@.*$/, '');
+
+    let quotedMessageId = null;
+    if (msg.hasQuotedMsg) {
+      const quoted = await msg.getQuotedMessage().catch(() => null);
+      quotedMessageId = quoted?.id?._serialized || null;
+    }
 
     logger.debug('Message WhatsApp reçu', {
       from: phoneNumber,
@@ -64,22 +80,25 @@ export async function initWhatsApp() {
     });
 
     try {
-      const result = await processMessage(pool, text, null, groupId, phoneNumber);
+      const result = await processMessage(pool, text, null, groupId, phoneNumber, { quotedMessageId });
       const reply = result.response;
 
-      let sentAsCard = false;
+      let sent = null;
       if (result.card) {
         const buffer = await renderCard(client, result.card.template, result.card.variables);
         if (buffer) {
           const media = new MessageMedia('image/png', buffer.toString('base64'), `${result.card.template}.png`);
-          await msg.reply(media, undefined, { caption: reply });
-          sentAsCard = true;
+          sent = await msg.reply(media, undefined, { caption: reply });
         } else {
           logger.warn('Carte non rendue — repli sur le texte', { template: result.card.template });
         }
       }
 
-      if (!sentAsCard && reply) await msg.reply(reply);
+      if (!sent && reply) sent = await msg.reply(reply);
+      // D83 : le message envoyé devient la référence de citation du menu.
+      if (result.menuShown && sent?.id?._serialized) {
+        await bindMenuMessage(pool, result.playerId, sent.id._serialized);
+      }
     } catch (err) {
       logger.error('Erreur traitement message WhatsApp', { error: err.message });
       await msg.reply('❌ Une erreur est survenue. Réessaie plus tard.');

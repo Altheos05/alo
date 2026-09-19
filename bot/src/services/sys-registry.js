@@ -1,4 +1,5 @@
 import logger from '../utils/logger.js';
+import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifications.js';
 
 const COMMANDS = {};
 
@@ -172,6 +173,67 @@ define('SYS_SHOP_RESTOCK', {
     );
     logger.info('SYS_SHOP_RESTOCK ok', { shop: params.shop_id, items: result.rows.length });
     return { ok: true, message: `Boutique ${params.shop_id} réapprovisionnée (${result.rows.length} articles)` };
+  },
+});
+
+// ─── D91 : notifications sortantes (file T_NOTIFICATIONS, services/notifications.js) ───
+
+define('SYS_NOTIFY_PLAYER', {
+  description: 'Envoie un message privé à un joueur (file bridée D91)',
+  schema: { player_id: 'uuid', text: 'string' },
+  async d71(db, params) {
+    const pr = await db.query('SELECT 1 FROM t_avatars WHERE avatar_uuid = $1', [params.player_id]);
+    if (!pr.rows.length) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    await queueDirect(db, params.player_id, params.text, 'SYS_NOTIFY');
+    return { ok: true, message: `Message mis en file pour ${params.player_id}` };
+  },
+});
+
+define('SYS_ANNOUNCE', {
+  description: 'Annonce dans le groupe de territoire d\'une zone (D91 N2)',
+  schema: { zone_id: 'string', text: 'string' },
+  async d71(db, params) {
+    const zr = await db.query('SELECT 1 FROM t_zones WHERE zone_id = $1', [params.zone_id]);
+    if (!zr.rows.length) return `Zone ${params.zone_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const result = await queueZone(db, params.zone_id, params.text, 'ANNOUNCE_ZONE');
+    if (!result.success) return { ok: false, message: `Aucun groupe de territoire pour ${params.zone_id}` };
+    return { ok: true, message: `Annonce mise en file pour ${result.groupId}` };
+  },
+});
+
+const globalAnnounce = {
+  description: 'Annonce mondiale : une ligne par groupe communautaire (D91 N2)',
+  schema: { text: 'string' },
+  async d71() { return null; },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const result = await queueGlobal(db, params.text, 'ANNOUNCE_GLOBAL');
+    return { ok: true, message: `Annonce mise en file pour ${result.groups} groupe(s) communautaire(s)` };
+  },
+};
+define('SYS_ANNOUNCE_GLOBAL', globalAnnounce);
+define('SYS_BROADCAST_WORLD_MESSAGE', globalAnnounce);
+
+define('SYS_NOTIF_QUEUE', {
+  description: 'État de la file de notifications (lecture seule)',
+  schema: {},
+  async d71() { return null; },
+  async prereqs() { return null; },
+  async authorize(source) { return source === 'gm'; },
+  async execute(db) {
+    const q = await getQueueSummary(db);
+    return { ok: true, message: `File : ${q.pending} en attente · ${q.sent} envoyée(s) · ${q.failed} abandonnée(s)` };
   },
 });
 

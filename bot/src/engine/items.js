@@ -8,7 +8,7 @@ export async function findItem(db, itemQuery) {
   return result.rows[0] || null;
 }
 
-export async function dropItem(db, avatarUuid, itemId, quantity = 1) {
+export async function dropItem(db, avatarUuid, itemId, quantity = 1, { allowBound = false } = {}) {
   const client = await db.connect();
   try {
     await client.query('BEGIN');
@@ -26,12 +26,9 @@ export async function dropItem(db, avatarUuid, itemId, quantity = 1) {
       await client.query('ROLLBACK');
       return { success: false, error: 'EQUIPPED' };
     }
-    // I4 (table_t_inventory.md) : is_bound = TRUE ⇒ rejet de tout transfert.
-    // La double confirmation demandée par le spec pour !jeter suppose un
-    // état de confirmation en attente (pattern non construit ailleurs dans
-    // ce lot) — en son absence, on refuse plutôt que risquer une perte
-    // définitive d'objet lié à l'âme.
-    if (row.is_bound) {
+    // I4 (table_t_inventory.md) : un objet lié ne se jette qu'après
+    // confirmation citée (D92) — allowBound n'est vrai que sur ce chemin.
+    if (row.is_bound && !allowBound) {
       await client.query('ROLLBACK');
       return { success: false, error: 'BOUND_ITEM' };
     }

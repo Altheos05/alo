@@ -1,11 +1,12 @@
 import { getGuildForAvatar, getGuildMembers, createGuild, leaveGuild, disbandGuild } from '../engine/guild.js';
 import { menuRow } from '../services/cardRenderer.js';
+import { confirmationMenu } from '../services/menus.js';
 
 const CREATE_RE = /(?:guilde?|guild)\s+(?:cr[ée]e|create)\s+(.+)/i;
 const LEAVE_RE = /quitte|leave/i;
 const DISBAND_RE = /dissoud|disband/i;
 
-export async function handleGuildCommand(db, playerId, raw = '') {
+export async function handleGuildCommand(db, playerId, raw = '', { confirmed = false } = {}) {
   const createMatch = raw.match(CREATE_RE);
   if (createMatch) {
     const name = createMatch[1].trim();
@@ -21,6 +22,16 @@ export async function handleGuildCommand(db, playerId, raw = '') {
   }
 
   if (DISBAND_RE.test(raw)) {
+    // D92 : dissolution ⇒ confirmation citée ; disbandGuild revérifie sous verrou.
+    if (!confirmed) {
+      const guild = await getGuildForAvatar(db, playerId);
+      if (!guild) return `❌ Tu n'as pas de guilde.`;
+      if (!guild.is_leader) return `❌ Seul le chef peut dissoudre la guilde.`;
+      return {
+        text: `⚠️ Tu vas **dissoudre** la guilde **${guild.guild_name}** : tous les membres la perdent, définitivement.`,
+        menu: confirmationMenu('!guild disband', guild.guild_uuid),
+      };
+    }
     const result = await disbandGuild(db, playerId);
     if (!result.success) {
       return result.error === 'NOT_LEADER' ? `❌ Seul le chef peut dissoudre la guilde.` : `❌ Tu n'as pas de guilde.`;

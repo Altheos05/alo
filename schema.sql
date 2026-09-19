@@ -914,4 +914,162 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- ============================================================================
+-- NIVEAU 5 — Tables postérieures à la compilation du 2026-07-10
+-- (étapes 43-60 : D-SOC-*, D83, D85, D87, D88, D90, D91). Idempotent
+-- (IF NOT EXISTS) : cette section peut être rejouée seule sur une base
+-- existante sans rebuild. Source : fiches MLD_Logic/*.md correspondantes.
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS T_NPC_RELATIONS (
+    avatar_uuid         UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    npc_id              VARCHAR(50) NOT NULL REFERENCES T_NPC(npc_id),
+    interaction_count   INT NOT NULL DEFAULT 0,
+    first_met_at        TIMESTAMP NOT NULL DEFAULT NOW(),
+    last_talked_at      TIMESTAMP NOT NULL DEFAULT NOW(),
+    affinity            INT NOT NULL DEFAULT 0 CHECK (affinity BETWEEN -100 AND 100),
+    affinity_tier       VARCHAR(12) NOT NULL DEFAULT 'stranger'
+                            CHECK (affinity_tier IN ('hostile','stranger','known','trusted','confidant')),
+    topic_flags         JSONB NOT NULL DEFAULT '{}',
+    gifts_given         INT NOT NULL DEFAULT 0,
+    quests_done_for     INT NOT NULL DEFAULT 0,
+    last_gift_at        TIMESTAMP,
+    PRIMARY KEY (avatar_uuid, npc_id)
+);
+CREATE INDEX IF NOT EXISTS idx_npc_rel_affinity ON T_NPC_RELATIONS(avatar_uuid, affinity_tier);
+
+CREATE TABLE IF NOT EXISTS T_PROPERTIES (
+    property_uuid       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    owner_avatar_uuid   UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    property_type       VARCHAR(16) NOT NULL
+                            CHECK (property_type IN ('inn_room','small_house','manor','estate')),
+    tenure              VARCHAR(4) NOT NULL CHECK (tenure IN ('rent','own')),
+    zone_id             VARCHAR(50) NOT NULL REFERENCES T_ZONES(zone_id),
+    wa_group_id         VARCHAR(50) REFERENCES T_WA_GROUPS(wa_group_id),
+    acquired_at         TIMESTAMP NOT NULL DEFAULT NOW(),
+    rent_yrds_cycle     INT NOT NULL DEFAULT 0,
+    paid_until          TIMESTAMP,
+    is_delinquent       BOOLEAN NOT NULL DEFAULT FALSE,
+    storage_slots       INT NOT NULL DEFAULT 0,
+    storage_used        INT NOT NULL DEFAULT 0,
+    is_safe_checkpoint  BOOLEAN NOT NULL DEFAULT TRUE,
+    rest_regen_pct      INT NOT NULL DEFAULT 5,
+    deco_buffs          JSONB NOT NULL DEFAULT '{}',
+    invited_avatars     JSONB NOT NULL DEFAULT '[]'
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_property_owner ON T_PROPERTIES(owner_avatar_uuid);
+CREATE INDEX IF NOT EXISTS idx_property_zone ON T_PROPERTIES(zone_id);
+
+-- D85 / D-SOC-8→10
+CREATE TABLE IF NOT EXISTS T_MARRIAGES (
+    marriage_uuid        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    spouse_male_uuid     UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid),
+    spouse_female_uuid   UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid),
+    status               VARCHAR(10) NOT NULL DEFAULT 'active' CHECK (status IN ('active','divorced')),
+    married_at           TIMESTAMP NOT NULL DEFAULT NOW(),
+    divorced_at          TIMESTAMP,
+    ceremony_zone_id     VARCHAR(50) REFERENCES T_ZONES(zone_id),
+    home_property_uuid   UUID REFERENCES T_PROPERTIES(property_uuid) ON DELETE SET NULL,
+    joint_vault_id       UUID REFERENCES T_BANK_VAULTS(vault_id),
+    avg_level_at_wedding INT,
+    wedding_gift_item_id VARCHAR(50),
+    CHECK (spouse_male_uuid <> spouse_female_uuid)
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_marriage_male_active ON T_MARRIAGES(spouse_male_uuid) WHERE status = 'active';
+CREATE UNIQUE INDEX IF NOT EXISTS idx_marriage_female_active ON T_MARRIAGES(spouse_female_uuid) WHERE status = 'active';
+
+CREATE TABLE IF NOT EXISTS T_MARRIAGE_ASSETS (
+    marriage_uuid     UUID NOT NULL REFERENCES T_MARRIAGES(marriage_uuid) ON DELETE CASCADE,
+    contributor_uuid  UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid),
+    asset_type        VARCHAR(6) NOT NULL CHECK (asset_type IN ('yrds','item')),
+    item_id           VARCHAR(50),
+    qty               BIGINT NOT NULL CHECK (qty > 0),
+    is_joint_earned   BOOLEAN NOT NULL DEFAULT FALSE,
+    contributed_at    TIMESTAMP NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_marr_assets ON T_MARRIAGE_ASSETS(marriage_uuid, contributor_uuid);
+
+CREATE TABLE IF NOT EXISTS T_MARRIAGE_PROPOSALS (
+    proposal_uuid  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    proposer_uuid  UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    target_uuid    UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    proposed_at    TIMESTAMP NOT NULL DEFAULT NOW(),
+    expires_at     TIMESTAMP NOT NULL,
+    CHECK (proposer_uuid <> target_uuid)
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_proposal_proposer ON T_MARRIAGE_PROPOSALS(proposer_uuid);
+CREATE INDEX IF NOT EXISTS idx_proposal_target ON T_MARRIAGE_PROPOSALS(target_uuid, expires_at);
+
+-- D83 / D87 / D92
+CREATE TABLE IF NOT EXISTS T_PENDING_MENUS (
+    avatar_uuid    UUID PRIMARY KEY REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    context_type   VARCHAR(20) NOT NULL
+                       CHECK (context_type IN ('COMBAT','DIALOGUE','SHOP','MOVEMENT','QUEST_BOARD','FISHING','CONFIRM')),
+    context_ref    VARCHAR(50),
+    options        JSONB NOT NULL,
+    wa_message_id  VARCHAR(100) NOT NULL,
+    shown_at       TIMESTAMP NOT NULL DEFAULT NOW(),
+    expires_at     TIMESTAMP NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_pending_menus_expiry ON T_PENDING_MENUS(expires_at);
+
+-- D91
+CREATE TABLE IF NOT EXISTS T_NOTIFICATIONS (
+    notification_uuid  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    channel            VARCHAR(5) NOT NULL CHECK (channel IN ('dm','group')),
+    recipient_uuid     UUID REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    wa_group_id        VARCHAR(50) REFERENCES T_WA_GROUPS(wa_group_id),
+    body               TEXT NOT NULL,
+    event_type         VARCHAR(30) NOT NULL,
+    created_at         TIMESTAMP NOT NULL DEFAULT NOW(),
+    sent_at            TIMESTAMP,
+    attempts           INT NOT NULL DEFAULT 0,
+    failed_at          TIMESTAMP,
+    last_error         TEXT,
+    CHECK ((channel = 'dm'    AND recipient_uuid IS NOT NULL AND wa_group_id IS NULL)
+        OR (channel = 'group' AND wa_group_id    IS NOT NULL AND recipient_uuid IS NULL))
+);
+CREATE INDEX IF NOT EXISTS idx_notif_pending ON T_NOTIFICATIONS(created_at) WHERE sent_at IS NULL AND failed_at IS NULL;
+
+-- D87
+CREATE TABLE IF NOT EXISTS T_RESOURCE_NODES (
+    node_id              VARCHAR(30) PRIMARY KEY,
+    node_type            VARCHAR(5) NOT NULL CHECK (node_type IN ('FLORA','ORE','FISH')),
+    name                 VARCHAR(100) NOT NULL,
+    zone_id              VARCHAR(50) NOT NULL REFERENCES T_ZONES(zone_id),
+    yield_item_id        VARCHAR(30) NOT NULL REFERENCES T_ITEMS_DICT(item_id),
+    yield_min            INT NOT NULL DEFAULT 1 CHECK (yield_min >= 1),
+    yield_max            INT NOT NULL DEFAULT 1,
+    node_tier            INT NOT NULL CHECK (node_tier BETWEEN 1 AND 5),
+    level_required       INT NOT NULL DEFAULT 1,
+    required_tool_prefix VARCHAR(10),
+    respawn_sec          INT NOT NULL,
+    depleted_until       TIMESTAMP,
+    yield_multiplier     NUMERIC(3,1) NOT NULL DEFAULT 1.0,
+    multiplier_until     TIMESTAMP,
+    CHECK (yield_max >= yield_min),
+    CHECK ((node_type = 'FLORA' AND required_tool_prefix IS NULL)
+        OR (node_type = 'ORE'   AND required_tool_prefix = 'OUT_PIO')
+        OR (node_type = 'FISH'  AND required_tool_prefix = 'OUT_CAN'))
+);
+CREATE INDEX IF NOT EXISTS idx_nodes_zone ON T_RESOURCE_NODES(zone_id, node_type);
+
+CREATE TABLE IF NOT EXISTS T_AVATAR_HARVESTS (
+    avatar_uuid        UUID NOT NULL REFERENCES T_AVATARS(avatar_uuid) ON DELETE CASCADE,
+    node_id            VARCHAR(30) NOT NULL REFERENCES T_RESOURCE_NODES(node_id),
+    next_available_at  TIMESTAMP NOT NULL,
+    harvest_count      INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (avatar_uuid, node_id)
+);
+
+-- D88 (I8 de T_INVENTORY)
+ALTER TABLE T_INVENTORY ADD COLUMN IF NOT EXISTS durability_cap INT;
+ALTER TABLE T_INVENTORY ADD COLUMN IF NOT EXISTS repair_count INT NOT NULL DEFAULT 0;
+
+-- D90 (amendement T_ACTIVE_EFFECTS)
+ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_kind VARCHAR(6) CHECK (source_kind IN ('skill','food','system'));
+ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_ref VARCHAR(30);
+CREATE INDEX IF NOT EXISTS idx_active_effects_expiry ON T_ACTIVE_EFFECTS(target_type, target_id, expires_at);
+
+
 COMMIT;

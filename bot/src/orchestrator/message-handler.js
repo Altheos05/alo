@@ -127,10 +127,10 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       return economy.handleShopList(db, playerId);
 
     case 'BUY':
-      return economy.handleBuy(db, playerId, routing.entities);
+      return economy.handleBuy(db, playerId, tradeEntities(routing));
 
     case 'SELL':
-      return economy.handleSell(db, playerId, routing.entities);
+      return economy.handleSell(db, playerId, tradeEntities(routing));
 
     case 'MOVE': {
       const existingCombat = combat.getCombatStatus(playerId);
@@ -149,6 +149,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       }
       return combat.handleAttack(db, playerId, routing.entities);
     }
+
+    case 'USE_ITEM':
+      return itemsHandler.handleUse(db, playerId, routing.raw || '');
 
     case 'ASK':
       return dialogue.handleAsk(db, playerId, routing.raw || '');
@@ -276,6 +279,16 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
     default:
       return null;
   }
+}
+
+// « !buy [Qté] ITEM_ID » : l'ID explicite prime, et sa quantité est un nombre à part —
+// l'extraction d'entités lisait les chiffres de l'ID (« MAT_ALI_024 » → 24 exemplaires).
+function tradeEntities(routing) {
+  const raw = routing.raw || '';
+  const itemId = raw.match(/\b([A-Z]{3,4}_[A-Z0-9]+_\d{3})\b/i)?.[1];
+  if (!itemId) return routing.entities;
+  const qty = parseInt(raw.match(/\s(\d{1,2})\s/)?.[1] || '1', 10);
+  return { ...routing.entities, itemId: itemId.toUpperCase(), quantity: qty };
 }
 
 // Noms GM documentés (whatsapp_commands_list.md) → primitive IA correspondante.

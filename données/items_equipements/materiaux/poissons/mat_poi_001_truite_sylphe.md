@@ -3,6 +3,7 @@
 ## Identification Cardinal
 - **Item_ID** : `MAT_POI_001`
 - **Famille** : Poisson · **Rareté** : Commun
+- **Alias recette** : truite des cimes
 - **Tier** : T1
 - **Prix** : 6 Yrds (achat) · 1 Yrds (revente)
 

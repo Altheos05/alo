@@ -3,6 +3,7 @@
 ## Identification Cardinal
 - **Item_ID** : `MAT_POI_004`
 - **Famille** : Poisson · **Rareté** : Peu commun
+- **Alias recette** : chair de poisson-nacre
 - **Tier** : T2
 - **Prix** : 35 Yrds (achat) · 8 Yrds (revente)
 

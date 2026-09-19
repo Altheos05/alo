@@ -1079,6 +1079,9 @@ ALTER TABLE T_NPC_KNOWLEDGE ADD CONSTRAINT t_npc_knowledge_service_cmd_check CHE
 
 -- Objets liés dès l'acquisition (fiche « **Lié** : OUI », ex. MSC_ENG_001)
 ALTER TABLE T_ITEMS_DICT ADD COLUMN IF NOT EXISTS binds_on_acquire BOOLEAN NOT NULL DEFAULT FALSE;
+-- Effet à l'usage d'un consommable (!use) : { heal_hp, heal_mp, regen_hp, regen_mp, effect_id }.
+ALTER TABLE T_ITEMS_DICT ADD COLUMN IF NOT EXISTS use_effect JSONB;
+
 -- Point d'application unique : quel que soit le canal (achat, don GM, butin, coffre), l'instance naît liée.
 CREATE OR REPLACE FUNCTION bind_on_acquire() RETURNS TRIGGER AS $$
 BEGIN

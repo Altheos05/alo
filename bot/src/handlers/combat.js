@@ -10,6 +10,7 @@ import {
 import { getPlayer } from '../services/player.js';
 import { getGearStats, wearEquipment, COMBAT_WEAR_PVE } from '../engine/durability.js';
 import { loadCombatEffects, persistCombatEffects } from '../engine/effects.js';
+import { useItemInCombat } from '../engine/consumables.js';
 import { render } from '../services/template.js';
 import logger from '../utils/logger.js';
 
@@ -199,7 +200,7 @@ async function castInCombat(db, combat, skillQuery, effectsDict) {
   }) };
 }
 
-export async function handleCombatAction(db, playerUuid, action, skillQuery = null) {
+export async function handleCombatAction(db, playerUuid, action, skillQuery = null, itemId = null) {
   const combat = activeCombats.get(playerUuid);
   if (!combat) {
     return `⚔️ Tu n'es pas en combat. Tape "attaque [monstre]" pour en engager un.`;
@@ -282,7 +283,13 @@ export async function handleCombatAction(db, playerUuid, action, skillQuery = nu
     return response.join('\n');
   }
 
-  if (skillQuery) {
+  if (itemId) {
+    const used = await useItemInCombat(db, combat, itemId, effectsDict, applyStatusEffect);
+    if (!used.success) {
+      return used.error === 'OUT_OF_COMBAT_ONLY' ? '❌ Ce plat ne se consomme qu\'hors combat.' : '❌ Tu ne peux pas utiliser cet objet.';
+    }
+    response.push(`🧪 ${combat.player.avatar_name} utilise **${used.name}**${used.hpGain ? ` : +${used.hpGain} PV` : ''}.`);
+  } else if (skillQuery) {
     const cast = await castInCombat(db, combat, skillQuery, effectsDict);
     if (cast.error) return cast.error;
     response.push(cast.line);
@@ -392,8 +399,14 @@ async function combatMenu(db, playerUuid) {
      WHERE a.avatar_uuid = $1 AND s.skill_type IN ('MAG','OSS') ORDER BY a.is_equipped DESC, s.mp_cost LIMIT $2`,
     [playerUuid, MENU_SPELLS]
   );
+  const potion = await db.query(
+    `SELECT d.item_id, d.name FROM t_inventory i JOIN t_items_dict d ON d.item_id = i.item_id
+     WHERE i.avatar_uuid = $1 AND (d.use_effect ? 'heal_hp' OR d.use_effect ? 'heal_mp') ORDER BY d.tier LIMIT 1`,
+    [playerUuid]
+  );
   const options = [{ label: 'Attaquer', command: '!attaque' },
     ...spells.rows.map(s => ({ label: `Lancer ${s.name}`, command: `!cast ${s.skill_id}` })),
+    ...potion.rows.map(p => ({ label: `Utiliser ${p.name}`, command: `!use ${p.item_id}` })),
     { label: 'Fuir', command: '!fuite' }];
   return { context: 'COMBAT', ref: playerUuid, options: options.map((o, i) => ({ digit: i + 1, ...o })) };
 }

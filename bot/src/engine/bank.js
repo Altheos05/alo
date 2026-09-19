@@ -134,7 +134,7 @@ function sameState(entry, row) {
 }
 
 // Retire qty exemplaires de l'inventaire (verrou ligne) ; renvoie les états retirés.
-async function takeFromInventory(client, avatarUuid, itemId, qty) {
+export async function takeFromInventory(client, avatarUuid, itemId, qty) {
   const rows = await client.query(
     `SELECT instance_uuid, item_id, quantity, is_equipped, is_bound,
             current_durability, durability_cap, repair_count

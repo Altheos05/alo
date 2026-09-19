@@ -2,6 +2,8 @@ import { findItem, dropItem } from '../engine/items.js';
 import { confirmationMenu } from '../services/menus.js';
 import { repairItem, durabilityState, currentDurability } from '../engine/durability.js';
 import { inspectNode } from '../engine/gathering.js';
+import { useItem } from '../engine/consumables.js';
+import { getCombatStatus, handleCombatAction } from './combat.js';
 
 export async function handleInspect(db, playerId, raw = '') {
   const match = raw.match(/inspect\s+(.+)/i);
@@ -115,4 +117,20 @@ export async function handleRepair(db, playerId, raw = '') {
   return `🔨 **${r.name}** réparé (${r.restored} pts) pour ${r.cost} Yrds. ${note}`;
 }
 
-export default { handleInspect, handleDrop, handleRepair };
+// !use / !manger [Objet] : potions, plats (D90 E6). En combat, l'usage prend le tour.
+export async function handleUse(db, playerId, raw = '') {
+  const query = raw.replace(/^!?(?:use|manger|boire|consommer)\s*/i, '').trim();
+  if (!query) return `🧪 Utiliser quoi ? Ex. : "!use CSM_NOU_001".`;
+  const item = await findItem(db, query);
+  if (!item) return `❌ Aucun objet ne correspond à "${query}".`;
+  if (getCombatStatus(playerId)) return handleCombatAction(db, playerId, {}, null, item.item_id);
+
+  const r = await useItem(db, playerId, item.item_id);
+  if (!r.success) {
+    return r.error === 'NOT_USABLE' ? `❌ **${item.name}** ne s'utilise pas.` : `❌ Tu ne possèdes pas **${item.name}**.`;
+  }
+  const gains = [r.hpGain && `+${r.hpGain} PV`, r.mpGain && `+${r.mpGain} PM`, r.buff && 'effet actif ("!effets")'].filter(Boolean);
+  return `🧪 **${r.name}** consommé${gains.length ? ` : ${gains.join(' · ')}` : ''}.`;
+}
+
+export default { handleInspect, handleDrop, handleRepair, handleUse };

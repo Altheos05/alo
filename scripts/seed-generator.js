@@ -108,6 +108,40 @@ const RARITY = {
   légendaire: 'legendary', legendaire: 'legendary', legendary: 'legendary', unique: 'unique',
 };
 
+// Effet d'usage d'un consommable (colonne « Effet » de la fiche). Les bonus de stat
+// deviennent un effet persistant EFF_<Item_ID> (D90 E6), collecté dans CONSUMABLE_EFFECTS.
+const CONSUMABLE_EFFECTS = [];
+const STAT_KEYS = { STR: 'stat_str', AGI: 'stat_agi', VIT: 'stat_vit', INT: 'stat_int' };
+
+function parseUseEffect(itemId, name, content) {
+  const effect = tableField(content, 'Effet') || '';
+  const duration = tableField(content, 'Durée') || '';
+  const out = {};
+  const hp = effect.match(/Soin instantané de ([\d\s\u00a0\u202f]+)\s*HP/i);
+  if (hp) out.heal_hp = firstNumber(hp[1]);
+  const mp = effect.match(/Restaure ([\d\s\u00a0\u202f]+)\s*MP/i);
+  if (mp) out.heal_mp = firstNumber(mp[1]);
+  const regen = effect.match(/régénère (\d+) HP\/s(?: \+ (\d+) MP\/s)?[^\d]*?(\d+) s/i)
+             || effect.match(/régénère (?:(\d+) HP\/s \+ )?(\d+) MP\/s[^\d]*?(\d+) s/i);
+  if (/régénère/i.test(effect)) {
+    const secs = parseInt(effect.match(/pendant (\d+) s/i)?.[1] || '0', 10);
+    const hpRate = parseInt(effect.match(/(\d+) HP\/s/i)?.[1] || '0', 10);
+    const mpRate = parseInt(effect.match(/(\d+) MP\/s/i)?.[1] || '0', 10);
+    if (hpRate) out.regen_hp = hpRate * secs;
+    if (mpRate) out.regen_mp = mpRate * secs;
+  }
+  const stat = effect.match(/\+(\d+)%\s*(STR|AGI|VIT|INT)\b/i);
+  if (stat) {
+    const mins = duration.match(/(\d+)\s*min/i);
+    const hours = duration.match(/(\d+)\s*h/i);
+    const secs = mins ? parseInt(mins[1], 10) * 60 : hours ? parseInt(hours[1], 10) * 3600 : 1800;
+    out.effect_id = `EFF_${itemId}`;
+    CONSUMABLE_EFFECTS.push([out.effect_id, name.slice(0, 50), 'buff', STAT_KEYS[stat[2].toUpperCase()], Number(stat[1]),
+      'percent', secs, 0, 0, 'TRUE', 1, null]);
+  }
+  return Object.keys(out).length ? out : null;
+}
+
 function parseItems() {
   const rows = [];
   const seen = new Set();
@@ -161,10 +195,12 @@ function parseItems() {
     const resaleValue = firstNumber(content.match(/\*\*Prix\*\*[^\n]*·\s*\**\s*([\d\s\u00a0\u202f]+)[^\n·]*revente/i)?.[1]) ??
                         Math.floor(buyPrice * 0.25);
     const desc = (content.match(/description\s*[:]\s*(.+)/i)?.[1] || '').slice(0, 200).replace(/'/g, "''");
+    const useEffect = type === 'CSM' ? parseUseEffect(itemId, name, content) : null;
 
     rows.push([itemId, name, type, subtype, rarity, tier, atk, def, 0.5, 0, 0, 0,
                buyPrice, resaleValue, maxStack, isConsumable, isCraftable, durability,
-               desc, '', null, /\*\*Lié\*\*\s*:\s*OUI/i.test(content) ? 'TRUE' : 'FALSE']);
+               desc, '', null, /\*\*Lié\*\*\s*:\s*OUI/i.test(content) ? 'TRUE' : 'FALSE',
+               useEffect ? JSON.stringify(useEffect) : null]);
   }
   return rows;
 }
@@ -217,6 +253,47 @@ function parseSpellEffects() {
     const [, effectId, name, stat, sign, value, duration] = m;
     const type = sign === '-' ? 'debuff' : 'buff';
     rows.push([effectId, name.trim().slice(0, 50), type, stat, Number(value), 'percent', Number(duration), 0, 0, 'TRUE', 1, null]);
+  }
+  return rows;
+}
+
+// ---------------------------------------------------------------------------
+// 1-quater. RECETTES DE CUISINE → T_RECIPES (D90 E6, étape 61)
+// ---------------------------------------------------------------------------
+// « **Recette** : 1× Truite des cimes + 1× Sel-de-lune *(cuisine)* » : chaque nom
+// est résolu par le nom d'un objet ou son « **Alias recette** ». Une recette dont un
+// ingrédient ne se résout pas est écartée et signalée.
+function parseCookingRecipes() {
+  const names = new Map();
+  for (const f of walk(path.join(BASE, 'items_equipements'))) {
+    const content = fs.readFileSync(f, 'utf-8');
+    const id = content.match(/\*\*Item_ID\*\*\s*:\s*`([A-Z0-9_]+)`/)?.[1];
+    if (!id) continue;
+    const title = content.match(/^#\s+(.+)/m)?.[1]?.replace(/\s*[—-]?\s*\(?`[^`]+`\)?\s*$/, '').replace(new RegExp(`^${id}\\s*[—-]\\s*`), '');
+    if (title) names.set(norm(title).replace(/-/g, ' '), id);
+    const alias = bulletField(content, 'Alias recette');
+    if (alias) names.set(norm(alias).replace(/-/g, ' '), id);
+  }
+  const rows = [];
+  for (const f of walk(path.join(BASE, 'items_equipements', 'consommables', 'nourriture'))) {
+    const content = fs.readFileSync(f, 'utf-8');
+    const id = content.match(/\*\*Item_ID\*\*\s*:\s*`([A-Z0-9_]+)`/)?.[1];
+    const line = content.match(/\*\*Recette\*\*\s*:\s*(.+)/)?.[1];
+    if (!id || !line) continue;
+    const ingredients = [];
+    let unresolved = null;
+    for (const [, qty, raw] of line.matchAll(/(\d+)×\s*([^+*(]+)/g)) {
+      const key = norm(raw.split(',')[0]).replace(/-/g, ' ').trim();
+      const itemId = names.get(key);
+      if (!itemId) { unresolved = raw.trim(); break; }
+      ingredients.push({ item_id: itemId, quantity: parseInt(qty, 10) });
+    }
+    if (unresolved || !ingredients.length) {
+      console.warn(`  [SKIP] recette ${id} — ingrédient non résolu : ${unresolved}`);
+      continue;
+    }
+    const name = content.match(/^#\s+(.+)/m)?.[1]?.trim() || id;
+    rows.push([`RCP_${id}`, name.slice(0, 100), 'cooking', 'beginner', JSON.stringify(ingredients), id, 1, 0.9, 10, 0, null]);
   }
   return rows;
 }
@@ -742,13 +819,23 @@ try {
   console.log(batchInsert('T_ITEMS_DICT', [
     'item_id','name','item_type','subtype','rarity','tier','base_atk','base_def','weight',
     'str_req','agi_req','int_req','buy_price','resale_value','max_stack','is_consumable',
-    'is_craftable','durability_max','description','lore_text','icon','binds_on_acquire'
+    'is_craftable','durability_max','description','lore_text','icon','binds_on_acquire','use_effect'
   ], items, 50, '(item_id)'));
   console.log(`-- Items : ${items.length} lignes`);
 
   // Monsters
   console.log('-- ============================================================');
   console.log('-- T_MONSTERS_DICT');
+  const recipes = parseCookingRecipes();
+  console.log('-- ============================================================');
+  console.log('-- T_RECIPES (cuisine)');
+  console.log('-- ============================================================');
+  console.log(batchInsert('T_RECIPES', [
+    'recipe_id','name','craft_type','skill_level','ingredients','result_item_id','result_quantity',
+    'success_rate','craft_time_sec','yrd_cost','unlock_cond'
+  ], recipes, 1, '(recipe_id)'));
+  console.log(`-- Recettes de cuisine : ${recipes.length} lignes`);
+
   const spellEffects = parseSpellEffects();
   console.log('-- ============================================================');
   console.log('-- T_STATUS_EFFECTS_DICT (effets persistants des sorts, D90)');
@@ -756,7 +843,7 @@ try {
   console.log(batchInsert('T_STATUS_EFFECTS_DICT', [
     'effect_id','name','type','stat_modified','modifier_value','modifier_type','duration_sec',
     'tick_damage','tick_interval','is_dispellable','max_stacks','icon_emoji'
-  ], spellEffects, 50, '(effect_id)'));
+  ], [...spellEffects, ...CONSUMABLE_EFFECTS], 50, '(effect_id)'));
   console.log(`-- Effets de sorts : ${spellEffects.length} lignes`);
 
   const nodes = parseNodes();

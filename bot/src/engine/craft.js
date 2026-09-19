@@ -1,4 +1,5 @@
 import logger from '../utils/logger.js';
+import { addToInventory, takeFromInventory } from './bank.js';
 
 export const CRAFT_TYPES = ['forge', 'alchemy', 'sewing', 'cooking', 'enchanting'];
 
@@ -60,25 +61,15 @@ export async function craftItem(db, avatarUuid, recipeId) {
       }
     }
 
+    // Consommation ligne à ligne : l'ancien « quantity = quantity - N » violait le
+    // CHECK (quantity ≥ 1) dès qu'un ingrédient était épuisé — aucune recette n'aboutissait.
     for (const ing of ingredients) {
-      const inv = await client.query(
-        'SELECT quantity FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 FOR UPDATE',
-        [avatarUuid, ing.item_id]
-      );
-      const have = inv.rows[0]?.quantity || 0;
-      if (have < ing.quantity) {
+      const took = await takeFromInventory(client, avatarUuid, ing.item_id, ing.quantity);
+      if (took.error) {
         await client.query('ROLLBACK');
-        return { success: false, error: 'MISSING_INGREDIENT', itemId: ing.item_id, required: ing.quantity, available: have };
+        return { success: false, error: 'MISSING_INGREDIENT', itemId: ing.item_id, required: ing.quantity, available: took.available || 0 };
       }
     }
-
-    for (const ing of ingredients) {
-      await client.query(
-        'UPDATE t_inventory SET quantity = quantity - $1 WHERE avatar_uuid = $2 AND item_id = $3',
-        [ing.quantity, avatarUuid, ing.item_id]
-      );
-    }
-    await client.query('DELETE FROM t_inventory WHERE avatar_uuid = $1 AND quantity <= 0', [avatarUuid]);
 
     if (recipe.yrd_cost > 0) {
       await client.query('UPDATE t_avatars SET yrd_balance = yrd_balance - $1 WHERE avatar_uuid = $2', [recipe.yrd_cost, avatarUuid]);
@@ -86,21 +77,7 @@ export async function craftItem(db, avatarUuid, recipeId) {
 
     const crafted = Math.random() < recipe.success_rate;
     if (crafted) {
-      const existing = await client.query(
-        'SELECT quantity FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 FOR UPDATE',
-        [avatarUuid, recipe.result_item_id]
-      );
-      if (existing.rows.length > 0) {
-        await client.query(
-          'UPDATE t_inventory SET quantity = quantity + $1 WHERE avatar_uuid = $2 AND item_id = $3',
-          [recipe.result_quantity, avatarUuid, recipe.result_item_id]
-        );
-      } else {
-        await client.query(
-          'INSERT INTO t_inventory (instance_uuid, avatar_uuid, item_id, quantity) VALUES (gen_random_uuid(), $1, $2, $3)',
-          [avatarUuid, recipe.result_item_id, recipe.result_quantity]
-        );
-      }
+      await addToInventory(client, avatarUuid, { item_id: recipe.result_item_id, qty: recipe.result_quantity }, recipe.recipe_id);
     }
 
     await client.query('COMMIT');

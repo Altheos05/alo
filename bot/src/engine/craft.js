@@ -64,7 +64,7 @@ export async function craftItem(db, avatarUuid, recipeId) {
     // Consommation ligne à ligne : l'ancien « quantity = quantity - N » violait le
     // CHECK (quantity ≥ 1) dès qu'un ingrédient était épuisé — aucune recette n'aboutissait.
     for (const ing of ingredients) {
-      const took = await takeFromInventory(client, avatarUuid, ing.item_id, ing.quantity);
+      const took = await takeFromInventory(client, avatarUuid, ing.item_id, ing.quantity, { allowBound: true });
       if (took.error) {
         await client.query('ROLLBACK');
         return { success: false, error: 'MISSING_INGREDIENT', itemId: ing.item_id, required: ing.quantity, available: took.available || 0 };

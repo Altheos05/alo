@@ -126,7 +126,8 @@ export async function handleAsk(db, playerId, raw = '') {
   if (tokens.length < 2) return '🗣️ Utilisation : "!demander [PNJ] [sujet]".';
   const topic = tokens.pop().replace(/_/g, ' ');
   const player = await getPlayer(db, playerId);
-  const npc = await findNpc(db, tokens.join(' '), player?.current_zone_id);
+  if (!player) return render('error');
+  const npc = await findNpc(db, tokens.join(' '), player.current_zone_id);
   if (!npc) return render('talk_notfound', { npcName: tokens.join(' ') });
   if (npc.zone_id && npc.zone_id !== player.current_zone_id) return `🗣️ **${npc.display_name}** n'est pas ici.`;
 

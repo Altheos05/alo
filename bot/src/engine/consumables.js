@@ -54,21 +54,23 @@ export async function useItem(db, avatarUuid, itemId) {
 }
 
 // En combat : seuls soins instantanés et buffs ; le rassasiement est « hors combat ».
+// Retrait de l'objet et PM dans la même transaction ; les PV restent ceux du combat.
 export async function useItemInCombat(db, combat, itemId, effectsDict, applyStatusEffect) {
-  const probe = await db.query('SELECT use_effect FROM t_items_dict WHERE item_id = $1', [itemId]);
-  const e = probe.rows[0]?.use_effect;
-  if (e && (e.regen_hp || e.regen_mp) && !e.heal_hp && !e.heal_mp && !e.effect_id) return { success: false, error: 'OUT_OF_COMBAT_ONLY' };
   const taken = await inTransaction(db, 'Erreur d\'utilisation en combat', { itemId }, async (client) => {
+    const probe = await client.query('SELECT use_effect FROM t_items_dict WHERE item_id = $1', [itemId]);
+    const e = probe.rows[0]?.use_effect;
+    if (e && !e.heal_hp && !e.heal_mp && !e.effect_id) return { success: false, error: 'OUT_OF_COMBAT_ONLY' };
     const t = await takeOne(client, combat.playerUuid, itemId);
-    return t.error ? { success: false, error: t.error } : { success: true, ...t };
+    if (t.error) return { success: false, error: t.error };
+    if (t.effect.heal_mp) {
+      await client.query('UPDATE t_avatars SET mp_current = LEAST(mp_max, mp_current + $1) WHERE avatar_uuid = $2', [t.effect.heal_mp, combat.playerUuid]);
+    }
+    return { success: true, ...t };
   });
   if (!taken.success) return taken;
   const before = combat.player.hp_current;
   combat.player.hp_current = Math.min(combat.player.hp_max, before + (taken.effect.heal_hp || 0));
   combat.player.mp_current = Math.min(combat.player.mp_max, combat.player.mp_current + (taken.effect.heal_mp || 0));
-  if (taken.effect.heal_mp) {
-    await db.query('UPDATE t_avatars SET mp_current = $1 WHERE avatar_uuid = $2', [combat.player.mp_current, combat.playerUuid]);
-  }
   if (taken.effect.effect_id && effectsDict[taken.effect.effect_id]) {
     applyStatusEffect(combat.player, { ...effectsDict[taken.effect.effect_id] });
   }

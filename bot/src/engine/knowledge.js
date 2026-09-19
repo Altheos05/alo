@@ -38,7 +38,7 @@ async function conditionMet(db, avatarUuid, npcId, clause) {
   }
   const checks = {
     QUEST: ["SELECT 1 FROM t_active_quests WHERE avatar_uuid = $1 AND quest_id = $2 UNION SELECT 1 FROM t_quest_history WHERE avatar_uuid = $1 AND quest_id = $2"],
-    TITLE: ['SELECT 1 FROM t_player_titles WHERE avatar_uuid = $1 AND title_id = $2'],
+    TITLE: ['SELECT 1 FROM t_player_titles WHERE avatar_uuid = $1 AND title_id = $2 AND is_active'],  // « titre porté »
     RACE: ['SELECT 1 FROM t_avatars WHERE avatar_uuid = $1 AND race_id = $2'],
     ITEM: ['SELECT 1 FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2'],
   };
@@ -77,7 +77,8 @@ export async function askTopic(db, avatarUuid, npc, topic, { wantsToPay = false 
     const kx = rows.find(r => r.k_level === 'KX');
     return { kind: 'ignorance', text: kx?.content || '« Je ne sais rien de ça. »' };
   }
-  if (match.k_level === 'K3') return { kind: 'deflection', text: match.deflection_line || '« Je n\'en parlerai pas. »' };
+  // K3 : révélé seulement après déblocage scénarisé (IA/GM, SYS_NPC_KNOWLEDGE_UNLOCK).
+  if (match.k_level === 'K3' && !match.unlocked) return { kind: 'deflection', text: match.deflection_line || '« Je n\'en parlerai pas. »' };
 
   if (match.k_level === 'K2' && !match.unlocked) {
     const cond = parseCondition(match.unlock_condition);
@@ -107,7 +108,20 @@ export async function askTopic(db, avatarUuid, npc, topic, { wantsToPay = false 
   const def = getCommand(match.service_sys_command);
   const needsOnlyPlayer = def && Object.keys(def.schema).every(k => k === 'player_id');
   if (!needsOnlyPlayer) return { ...answer, service: { ok: false, message: 'Ce service n\'est pas encore ouvert.' } };
+  if (match.service_cost_yrds > 0) {
+    // 2-bis.2 : le coût est payé à chaque invocation, avant l'action.
+    const paid = await db.query(
+      'UPDATE t_avatars SET yrd_balance = yrd_balance - $1, total_yrd_spent = total_yrd_spent + $1 WHERE avatar_uuid = $2 AND yrd_balance >= $1',
+      [match.service_cost_yrds, avatarUuid]
+    );
+    if (!paid.rowCount) return { ...answer, service: { ok: false, message: `Ce service coûte ${match.service_cost_yrds} Yrds.` } };
+  }
   const result = await executeCommand(db, { command: match.service_sys_command, params: { player_id: avatarUuid } }, 'system');
+  if (!result.ok && match.service_cost_yrds > 0) {
+    // Une action refusée n'est pas facturée.
+    await db.query('UPDATE t_avatars SET yrd_balance = yrd_balance + $1, total_yrd_spent = total_yrd_spent - $1 WHERE avatar_uuid = $2',
+      [match.service_cost_yrds, avatarUuid]);
+  }
   return { ...answer, service: result };
 }
 

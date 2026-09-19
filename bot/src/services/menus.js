@@ -22,6 +22,11 @@ const HELP_DIGIT = 9;
 const HELP_TEXT = {
   CONFIRM: `ℹ️ Cette action est irréversible. Réponds **en citant le menu** : 1 pour confirmer, 2 pour annuler. Toute autre commande l'annule.`,
   FISHING: `ℹ️ Lis la description de la ligne et choisis la réaction qui s'y accorde. Réponds par le chiffre (ou en citant le menu).`,
+  COMBAT: `ℹ️ Combat : « !attaque », « !cast [sort] », « !use [objet] », « !fuite ». Chaque action prend ton tour ; l'aide, non.`,
+  DIALOGUE: `ℹ️ Dialogue : « !demander [PNJ] [sujet] ». Les 🛠️ sont des services. Certains sujets exigent la confiance du PNJ ou un paiement (« payer »).`,
+  SHOP: `ℹ️ Boutique : « !buy [Qté] [Objet] » au prix affiché (+5 % de taxe), « !sell [Objet] » pour revendre.`,
+  MOVEMENT: `ℹ️ Déplacement : « !tp [zone] » vers une zone adjacente ; certaines liaisons coûtent des PM.`,
+  QUEST_BOARD: `ℹ️ Quêtes : « !quest_accept [quête] », puis « !quest_turnin [quête] » une fois terminée (10 actives au plus).`,
 };
 
 export function formatMenu(menu) {

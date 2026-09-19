@@ -30,7 +30,11 @@ export async function handleMail(db, playerId, raw = '') {
     if (!target) return `❌ Pas de courrier n°${readMatch[1]}.`;
 
     const result = await claimMail(db, playerId, target.mail_id);
-    if (!result.success) return `❌ Ce courrier a déjà été récupéré.`;
+    if (!result.success) {
+      return result.error === 'INVENTORY_FULL'
+        ? `❌ Inventaire plein : fais de la place, le courrier t'attend.`
+        : `❌ Ce courrier a déjà été récupéré.`;
+    }
 
     const m = result.mail;
     let text = `📬 **${target.sender_name}** : "${m.subject}"\n${m.body}`;

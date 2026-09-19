@@ -22,8 +22,11 @@ export function calculateDamage(attacker, defender, skill = null, activeEffects 
         ? skill.stat_scaling
         : JSON.parse(skill.stat_scaling || '{}');
       for (const [stat, ratio] of Object.entries(scaling)) {
+        if (stat === 'multiplier') continue;
         baseDmg += (attacker[stat] || 0) * (ratio || 0);
       }
+      // OSS : « Multiplicateur Total ×2.1 » multiplie les dégâts de l'arme.
+      if (scaling.multiplier) baseDmg *= scaling.multiplier;
     }
   }
 

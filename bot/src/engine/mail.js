@@ -1,4 +1,5 @@
 import logger from '../utils/logger.js';
+import { addToInventory } from './bank.js';
 
 export async function getInbox(db, avatarUuid) {
   const result = await db.query(
@@ -34,20 +35,11 @@ export async function claimMail(db, avatarUuid, mailId) {
       await client.query('UPDATE t_avatars SET yrd_balance = yrd_balance + $1 WHERE avatar_uuid = $2', [mail.attached_yrds, avatarUuid]);
     }
     if (mail.attached_item && mail.attached_qty > 0) {
-      const existing = await client.query(
-        'SELECT quantity FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 FOR UPDATE',
-        [avatarUuid, mail.attached_item]
-      );
-      if (existing.rows.length > 0) {
-        await client.query(
-          'UPDATE t_inventory SET quantity = quantity + $1 WHERE avatar_uuid = $2 AND item_id = $3',
-          [mail.attached_qty, avatarUuid, mail.attached_item]
-        );
-      } else {
-        await client.query(
-          'INSERT INTO t_inventory (instance_uuid, avatar_uuid, item_id, quantity) VALUES (gen_random_uuid(), $1, $2, $3)',
-          [avatarUuid, mail.attached_item, mail.attached_qty]
-        );
+      const placed = await addToInventory(client, avatarUuid, { item_id: mail.attached_item, qty: mail.attached_qty }, 'mail');
+      if (placed.overflow > 0) {
+        // Le courrier reste réclamable : rien n'est perdu.
+        await client.query('ROLLBACK');
+        return { success: false, error: 'INVENTORY_FULL' };
       }
     }
 

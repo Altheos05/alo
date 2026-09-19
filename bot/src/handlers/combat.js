@@ -408,7 +408,7 @@ async function combatMenu(db, playerUuid) {
     ...spells.rows.map(s => ({ label: `Lancer ${s.name}`, command: `!cast ${s.skill_id}` })),
     ...potion.rows.map(p => ({ label: `Utiliser ${p.name}`, command: `!use ${p.item_id}` })),
     { label: 'Fuir', command: '!fuite' }];
-  return { context: 'COMBAT', ref: playerUuid, options: options.map((o, i) => ({ digit: i + 1, ...o })) };
+  return { context: 'COMBAT', ref: activeCombats.get(playerUuid)?.combatId?.slice(0, 50) || null, options: options.map((o, i) => ({ digit: i + 1, ...o })) };
 }
 
 async function endSession(db, combat, outcome) {
@@ -419,7 +419,7 @@ async function endSession(db, combat, outcome) {
       [outcome, combat.turn, combat.sessionUuid]
     );
   } catch (err) {
-    logger.warn('Impossible de clore la session de combat', { error: err.message });
+    logger.error('Impossible de clore la session de combat', { error: err.message });
   }
 }
 

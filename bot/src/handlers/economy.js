@@ -25,7 +25,7 @@ export async function handleShopList(db, playerId) {
   const menu = {
     context: 'SHOP',
     ref: player.current_zone_id,
-    options: items.slice(0, MAX_CARD_ROWS).map((i, idx) => ({
+    options: items.filter(i => i.stock !== 0).slice(0, MAX_CARD_ROWS).map((i, idx) => ({
       digit: idx + 1, label: `${i.item_name} — ${i.price} Y`, command: `!buy ${i.item_id}`,
     })),
   };

@@ -1,6 +1,7 @@
 import logger from '../utils/logger.js';
 import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifications.js';
 import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/marriage.js';
+import { addToInventory } from '../engine/bank.js';
 import { modifyDurability, breakItem, setDurability } from '../engine/durability.js';
 import { setNodeEvent, restockFishingSpot, resetHarvest } from '../engine/gathering.js';
 import { applyEffect, clearEffects } from '../engine/effects.js';
@@ -31,21 +32,8 @@ define('SYS_GRANT_ITEM', {
   },
   async execute(db, params) {
     const qty = Math.max(1, Math.min(9999, parseInt(params.quantity, 10) || 1));
-    const existing = await db.query(
-      'SELECT instance_uuid, quantity FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 LIMIT 1',
-      [params.player_id, params.item_id]
-    );
-    if (existing.rows.length) {
-      await db.query(
-        'UPDATE t_inventory SET quantity = quantity + $1 WHERE instance_uuid = $2',
-        [qty, existing.rows[0].instance_uuid]
-      );
-    } else {
-      await db.query(
-        'INSERT INTO t_inventory (avatar_uuid, item_id, quantity) VALUES ($1, $2, $3)',
-        [params.player_id, params.item_id, qty]
-      );
-    }
+    const placed = await addToInventory(db, params.player_id, { item_id: params.item_id, qty }, 'gm');
+    if (placed.overflow > 0) return { ok: false, message: `Inventaire plein : ${placed.overflow} exemplaire(s) non accordé(s)` };
     logger.info('SYS_GRANT_ITEM ok', { player: params.player_id, item: params.item_id, qty });
     return { ok: true, message: `${qty}× ${params.item_id} accordé à ${params.player_id}` };
   },
@@ -104,9 +92,9 @@ define('SYS_NPC_KNOWLEDGE_UNLOCK', {
   async d71(db, params) {
     const pr = await db.query('SELECT 1 FROM t_avatars WHERE avatar_uuid = $1', [params.player_id]);
     if (!pr.rows.length) return `Joueur ${params.player_id} introuvable`;
-    const kr = await db.query('SELECT 1 FROM t_npc_knowledge WHERE qi_id = $1 AND k_level IN ($2,$3,$4)',
-      [params.qi_id, 'K0', 'K1', 'K2']);
-    if (!kr.rows.length) return `Fiche ${params.qi_id} introuvable ou niveau > K2`;
+    // §4 de table_t_npc_knowledge.md : le déblocage scénarisé couvre K2 et K3.
+    const kr = await db.query("SELECT 1 FROM t_npc_knowledge WHERE qi_id = $1 AND k_level IN ('K2','K3')", [params.qi_id]);
+    if (!kr.rows.length) return `Fiche ${params.qi_id} introuvable ou non débloquable (K2/K3 seulement)`;
     return null;
   },
   async prereqs(db, params) {

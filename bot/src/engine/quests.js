@@ -1,4 +1,5 @@
 import logger from '../utils/logger.js';
+import { addToInventory } from './bank.js';
 
 export async function getQuestBoard(db, zoneId, playerLevel, avatarUuid) {
   const result = await db.query(
@@ -134,16 +135,13 @@ export async function turnInQuest(db, avatarUuid, questIdOrTitle) {
     for (const item of items) {
       if (!item.item_id) continue;
       const qty = item.quantity || 1;
-      const existing = await client.query(
-        'SELECT quantity FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 FOR UPDATE',
-        [avatarUuid, item.item_id]
-      );
-      if (existing.rows.length > 0) {
-        await client.query('UPDATE t_inventory SET quantity = quantity + $1 WHERE avatar_uuid = $2 AND item_id = $3', [qty, avatarUuid, item.item_id]);
-      } else {
+      // Inventaire plein : la récompense n'est pas perdue, elle arrive par courrier.
+      const placed = await addToInventory(client, avatarUuid, { item_id: item.item_id, qty }, quest.quest_id);
+      if (placed.overflow > 0) {
         await client.query(
-          'INSERT INTO t_inventory (instance_uuid, avatar_uuid, item_id, quantity) VALUES (gen_random_uuid(), $1, $2, $3)',
-          [avatarUuid, item.item_id, qty]
+          `INSERT INTO t_mail (sender_id, recipient_id, subject, body, attached_item, attached_qty)
+           VALUES ($1, $1, 'Récompense de quête', 'Ton inventaire était plein.', $2, $3)`,
+          [avatarUuid, item.item_id, placed.overflow]
         );
       }
     }

@@ -134,7 +134,8 @@ function sameState(entry, row) {
 }
 
 // Retire qty exemplaires de l'inventaire (verrou ligne) ; renvoie les états retirés.
-export async function takeFromInventory(client, avatarUuid, itemId, qty) {
+// allowBound : consommer un objet lié (fabrication) n'est pas le transférer (I4).
+export async function takeFromInventory(client, avatarUuid, itemId, qty, { allowBound = false } = {}) {
   const rows = await client.query(
     `SELECT instance_uuid, item_id, quantity, is_equipped, is_bound,
             current_durability, durability_cap, repair_count
@@ -142,7 +143,7 @@ export async function takeFromInventory(client, avatarUuid, itemId, qty) {
      ORDER BY acquired_at FOR UPDATE`,
     [avatarUuid, itemId]
   );
-  const usable = rows.rows.filter(r => !r.is_equipped && !r.is_bound);
+  const usable = rows.rows.filter(r => !r.is_equipped && (allowBound || !r.is_bound));
   if (rows.rows.length === 0) return { error: 'NOT_OWNED' };
   if (usable.length === 0) return { error: rows.rows.some(r => r.is_bound) ? 'BOUND_ITEM' : 'EQUIPPED' };
   const available = usable.reduce((n, r) => n + r.quantity, 0);
@@ -170,9 +171,10 @@ const BAG_BONUS_SLOTS = 30;
 
 async function freeSlots(client, avatarUuid) {
   const r = await client.query(
+    // Verrou sur l'avatar : deux ajouts concurrents ne peuvent pas compter la même place libre.
     `SELECT a.inventory_capacity + CASE WHEN a.back_type = 'BAG' THEN $2 ELSE 0 END
             - (SELECT COUNT(*) FROM t_inventory i WHERE i.avatar_uuid = a.avatar_uuid AND NOT i.is_equipped) AS free
-     FROM t_avatars a WHERE a.avatar_uuid = $1`,
+     FROM t_avatars a WHERE a.avatar_uuid = $1 FOR UPDATE OF a`,
     [avatarUuid, BAG_BONUS_SLOTS]
   );
   return Number(r.rows[0]?.free ?? 0);

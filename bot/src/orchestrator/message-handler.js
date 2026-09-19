@@ -287,7 +287,7 @@ function tradeEntities(routing) {
   const raw = routing.raw || '';
   const itemId = raw.match(/\b([A-Z]{3,4}_[A-Z0-9]+_\d{3})\b/i)?.[1];
   if (!itemId) return routing.entities;
-  const qty = parseInt(raw.match(/\s(\d{1,2})\s/)?.[1] || '1', 10);
+  const qty = parseInt(raw.replace(itemId, ' ').match(/(?:^|\s)(\d{1,2})(?=\s|$)/)?.[1] || '1', 10);
   return { ...routing.entities, itemId: itemId.toUpperCase(), quantity: qty };
 }
 

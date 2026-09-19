@@ -2201,3 +2201,72 @@ Base Postgres jetable (conteneur `alo-test-pg`, port 55432) reconstruite depuis 
 `seed_data.sql` régénéré. **Au PE :**
 - rejouer la section « NIVEAU 6 » de `schema.sql` sur la base réelle, ou lancer `rebuild.sh` (destructif) ;
 - recharger `seed_data.sql`.
+
+---
+
+## ÉTAPE 62 — « Tout faire » : reste de l'étape 61 et cadrages antérieurs ✅ (2026-09-19)
+
+**Objectif** : sur autorisation explicite du PE (« je te donne l'autorisation de tout faire »), traiter tout ce qui restait :
+- les interprétations de l'étape 61, **confirmées telles quelles** (autorité déléguée à l'ACP) ;
+- les données manquantes ;
+- les décisions antérieures jamais codées (D83 menus, D84 `!demander`, sorts en combat, `!fuite`) ;
+- la capacité d'inventaire.
+
+### Livré (6 commits + correctifs de revue)
+
+| Commit | Contenu |
+|---|---|
+| `4a98ce2` | **Schéma et contenu :**<br>• `T_NPC_KNOWLEDGE` alignée sur sa fiche MLD (K3/KX stockés, colonnes de service) : **10 901 fiches QI chargées** au lieu de 8 681 ;<br>• section de rattrapage renommée **« NIVEAU 6 »** (homonyme d'une section existante) ;<br>• trigger `bind_on_acquire` : l'anneau naît lié à l'âme quel que soit le canal ;<br>• forgeron réparateur à Freelia (`QI_FRE_04_11`).<br>**Combat :**<br>• `!cast` en combat utilise réellement le sort ; `!fuite` routé ;<br>• l'attaque par ID de monstre ne trouvait jamais rien ;<br>• les sessions de combat ne s'enregistraient pas (colonnes inexistantes). |
+| `9d5215e` | **Générateur :** dégâts des sorts, multiplicateur des OSS (bottes secrètes), recharges.<br>**Contenu :** 32 sorts de soutien/contrôle/affaiblissement reçoivent leur effet (42 effets de sorts).<br>**Corrections :**<br>• une altération **augmentait** la statistique visée ;<br>• les effets du défenseur modifiaient l'ATQ de l'attaquant. |
+| `c6ffae7` | **`!demander` (D84, pare-feu D18) :**<br>• K0/K1 libres ;<br>• K2 selon conditions ou paiement consenti (K4) ;<br>• K3 : déflection ; KX : ignorance ;<br>• 22 sujets de service marqués à l'ingestion ;<br>• K2 ne fuit plus dans le cache RAG partagé.<br>**Menus D83 :** COMBAT, DIALOGUE, SHOP, MOVEMENT, QUEST_BOARD.<br>**Achat :** uniquement auprès d'une boutique de la zone, au prix et dans la limite du stock de la boutique. Tout s'achetait partout au prix catalogue, anneau compris.<br>**Générateur :**<br>• 154 boutiques rattachées à leur ville (elles tombaient toutes à Aincrad) ;<br>• quêtes avec donneur, zone, niveau, récompenses et étapes : aucune n'apparaissait au tableau. |
+| `ab497e7` | **Cuisine (D90 E6) :**<br>• 28 denrées `MAT_ALI` vendues à la Halle d'Alne ;<br>• 32 recettes ingérées ;<br>• `use_effect` sur les consommables (30 effets de plats) ;<br>• `!use` / `!manger` : un seul buff de nourriture à la fois ; en combat, l'usage prend le tour.<br>**Artisanat :** un ingrédient épuisé violait le CHECK de quantité, donc aucune recette ne pouvait aboutir. |
+| `42bb96d` | **Capacité d'inventaire :**<br>• un emplacement par ligne non équipée, +30 avec un sac ;<br>• tout canal d'acquisition refuse proprement quand l'inventaire est plein ;<br>• repli par `T_MAIL` au divorce. |
+
+### `/code-review` (Standards + Spec) — corrigé
+
+- **Objet en combat :** retrait de l'objet et PM dans une seule transaction, en écriture relative.
+- **Capacité :**
+  - décompte verrouillé (plus de dépassement concurrent) ;
+  - les trois chemins restants la respectent : récompense de quête (repli courrier), retrait de courrier (le courrier reste réclamable), don GM.
+- **Fabrication :** un ingrédient lié à l'âme est de nouveau consommable (consommer n'est pas transférer).
+- **Achat :** `!buy [Qté] ID` accepte la quantité avant ou après l'ID.
+- **Services :** `service_cost_yrds` est débité et remboursé si l'action échoue.
+- **Multiplicateur OSS :** il multiplie les dégâts au lieu de s'y ajouter.
+- **Pare-feu QI :**
+  - `TITLE:` exige un titre **porté** ;
+  - un K3 débloqué par l'IA/le GM est révélé ;
+  - `SYS_NPC_KNOWLEDGE_UNLOCK` accepte K3 (fiche §4).
+- **Menus :**
+  - aide « 9 » propre à chaque contexte ;
+  - articles épuisés hors du menu boutique ;
+  - `ref` du menu combat = identifiant du combat.
+
+### Interprétations confirmées ou prises (autorité déléguée)
+
+- Les 9 interprétations de l'étape 61 sont maintenues.
+- **Achat local** : un vrai changement de règle économique, justifié parce que l'anneau et toutes les boutiques étaient accessibles de partout.
+- **Un seul buff de nourriture** : repris de la fiche (« 1 buff nourriture max »).
+- **Quêtes à plusieurs étapes** : elles progressent via `SYS_ADVANCE_QUEST` (IA/GM) ; aucun déclencheur automatique d'objectif n'existe.
+- **Sac** : +30 emplacements, valeur des 12 fiches `BAG_*`.
+- **Recettes de cuisine** : réussite 90 %.
+- **Durée d'un buff de plat** : celle de la fiche du plat (`T_RECIPES` n'a pas de durée).
+
+### Toujours non fait, avec la raison
+
+- **Primitives de service D84** : 20 des 22 services visent des `SYS_*` non construits (routes commerciales, escortes, contrebande, taxes…). Ce sont chacun des systèmes de jeu à concevoir ; ils répondent honnêtement « service pas encore ouvert ».
+- **Menu COMBAT** : pas d'option « Parer », faute de mécanique de parade.
+- **Menu DIALOGUE** : pas de « cadeau / relation / terminer », faute de système de cadeaux et d'affinité.
+- **Menu SHOP** : pas de pagination « 0 » (la liste se limite aux 8 premiers articles).
+- **Menu MOVEMENT** : les libellés sont des ID et non des noms.
+- **K2 conditionnés par l'affinité** : ils restent verrouillés en pratique, faute de moyen d'en gagner.
+- **PvP (et son usure −3), combo conjugal +10 %** : ce sont des systèmes non conçus, à passer par un grilling.
+- **`NPC_SECRET_PROBED`** et **génération narrative `SYS_NPC_DIALOGUE`** : relèvent de la couche IA.
+- **Objet rendu par courrier** : il perd son état de durabilité, car `T_MAIL` n'a pas de colonnes pour ça.
+- **Base réelle non mise à jour, et c'est impossible d'ici :**
+  - le service PostgreSQL local est arrêté ;
+  - **`bot/.env` pointe sur `localhost:5432`, qui est le conteneur `loyerpro-ci-db-1` d'un autre projet**, et non la base ALO.
+  - Au PE : corriger `bot/.env`, puis rejouer « NIVEAU 6 » de `schema.sql` et recharger `seed_data.sql`.
+
+### Vérification
+
+183 tests sur base réelle jetable, tous verts. Répartition : `integration` 82 · `notifications-menus` 16 · `social` 25 · `durability` 11 · `gathering` 12 · `effects` 9 · `combat` 7 · `dialogue-menus` 11 · `cooking` 6 · `inventory` 4.

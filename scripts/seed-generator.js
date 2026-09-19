@@ -750,7 +750,7 @@ function parseSkills() {
     const baseHealing = heal ? parseInt(heal[1], 10) : 0;
     const statScaling = dmg ? JSON.stringify({ stat_int: parseFloat(dmg[2]) })
       : heal ? JSON.stringify({ stat_int: parseFloat(heal[2]) })
-      : ossMult ? JSON.stringify({ base_atk: parseFloat(ossMult[1]) })
+      : ossMult ? JSON.stringify({ multiplier: parseFloat(ossMult[1]) })
       : null;
     const desc = (content.match(/Effet\s*(.+?)(?:\n\n|\n#|$)/s)?.[1] || '').trim().slice(0, 300);
     const unlock = (content.match(/Acquisition.*?\n(?:.*\n)*?.*?`NPC_\w+_\d+`/i)?.[0] ||

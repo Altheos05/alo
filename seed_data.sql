@@ -31053,234 +31053,234 @@ INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, 
 - **Enseignant** : École du Vent de Swilvane, maître Zeph `NPC_SWI_71`', 3, TRUE),
 ('MAG_VEN_010', 'Aerial Cataclysm', 'MAG', 'CBT', 5, 1, 680, 100, 1, 2100, 0, '{"stat_int":1.2}', 'Inflige **2100 + (INT × 1.2)** dégâts de Vent à la ou les cible(s) visée(s).', NULL, 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
-('OSS_ARC_001', 'Phantom Arrow', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_ARC_001', 'Phantom Arrow', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Zephyrine `NPC_ALN_68`', 3, TRUE),
-('OSS_ARC_002', 'Quick Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_ARC_002', 'Quick Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_003', 'Aimed Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_ARC_003', 'Aimed Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_004', 'Double Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_ARC_004', 'Double Shot', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_005', 'Piercing Arrow', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_ARC_005', 'Piercing Arrow', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_006', 'Arrow Rain', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_ARC_006', 'Arrow Rain', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_007', 'Explosive Shot', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_ARC_007', 'Explosive Shot', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_008', 'Splinter Shot', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_ARC_008', 'Splinter Shot', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Zephyrine `NPC_ALN_68`', 3, TRUE),
-('OSS_ARC_009', 'Hawk Eye', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_ARC_009', 'Hawk Eye', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Zephyrine `NPC_ALN_68`', 3, TRUE),
-('OSS_ARC_010', 'Meteor Volley', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_ARC_010', 'Meteor Volley', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_011', 'Star Fall', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_ARC_011', 'Star Fall', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_ARC_012', 'Sköll’s Hunt', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_ARC_012', 'Sköll’s Hunt', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_001', 'Rapid Bite', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_DAG_001', 'Rapid Bite', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_002', 'Fell Crescent', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_DAG_002', 'Fell Crescent', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_003', 'Pommel Bash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_DAG_003', 'Pommel Bash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_004', 'Backstab', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_DAG_004', 'Backstab', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_005', 'Venom Fang', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_DAG_005', 'Venom Fang', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_006', 'Shadow Stitch', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_DAG_006', 'Shadow Stitch', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_DAG_007', 'Fatal Twin', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_DAG_007', 'Fatal Twin', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_DAG_008', 'Serpent Coil', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_DAG_008', 'Serpent Coil', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_DAG_009', 'Assassinate', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_DAG_009', 'Assassinate', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_DAG_010', 'Thousand Cuts', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_DAG_010', 'Thousand Cuts', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_001', 'Starburst Stream', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_EPE_001', 'Starburst Stream', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_002', 'Vorpal Strike', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_EPE_002', 'Vorpal Strike', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_EPE_003', 'Savage Fulcrum', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_EPE_003', 'Savage Fulcrum', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_004', 'Horizontal', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_EPE_004', 'Horizontal', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_005', 'Slant', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_EPE_005', 'Slant', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_006', 'Vertical', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_EPE_006', 'Vertical', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_007', 'Sonic Leap', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_EPE_007', 'Sonic Leap', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_008', 'Sharp Nail', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_EPE_008', 'Sharp Nail', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_009', 'Rage Spike', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_EPE_009', 'Rage Spike', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_EPE_010', 'Deadly Sins', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_EPE_010', 'Deadly Sins', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_EPE_011', 'The Eclipse', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_EPE_011', 'The Eclipse', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EPE_012', 'Nova Ascension', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_EPE_012', 'Nova Ascension', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_001', 'Avalanche', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_EP2_001', 'Avalanche', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_002', 'Cleave', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_EP2_002', 'Cleave', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_003', 'Crescent Moon', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_EP2_003', 'Crescent Moon', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_004', 'Whirlwind', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_EP2_004', 'Whirlwind', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_005', 'Cascade', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_EP2_005', 'Cascade', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_006', 'Mountain Splitter', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_EP2_006', 'Mountain Splitter', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_EP2_007', 'Guillotine', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_EP2_007', 'Guillotine', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_EP2_008', 'Titan’s Descent', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_EP2_008', 'Titan’s Descent', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_EP2_009', 'World’s End', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_EP2_009', 'World’s End', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_EP2_010', 'Gram’s Judgment', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_EP2_010', 'Gram’s Judgment', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_001', 'Whirlwind Axe', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_HAC_001', 'Whirlwind Axe', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_002', 'Overhead Chop', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_HAC_002', 'Overhead Chop', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_003', 'Rending Cleave', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_HAC_003', 'Rending Cleave', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_004', 'Berserk Slash', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_HAC_004', 'Berserk Slash', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_005', 'Crescent Reap', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_HAC_005', 'Crescent Reap', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_006', 'Skull Splitter', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_HAC_006', 'Skull Splitter', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
-('OSS_HAC_007', 'Earthshaker', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_HAC_007', 'Earthshaker', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_HAC_008', 'Executioner', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_HAC_008', 'Executioner', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_HAC_009', 'Ragnar’s Fury', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_HAC_009', 'Ragnar’s Fury', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_HAC_010', 'World Ender', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_HAC_010', 'World Ender', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_001', 'Throwing Spike', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_JET_001', 'Throwing Spike', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_002', 'Fan of Knives', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_JET_002', 'Fan of Knives', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_003', 'Ricochet', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_JET_003', 'Ricochet', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_004', 'Chakram Slice', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_JET_004', 'Chakram Slice', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_005', 'Homing Blade', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_JET_005', 'Homing Blade', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_JET_006', 'Spectral Storm', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_JET_006', 'Spectral Storm', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_JET_007', 'Death Blossom', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_JET_007', 'Death Blossom', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_JET_008', 'Zephyr’s Volley', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_JET_008', 'Zephyr’s Volley', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_001', 'Tsujikaze', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_KAT_001', 'Tsujikaze', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_KAT_002', 'Crimson Lotus', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_KAT_002', 'Crimson Lotus', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_003', 'Iai Slash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_KAT_003', 'Iai Slash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_004', 'Kesa Giri', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_KAT_004', 'Kesa Giri', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_005', 'Tsubame Gaeshi', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_KAT_005', 'Tsubame Gaeshi', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_006', 'Zangetsu', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_KAT_006', 'Zangetsu', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_007', 'Mikazuki', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_KAT_007', 'Mikazuki', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_KAT_008', 'Hien', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_KAT_008', 'Hien', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_KAT_009', 'Setsugekka', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_KAT_009', 'Setsugekka', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Ferra `NPC_GAT_31`', 3, TRUE),
-('OSS_KAT_010', 'Amakakeru', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_KAT_010', 'Amakakeru', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_001', 'Spiral Thrust', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_LAN_001', 'Spiral Thrust', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_002', 'Lunge', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_LAN_002', 'Lunge', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_003', 'Skewer', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_LAN_003', 'Skewer', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_004', 'Piercing Wind', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_LAN_004', 'Piercing Wind', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_005', 'Dragon Fang', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_LAN_005', 'Dragon Fang', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_006', 'Impale', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_LAN_006', 'Impale', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_LAN_007', 'Comet Thrust', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_LAN_007', 'Comet Thrust', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_LAN_008', 'Storm Halberd', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_LAN_008', 'Storm Halberd', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_LAN_009', 'Wyvern Fall', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_LAN_009', 'Wyvern Fall', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_LAN_010', 'Gungnir', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_LAN_010', 'Gungnir', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_001', 'Crushing Blow', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_MAS_001', 'Crushing Blow', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_002', 'Ground Smash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_MAS_002', 'Ground Smash', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_003', 'Pulverize', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_MAS_003', 'Pulverize', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_004', 'Concussion', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_MAS_004', 'Concussion', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_005', 'Meteor Hammer', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_MAS_005', 'Meteor Hammer', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_MAS_006', 'Seismic Slam', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_MAS_006', 'Seismic Slam', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Vork `NPC_VOU_29`', 3, TRUE),
-('OSS_MAS_007', 'Titan Crush', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_MAS_007', 'Titan Crush', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_MAS_008', 'Mjölnir Strike', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_MAS_008', 'Mjölnir Strike', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_001', 'Mother’s Rosario', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"base_atk":7.5}', 'Spécial
+('OSS_RAP_001', 'Mother’s Rosario', 'OSS', 'CBT', 5, 14, 300, 0, 0, 0, 0, '{"multiplier":7.5}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_002', 'Linear', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_RAP_002', 'Linear', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_003', 'Star Splash', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_RAP_003', 'Star Splash', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_004', 'Flèche', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"base_atk":1.4}', 'Spécial
+('OSS_RAP_004', 'Flèche', 'OSS', 'CBT', 1, 2, 0, 0, 0, 0, 0, '{"multiplier":1.4}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_005', 'Parry Thrust', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_RAP_005', 'Parry Thrust', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_006', 'Quadruple Pain', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"base_atk":2.1}', 'Spécial
+('OSS_RAP_006', 'Quadruple Pain', 'OSS', 'CBT', 2, 3, 20, 0, 0, 0, 0, '{"multiplier":2.1}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE),
-('OSS_RAP_007', 'Neige', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_RAP_007', 'Neige', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_RAP_008', 'Crescendo', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_RAP_008', 'Crescendo', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_RAP_009', 'Rosier’s Thorn', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"base_atk":3.2}', 'Spécial
+('OSS_RAP_009', 'Rosier’s Thorn', 'OSS', 'CBT', 3, 5, 60, 0, 0, 0, 0, '{"multiplier":3.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', 'Acquisition (Maîtrise d''arme)
 - **Déblocage** : Maîtrise **Confirmé** + entraînement auprès de Roan `NPC_ALN_69`', 3, TRUE),
-('OSS_RAP_010', 'Absolute Point', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"base_atk":5.2}', 'Spécial
+('OSS_RAP_010', 'Absolute Point', 'OSS', 'CBT', 4, 9, 150, 0, 0, 0, 0, '{"multiplier":5.2}', 'Spécial
 Les OSS ignorent **15% de la DEF** ennemie. Si tous les hits touchent, bonus **« Perfect Chain » +20%** de dégâts.', NULL, 3, TRUE) ON CONFLICT (skill_id) DO NOTHING;
 INSERT INTO T_SKILLS_DICT (skill_id, name, skill_type, domain, tier, hit_count, mp_cost, cast_frames, cooldown_sec, base_damage, base_healing, stat_scaling, description, unlock_requirement, max_mastery, is_equippable) VALUES
 ('PAS_CBT_001', 'Parry (Parry Mastery)', 'PAS', 'CBT', 1, 1, 0, 0, 0, 0, 0, NULL, 'Améliore passivement : **efficacité de parade**. Le bonus s''applique en permanence tant que la passive est équipée, sans coût de MP ni de stamina.', NULL, 3, TRUE),

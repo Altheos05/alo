@@ -9,12 +9,11 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (5 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 |`CSM_CRI_008`|Cristal d'Enregistrement|T2|200|LOCAL (-20%)|15|jour|---|
 |`CSM_CRI_009`|Pierre de Rappel|T2|200|LOCAL (-20%)|15|jour|---|
-|`CSM_PAR_008`|Parchemin de Réparation Majeure|T2|145|LOCAL (-20%)|8|jour|---|
 |`CSM_NOU_014`|Ration de Campagne|T1|45|LOCAL (-20%)|20|jour|---|
 |`CSM_NOU_015`|Galette d'Avoine|T1|20|LOCAL (-20%)|25|jour|---|
 |`MAT_HRB_018`|Fleur de Lotus|T3|10|IMPORT (+40%)|6|semaine|---|

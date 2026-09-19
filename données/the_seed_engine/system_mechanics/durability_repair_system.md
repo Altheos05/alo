@@ -42,6 +42,7 @@ Grille de durabilité max constatée par tier : T1 160 · T2 240 · T3 360 · T4
 - **Où** : `!repair [Objet]` **uniquement** dans une zone où se trouve un forgeron PNJ de service. **Aucun autre canal** : les parchemins de réparation `CSM_PAR_007` (mineure) et `CSM_PAR_008` (majeure) sont **retirés du jeu** — à 180 Yrds pour une remise à neuf (3 000 Yrds au forgeron pour un T4), et fabricables par les joueurs, ils neutralisaient entièrement le puits.
 - **Coût** : barème étape 37 — `coût/point (tier) × points restaurés` (T1 2 · T2 5 · T3 12 · T4 30 · T5 75 Yrds/pt), payé **au PNJ** : les Yrds sortent de la circulation.
 - **Dégressivité** : chaque réparation remet `current_durability` au plafond courant **puis ampute définitivement** `durability_cap` de 10 % de la durabilité max d'origine (valeur par défaut, paramètre de configuration). Quand le plafond atteint 0, l'objet est **irréparable** et doit être remplacé — second puits (rachat en boutique PNJ).
+- **Précision d'implémentation (étape 61)** : l'instance repart au **nouveau** plafond (jamais au-dessus, I8 : courante ∈ [0, plafond]) ; le coût porte sur les points réellement restaurés. Une réparation qui ne rendrait rien est refusée sans amputation. Un « forgeron de service » est un PNJ vivant de la zone dont une fiche de connaissance porte le sujet `réparation` — les données désignent déjà qui répare (Freelia n'en a aucun à ce jour).
 - Transaction unique, verrou sur l'instance et sur le solde.
 
 ## 5. Exemption T5 liés à l'âme (amendement D88, arbitrage PE étape 60)

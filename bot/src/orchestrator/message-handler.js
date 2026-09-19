@@ -231,6 +231,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
     case 'INSPECT':
       return itemsHandler.handleInspect(db, playerId, routing.raw || '');
 
+    case 'REPAIR':
+      return itemsHandler.handleRepair(db, playerId, routing.raw || '');
+
     case 'DROP_ITEM':
       return itemsHandler.handleDrop(db, playerId, routing.raw || '', { confirmed: routing.confirmed });
 

@@ -9,14 +9,12 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (4 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `WPN_EP1_002` | Lame du Vent Sylphe | T1 | 240 | LOCAL | ∞ | hebdo | — |
 | `WPN_ARC_004` | Arc du Vent Sylphe | T2 | 735 | LOCAL | ∞ | hebdo | — |
 | `WPN_BOU_001` | Bouclier Rond en Bois | T1 | 145 | LOCAL | ∞ | hebdo | — |
-| `CSM_PAR_007` | Parchemin de Réparation Mineure | T1 | 45 | LOCAL | ∞ | hebdo | — |
-| `CSM_PAR_008` | Parchemin de Réparation Majeure | T2 | 145 | LOCAL | ∞ | hebdo | — |
 | `WPN_EP1_010` | Faucon d'Émeraude | T4 | 11200 | LOCAL | ∞ | hebdo | AFF>=80 |
 
 ## 3. Politique de rachat

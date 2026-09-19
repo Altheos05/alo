@@ -1,5 +1,6 @@
 import { findItem, dropItem } from '../engine/items.js';
 import { confirmationMenu } from '../services/menus.js';
+import { repairItem, durabilityState, currentDurability } from '../engine/durability.js';
 
 export async function handleInspect(db, playerId, raw = '') {
   const match = raw.match(/inspect\s+(.+)/i);
@@ -14,6 +15,18 @@ export async function handleInspect(db, playerId, raw = '') {
     item.description || 'Aucune description disponible.',
     `Type : ${item.item_type} · Rareté : ${item.rarity}${item.tier ? ` · Tier ${item.tier}` : ''}`,
   ];
+  // D88 : état et durabilité de chaque exemplaire possédé.
+  if (item.durability_max > 0) {
+    const owned = await db.query(
+      'SELECT current_durability, durability_cap FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2',
+      [playerId, item.item_id]
+    );
+    for (const row of owned.rows) {
+      const current = currentDurability(row, item.durability_max);
+      const cap = row.durability_cap ?? item.durability_max;
+      lines.push(`Ton exemplaire : ${durabilityState(current, item.durability_max).label} — ${current}/${cap}${cap < item.durability_max ? ` (max d'origine ${item.durability_max})` : ''}`);
+    }
+  }
   if (item.buy_price) lines.push(`Prix d'achat : ${item.buy_price} Yrds`);
   if (item.resale_value) lines.push(`Valeur de revente : ${item.resale_value} Yrds`);
 
@@ -61,4 +74,30 @@ export async function handleDrop(db, playerId, raw = '', { confirmed = false } =
   return `🗑️ ${result.quantity}× **${item.name}** jeté(s).`;
 }
 
-export default { handleInspect, handleDrop };
+const REPAIR_ERRORS = {
+  NO_REPAIRER: '❌ Aucun forgeron ne propose de réparation ici. Rends-toi dans une ville.',
+  NOT_OWNED: '❌ Tu ne possèdes pas cet objet.',
+  NO_DURABILITY: '❌ Cet objet ne s\'use pas.',
+  IRREPARABLE: '❌ Cet objet a été trop réparé : il est irréparable et doit être remplacé.',
+  ALREADY_FULL: '✅ Rien à réparer : la réparation ne rendrait pas plus que son état actuel.',
+};
+
+// !repair [Objet] (D88) : chez un forgeron uniquement, réparation dégressive.
+export async function handleRepair(db, playerId, raw = '') {
+  const query = raw.replace(/^!?repair\s*/i, '').trim();
+  if (!query) return `🔨 Réparer quoi ? Ex. : "!repair WPN_ARC_001".`;
+  const item = await findItem(db, query);
+  if (!item) return `❌ Aucun objet ne correspond à "${query}".`;
+
+  const r = await repairItem(db, playerId, item.item_id);
+  if (!r.success) {
+    if (r.error === 'INSUFFICIENT_FUNDS') return `❌ Réparation : ${r.required} Yrds requis, tu en as ${r.available}.`;
+    return REPAIR_ERRORS[r.error] || '❌ Réparation impossible.';
+  }
+  const note = r.newCap === r.previousCap
+    ? 'Sa durabilité maximale est préservée.'
+    : `Durabilité maximale désormais ${r.newCap}/${r.originalMax}.`;
+  return `🔨 **${r.name}** réparé (${r.restored} pts) pour ${r.cost} Yrds. ${note}`;
+}
+
+export default { handleInspect, handleDrop, handleRepair };

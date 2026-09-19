@@ -2,7 +2,7 @@ import logger from '../utils/logger.js';
 
 export async function findItem(db, itemQuery) {
   const result = await db.query(
-    'SELECT item_id, name, item_type, description, rarity, tier, buy_price, resale_value FROM t_items_dict WHERE item_id = $1 OR name ILIKE $2 LIMIT 1',
+    'SELECT item_id, name, item_type, description, rarity, tier, buy_price, resale_value, durability_max FROM t_items_dict WHERE item_id = $1 OR name ILIKE $2 LIMIT 1',
     [itemQuery.toUpperCase(), `%${itemQuery}%`]
   );
   return result.rows[0] || null;

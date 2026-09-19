@@ -691,8 +691,6 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('CSM_PAR_004', 'Parchemin de Retour de Guilde', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 140, 35, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_005', 'Parchemin de Sortie de Donjon', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 120, 30, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_006', 'Parchemin d''Identification', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 40, 10, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_PAR_007', 'Parchemin de Réparation Mineure', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 55, 13, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_PAR_008', 'Parchemin de Réparation Majeure', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 180, 45, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_009', 'Parchemin de Déliage Mineur', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 170, 42, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_010', 'Parchemin de Purification', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 175, 43, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_PAR_011', 'Parchemin de Boule de Feu', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 70, 17, 99, TRUE, FALSE, 0, '', '', NULL),
@@ -714,10 +712,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('CSM_POT_012', 'Potion de Mana', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 130, 32, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_013', 'Potion de Mana Supérieure', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 500, 125, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_014', 'Élixir de Mana', 'CSM', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 1800, 450, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_POT_015', 'Potion de Régénération de Mana', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 200, 50, 99, TRUE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('CSM_POT_015', 'Potion de Régénération de Mana', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 200, 50, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_016', 'Eau de Source de Lioda', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 220, 55, 99, TRUE, FALSE, 0, '', '', NULL),
-('CSM_POT_017', 'Rosée de Cristal Undine', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 550, 137, 99, TRUE, FALSE, 0, '', '', NULL),
+('CSM_POT_017', 'Rosée de Cristal Undine', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 550, 137, 99, TRUE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('CSM_POT_018', 'Élixir du Mage Gnome', 'CSM', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 650, 162, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_019', 'Antidote', 'CSM', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 40, 10, 99, TRUE, FALSE, 0, '', '', NULL),
 ('CSM_POT_020', 'Antidote Universel', 'CSM', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 150, 37, 99, TRUE, FALSE, 0, '', '', NULL),
@@ -765,10 +763,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('DEC_PLT_006', 'Ronce Lumineuse d''Yggdrasil (`DEC_PLT_006`)', 'MSC', NULL, 'legendary', 5, 0, 0, 0.5, 0, 0, 0, 90000, 22500, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DEC_RUG_001', 'Tapis Tissé des Steppes (`DEC_RUG_001`)', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 450, 112, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DEC_RUG_002', 'Tenture Héraldique de Guilde (`DEC_RUG_002`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1000, 250, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_003', 'Descente de Lit en Peau d''Ours (`DEC_RUG_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('DEC_RUG_003', 'Descente de Lit en Peau d''Ours (`DEC_RUG_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1700, 425, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DEC_RUG_004', 'Tapisserie de Fils de Mithril (`DEC_RUG_004`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 20000, 5000, 1, FALSE, FALSE, 0, '', '', NULL),
-('DEC_RUG_005', 'Bannière de la Grande Forge (`DEC_RUG_005`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 0, '', '', NULL),
+('DEC_RUG_005', 'Bannière de la Grande Forge (`DEC_RUG_005`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5500, 1375, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('DEC_STA_001', 'Totem de Granit Gnome (`DEC_STA_001`)', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 5000, 1250, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DEC_STA_002', 'Statue de la Déesse-Mère (`DEC_STA_002`)', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 15000, 3750, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DEC_STA_003', 'Gargouille Veilleuse d''Imp (`DEC_STA_003`)', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1400, 350, 1, FALSE, FALSE, 0, '', '', NULL),
@@ -816,10 +814,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('MAT_CUI_016', 'Peau de Serpent', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_CUI_017', 'Griffe d''Ours', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_CUI_018', 'Cuir de Golem', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_CUI_019', 'Écaille de Dragonnet', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('MAT_CUI_019', 'Écaille de Dragonnet', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_CUI_020', 'Os d''Ancien', 'MAT', NULL, 'rare', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('WNG_001', 'Ailes de Papillon', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
+('WNG_001', 'Ailes de Papillon', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('WNG_002', 'Ailes de Fée', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('WNG_003', 'Ailes de Colibri', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('WNG_004', 'Ailes de Sylphide', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
@@ -867,10 +865,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('RUN_006', 'Rune de Mana', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('RUN_007', 'Rune de Mithril', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('RUN_008', 'Rune d''Ombre', 'MSC', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
-('RUN_009', 'Rune de Vide', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('RUN_009', 'Rune de Vide', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('RUN_010', 'Rune Primordiale', 'MSC', NULL, 'epic', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
-('DYE_001', 'Teinture d''Indigo', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
+('DYE_001', 'Teinture d''Indigo', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('DYE_002', 'Teinture de Garance', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DYE_003', 'Teinture d''Œillet', 'MSC', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
 ('DYE_004', 'Teinture de Pastel', 'MSC', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 1, FALSE, FALSE, 0, '', '', NULL),
@@ -918,10 +916,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('MAT_HRB_006', 'Champignon de Forge —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_002', 'Plante d''Ombre —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_008', 'Fleur de Lune —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_009', 'Algue Lumineuse —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('MAT_HRB_009', 'Algue Lumineuse —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_HRB_020', 'Mousse des Bassins —', 'MAT', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
-('MAT_HRB_025', 'Feuille d''Yggdrasil —', 'MAT', NULL, 'common', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
+('MAT_HRB_025', 'Feuille d''Yggdrasil —', 'MAT', NULL, 'common', 4, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('MAT_GEM_001', 'Gemme de Granit', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_GEM_002', 'Gemme d''Obsidienne', 'MAT', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
 ('MAT_GEM_003', 'Gemme de Brise', 'MAT', NULL, 'rare', 2, 0, 0, 0.5, 0, 0, 0, 0, 0, 99, FALSE, TRUE, 0, '', '', NULL),
@@ -969,10 +967,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('BAG_001', 'Besace de Cuir de Freelia', 'BAG', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 200, 50, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_002', 'Sac de Toile de Swilvane', 'BAG', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 220, 55, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_003', 'Havresac à Maille de Granzam', 'BAG', NULL, 'common', 1, 0, 0, 0.5, 0, 0, 0, 240, 60, 1, FALSE, FALSE, 0, '', '', NULL),
-('BAG_004', 'Sac de Marche Renforcé', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('BAG_004', 'Sac de Marche Renforcé', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 900, 225, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_005', 'Sac d''Explorateur', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1100, 275, 1, FALSE, FALSE, 0, '', '', NULL),
-('BAG_006', 'Sac de Marchand', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 0, '', '', NULL),
+('BAG_006', 'Sac de Marchand', 'BAG', NULL, 'uncommon', 2, 0, 0, 0.5, 0, 0, 0, 1300, 325, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('BAG_007', 'Sac de Cuir Épais', 'BAG', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 3500, 875, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_008', 'Sac du Plongeur Undine', 'BAG', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4200, 1050, 1, FALSE, FALSE, 0, '', '', NULL),
 ('BAG_009', 'Sac Ignifuge de Gattan', 'BAG', NULL, 'rare', 3, 0, 0, 0.5, 0, 0, 0, 4000, 1000, 1, FALSE, FALSE, 0, '', '', NULL),
@@ -1020,10 +1018,10 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('OFT_BOT_020', 'OFT_BOT_020 — Short de Granzam', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
 ('OFT_BOT_021', 'OFT_BOT_021 — Short de Brokkheim', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
 ('OFT_BOT_022', 'OFT_BOT_022 — Short de Penwether', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_023', 'OFT_BOT_023 — Robe de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
-INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
+('OFT_BOT_023', 'OFT_BOT_023 — Robe de Gattan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
 ('OFT_BOT_024', 'OFT_BOT_024 — Robe d''Alne', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
-('OFT_BOT_025', 'OFT_BOT_025 — Robe de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
+('OFT_BOT_025', 'OFT_BOT_025 — Robe de Swilvane', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
+INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_atk, base_def, weight, str_req, agi_req, int_req, buy_price, resale_value, max_stack, is_consumable, is_craftable, durability_max, description, lore_text, icon) VALUES
 ('OFT_BOT_026', 'OFT_BOT_026 — Robe de Voulg', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
 ('OFT_BOT_027', 'OFT_BOT_027 — Robe de Freelia', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
 ('OFT_BOT_028', 'OFT_BOT_028 — Robe de l''Archipel', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
@@ -1055,7 +1053,7 @@ INSERT INTO T_ITEMS_DICT (item_id, name, item_type, subtype, rarity, tier, base_
 ('OFT_TOP_021', 'OFT_TOP_021 — Blouse d''artisan', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL),
 ('OFT_TOP_022', 'OFT_TOP_022 — Haut à épaules dégagées', 'OFT', NULL, 'common', 1, 0, 1, 0.5, 0, 0, 0, 10, 2, 1, FALSE, FALSE, 0, '', '', NULL) ON CONFLICT (item_id) DO NOTHING;
 
--- Items : 1032 lignes
+-- Items : 1030 lignes
 -- ============================================================
 -- T_MONSTERS_DICT
 -- ============================================================
@@ -26425,10 +26423,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_ALN_22', 'CSM_PAR_006', 30, 'LOCAL', NULL, -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_ALN_22', 'CSM_PAR_007', 45, 'LOCAL', NULL, -1, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_ALN_22', 'CSM_PAR_008', 145, 'LOCAL', NULL, -1, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_ALN_22', 'CSM_PAR_009', 135, 'LOCAL', NULL, -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_ALN_22', 'CSM_PAR_010', 140, 'LOCAL', NULL, -1, NULL, '—');
@@ -26793,10 +26787,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_UND_27', 'CSM_PAR_006', 30, 'LOCAL', NULL, 15, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_UND_27', 'CSM_PAR_007', 45, 'LOCAL', NULL, 10, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_UND_27', 'CSM_PAR_008', 145, 'LOCAL', NULL, 6, 7, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_UND_27', 'CSM_PAR_009', 135, 'LOCAL', NULL, 8, 7, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_UND_27', 'CSM_PAR_010', 140, 'LOCAL', NULL, 8, 7, '—');
@@ -27084,10 +27074,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_BRO_04', 'MAT_DRP_013', 150, 'LOCAL', NULL, 5, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_BRO_04', 'MAT_DRP_014', 150, 'LOCAL', NULL, 5, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_BRO_05', 'CSM_PAR_007', 55, 'LOCAL', NULL, 10, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_BRO_05', 'CSM_PAR_008', 180, 'LOCAL', NULL, 5, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_BRO_05', 'WPN_DAG_001', 150, 'LOCAL', NULL, 10, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -27687,10 +27673,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_DUS_47', 'CSM_PAR_006', 55, 'IMPORT', 'Alne', 8, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_DUS_47', 'CSM_PAR_007', 75, 'IMPORT', 'Alne', 6, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_DUS_47', 'CSM_PAR_008', 250, 'IMPORT', 'Alne', 2, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_DUS_48', 'WPN_ARC_008', 12000, 'LOCAL', NULL, 1, NULL, 'AFF>=85');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_DUS_48', 'MAT_DRP_005', 400, 'LOCAL', NULL, 2, NULL, 'Niv.20+');
@@ -28113,10 +28095,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_FRE_67', 'MAT_MIN_005', 5, 'LOCAL', NULL, 60, 2, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_FRE_67', 'CSM_PAR_007', 45, 'LOCAL', NULL, 30, 3, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_FRE_67', 'CSM_PAR_008', 145, 'LOCAL', NULL, 12, 3, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_FRE_67', 'ARM_TET_038', 250, 'LOCAL', NULL, 15, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_FRE_68', 'ARM_TET_042', 4640, 'LOCAL', NULL, 4, NULL, 'Niv. 30+');
@@ -28288,10 +28266,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_GAT_23', 'MAT_DRP_003', 85, 'IMPORT', 'Granzam', -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GAT_24', 'CSM_PAR_006', 40, 'LOCAL', NULL, -1, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_GAT_24', 'CSM_PAR_007', 40, 'LOCAL', NULL, -1, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_GAT_24', 'CSM_PAR_008', 145, 'LOCAL', NULL, -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GAT_24', 'CSM_PAR_009', 145, 'LOCAL', NULL, -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -28547,8 +28521,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_04', 'CSM_POT_033', 120, 'LOCAL', '(-20%)', 10, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_GRA_04', 'CSM_PAR_007', 45, 'LOCAL', '(-20%)', 20, NULL, '---');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_12', 'MAT_MIN_002', 5, 'LOCAL', '(-20%)', 25, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_12', 'MAT_MIN_013', 70, 'LOCAL', '(-20%)', 15, NULL, '---');
@@ -28620,8 +28592,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_GRA_32', 'CSM_CRI_008', 200, 'LOCAL', '(-20%)', 15, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_32', 'CSM_CRI_009', 200, 'LOCAL', '(-20%)', 15, NULL, '---');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_GRA_32', 'CSM_PAR_008', 145, 'LOCAL', '(-20%)', 8, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_GRA_32', 'CSM_NOU_014', 45, 'LOCAL', '(-20%)', 20, NULL, '---');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -28874,10 +28844,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_LIO_03', 'CSM_POT_011', 40, 'IMPORT', NULL, 12, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_LIO_03', 'CSM_NOU_011', 35, 'IMPORT', NULL, 20, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_LIO_04', 'CSM_PAR_007', 45, 'LOCAL', NULL, 8, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_LIO_04', 'CSM_PAR_008', 145, 'LOCAL', NULL, 3, NULL, 'Niv. 20+');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_LIO_04', 'CSM_PAR_006', 30, 'LOCAL', NULL, 10, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -29367,8 +29333,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_PEN_32', 'CSM_PAR_006', 30, 'LOCAL', NULL, 10, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_PEN_32', 'CSM_PAR_007', 45, 'LOCAL', NULL, 8, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_PEN_32', 'CSM_PAR_009', 135, 'LOCAL', NULL, 4, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_PEN_32', 'CSM_PAR_010', 140, 'LOCAL', NULL, 4, NULL, '—');
@@ -29585,8 +29549,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_PEN_84', 'CSM_POT_039', 280, 'IMPORT', NULL, 3, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_PEN_87', 'CSM_PAR_008', 145, 'LOCAL', NULL, 4, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_PEN_87', 'CSM_PAR_013', 120, 'LOCAL', NULL, 4, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_PEN_87', 'CSM_PAR_015', 120, 'LOCAL', NULL, 4, NULL, '—');
@@ -29672,10 +29634,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 ('SHOP_SWI_05', 'WPN_ARC_004', 735, 'LOCAL', NULL, -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_SWI_05', 'WPN_BOU_001', 145, 'LOCAL', NULL, -1, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_SWI_05', 'CSM_PAR_007', 45, 'LOCAL', NULL, -1, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_SWI_05', 'CSM_PAR_008', 145, 'LOCAL', NULL, -1, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_SWI_05', 'WPN_EP1_010', 11200, 'LOCAL', NULL, -1, NULL, 'AFF>=80');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
@@ -30081,10 +30039,6 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_VOU_40', 'WPN_HAC_007', 16000, 'LOCAL', NULL, 1, NULL, 'AFF>=80');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_VOU_41', 'CSM_PAR_007', 45, 'LOCAL', NULL, 30, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
-('SHOP_VOU_41', 'CSM_PAR_008', 145, 'LOCAL', NULL, 15, NULL, '—');
-INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_VOU_41', 'CSM_PAR_009', 135, 'LOCAL', NULL, 12, NULL, '—');
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_VOU_41', 'WPN_DAG_001', 120, 'LOCAL', NULL, 20, NULL, '—');
@@ -30295,7 +30249,7 @@ INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, r
 INSERT INTO T_SHOP_ITEMS (shop_id, item_id, price, origin, origin_city, stock, restock_days, condition) VALUES
 ('SHOP_VOU_93', 'WPN_JET_004', 12000, 'LOCAL', NULL, 2, NULL, 'AFF>=80');
 
--- Articles boutique : 1966 lignes
+-- Articles boutique : 1944 lignes
 -- ============================================================
 -- T_SKILLS_DICT
 -- ============================================================

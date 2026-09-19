@@ -9,12 +9,11 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (8 articles)
+## 2. Inventaire (7 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `CSM_PAR_001` | Parchemin de Retour à Alne | T1 | 50 | LOCAL | 8 | jour | — |
 | `CSM_PAR_006` | Parchemin d'Identification | T1 | 30 | LOCAL | 10 | jour | — |
-| `CSM_PAR_007` | Parchemin de Réparation Mineure | T1 | 45 | LOCAL | 8 | jour | — |
 | `CSM_PAR_009` | Parchemin de Déliage Mineur | T2 | 135 | LOCAL | 4 | semaine | — |
 | `CSM_PAR_010` | Parchemin de Purification | T2 | 140 | LOCAL | 4 | semaine | — |
 | `CSM_PAR_012` | Parchemin de Soin | T1 | 55 | LOCAL | 6 | jour | — |

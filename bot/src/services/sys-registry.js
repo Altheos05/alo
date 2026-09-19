@@ -1,6 +1,7 @@
 import logger from '../utils/logger.js';
 import { queueDirect, queueZone, queueGlobal, getQueueSummary } from './notifications.js';
 import { forceMarriage, settleDivorce, generateGiftIfMissing } from '../engine/marriage.js';
+import { modifyDurability, setDurability } from '../engine/durability.js';
 
 const COMMANDS = {};
 
@@ -270,6 +271,57 @@ define('SYS_GENERATE_WEDDING_GIFT', {
   async execute(db, params) {
     const r = await generateGiftIfMissing(db, params.marriage_id);
     return r.success ? { ok: true, message: `Cadeau ${r.itemId} déposé au coffre conjugal` } : { ok: false, message: `Refusé : ${r.error}` };
+  },
+});
+
+// ─── D88 : durabilité ───
+
+const instanceExists = async (db, uuid) =>
+  (await db.query('SELECT 1 FROM t_inventory WHERE instance_uuid = $1', [uuid])).rows.length > 0;
+
+define('SYS_MODIFY_DURABILITY', {
+  description: 'Modifie la durabilité d\'une instance (delta signé, borné au plafond ; 0 = Cassé)',
+  schema: { instance_id: 'uuid', delta: 'string' },
+  async d71(db, params) {
+    if (!/^-?\d+$/.test(params.delta)) return `delta ${params.delta} n'est pas un entier`;
+    if (!(await instanceExists(db, params.instance_id))) return `Instance ${params.instance_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const value = await modifyDurability(db, params.instance_id, parseInt(params.delta, 10));
+    return value === null ? { ok: false, message: 'Objet sans durabilité' } : { ok: true, message: `Durabilité : ${value}` };
+  },
+});
+
+define('SYS_BREAK_WEAPON', {
+  description: 'Brise une arme (durabilité 0 : Cassé, réparable — plus de destruction, D88)',
+  schema: { instance_id: 'uuid' },
+  async d71(db, params) {
+    if (!(await instanceExists(db, params.instance_id))) return `Instance ${params.instance_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return ['gm', 'system'].includes(source); },
+  async execute(db, params) {
+    const value = await modifyDurability(db, params.instance_id, -1000000);
+    return value === null ? { ok: false, message: 'Objet sans durabilité' } : { ok: true, message: 'Arme brisée (réparable)' };
+  },
+});
+
+define('SYS_DURABILITY_SET', {
+  description: 'Fixe la durabilité des exemplaires d\'un objet d\'un joueur (support, D88)',
+  schema: { player_id: 'uuid', item_id: 'string', value: 'integer' },
+  async d71(db, params) {
+    if (!(await avatarExists(db, params.player_id))) return `Joueur ${params.player_id} introuvable`;
+    return null;
+  },
+  async prereqs() { return null; },
+  async authorize(source) { return source === 'gm'; },
+  async execute(db, params) {
+    const n = await setDurability(db, params.player_id, params.item_id, parseInt(params.value, 10));
+    return n ? { ok: true, message: `${n} exemplaire(s) mis à jour` } : { ok: false, message: 'Aucun exemplaire à durabilité' };
   },
 });
 

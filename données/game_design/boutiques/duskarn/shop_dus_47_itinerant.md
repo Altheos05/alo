@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (8 articles)
+## 2. Inventaire (6 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `CSM_PAR_001` | Parchemin de Retour à Alne | T1 | 85 | IMPORT Alne | 6 | jour | — |
@@ -18,8 +18,6 @@
 | `CSM_PAR_004` | Parchemin de Retour de Guilde | T2 | 195 | IMPORT Alne | 3 | semaine | — |
 | `CSM_PAR_005` | Parchemin de Sortie de Donjon | T2 | 170 | IMPORT Alne | 3 | semaine | — |
 | `CSM_PAR_006` | Parchemin d'Identification | T1 | 55 | IMPORT Alne | 8 | jour | — |
-| `CSM_PAR_007` | Parchemin de Réparation Mineure | T1 | 75 | IMPORT Alne | 6 | jour | — |
-| `CSM_PAR_008` | Parchemin de Réparation Majeure | T2 | 250 | IMPORT Alne | 2 | semaine | — |
 
 ## 3. Politique de rachat
 - **Rachète** : Gadgets, curiosités, parchemins (25%)

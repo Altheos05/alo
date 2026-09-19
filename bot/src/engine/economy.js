@@ -1,4 +1,5 @@
 import logger from '../utils/logger.js';
+import { durabilityState, currentDurability } from './durability.js';
 
 export function calculateBuyPrice(item, quantity = 1) {
   const unitPrice = item.buy_price || 0;
@@ -80,9 +81,11 @@ export async function buyItem(db, playerUuid, itemId, quantity = 1) {
   }
 }
 
+// Rachat PNJ. Objets à durabilité : prix catalogue × coefficient de l'état de
+// l'exemplaire vendu (D88). Les exemplaires équipés ou liés (I4) ne se vendent pas.
 export async function sellItem(db, playerUuid, itemId, quantity = 1) {
   const itemResult = await db.query(
-    'SELECT item_id, name, resale_value, buy_price FROM t_items_dict WHERE item_id = $1',
+    'SELECT item_id, name, resale_value, buy_price, durability_max FROM t_items_dict WHERE item_id = $1',
     [itemId]
   );
   if (itemResult.rows.length === 0) {
@@ -90,7 +93,6 @@ export async function sellItem(db, playerUuid, itemId, quantity = 1) {
   }
   const item = itemResult.rows[0];
   const resaleValue = item.resale_value || Math.floor((item.buy_price || 0) * 0.25);
-  const total = resaleValue * quantity;
 
   const client = await db.connect();
   try {
@@ -106,33 +108,32 @@ export async function sellItem(db, playerUuid, itemId, quantity = 1) {
     }
 
     const inv = await client.query(
-      'SELECT quantity FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 FOR UPDATE',
+      `SELECT instance_uuid, quantity, current_durability, durability_cap FROM t_inventory
+       WHERE avatar_uuid = $1 AND item_id = $2 AND NOT is_equipped AND NOT is_bound
+       ORDER BY acquired_at FOR UPDATE`,
       [playerUuid, itemId]
     );
-    if (inv.rows.length === 0 || inv.rows[0].quantity < quantity) {
+    const available = inv.rows.reduce((n, r) => n + r.quantity, 0);
+    if (available < quantity) {
       await client.query('ROLLBACK');
-      return { success: false, error: 'INSUFFICIENT_STOCK', available: inv.rows[0]?.quantity || 0 };
+      return { success: false, error: 'INSUFFICIENT_STOCK', available };
     }
 
-    const newQty = inv.rows[0].quantity - quantity;
-    if (newQty <= 0) {
-      const del = await client.query(
-        'DELETE FROM t_inventory WHERE avatar_uuid = $1 AND item_id = $2 AND quantity >= $3',
-        [playerUuid, itemId, quantity]
-      );
-      if (del.rowCount === 0) {
-        await client.query('ROLLBACK');
-        return { success: false, error: 'INSUFFICIENT_STOCK', available: 0 };
+    let total = 0;
+    let remaining = quantity;
+    for (const row of inv.rows) {
+      if (remaining === 0) break;
+      const n = Math.min(remaining, row.quantity);
+      const unitPrice = item.durability_max > 0
+        ? Math.floor((item.buy_price || 0) * durabilityState(currentDurability(row, item.durability_max), item.durability_max).coef)
+        : resaleValue;
+      total += unitPrice * n;
+      if (n === row.quantity) {
+        await client.query('DELETE FROM t_inventory WHERE instance_uuid = $1', [row.instance_uuid]);
+      } else {
+        await client.query('UPDATE t_inventory SET quantity = quantity - $1 WHERE instance_uuid = $2', [n, row.instance_uuid]);
       }
-    } else {
-      const upd = await client.query(
-        'UPDATE t_inventory SET quantity = quantity - $1 WHERE avatar_uuid = $2 AND item_id = $3 AND quantity >= $4',
-        [quantity, playerUuid, itemId, quantity]
-      );
-      if (upd.rowCount === 0) {
-        await client.query('ROLLBACK');
-        return { success: false, error: 'INSUFFICIENT_STOCK', available: 0 };
-      }
+      remaining -= n;
     }
 
     await client.query(

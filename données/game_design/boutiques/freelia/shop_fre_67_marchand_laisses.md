@@ -9,13 +9,11 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (5 articles)
+## 2. Inventaire (3 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `MAT_MIN_003` | Étain des Collines | T1 | 5 | LOCAL | 40 | 3j | — |
 | `MAT_MIN_005` | Charbon de Forge | T1 | 5 | LOCAL | 60 | 2j | — |
-| `CSM_PAR_007` | Parchemin de Réparation Mineure | T1 | 45 | LOCAL | 30 | 3j | — |
-| `CSM_PAR_008` | Parchemin de Réparation Majeure | T2 | 145 | LOCAL | 12 | 3j | — |
 | `ARM_TET_038` | Cornes d'Apprenti | T1 | 250 | LOCAL | 15 | semaine | — |
 
 ## 3. Politique de rachat

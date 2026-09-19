@@ -8,6 +8,7 @@ import {
   getStatModifiers,
 } from '../engine/combat.js';
 import { getPlayer } from '../services/player.js';
+import { getGearStats, wearEquipment, COMBAT_WEAR } from '../engine/durability.js';
 import { render } from '../services/template.js';
 import logger from '../utils/logger.js';
 
@@ -106,12 +107,14 @@ export async function handleAttack(db, playerUuid, entities) {
   }
   const monster = monsterResult.rows[0];
 
+  // D88 : l'équipement porté (pièces non cassées) fournit l'ATQ/DEF du joueur.
+  const gear = await getGearStats(db, playerUuid);
   const combatId = `${playerUuid}_${Date.now()}`;
   const combat = {
     combatId,
     playerUuid,
     monster: { ...monster, hp_current: monster.base_hp, hp_max: monster.base_hp, activeEffects: [] },
-    player: { ...player, hp_current: player.hp_current, hp_max: player.hp_max, activeEffects: [] },
+    player: { ...player, base_atk: gear.atk, base_def: gear.def, hp_current: player.hp_current, hp_max: player.hp_max, activeEffects: [] },
     turn: 0,
     startedAt: Date.now(),
   };
@@ -219,6 +222,7 @@ export async function handleCombatAction(db, playerUuid, action) {
       );
     } catch {}
     response.push(render('attack_kill', { targetName: combat.monster.name, exp, yrds }));
+    await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
     return response.join('\n');
   }
@@ -238,6 +242,7 @@ export async function handleCombatAction(db, playerUuid, action) {
       );
     } catch {}
     response.push(render('attack_death'));
+    await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
     return response.join('\n');
   }
@@ -276,6 +281,7 @@ export async function handleCombatAction(db, playerUuid, action) {
       );
     } catch {}
     response.push(render('attack_kill', { targetName: combat.monster.name, exp, yrds }));
+    await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
     return response.join('\n');
   }
@@ -325,6 +331,7 @@ export async function handleCombatAction(db, playerUuid, action) {
       );
     } catch {}
     response.push(render('attack_death'));
+    await applyCombatWear(db, playerUuid, response);
     activeCombats.delete(playerUuid);
     return response.join('\n');
   }
@@ -343,6 +350,16 @@ export async function handleCombatAction(db, playerUuid, action) {
 
   combat.turn++;
   return response.join('\n');
+}
+
+// D88 : chaque combat use les pièces portées (PvE −1 ; le PvP −3 n'existe pas encore).
+async function applyCombatWear(db, playerUuid, response) {
+  try {
+    const broken = await wearEquipment(db, playerUuid, COMBAT_WEAR.pve);
+    for (const name of broken) response.push(`💥 **${name}** est cassé : il ne confère plus aucune statistique. Fais-le réparer chez un forgeron ("!repair").`);
+  } catch (err) {
+    logger.error('Erreur usure d\'équipement', { error: err.message, playerUuid });
+  }
 }
 
 async function persistActiveEffects(db, combat, defeated) {
@@ -371,8 +388,10 @@ export async function handleFlee(db, playerUuid) {
   const combat = activeCombats.get(playerUuid);
   if (!combat) return `⚔️ Tu n'es pas en combat.`;
   await persistActiveEffects(db, combat, null);
+  const response = [`🏃 Tu as fui le combat contre **${combat.monster.name}**.`];
+  await applyCombatWear(db, playerUuid, response);
   activeCombats.delete(playerUuid);
-  return `🏃 Tu as fui le combat contre **${combat.monster.name}**.`;
+  return response.join('\n');
 }
 
 export function getCombatStatus(playerUuid) {

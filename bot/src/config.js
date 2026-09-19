@@ -49,6 +49,10 @@ const config = {
     batchSize: parseInt(process.env.NOTIF_BATCH_SIZE || '1', 10),
     maxAttempts: parseInt(process.env.NOTIF_MAX_ATTEMPTS || '5', 10),
   },
+  // D88 : amputation du plafond de durabilité par réparation (% de l'origine).
+  durability: {
+    repairCapLossPct: parseInt(process.env.REPAIR_CAP_LOSS_PCT || '10', 10),
+  },
   models: {
     path: resolve(__dirname, '..', 'models'),
     intent: process.env.MODEL_INTENT || 'intent.onnx',

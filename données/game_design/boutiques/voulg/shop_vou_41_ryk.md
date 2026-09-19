@@ -9,11 +9,9 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (7 articles)
+## 2. Inventaire (5 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
-| `CSM_PAR_007` | Parchemin de Réparation Mineure | T1 | 45 | LOCAL | 30 | jour | — |
-| `CSM_PAR_008` | Parchemin de Réparation Majeure | T2 | 145 | LOCAL | 15 | jour | — |
 | `CSM_PAR_009` | Parchemin de Déliage Mineur | T2 | 135 | LOCAL | 12 | jour | — |
 | `WPN_DAG_001` | Dague de Fer | T1 | 120 | LOCAL | 20 | semaine | — |
 | `WPN_KAT_001` | Katana d'Acier Poli | T1 | 255 | LOCAL | 8 | semaine | — |

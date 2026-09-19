@@ -9,12 +9,10 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (4 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 | `CSM_PAR_006` | Parchemin d'Identification | T1 | 30 | LOCAL | ∞ | hebdo | — |
-| `CSM_PAR_007` | Parchemin de Réparation Mineure | T1 | 45 | LOCAL | ∞ | hebdo | — |
-| `CSM_PAR_008` | Parchemin de Réparation Majeure | T2 | 145 | LOCAL | ∞ | hebdo | — |
 | `CSM_PAR_009` | Parchemin de Déliage Mineur | T2 | 135 | LOCAL | ∞ | hebdo | — |
 | `CSM_PAR_010` | Parchemin de Purification | T2 | 140 | LOCAL | ∞ | hebdo | — |
 | `ARM_TET_085` | Chapeau de l'Encyclopédiste | T3 | 3760 | LOCAL | 3 | hebdo | — |

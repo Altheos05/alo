@@ -9,7 +9,7 @@
 | **Type** | BOUTIQUE |
 | **Accès** | libre |
 
-## 2. Inventaire (6 articles)
+## 2. Inventaire (5 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
 |`MAT_MIN_006`|Soufre Cristallisé|T2|40|LOCAL (-20%)|12|jour|---|
@@ -17,7 +17,6 @@
 |`MAT_DRP_003`|Noyau Fissuré|T2|120|LOCAL (-20%)|8|semaine|---|
 |`MAT_DRP_016`|Braise de Forge|T3|400|LOCAL (-20%)|5|semaine|Niv. 25+|
 |`CSM_POT_033`|Résine Ignifuge|T2|120|LOCAL (-20%)|10|jour|---|
-|`CSM_PAR_007`|Parchemin de Réparation Mineure|T1|45|LOCAL (-20%)|20|jour|---|
 
 ## 3. Politique de rachat
 

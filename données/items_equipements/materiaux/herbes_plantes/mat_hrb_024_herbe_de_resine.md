@@ -10,7 +10,7 @@
 |---|---|
 | Source | Atelier Profondeurs |
 | Acheté par | Restaurateur `NPC_GRA_24` à 4 Yrds |
-| Entre dans | `CSM_POT_040`, `CSM_PAR_007` |
+| Entre dans | `CSM_POT_040` |
 | Empilable | OUI (×99) |
 
 ## Lore (Encyclopédie d'Argo)

@@ -10,11 +10,10 @@ const TYPE_KEYWORDS = {
   enchanting: /enchant/i,
 };
 
-// §7 whatsapp_commands_list.md liste !repair et !mine à côté des vraies catégories
-// de recette — ce ne sont PAS des craft_type de T_RECIPES (réparation de durabilité
-// et extraction de minerai en zone sont des mécaniques distinctes, non construites).
+// §7 whatsapp_commands_list.md liste !mine à côté des vraies catégories de recette
+// — ce n'est PAS un craft_type de T_RECIPES (extraction en zone, non construite ici).
+// !repair a son propre intent (REPAIR, D88).
 const UNIMPLEMENTED_COMMANDS = {
-  repair: `🔨 La réparation d'objets (!repair) n'est pas encore implémentée — ce n'est pas une recette d'artisanat, c'est un système à part (durabilité).`,
   mine: `⛏️ L'extraction de minerai (!mine) n'est pas encore implémentée — voir le système de récolte, pas encore construit.`,
 };
 

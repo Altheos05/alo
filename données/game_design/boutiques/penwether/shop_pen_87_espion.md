@@ -9,10 +9,9 @@
 | **Type** | BLACK_MARKET |
 | **Accès** | caché (sur rendez-vous) |
 
-## 2. Inventaire (5 articles)
+## 2. Inventaire (4 articles)
 | Item_ID | Nom | Tier | Prix (Yrds) | Origine | Stock | Restock | Condition |
 |---|---|---|---|---|---|---|---|
-| `CSM_PAR_008` | Parchemin de Réparation Majeure | T2 | 145 | LOCAL | 4 | semaine | — |
 | `CSM_PAR_013` | Parchemin d'Éclair | T2 | 120 | LOCAL | 4 | semaine | — |
 | `CSM_PAR_015` | Parchemin de Bourrasque | T2 | 120 | LOCAL | 4 | semaine | — |
 | `CSM_POT_002` | Potion de Soin Légère | T1 | 65 | IMPORT | 8 | jour | — |
@@ -26,5 +25,5 @@
 L'Espion de Duskarn est un agent Imp infiltré.
 
 ## 5. Intégration Bot
-- Joueur : `!shop_list SHOP_PEN_87` · `!buy CSM_PAR_008` · `!sell CSM_PAR_008`
+- Joueur : `!shop_list SHOP_PEN_87` · `!buy <Item_ID>` · `!sell <Item_ID>`
 - GM : `!sys_market_price` — IA : `SYS_SET_SHOP_PRICES`, `SYS_GRANT_ITEM`

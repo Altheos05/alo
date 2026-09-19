@@ -34,7 +34,8 @@ export async function handleEffects(db, playerId) {
   const lines = effects.map(e => {
     const min = Math.max(1, Math.ceil(e.remaining_sec / 60));
     const icon = e.icon_emoji || (e.type === 'debuff' ? '🔴' : '🟢');
-    return `${icon} ${e.name}${e.stacks > 1 ? ` ×${e.stacks}` : ''} — ${min} min`;
+    const regen = e.stat_modified === 'mp_regen' ? ` (+${e.modifier_value} % PM/min)` : '';
+    return `${icon} ${e.name}${e.stacks > 1 ? ` ×${e.stacks}` : ''}${regen} — ${min} min`;
   });
   return `✨ **Effets actifs**\n${lines.join('\n')}`;
 }

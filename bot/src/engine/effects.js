@@ -105,6 +105,37 @@ export async function clearEffects(db, avatarUuid, { dispellableOnly = true, eff
   return r.rowCount;
 }
 
+// D96-c : régénération de PM paresseuse — N % des PM max par minute écoulée depuis la
+// dernière résolution, jusqu'à PM pleins (l'effet s'arrête alors) ou jusqu'à échéance.
+export async function settleMpRegen(db, avatarUuid) {
+  return inTransaction(db, 'Erreur de régénération de PM', { avatarUuid }, async (client) => {
+    const effects = await client.query(
+      `SELECT e.id, d.modifier_value,
+              EXTRACT(EPOCH FROM (LEAST(NOW(), e.expires_at) - COALESCE(e.last_tick_at, e.applied_at)))::float AS elapsed,
+              e.expires_at <= NOW() AS ended
+       FROM t_active_effects e JOIN t_status_effects_dict d ON d.effect_id = e.effect_id
+       WHERE e.target_type = 'avatar' AND e.target_id = $1 AND d.stat_modified = 'mp_regen'
+       FOR UPDATE OF e`,
+      [avatarUuid]
+    );
+    if (!effects.rows.length) return { success: true, gained: 0 };
+    const avatar = await client.query('SELECT mp_current, mp_max FROM t_avatars WHERE avatar_uuid = $1 FOR UPDATE', [avatarUuid]);
+    let { mp_current: mp } = avatar.rows[0];
+    const { mp_max: max } = avatar.rows[0];
+    const before = mp;
+    for (const ef of effects.rows) {
+      mp = Math.min(max, mp + Math.floor(max * (ef.modifier_value / 100) * (Math.max(0, ef.elapsed) / 60)));
+      if (ef.ended || mp >= max) {
+        await client.query('DELETE FROM t_active_effects WHERE id = $1', [ef.id]);
+      } else {
+        await client.query('UPDATE t_active_effects SET last_tick_at = NOW() WHERE id = $1', [ef.id]);
+      }
+    }
+    if (mp !== before) await client.query('UPDATE t_avatars SET mp_current = $1 WHERE avatar_uuid = $2', [mp, avatarUuid]);
+    return { success: true, gained: mp - before };
+  });
+}
+
 // ─── !cast hors combat (E4, E5) ───
 
 async function findKnownSpell(client, casterUuid, query) {
@@ -199,5 +230,5 @@ export async function castOutOfCombat(db, casterUuid, query, targetPhone = null,
 }
 
 export default {
-  listActiveEffects, loadCombatEffects, persistCombatEffects, applyEffect, clearEffects, castOutOfCombat,
+  listActiveEffects, loadCombatEffects, persistCombatEffects, applyEffect, clearEffects, castOutOfCombat, settleMpRegen,
 };

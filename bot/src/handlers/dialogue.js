@@ -3,7 +3,7 @@ import { retrieveKnowledge, getDialogueResponse } from '../services/rag.js';
 import { enhanceDialogue } from '../services/llm.js';
 import { executePipelineCommands } from '../services/sys-pipeline.js';
 import logger from '../utils/logger.js';
-import { findNpc, askTopic, menuTopics, recordInteraction } from '../engine/knowledge.js';
+import { findNpc, askTopic, menuTopics, recordInteraction, applyCharisma } from '../engine/knowledge.js';
 import { getPlayer } from '../services/player.js';
 
 const AFFINITY_LABELS = {
@@ -90,8 +90,8 @@ export async function handleTalk(db, playerId, entities) {
       : getDefaultDialogue(npc.role_type);
   }
 
-  const text = render('talk', { npcName: npc.display_name, dialogue });
   await recordInteraction(db, playerId, npc.npc_id);
+  const text = render('talk', { npcName: npc.display_name, dialogue }) + charismaLine(await applyCharisma(db, playerId, npc.npc_id), npc);
   const relationLabel = await getRelationLabel(db, playerId, npc.npc_id);
 
   // D83 §3.2 : sujets K0/K1 (services en tête) résolus en « !demander ».
@@ -117,6 +117,11 @@ export async function handleTalk(db, playerId, entities) {
 }
 
 const MENU_TOPICS = 6;
+const TIER_LABELS = { known: 'connaissance', trusted: 'confiance', confidant: 'confidence', stranger: 'neutralité' };
+
+function charismaLine(newTier, npc) {
+  return newTier ? `\n✨ Ton charme opère : ta relation avec **${npc.display_name}** passe à « ${TIER_LABELS[newTier] || newTier} ».` : '';
+}
 
 // !demander [PNJ] [sujet] [payer] — pare-feu QI (D18) et sujets de service (D84).
 export async function handleAsk(db, playerId, raw = '') {
@@ -132,20 +137,21 @@ export async function handleAsk(db, playerId, raw = '') {
   if (npc.zone_id && npc.zone_id !== player.current_zone_id) return `🗣️ **${npc.display_name}** n'est pas ici.`;
 
   const r = await askTopic(db, playerId, npc, topic, { wantsToPay });
+  const charm = charismaLine(await applyCharisma(db, playerId, npc.npc_id), npc);
   const who = `**${npc.display_name}**`;
   switch (r.kind) {
     case 'ignorance':
     case 'deflection':
-      return `🗣️ ${who} : ${r.text}`;
+      return `🗣️ ${who} : ${r.text}` + charm;
     case 'locked':
-      return `🗣️ ${who} te regarde longuement… et change de sujet. (Il faudra gagner sa confiance.)`;
+      return `🗣️ ${who} te regarde longuement… et change de sujet. (Il faudra gagner sa confiance.)` + charm;
     case 'price':
-      return `🗣️ ${who} : « Ça a un prix : ${r.price} Yrds. » — "!demander ${npc.npc_id} ${topic.replace(/\s+/g, '_')} payer" pour accepter.`;
+      return `🗣️ ${who} : « Ça a un prix : ${r.price} Yrds. » — "!demander ${npc.npc_id} ${topic.replace(/\s+/g, '_')} payer" pour accepter.` + charm;
     case 'too_poor':
-      return `❌ Il te faut ${r.price} Yrds pour cette information.`;
+      return `❌ Il te faut ${r.price} Yrds pour cette information.` + charm;
     default: {
       const service = r.service ? `\n🛠️ ${r.service.message}` : '';
-      return `🗣️ ${who} : ${r.text}${service}`;
+      return `🗣️ ${who} : ${r.text}${service}` + charm;
     }
   }
 }

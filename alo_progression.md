@@ -2332,3 +2332,32 @@ Les fiches `CSM_NOU_036` à `060` écrivent leur effet sous la forme « `| Stat 
 - 2 au charisme : aucune statistique de charisme ;
 - 2 à « régénération PM » : aucune régénération continue des PM hors combat.
 
+
+---
+
+## ÉTAPE 64 — Effets et durées des consommables (D95/D96) ✅ (2026-09-19)
+
+**Directives PE** :
+- varier les plats par l'effet **et** la durée ;
+- les 4 boissons sont des anti-soif sans effet, offrables à d'autres joueurs (symbolique) ;
+- les résistances s'appliquent aux dégâts élémentaires (portée à fixer) ;
+- le charisme donne +30 % de chances de monter la relation avec un PNJ en discussion, usage unique, actif 10 min ;
+- la régénération de PM est paresseuse jusqu'à PM pleins ou fin de l'effet ; l'autre voie est le repos.
+
+### Décisions (spec : `system_mechanics/effets_consommables.md`)
+
+- **D95 — durées :**
+  - plats : base par tier (15/20/30/45/60 min) × facteur de puissance (+5 % ×2 · +10 % ×1,5 · +15 % ×1 · +20 % ×0,75). Les durées sont écrites dans les 47 fiches concernées, ajustables sans code ;
+  - marmite : Σ 5 min × tier des ingrédients × facteur de palier (×1,5 / ×1 / ×0,75), minimum 5 min ;
+  - plats de marmite réellement différents : **10 005** (7 762 avant), **669** sans compter les PV (243 avant).
+- **D96-a — résistance :**
+  - s'applique aux dégâts directs des monstres élémentaires (`element` : le feu inclut les éléments composés, l'ombre inclut « Ténèbres ») ;
+  - « toutes résistances » couvre tout élément, jamais les dégâts non élémentaires ; cumul plafonné à 75 % ;
+  - hors portée : altérations élémentaires, PvP, résistances des monstres.
+- **D96-b — charisme** : la prochaine discussion (`!parler` / `!demander`) consomme l'effet ; 30 % de chances de faire passer l'affinité au seuil du palier suivant (grille D-SOC-2).
+- **D96-c — régénération PM** : N % des PM max par minute, créditée à chaque message du joueur (`T_ACTIVE_EFFECTS.last_tick_at`) ; l'effet disparaît quand les PM sont pleins ou à échéance.
+- **D96-d — cadeaux** : `!offrir [Objet] [Numéro]` pour un joueur de la même zone, prévenu en privé ; tout objet non lié s'offre. Les 4 boissons anti-soif restent sans effet.
+
+### Vérification
+
+202 tests verts sur base jetable, dont la nouvelle suite `consumable-effects` (7 tests). La suite `marmite` a été ajustée à la nouvelle formule de durée.

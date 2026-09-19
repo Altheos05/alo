@@ -9,6 +9,7 @@
 | Champ | Valeur |
 |---|---|
 | Stat | +10% feu |
+| Durée | 30 min |
 | Prix base | 70 Yrds |
 
 ## Lore (Encyclopédie d'Argo)

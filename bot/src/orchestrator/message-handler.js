@@ -29,6 +29,7 @@ import * as cookingHandler from '../handlers/cooking.js';
 import { retrieveLore } from '../services/rag.js';
 import { executeCommand, executePipelineCommands, parseCommands } from '../services/sys-pipeline.js';
 import * as menus from '../services/menus.js';
+import { settleMpRegen } from '../engine/effects.js';
 import config from '../config.js';
 
 // options.quotedMessageId : identifiant du message cité (mode citation du menu D83).
@@ -46,6 +47,9 @@ export async function processMessage(db, text, playerId = null, groupId = null, 
   if (!playerId) {
     playerId = '00000000-0000-0000-0000-000000000001';
   }
+
+  // D96-c : les PM dus par une régénération en cours sont crédités avant tout traitement.
+  await settleMpRegen(db, playerId).catch(err => logger.error('Régénération PM non résolue', { error: err.message }));
 
   // D83 §2.2 : la résolution de menu passe AVANT toute classification.
   let menuContext = null;
@@ -150,6 +154,9 @@ async function executeIntent(db, routing, playerId, phoneNumber = null) {
       }
       return combat.handleAttack(db, playerId, routing.entities);
     }
+
+    case 'GIFT':
+      return itemsHandler.handleGift(db, playerId, routing.raw || '');
 
     case 'MARMITE':
       return cookingHandler.handleMarmite(db, playerId, routing.raw || '');

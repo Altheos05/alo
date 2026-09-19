@@ -1102,6 +1102,8 @@ CREATE TRIGGER trg_bind_on_acquire BEFORE INSERT ON T_INVENTORY FOR EACH ROW EXE
 -- D90 (amendement T_ACTIVE_EFFECTS)
 ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_kind VARCHAR(6) CHECK (source_kind IN ('skill','food','system'));
 ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS source_ref VARCHAR(30);
+-- D96 : dernière résolution paresseuse d'un effet périodique hors combat (régénération PM).
+ALTER TABLE T_ACTIVE_EFFECTS ADD COLUMN IF NOT EXISTS last_tick_at TIMESTAMP;
 CREATE INDEX IF NOT EXISTS idx_active_effects_expiry ON T_ACTIVE_EFFECTS(target_type, target_id, expires_at);
 
 

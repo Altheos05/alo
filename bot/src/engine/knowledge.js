@@ -27,6 +27,36 @@ export async function recordInteraction(db, avatarUuid, npcId) {
   );
 }
 
+// D96-b : paliers de relation (grille D-SOC-2) et consommation du charisme.
+const AFFINITY_TIERS = [
+  { tier: 'hostile', min: -100 }, { tier: 'stranger', min: -25 }, { tier: 'known', min: 10 },
+  { tier: 'trusted', min: 40 }, { tier: 'confidant', min: 75 },
+];
+
+function tierFor(affinity) {
+  return [...AFFINITY_TIERS].reverse().find(t => affinity >= t.min).tier;
+}
+
+// Le premier dialogue sous charisme consomme l'effet ; sa chance (30 %) peut faire
+// passer la relation au seuil du palier suivant. Renvoie le nouveau palier, ou null.
+export async function applyCharisma(db, avatarUuid, npcId, random = Math.random) {
+  const effect = await db.query(
+    `DELETE FROM t_active_effects e USING t_status_effects_dict d
+     WHERE d.effect_id = e.effect_id AND e.target_type = 'avatar' AND e.target_id = $1
+       AND d.stat_modified = 'charisma' AND e.expires_at > NOW()
+     RETURNING d.modifier_value`,
+    [avatarUuid]
+  );
+  if (!effect.rows.length || random() >= effect.rows[0].modifier_value / 100) return null;
+  const rel = await db.query('SELECT affinity FROM t_npc_relations WHERE avatar_uuid = $1 AND npc_id = $2 FOR UPDATE', [avatarUuid, npcId]);
+  const current = rel.rows[0]?.affinity ?? 0;
+  const next = AFFINITY_TIERS.find(t => t.min > current);
+  if (!next) return null;
+  await db.query('UPDATE t_npc_relations SET affinity = $1, affinity_tier = $2 WHERE avatar_uuid = $3 AND npc_id = $4',
+    [next.min, tierFor(next.min), avatarUuid, npcId]);
+  return next.tier;
+}
+
 // Grammaire §1.3 (AFF / QUEST / TITLE / RACE / ITEM, composables par « + »).
 // PAY est traité à part : il exige le consentement explicite du joueur.
 async function conditionMet(db, avatarUuid, npcId, clause) {
@@ -136,4 +166,4 @@ export async function menuTopics(db, npcId, limit) {
   return r.rows;
 }
 
-export default { findNpc, recordInteraction, askTopic, menuTopics };
+export default { findNpc, recordInteraction, askTopic, menuTopics, applyCharisma };

@@ -10,7 +10,7 @@
 | Paramètre | Valeur |
 |---|---|
 | Effet | +5% VIT |
-| Durée | 30 min |
+| Durée | 40 min |
 | Cooldown | — (à la consommation) |
 | Cumulable | OUI avec 1 buff potion (1 buff nourriture max) |
 

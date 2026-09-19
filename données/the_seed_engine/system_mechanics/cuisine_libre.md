@@ -115,7 +115,7 @@ Chaque plat de marmite garde **sur son exemplaire** (`T_INVENTORY.instance_data`
 
 - **Une seule essence de stat** parmi les ingrédients ⇒ effet selon le nombre d'ingrédients qui la portent : 1 → palier 1 (+5 %), 2 → palier 2 (+10 %), 3 ou 4 → palier 3 (+15 %).
 - **Plusieurs essences de stat** ⇒ elles s'annulent : aucun effet (les PV sont conservés).
-- **Durée** : 10 minutes par ingrédient (10 à 40 min). Un plat de marmite est un buff de nourriture : il remplace le précédent (règle « un buff de nourriture à la fois »).
+- **Durée** (D95, `effets_consommables.md` §1) : Σ (5 min × tier de chaque ingrédient) × facteur de palier (palier 1 × 1,5 · palier 2 × 1 · palier 3 × 0,75), minimum 5 min. Un plat de marmite est un buff de nourriture : il remplace le précédent (règle « un buff de nourriture à la fois »).
 
 | Effet_ID | Nom | Stat | Valeur |
 |---|---|---|---|

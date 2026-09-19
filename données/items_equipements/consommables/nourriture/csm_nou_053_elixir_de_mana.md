@@ -9,6 +9,7 @@
 | Champ | Valeur |
 |---|---|
 | Stat | +20% MP regen |
+| Durée | 22 min |
 | Prix base | 150 Yrds |
 
 ## Lore (Encyclopédie d'Argo)

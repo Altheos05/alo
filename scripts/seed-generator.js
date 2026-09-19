@@ -111,6 +111,7 @@ const RARITY = {
 // Effet d'usage d'un consommable (colonne « Effet » de la fiche). Les bonus de stat
 // deviennent un effet persistant EFF_<Item_ID> (D90 E6), collecté dans CONSUMABLE_EFFECTS.
 const CONSUMABLE_EFFECTS = [];
+const CHARISMA_CHANCE_PCT = 30; // effets_consommables.md §3
 // ATQ/DEF/END : synonymes employés par les fiches 036-060 (« | Stat | +15% ATQ | »).
 const STAT_KEYS = { STR: 'stat_str', ATQ: 'stat_str', AGI: 'stat_agi', VIT: 'stat_vit', END: 'stat_vit', DEF: 'stat_vit', INT: 'stat_int' };
 
@@ -131,14 +132,20 @@ function parseUseEffect(itemId, name, content) {
     if (hpRate) out.regen_hp = hpRate * secs;
     if (mpRate) out.regen_mp = mpRate * secs;
   }
+  // D96 : résistances (feu / ombre / toutes), charisme (+30 %, usage unique), régénération PM.
+  const hours = duration.match(/(\d+)\s*h/i);
+  const mins = duration.match(/(\d+)\s*min/i);
+  const secs = (hours ? parseInt(hours[1], 10) * 3600 : 0) + (mins ? parseInt(mins[1], 10) * 60 : 0) || 1800;
   const stat = effect.match(/\+(\d+)%\s*(STR|ATQ|AGI|VIT|END|DEF|INT)\b/i);
-  if (stat) {
-    const mins = duration.match(/(\d+)\s*min/i);
-    const hours = duration.match(/(\d+)\s*h/i);
-    const secs = mins ? parseInt(mins[1], 10) * 60 : hours ? parseInt(hours[1], 10) * 3600 : 1800;
+  const resist = effect.match(/\+(\d+)%\s*(?:(toutes)\s*r[ée]sist|(?:r[ée]sist\w*\.?\s*(?:au|à l')?\s*)?(feu|ombre))/i);
+  let kind = null;
+  if (stat) kind = [STAT_KEYS[stat[2].toUpperCase()], Number(stat[1])];
+  else if (resist) kind = [resist[2] ? 'res_all' : `res_${resist[3].toLowerCase()}`, Number(resist[1])];
+  else if (/\bCHA\b/.test(effect)) kind = ['charisma', CHARISMA_CHANCE_PCT];
+  else if (/MP regen/i.test(effect)) kind = ['mp_regen', Number(effect.match(/\+(\d+)%/)[1])];
+  if (kind) {
     out.effect_id = `EFF_${itemId}`;
-    CONSUMABLE_EFFECTS.push([out.effect_id, name.slice(0, 50), 'buff', STAT_KEYS[stat[2].toUpperCase()], Number(stat[1]),
-      'percent', secs, 0, 0, 'TRUE', 1, null]);
+    CONSUMABLE_EFFECTS.push([out.effect_id, name.slice(0, 50), 'buff', kind[0], kind[1], 'percent', secs, 0, 0, 'TRUE', 1, null]);
   }
   return Object.keys(out).length ? out : null;
 }

@@ -53,3 +53,10 @@ CREATE INDEX idx_active_effects_expiry ON T_ACTIVE_EFFECTS(target_type, target_i
 | E6 | **Plats** | Un repas cuisiné (`!cook`) pose son buff ici (`source_kind = 'food'`), avec la durée de la recette |
 
 Équivalents : Joueur `!cast [sort] [Num?]` (hors combat, D90), `!effets` ; GM `!sys_effect_apply [Avatar] [Effect_ID] [Durée]`, `!sys_effect_clear [Avatar]` ; IA `SYS_BLESS_PLAYER` / `SYS_DEBUFF_PLAYER` *(existants, désormais persistés ici)*, `SYS_CLEAR_EFFECTS(Avatar_ID)`.
+
+## Amendement D96 (étape 64) — nouvelles familles d'effets
+
+- `stat_modified` accepte `res_feu`, `res_ombre`, `res_all` (résistance élémentaire, % de réduction des dégâts), `charisma` (discussion, usage unique) et `mp_regen` (% des PM max par minute).
+- `T_ACTIVE_EFFECTS.last_tick_at TIMESTAMP` : horodatage de la dernière résolution paresseuse d'un effet périodique hors combat (régénération PM) ; `NULL` = `applied_at`.
+- Détail : `system_mechanics/effets_consommables.md`.
+

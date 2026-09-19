@@ -1,4 +1,6 @@
 import logger from '../utils/logger.js';
+import { inTransaction, takeFromInventory, addToInventory } from './bank.js';
+import { queueDirect } from '../services/notifications.js';
 
 export async function findItem(db, itemQuery) {
   const result = await db.query(
@@ -54,4 +56,27 @@ export async function dropItem(db, avatarUuid, itemId, quantity = 1, { allowBoun
   }
 }
 
-export default { findItem, dropItem };
+// D96-d : un joueur offre un objet transférable à un autre joueur présent dans la même zone.
+export async function giftItem(db, fromUuid, toPhone, itemId, qty = 1) {
+  return inTransaction(db, 'Erreur lors d\'un cadeau', { fromUuid, itemId }, async (client) => {
+    const people = await client.query(
+      'SELECT avatar_uuid, avatar_name, current_zone_id, whatsapp_phone FROM t_avatars WHERE avatar_uuid = $1 OR whatsapp_phone = $2 ORDER BY avatar_uuid FOR UPDATE',
+      [fromUuid, toPhone]
+    );
+    const from = people.rows.find(p => p.avatar_uuid === fromUuid);
+    const to = people.rows.find(p => p.whatsapp_phone === toPhone && p.avatar_uuid !== fromUuid);
+    if (!to) return { success: false, error: 'TARGET_NOT_FOUND' };
+    if (to.current_zone_id !== from.current_zone_id) return { success: false, error: 'NOT_SAME_ZONE' };
+    const took = await takeFromInventory(client, fromUuid, itemId, qty);
+    if (took.error) return { success: false, error: took.error, available: took.available };
+    for (const entry of took.taken) {
+      const placed = await addToInventory(client, to.avatar_uuid, entry, 'gift');
+      if (placed.overflow > 0) return { success: false, error: 'TARGET_FULL' };
+    }
+    const item = await client.query('SELECT name FROM t_items_dict WHERE item_id = $1', [itemId]);
+    await queueDirect(client, to.avatar_uuid, `🎁 **${from.avatar_name}** t'offre ${qty}× **${item.rows[0].name}**.`, 'GIFT');
+    return { success: true, targetName: to.avatar_name, itemName: item.rows[0].name };
+  });
+}
+
+export default { findItem, dropItem, giftItem };

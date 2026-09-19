@@ -4,7 +4,10 @@ import { inTransaction, takeFromInventory, addToInventory } from './bank.js';
 import { cookingPlace } from './gathering.js';
 
 export const MAX_INGREDIENTS = 4;
-const SECONDS_PER_INGREDIENT = 600;
+// D95 : 5 min × tier par ingrédient, × facteur de palier ; 5 min au minimum.
+const SECONDS_PER_TIER = 300;
+const TIER_DURATION_FACTOR = { 1: 1.5, 2: 1, 3: 0.75 };
+const MIN_DURATION_SEC = 300;
 const SEASONING_BONUS = 1.25;
 const MIN_HEAL = 1;
 const DISHES = {
@@ -38,7 +41,7 @@ function potencyTier(count) {
   return count;
 }
 
-// ingredients : [{ item_id, cook_profile }] (un élément par exemplaire jeté dans la marmite).
+// ingredients : [{ item_id, tier, cook_profile }] (un élément par exemplaire jeté dans la marmite).
 export function composeDish(ingredients) {
   const edible = ingredients.filter(i => i.cook_profile);
   if (edible.length < ingredients.length) {
@@ -70,7 +73,9 @@ export function composeDish(ingredients) {
 
   return {
     kind: 'generic', dishId, healHp, effectId,
-    durationSec: effectId ? SECONDS_PER_INGREDIENT * ingredients.length : 0,
+    durationSec: effectId
+      ? Math.max(MIN_DURATION_SEC, Math.round(edible.reduce((n, i) => n + SECONDS_PER_TIER * (i.tier || 1), 0) * TIER_DURATION_FACTOR[tier]))
+      : 0,
     complexity: ingredients.length + tier,
   };
 }

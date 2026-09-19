@@ -6,6 +6,7 @@ import {
   generateCombatLog,
   formatActiveEffects,
   getStatModifiers,
+  elementalResistance,
 } from '../engine/combat.js';
 import { getPlayer } from '../services/player.js';
 import { getGearStats, wearEquipment, COMBAT_WEAR_PVE } from '../engine/durability.js';
@@ -330,12 +331,13 @@ export async function handleCombatAction(db, playerUuid, action, skillQuery = nu
   }
 
   const monsterMods = getStatModifiers(combat.monster.activeEffects, combat.monster);
-  const monsterDmg = calculateDamage(
+  const rawMonsterDmg = calculateDamage(
     { ...combat.monster, ...monsterMods },
     combat.player,
     null,
     combat.player.activeEffects
   );
+  const monsterDmg = Math.round(rawMonsterDmg * (1 - elementalResistance(combat.player.activeEffects, combat.monster.element)));
   combat.player.hp_current = Math.max(0, combat.player.hp_current - monsterDmg);
   response.push(render('attack_damage', {
     actorName: combat.monster.name,

@@ -150,6 +150,21 @@ function computeStatMod(activeEffects, statField, baseValue) {
   return changed ? Math.max(1, Math.round(modified)) : null;
 }
 
+// D96-a : part des dégâts élémentaires annulée par les résistances actives (plafond 75 %).
+const RESIST_CAP = 0.75;
+const ELEMENT_FAMILIES = { res_feu: /feu/i, res_ombre: /t[ée]n[èe]bres|ombre/i };
+
+export function elementalResistance(activeEffects, element) {
+  if (!element || /^aucun$/i.test(element) || !activeEffects?.length) return 0;
+  let pct = 0;
+  for (const ef of activeEffects) {
+    if (ef.statModified === 'res_all' || (ELEMENT_FAMILIES[ef.statModified]?.test(element))) {
+      pct += (ef.modifierValue || 0) * (ef.currentStacks || 1);
+    }
+  }
+  return Math.min(RESIST_CAP, pct / 100);
+}
+
 export function getStatModifiers(activeEffects, baseStats) {
   if (!activeEffects?.length) return { ...baseStats };
   const result = { ...baseStats };

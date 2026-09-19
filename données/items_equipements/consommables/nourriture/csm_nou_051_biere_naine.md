@@ -9,6 +9,7 @@
 | Champ | Valeur |
 |---|---|
 | Stat | +10% STR |
+| Durée | 45 min |
 | Prix base | 100 Yrds |
 
 ## Lore (Encyclopédie d'Argo)

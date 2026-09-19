@@ -35,7 +35,7 @@ async function run() {
 
   await test('Même essence ⇒ palier renforcé ; essences contraires ⇒ aucun effet', async () => {
     const two = composeDish([ing('A', P('VIANDE', 'FORCE')), ing('B', P('ASSAISONNEMENT', 'FORCE'))]);
-    assert(two.effectId === 'EFF_CUI_STR_2' && two.durationSec === 1200, JSON.stringify(two));
+    assert(two.effectId === 'EFF_CUI_STR_2' && two.durationSec === 600, JSON.stringify(two));
     const four = composeDish([1, 2, 3, 4].map(i => ing(`A${i}`, P('VIANDE', 'FORCE'))));
     assert(four.effectId === 'EFF_CUI_STR_3', four.effectId);
     const clash = composeDish([ing('A', P('VIANDE', 'FORCE')), ing('B', P('LEGUME', 'ESPRIT'))]);
@@ -74,7 +74,7 @@ async function run() {
     const eff = await pool.query(
       "SELECT EXTRACT(EPOCH FROM (expires_at - NOW())) AS s FROM t_active_effects WHERE target_id = $1 AND effect_id = 'EFF_CUI_STR_2'",
       [a.avatar_uuid]);
-    assert(eff.rows[0] && eff.rows[0].s > 1100, 'effet absent ou mauvaise durée');
+    assert(eff.rows[0] && eff.rows[0].s > 1100, 'effet absent ou mauvaise durée (2 × T2 × 5 min = 20 min)');
     const hp = (await pool.query('SELECT hp_current FROM t_avatars WHERE avatar_uuid = $1', [a.avatar_uuid])).rows[0].hp_current;
     assert(hp > 1, 'PV non rendus');
   });

@@ -157,6 +157,7 @@
 - `!fish [FSH_ID?]` : Lance une session de pêche (canne `OUT_CAN_*` de tier ≥ nœud, possédée). **Mini-jeu asynchrone** : 3 options numérotées (menu D83, contexte `FISHING`), une seule juste selon l'indice narratif, réussite modulée par la DEX — **sans chronomètre**. Sans ID : menu des nœuds de pêche de la zone.
 - ~~`!reel`~~ — retirée (la fenêtre chronométrée de 10 s est remplacée par le mini-jeu à options).
 - `!cook [Recette]` : Prépare un repas avec des ingrédients (buffs temporaires) ; réussite selon le niveau de cuisine (D94). `!cook niveau` : niveau et XP de cuisine.
+- `!offrir [Objet] [Num_WhatsApp]` : Offre un objet non lié à un joueur de la même zone (D96, geste symbolique — ex. boissons anti-soif).
 - `!marmite [Ingrédient] + [Ingrédient] (+ …, 4 max)` : cuisine libre sans recette (D93, `system_mechanics/cuisine_libre.md`) — grillés, brochettes, ragoûts…
 - `!sew [Matériau]` : Couture d'armure textile ou de sacs d'inventaire.
 - `!gather` : alias de `!recolter` sans ID — menu des nœuds de flore de la zone.

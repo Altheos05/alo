@@ -9,6 +9,7 @@
 | Champ | Valeur |
 |---|---|
 | Stat | +5% ATQ |
+| Durée | 30 min |
 | Prix base | 30 Yrds |
 
 ## Lore (Encyclopédie d'Argo)

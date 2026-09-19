@@ -1,12 +1,12 @@
 # 📜 Registre des Décisions — Projet ALO
 
-> **Règle d'usage (obligatoire)** : avant d'allouer un nouveau numéro `D<nn>` ou un nouveau préfixe `D-<SLUG>-<n>`, consulter ce fichier en premier — il remplace le grep manuel dans tout le projet. Prochain numéro simple libre : **D95**. Ce registre couvre le dépôt git (`données/`, `directives_generation/`, `cahier_des_charges.md`, `alo_context.md`, `alo_progression.md`). Il ne couvre **pas** `directives_generiques/` (kit générique du PE, non versionné, espace de nommage volontairement distinct — voir §4).
+> **Règle d'usage (obligatoire)** : avant d'allouer un nouveau numéro `D<nn>` ou un nouveau préfixe `D-<SLUG>-<n>`, consulter ce fichier en premier — il remplace le grep manuel dans tout le projet. Prochain numéro simple libre : **D97**. Ce registre couvre le dépôt git (`données/`, `directives_generation/`, `cahier_des_charges.md`, `alo_context.md`, `alo_progression.md`). Il ne couvre **pas** `directives_generiques/` (kit générique du PE, non versionné, espace de nommage volontairement distinct — voir §4).
 >
 > Constitué le 2026-09-17 (étape 53, session de reprise) par inventaire exhaustif (agent Explore, lecture intégrale des 24 CDC `directives_generation/`, de `alo_progression.md`, `cahier_des_charges.md`, `alo_context.md`, `README.md`, des fiches de données référençant une décision). Deux anomalies réelles trouvées ont été corrigées dans la foulée (§3) ; le reste est classé par ordre croissant, avec statut et sources.
 
 ---
 
-## 1. Décisions numérotées D1 → D94
+## 1. Décisions numérotées D1 → D96
 
 | ID | Intitulé | Étape | Statut | Source(s) principale(s) |
 |---|---|---|---|---|
@@ -106,6 +106,8 @@
 | D92 | Confirmation générique des actions irréversibles via le menu D83 (contexte `CONFIRM`, 1 confirmer / 2 annuler, 60 s, revérification sous verrou) ; liste fermée : jeter un objet lié, divorce, vente/résiliation de logement, dissolution de guilde ; en `CONFIRM`, **citation du menu obligatoire** (chiffre nu ignoré) | 60 | ✅ | `system_mechanics/menu_contextuel_protocol.md` §7 |
 | D93 | Cuisine libre (« marmite », inspirée de BotW/TotK et MH Wilds) : jusqu'à **4 ingrédients** jetés ensemble, sans recette ; plat déduit du profil culinaire (catégorie + essence) des ingrédients — grillés simples, brochette, poêlée, ragoût, bouillon ; même essence ⇒ effet renforcé (3 paliers), essences contraires ⇒ effet annulé ; parties de monstre ⇒ tambouille douteuse, non-comestibles ⇒ immangeable ; ingrédients égaux à une recette ⇒ le plat de la recette (découverte). S'ajoute aux recettes, ne les remplace pas | 63 | ✅ | `system_mechanics/cuisine_libre.md` |
 | D94 | Niveau de cuisine : complexité d'un plat (ingrédients, tier, palier d'effet), réussite = 90 % + 4 %/niveau d'écart au niveau conseillé 5 × (c − 2), bornée 30-98 % ; XP 10 × c² (réussite) / 3 × c² (échec) ; niveau √(XP/25) + 1, max 50 ; remplace `success_rate` pour la cuisine seulement | 63 | ✅ | `system_mechanics/cuisine_libre.md` §5 |
+| D95 | Durées variées des plats : base par tier (15/20/30/45/60 min) × facteur de puissance (+5 % ×2 · +10 % ×1,5 · +15 % ×1 · +20 % ×0,75), écrite dans chaque fiche ; marmite : Σ 5 min × tier des ingrédients × facteur de palier (×1,5 / ×1 / ×0,75), min 5 min | 64 | ✅ | `system_mechanics/effets_consommables.md` §1 |
+| D96 | Effets des consommables « sans mécanique » : (a) résistance élémentaire contre les dégâts directs des monstres élémentaires (feu / ombre / toutes, cumul plafonné à 75 %) ; (b) charisme : 30 % de monter d'un palier de relation à la prochaine discussion, usage unique, 10 min ; (c) régénération PM paresseuse (N % des PM max/min) jusqu'à PM pleins ou échéance ; (d) boissons anti-soif sans effet, offrables à un joueur (`!offrir`) | 64 | ✅ | `system_mechanics/effets_consommables.md` §2-5 |
 
 ---
 
@@ -153,4 +155,4 @@ Ce dossier est un **kit méthodologique générique** extrait par le PE (réutil
 
 ## 5. Prochain numéro libre
 
-**D95** (simple). Pour les préfixes `D-<SLUG>`, vérifier la plage déjà consommée en §2 avant d'ajouter — chaque famille est contiguë et complète, pas de trou à combler.
+**D97** (simple). Pour les préfixes `D-<SLUG>`, vérifier la plage déjà consommée en §2 avant d'ajouter — chaque famille est contiguë et complète, pas de trou à combler.

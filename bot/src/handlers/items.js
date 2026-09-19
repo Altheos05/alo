@@ -1,4 +1,4 @@
-import { findItem, dropItem } from '../engine/items.js';
+import { findItem, dropItem, giftItem } from '../engine/items.js';
 import { confirmationMenu } from '../services/menus.js';
 import { repairItem, durabilityState, currentDurability } from '../engine/durability.js';
 import { inspectNode } from '../engine/gathering.js';
@@ -133,4 +133,28 @@ export async function handleUse(db, playerId, raw = '') {
   return `🧪 **${r.name}** consommé${gains.length ? ` : ${gains.join(' · ')}` : ''}.`;
 }
 
-export default { handleInspect, handleDrop, handleRepair, handleUse };
+const GIFT_ERRORS = {
+  TARGET_NOT_FOUND: '❌ Aucun autre joueur inscrit avec ce numéro.',
+  NOT_SAME_ZONE: '❌ Pour offrir, vous devez être dans la même zone.',
+  NOT_OWNED: '❌ Tu ne possèdes pas cet objet.',
+  EQUIPPED: '❌ Retire d\'abord cet objet.',
+  BOUND_ITEM: '❌ Un objet lié à ton âme ne s\'offre pas.',
+  TARGET_FULL: '❌ Son inventaire est plein.',
+};
+
+// !offrir [Qté] [Objet] [Numéro] (D96-d).
+export async function handleGift(db, playerId, raw = '') {
+  const m = raw.match(/^!?offrir\s+(?:(\d{1,2})\s*x?\s+)?(.+?)\s+(\d{6,15})\s*$/i);
+  if (!m) return '🎁 Utilisation : "!offrir [Objet] [Numéro]" (ex. "!offrir Bière d\'Alne 33612345678").';
+  const item = await findItem(db, m[2].trim());
+  if (!item) return `❌ Aucun objet ne correspond à "${m[2].trim()}".`;
+  const qty = m[1] ? parseInt(m[1], 10) : 1;
+  const r = await giftItem(db, playerId, m[3], item.item_id, qty);
+  if (!r.success) {
+    if (r.error === 'INSUFFICIENT_QUANTITY') return `❌ Tu n'as que ${r.available}× ${item.name}.`;
+    return GIFT_ERRORS[r.error] || '❌ Cadeau impossible.';
+  }
+  return `🎁 Tu offres ${qty}× **${r.itemName}** à **${r.targetName}**.`;
+}
+
+export default { handleInspect, handleDrop, handleRepair, handleUse, handleGift };
